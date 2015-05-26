@@ -11,6 +11,8 @@ import java.util.List;
 @Transactional
 public interface BaseDao<T>
 {
+
+
     // 根据ID加载实体
     T get(Class<T> entityClazz , Serializable id);
     // 保存实体
