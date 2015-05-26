@@ -18,7 +18,6 @@ import java.util.List;
  * Created by ZKQ on 2015/5/26.
  */
 
-
 @Controller
 
 @Namespace("/user")
