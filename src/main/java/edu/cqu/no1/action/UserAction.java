@@ -48,7 +48,6 @@ public class UserAction extends ActionSupport {
         return ERROR;
     }
 
-
     @Action(value = "register", results = {
             @Result(name = SUCCESS, location = "/login.jsp")})
     public String register() {

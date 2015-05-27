@@ -28,11 +28,11 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
         {
             if(null != jqQici && !"".equals(jqQici.trim()))
             {
-                String sql = "Select Distinct t.Project_Score As Labels, Count(t.Project_Score) As Data\n" +
-                        "  From t_Project t Where t.project_score Is Not Null and t.jq_id = :jqQici\n" +
-                        " Group By t.Project_Score Order By t.project_score";
+                String hql = "Select Distinct t.projectScore As Labels, Count(t.projectScore) As Data\n" +
+                        "  From TProject t Where t.projectScore Is Not Null and t.jqId = :jqQici\n" +
+                        " Group By t.projectScore Order By t.projectScore";
 
-                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
+                Query query = getSessionFactory().getCurrentSession().createQuery(hql);
                 query.setString("jqQici", jqQici);
                 List result = query.list();
 
