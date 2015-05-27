@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 .gitignore
 target/
 .idea/
+=======
+/.gitignore
+/target/
+/.idea/
+/SRTP.iml
+/out/
+>>>>>>> a32876628bd8c390060e2dbab0c474b7ed8cd6df

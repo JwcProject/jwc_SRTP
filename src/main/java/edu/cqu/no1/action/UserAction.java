@@ -19,7 +19,6 @@ import java.util.List;
  */
 
 @Controller
-
 @Namespace("/user")
 @Scope("prototype")
 @ParentPackage("base")
@@ -49,6 +48,7 @@ public class UserAction extends ActionSupport {
         return ERROR;
     }
 
+
     @Action(value = "register", results = {
             @Result(name = SUCCESS, location = "/login.jsp")})
     public String register() {
@@ -67,7 +67,7 @@ public class UserAction extends ActionSupport {
         this.userServer = userService;
     }
 
-    @JSON(serialize=false)
+    @JSON(serialize = false)
     public User getUser() {
         return user;
     }
