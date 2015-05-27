@@ -19,7 +19,7 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
           p:driverClass="com.mysql.jdbc.Driver"
-          p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/test"
+          p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/srtp"
           p:user="root"
           p:password="123456"
           p:maxPoolSize="40"
@@ -33,6 +33,47 @@
         <property name="annotatedClasses">
             <list>
                 <value>edu.cqu.no1.domain.User</value>
+                <value>edu.cqu.no1.domain.Resultdistribut</value>
+                <value>edu.cqu.no1.domain.TAchievemenType</value>
+                <value>edu.cqu.no1.domain.TAchievement</value>
+                <value>edu.cqu.no1.domain.TAnnounType</value>
+                <value>edu.cqu.no1.domain.TAnnouncement</value>
+                <value>edu.cqu.no1.domain.TAttachment</value>
+                <value>edu.cqu.no1.domain.TAttchmentType</value>
+                <value>edu.cqu.no1.domain.TCode</value>
+                <value>edu.cqu.no1.domain.TCredit</value>
+                <value>edu.cqu.no1.domain.TDeclComment</value>
+                <value>edu.cqu.no1.domain.TDeclFund</value>
+                <value>edu.cqu.no1.domain.TDeclJob</value>
+                <value>edu.cqu.no1.domain.TDeclaration</value>
+                <value>edu.cqu.no1.domain.TEmail</value>
+                <value>edu.cqu.no1.domain.TEmailReceiver</value>
+                <value>edu.cqu.no1.domain.TEndProject</value>
+                <value>edu.cqu.no1.domain.TEndProjectComment</value>
+                <value>edu.cqu.no1.domain.TEndProjectExport</value>
+                <value>edu.cqu.no1.domain.TEndprojectJob</value>
+                <value>edu.cqu.no1.domain.TExpertLib</value>
+                <value>edu.cqu.no1.domain.TExpertReview</value>
+                <value>edu.cqu.no1.domain.TExpertTeacher</value>
+                <value>edu.cqu.no1.domain.TFunds</value>
+                <value>edu.cqu.no1.domain.TJieqi</value>
+                <value>edu.cqu.no1.domain.TJournal</value>
+                <value>edu.cqu.no1.domain.TJournalAct</value>
+                <value>edu.cqu.no1.domain.TPermission</value>
+                <value>edu.cqu.no1.domain.TProfession</value>
+                <value>edu.cqu.no1.domain.TProject</value>
+                <value>edu.cqu.no1.domain.TProjectChange</value>
+                <value>edu.cqu.no1.domain.TProjectChangeContent</value>
+                <value>edu.cqu.no1.domain.TRole</value>
+                <value>edu.cqu.no1.domain.TRolePermission</value>
+                <value>edu.cqu.no1.domain.TStudent</value>
+                <value>edu.cqu.no1.domain.TTeacher</value>
+                <value>edu.cqu.no1.domain.TTempEmailReciver</value>
+                <value>edu.cqu.no1.domain.TUnit</value>
+                <value>edu.cqu.no1.domain.TUser</value>
+                <value>edu.cqu.no1.domain.TUserRole</value>
+                <value>edu.cqu.no1.domain.Tannouncementmodel</value>
+                <value>edu.cqu.no1.domain.Texpertteachermodel</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -41,6 +82,8 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/srtp</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
     </bean>
