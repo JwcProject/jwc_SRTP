@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class TAchievementDAOImpl extends BaseDaoImpl<TAchievement> implements TAchievementDAO {
     private static final Logger log = LoggerFactory
-            .getLogger(TAchievementDAO1.class);
+            .getLogger(TAchievementDAOImpl.class);
     // property constants
     public static final String ACHIEVEMENT_INTRODUCTION = "achievementIntroduction";
     public static final String ACHIEVEMENT_OWNER = "achievementOwner";
