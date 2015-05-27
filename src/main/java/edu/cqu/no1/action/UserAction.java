@@ -19,7 +19,6 @@ import java.util.List;
  */
 
 @Controller
-
 @Namespace("/user")
 @Scope("prototype")
 @ParentPackage("base")
