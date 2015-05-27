@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by ZKQ on 2015/5/27.
  */
 @Entity
-public class Resultdistribut {
+public class ResultDistribut {
     private String id;
     private String jqId;
     private String college;
@@ -181,7 +181,7 @@ public class Resultdistribut {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Resultdistribut that = (Resultdistribut) o;
+        ResultDistribut that = (ResultDistribut) o;
 
         if (badsum != null ? !badsum.equals(that.badsum) : that.badsum != null) return false;
         if (bestrate != null ? !bestrate.equals(that.bestrate) : that.bestrate != null) return false;

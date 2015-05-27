@@ -33,7 +33,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>edu.cqu.no1.domain.User</value>
-                <value>edu.cqu.no1.domain.Resultdistribut</value>
+                <value>edu.cqu.no1.domain.ResultDistribut</value>
                 <value>edu.cqu.no1.domain.TAchievemenType</value>
                 <value>edu.cqu.no1.domain.TAchievement</value>
                 <value>edu.cqu.no1.domain.TAnnounType</value>
