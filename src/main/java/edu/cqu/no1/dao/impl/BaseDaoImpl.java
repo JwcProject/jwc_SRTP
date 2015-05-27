@@ -76,6 +76,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return 0;
     }
 
+
+
     // 根据HQL语句查询实体
     @SuppressWarnings("unchecked")
     protected List<T> find(String hql) {
@@ -140,5 +142,31 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return query.setFirstResult((pageNo - 1) * pageSize)
                 .setMaxResults(pageSize)
                 .list();
+    }
+
+
+    @Override
+    public List findByExample(T instance) {
+        return null;
+    }
+
+    @Override
+    public List findByProperty(String propertyName, Object value) {
+        return null;
+    }
+
+    @Override
+    public T merge(T detachedInstance) {
+        return null;
+    }
+
+    @Override
+    public void attachDirty(T instance) {
+
+    }
+
+    @Override
+    public void attachClean(T instance) {
+
     }
 }
