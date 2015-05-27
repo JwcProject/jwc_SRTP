@@ -6,12 +6,15 @@ import edu.cqu.no1.dao.TAchievemenTypeDAO;
 import edu.cqu.no1.domain.TAchievemenType;
 import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TAchievemenTypeDAOImpl extends BaseDaoImpl<TAchievemenType> implements TAchievemenTypeDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TAchievemenTypeDAOImpl.class);

@@ -8,6 +8,7 @@ import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.cqu.no1.dao.TJournalActDAO {
 
     private static final Logger log = LoggerFactory

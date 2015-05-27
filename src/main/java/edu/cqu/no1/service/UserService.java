@@ -1,6 +1,6 @@
 package edu.cqu.no1.service;
 
-import edu.cqu.no1.domain.User;
+import edu.cqu.no1.domain.TUser;
 
 import java.util.List;
 
@@ -19,5 +19,5 @@ public interface UserService {
     int changePassword(String username,String newPassword);
     int changePassword(Integer uId,String newPassword);
 
-    List<User> getAllUser();
+    List<TUser> getAllUser();
 }

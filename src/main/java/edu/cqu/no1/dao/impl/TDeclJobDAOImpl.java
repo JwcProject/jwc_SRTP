@@ -2,15 +2,19 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import edu.cqu.no1.dao.TDeclJobDAO;
 import edu.cqu.no1.domain.TDeclJob;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TDeclJobDAOImpl extends BaseDaoImpl<TDeclJob> implements edu.cqu.no1.dao.TDeclJobDAO{
 
     private static final Logger log = LoggerFactory

@@ -7,6 +7,7 @@ import edu.cqu.no1.domain.TPermission;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.cqu.no1.dao.TPermissionDAO {
 
     private static final Logger log = LoggerFactory

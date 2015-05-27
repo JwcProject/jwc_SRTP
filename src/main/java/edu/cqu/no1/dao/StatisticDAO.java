@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @Transactional
-public interface StatisticDAO {
+public interface StatisticDAO extends BaseDao{
     // 全校项目成绩分布统计
     List SchooleProjectScore(String jqQici);
 

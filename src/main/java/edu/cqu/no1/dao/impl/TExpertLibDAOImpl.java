@@ -7,12 +7,15 @@ import edu.cqu.no1.domain.TExpertLib;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cqu.no1.dao.TExpertLibDAO {
 
     private static final Logger log = LoggerFactory

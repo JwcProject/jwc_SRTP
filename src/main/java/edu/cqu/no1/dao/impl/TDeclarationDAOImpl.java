@@ -7,12 +7,15 @@ import edu.cqu.no1.domain.TDeclaration;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements edu.cqu.no1.dao.TDeclarationDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TDeclarationDAO.class);

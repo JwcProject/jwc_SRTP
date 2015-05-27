@@ -4,12 +4,15 @@ import edu.cqu.no1.dao.UnitStatisticDAO;
 import edu.cqu.no1.domain.ResultDistribut;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDAO {
 
 

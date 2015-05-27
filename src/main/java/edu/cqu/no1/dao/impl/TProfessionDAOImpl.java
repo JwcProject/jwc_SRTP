@@ -6,12 +6,15 @@ import edu.cqu.no1.dao.TProfessionDAO;
 import edu.cqu.no1.domain.TProfession;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TProfessionDAOImpl extends BaseDaoImpl<TProfession> implements TProfessionDAO {
 
     private static final Logger log = LoggerFactory

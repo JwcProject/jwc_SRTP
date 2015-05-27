@@ -9,12 +9,15 @@ import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implements edu.cqu.no1.dao.TExpertTeacherDAO {
 
     private static final Logger log = LoggerFactory

@@ -11,6 +11,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.*;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEndProjectDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TEndProjectDAO.class);

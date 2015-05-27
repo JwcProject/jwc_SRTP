@@ -6,12 +6,15 @@ import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TAttachment;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.cqu.no1.dao.TAttachmentDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TAttachmentDAO.class);

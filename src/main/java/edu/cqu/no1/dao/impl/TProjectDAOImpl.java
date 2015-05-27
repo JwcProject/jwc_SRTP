@@ -10,12 +10,15 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TProjectDAO.class);

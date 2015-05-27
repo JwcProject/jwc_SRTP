@@ -6,12 +6,15 @@ import edu.cqu.no1.dao.TUnitDAO;
 import edu.cqu.no1.domain.TUnit;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
 
     private static final Logger log = LoggerFactory.getLogger(TUnitDAO.class);

@@ -5,12 +5,15 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import edu.cqu.no1.dao.TProjectChangeContentDAO;
 import edu.cqu.no1.domain.TProjectChangeContent;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TProjectChangeContentDAOImpl extends BaseDaoImpl<TProjectChangeContent> implements TProjectChangeContentDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TProjectChangeContentDAO.class);

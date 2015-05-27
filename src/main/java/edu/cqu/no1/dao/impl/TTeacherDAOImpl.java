@@ -6,12 +6,15 @@ import edu.cqu.no1.dao.TTeacherDAO;
 import edu.cqu.no1.domain.TTeacher;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDAO {
 
 

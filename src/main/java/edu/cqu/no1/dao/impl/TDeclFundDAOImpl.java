@@ -6,12 +6,15 @@ import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TDeclFund;
 import org.hibernate.Query;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.no1.dao.TDeclFundDAO {
 
     private static final Logger log = LoggerFactory

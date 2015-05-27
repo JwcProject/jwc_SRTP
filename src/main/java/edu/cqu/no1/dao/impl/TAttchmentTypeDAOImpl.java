@@ -5,12 +5,15 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TAttchmentType;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
+
+@Repository
 public class TAttchmentTypeDAOImpl extends BaseDaoImpl<TAttchmentType> implements edu.cqu.no1.dao.TAttchmentTypeDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TAttchmentTypeDAO.class);

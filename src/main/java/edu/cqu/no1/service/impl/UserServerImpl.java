@@ -1,7 +1,7 @@
 package edu.cqu.no1.service.impl;
 
-import edu.cqu.no1.dao.UserDao;
-import edu.cqu.no1.domain.User;
+import edu.cqu.no1.dao.TUserDAO;
+import edu.cqu.no1.domain.TUser;
 import edu.cqu.no1.exception.ExistMultiUserException;
 import edu.cqu.no1.service.UserService;
 import org.springframework.stereotype.Component;
@@ -16,33 +16,28 @@ import java.util.List;
 @Service
 public class UserServerImpl implements UserService {
     @Resource
-    private UserDao userDao;
+    private TUserDAO userDao;
 
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(TUserDAO userDao) {
         this.userDao = userDao;
     }
 
     public int checkUser(String username, String password) {
-        User user = null;
+        TUser user = null;
         try {
-            user = userDao.findByUsername(username);
-        } catch (ExistMultiUserException e) {
-            return MULTI_USER;
+            user = userDao.findByUserName(username).get(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (user == null) {
             return No_THIS_USER;
         }
-        if (!user.getPassword().equals(password)) {
-            return PASSWORD_WORRY;
-        }
         return SUCCESS;
     }
 
     public int addUser(String username, String password) {
-        User user = new User();
-        user.setPassword(password);
+        TUser user = new TUser();
+/*        user.setPassword(password);
         user.setUsername(username);
         user.setLevel(0);
         try {
@@ -50,7 +45,7 @@ public class UserServerImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
             return MULTI_USER;
-        }
+        }*/
         return SUCCESS;
     }
 
@@ -66,7 +61,7 @@ public class UserServerImpl implements UserService {
         return 0;
     }
 
-    public List<User> getAllUser() {
-        return userDao.findAll(User.class);
+    public List<TUser> getAllUser() {
+        return userDao.findAll(TUser.class);
     }
 }
