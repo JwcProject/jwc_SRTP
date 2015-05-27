@@ -11,10 +11,6 @@ import java.util.List;
 
 public interface TAchievemenTypeDAO {
 
-    List findByExample(TAchievemenType instance);
-
-    List findByProperty(String propertyName, Object value);
-
     List findByAchievementypeName(Object achievementypeName);
 
     List findByAchievementypeIntroduction(
@@ -22,10 +18,4 @@ public interface TAchievemenTypeDAO {
 
     List findByIsdeleted(Object isdeleted);
 
-
-    TAchievemenType merge(TAchievemenType detachedInstance);
-
-    void attachDirty(TAchievemenType instance);
-
-    void attachClean(TAchievemenType instance);
 }

@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  * Created by ZKQ on 2015/5/27.
  */
 @Entity
-public class Tannouncementmodel {
+public class TAnnouncementModel {
     private String announId;
     private String announTypeId;
     private String announTitle;
@@ -160,7 +160,7 @@ public class Tannouncementmodel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Tannouncementmodel that = (Tannouncementmodel) o;
+        TAnnouncementModel that = (TAnnouncementModel) o;
 
         if (announContent != null ? !announContent.equals(that.announContent) : that.announContent != null)
             return false;

@@ -12,12 +12,6 @@ import java.util.List;
 @Transactional
 public interface TAchievementDAO {
 
-
-
-    List findByExample(TAchievement instance);
-
-    List findByProperty(String propertyName, Object value);
-
     List findByAchievementIntroduction(Object achievementIntroduction);
 
     List findByAchievementOwner(Object achievementOwner);
@@ -134,10 +128,4 @@ public interface TAchievementDAO {
 
     List findByUserdefine2(Object userdefine2);
 
-
-    TAchievement merge(TAchievement detachedInstance);
-
-    void attachDirty(TAchievement instance);
-
-    void attachClean(TAchievement instance);
 }

@@ -80,38 +80,6 @@ public class TAchievementDAOImpl extends BaseDaoImpl<TAchievement> implements TA
 
 
     @Override
-    public List findByExample(TAchievement instance) {
- /*       log.debug("finding TAchievement instance by example");
-        try {
-            List results = getHibernateTemplate().findByExample(instance);
-            log.debug("find by example successful, result size: "
-                    + results.size());
-            return results;
-        } catch (RuntimeException re) {
-            log.error("find by example failed", re);
-            throw re;
-        }*/
-
-        return null;
-    }
-
-    @Override
-    public List findByProperty(String propertyName, Object value) {
-/*        log.debug("finding TAchievement instance with property: "
-                + propertyName + ", value: " + value);
-        try {
-            String queryString = "from TAchievement as model where model."
-                    + propertyName + "= ?";
-            return getHibernateTemplate().find(queryString, value);
-        } catch (RuntimeException re) {
-            log.error("find by property name failed", re);
-            throw re;
-        }*/
-
-        return null;
-    }
-
-    @Override
     public List findByAchievementIntroduction(Object achievementIntroduction) {
         return findByProperty(ACHIEVEMENT_INTRODUCTION, achievementIntroduction);
     }
@@ -401,49 +369,6 @@ public class TAchievementDAOImpl extends BaseDaoImpl<TAchievement> implements TA
         return findByProperty(USERDEFINE2, userdefine2);
     }
 
-
-
-    @Override
-    public TAchievement merge(TAchievement detachedInstance) {
-    /*    log.debug("merging TAchievement instance");
-        try {
-            TAchievement result = (TAchievement) getHibernateTemplate().merge(
-                    detachedInstance);
-            log.debug("merge successful");
-            return result;
-        } catch (RuntimeException re) {
-            log.error("merge failed", re);
-            throw re;
-        }*/
-
-        return null;
-    }
-
-    @Override
-    public void attachDirty(TAchievement instance) {
-   /*     log.debug("attaching dirty TAchievement instance");
-        try {
-            getHibernateTemplate().saveOrUpdate(instance);
-            log.debug("attach successful");
-        } catch (RuntimeException re) {
-            log.error("attach failed", re);
-            throw re;
-        }*/
-
-    }
-
-    @Override
-    public void attachClean(TAchievement instance) {
- /*       log.debug("attaching clean TAchievement instance");
-        try {
-            getHibernateTemplate().lock(instance, LockMode.NONE);
-            log.debug("attach successful");
-        } catch (RuntimeException re) {
-            log.error("attach failed", re);
-            throw re;
-        }*/
-
-    }
 
     public static TAchievementDAO getFromApplicationContext(
             ApplicationContext ctx) {

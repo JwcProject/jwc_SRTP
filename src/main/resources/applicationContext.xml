@@ -72,7 +72,7 @@
                 <value>edu.cqu.no1.domain.TUnit</value>
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TUserRole</value>
-                <value>edu.cqu.no1.domain.Tannouncementmodel</value>
+                <value>edu.cqu.no1.domain.TAnnouncementModel</value>
                 <value>edu.cqu.no1.domain.Texpertteachermodel</value>
             </list>
         </property>
