@@ -68,7 +68,7 @@ public class UserAction extends ActionSupport {
         this.userServer = userService;
     }
 
-    @JSON(serialize=false)
+    @JSON(serialize = false)
     public User getUser() {
         return user;
     }
