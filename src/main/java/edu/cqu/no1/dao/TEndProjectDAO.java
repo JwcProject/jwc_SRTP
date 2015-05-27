@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TEndProjectDAO {
+public interface TEndProjectDAO extends BaseDao<TEndProject> {
     //	public int getEndProjectCountForSecReview(EndProjectProperty properties){
 //		Criteria criteria = getCriteriaForSecReview(properties);
 //		int rowCount = (Integer) criteria.setProjection(Projections.rowCount())

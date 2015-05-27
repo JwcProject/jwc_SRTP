@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TTempEmailReciverDAO {
+public interface TTempEmailReciverDAO extends BaseDao<TTempEmailReciver> {
     List findTempEmailReciverByJQid(String jqId);
 
     @SuppressWarnings("unchecked")

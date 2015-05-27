@@ -1,11 +1,13 @@
 package edu.cqu.no1.dao;
 
+import edu.cqu.no1.domain.TEmail;
+
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TEmailDAO {
+public interface TEmailDAO extends BaseDao<TEmail> {
     List findByEmailTitle(Object emailTitle);
 
     List findByEmailContent(Object emailContent);

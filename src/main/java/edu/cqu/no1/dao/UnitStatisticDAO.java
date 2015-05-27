@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface UnitStatisticDAO {
+public interface UnitStatisticDAO extends BaseDao {
     //获取学院项目成绩分布统计
     List unitProjectScore(String unitId, String jqId);
 

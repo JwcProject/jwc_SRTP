@@ -1,11 +1,13 @@
 package edu.cqu.no1.dao;
 
+import edu.cqu.no1.domain.TStudent;
+
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TStudentDAO {
+public interface TStudentDAO extends BaseDao<TStudent> {
     List findStudentByCode(String code);
 
     List findByStudentNumber(Object studentNumber);

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TDeclJobDAO {
+public interface TDeclJobDAO extends BaseDao<TDeclJob> {
     List findByJobContent(Object jobContent);
 
     List findByIsdeleted(Object isdeleted);

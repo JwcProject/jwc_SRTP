@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TJieqiDAO {
+public interface TJieqiDAO extends BaseDao<TJieqi> {
     List findByJqName(Object jqName);
 
     List findByQici(Object qici);

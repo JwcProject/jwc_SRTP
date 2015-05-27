@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TProjectDAO {
+public interface TProjectDAO extends BaseDao<TProject> {
     void createProject(String jqId);
 
     //根据当前教师工号得到所在学院项目列表

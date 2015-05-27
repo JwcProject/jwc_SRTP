@@ -32,7 +32,6 @@
           p:dataSource-ref="dataSource">
         <property name="annotatedClasses">
             <list>
-                <value>edu.cqu.no1.domain.User</value>
                 <value>edu.cqu.no1.domain.ResultDistribut</value>
                 <value>edu.cqu.no1.domain.TAchievemenType</value>
                 <value>edu.cqu.no1.domain.TAchievement</value>
@@ -73,7 +72,7 @@
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TUserRole</value>
                 <value>edu.cqu.no1.domain.TAnnouncementModel</value>
-                <value>edu.cqu.no1.domain.Texpertteachermodel</value>
+                <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
             </list>
         </property>
         <property name="hibernateProperties">

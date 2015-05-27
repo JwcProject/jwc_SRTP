@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TExpertTeacherDAO {
+public interface TExpertTeacherDAO extends BaseDao<TExpertTeacher> {
     List findByIsdeleted(Object isdeleted);
 
     //根据届期id，专家库类型，获取专家库

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TUnitDAO {
+public interface TUnitDAO extends BaseDao<TUnit> {
     List findByUnitName(Object unitName);
 
     List findByUnitType(Object unitType);

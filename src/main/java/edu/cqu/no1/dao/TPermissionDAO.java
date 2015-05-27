@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TPermissionDAO {
+public interface TPermissionDAO extends BaseDao<TPermission> {
     List findByPermissionName(Object permissionName);
 
     List findByPermissionState(Object permissionState);

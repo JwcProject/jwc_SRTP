@@ -1,7 +1,7 @@
 package edu.cqu.no1.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import edu.cqu.no1.domain.User;
+import edu.cqu.no1.domain.TUser;
 import edu.cqu.no1.service.UserService;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -27,16 +27,16 @@ public class UserAction extends ActionSupport {
     @Resource
     private UserService userServer;
 
-    private User user;
+    private TUser user;
     public static final String WORRY = "worry";
-    private List<User> users;
+    private List<TUser> users;
 
     @Action(value = "login", results = {
             @Result(name = SUCCESS, location = "/loginResult.jsp"),
             @Result(name = NONE, location = "/noThisUser.jsp"),
             @Result(name = WORRY, location = "/passwordWrong.jsp")})
     public String login() {
-        switch (userServer.checkUser(user.getUsername(), user.getPassword())) {
+/*        switch (userServer.checkUser(user.getUsername(), user.getPassword())) {
             case UserService.SUCCESS:
                 return SUCCESS;
             case UserService.MULTI_USER:
@@ -45,7 +45,7 @@ public class UserAction extends ActionSupport {
                 return NONE;
             case UserService.PASSWORD_WORRY:
                 return WORRY;
-        }
+        }*/
         return ERROR;
     }
 
@@ -53,7 +53,7 @@ public class UserAction extends ActionSupport {
     @Action(value = "register", results = {
             @Result(name = SUCCESS, location = "/login.jsp")})
     public String register() {
-        userServer.addUser(user.getUsername(), user.getPassword());
+        //userServer.addUser(user.getUsername(), user.getPassword());
         return SUCCESS;
     }
 
@@ -69,19 +69,19 @@ public class UserAction extends ActionSupport {
     }
 
     @JSON(serialize = false)
-    public User getUser() {
+    public TUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(TUser user) {
         this.user = user;
     }
 
-    public List<User> getUsers() {
+    public List<TUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<TUser> users) {
         this.users = users;
     }
 }

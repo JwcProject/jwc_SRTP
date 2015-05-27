@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TAnnouncementDAO {
+public interface TAnnouncementDAO extends BaseDao<TAnnouncement>{
 
     List findByAnnounTitle(Object announTitle);
 

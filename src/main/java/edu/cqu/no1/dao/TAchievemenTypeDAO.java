@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 
-public interface TAchievemenTypeDAO {
+public interface TAchievemenTypeDAO extends BaseDao<TAchievemenType> {
 
     List findByAchievementypeName(Object achievementypeName);
 

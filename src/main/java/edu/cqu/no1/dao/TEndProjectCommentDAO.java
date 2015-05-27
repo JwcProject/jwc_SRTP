@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TEndProjectCommentDAO {
+public interface TEndProjectCommentDAO extends BaseDao<TEndProjectComment> {
     //获取一个教师可以评审的结题
     List<TEndProjectComment> findMyReviewEndPros(String teaCode, PageBean pageBean);
 

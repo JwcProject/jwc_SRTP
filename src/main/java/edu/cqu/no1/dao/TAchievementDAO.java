@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 @Transactional
-public interface TAchievementDAO {
+public interface TAchievementDAO extends BaseDao<TAchievement> {
 
     List findByAchievementIntroduction(Object achievementIntroduction);
 

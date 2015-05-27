@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TExpertLibDAO {
+public interface TExpertLibDAO extends BaseDao<TExpertLib> {
     List findByIsAssigned(Object isAssigned);
 
     List findByIsdeleted(Object isdeleted);

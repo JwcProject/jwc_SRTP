@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TEndProjectExportDAO {
+public interface TEndProjectExportDAO extends BaseDao<TEndProjectExport> {
     List<TEndProjectExport> findMyReviewEndPros(String teaCode, String jieqiId, PageBean pageBean);
 
     TEndProjectExport findEndProExp(String teaCode, String endProId);

@@ -1,11 +1,13 @@
 package edu.cqu.no1.dao;
 
+import edu.cqu.no1.domain.TTeacher;
+
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TTeacherDAO {
+public interface TTeacherDAO extends BaseDao<TTeacher> {
     //通过学院主管教师的id找到本学院所有的教师
     List getTeachers(String code);
 

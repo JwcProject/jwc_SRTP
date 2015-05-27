@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TDeclFundDAO {
+public interface TDeclFundDAO extends BaseDao<TDeclFund> {
     List findBySerialNum(Object serialNum);
 
     List findByFundContent(Object fundContent);

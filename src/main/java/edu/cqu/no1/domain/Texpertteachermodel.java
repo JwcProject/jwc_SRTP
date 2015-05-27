@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by ZKQ on 2015/5/27.
  */
 @Entity
-public class Texpertteachermodel {
+public class TExpertTeacherModel {
     private String exTeaId;
     private String libId;
     private String teaId;
@@ -93,7 +93,7 @@ public class Texpertteachermodel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Texpertteachermodel that = (Texpertteachermodel) o;
+        TExpertTeacherModel that = (TExpertTeacherModel) o;
 
         if (exTeaId != null ? !exTeaId.equals(that.exTeaId) : that.exTeaId != null) return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;

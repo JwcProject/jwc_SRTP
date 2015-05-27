@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TUserDAO {
+public interface TUserDAO extends BaseDao<TUser> {
     List<TUser> findByUserName(Object userName);
 
     List<TUser> findByUserPassword(Object userPassword);
