@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.StatisticDAO;
 import edu.cqu.no1.domain.ResultDistribut;
 import edu.cqu.no1.domain.TJieqi;
@@ -9,6 +10,7 @@ import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     private static final Logger log = LoggerFactory.getLogger(StatisticDAOImpl.class);
 
     // 全校项目成绩分布统计
-    @Override
+    @Nullable
     public List SchooleProjectScore(String jqQici)
     {
         log.debug("全校项目成绩分布统计");
@@ -28,9 +30,9 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
         {
             if(null != jqQici && !"".equals(jqQici.trim()))
             {
-                String hql = "Select Distinct t.projectScore As Labels, Count(t.projectScore) As Data\n" +
-                        "  From TProject t Where t.projectScore Is Not Null and t.jqId = :jqQici\n" +
-                        " Group By t.projectScore Order By t.projectScore";
+                String hql = "select distinct t.projectScore, count(t.projectScore)" +
+                        "  from TProject t where t.projectScore is not null and t.jqId = :jqQici" +
+                        " group by t.projectScore order by t.projectScore";
 
                 Query query = getSessionFactory().getCurrentSession().createQuery(hql);
                 query.setString("jqQici", jqQici);
@@ -61,39 +63,33 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 全校数据指标 数据条数
-    @Override
     public int getSchoolResultDistributCount(String college, String jqYear, String jqQici)
     {
         log.debug("全校项目成绩分布数据指标，数据条目");
         try
         {
-            String sql =
-                    "Select count(1) nbr\n" +
-                            "  From (Select d.Jq_Id,\n" +
-                            "               d.College\n" +
-                            "          From t_Declaration d\n" +
-                            "         Where d.Isdeleted = 'N'\n" ;
+            String hql = "select count(*) from TDeclaration d where isdeleted = 'N'";
 
             if(null != college && !"".equals(college.trim()))
             {
-                sql += " And d.college In (Select u.unit_id From t_unit u Where u.unit_name like :college) \n";
+                hql += " and college in (select unitId from TUnit where unitName like :college)";
 
             }
 
             if(null != jqQici && !"".equals(jqQici.trim()))
             {
-                sql += "  And d.jq_id = :jqQici  \n";
+                hql += "  and jqId = :jqQici";
 
             }
             else if(null != jqYear && !"".equals(jqYear.trim()))
             {
-                sql += "  And d.jq_id In (Select j.jq_id From t_jieqi j Where j.jq_year = :jqYear ) \n";
+                hql += " and jqId in (select jqId from TJieqi where jqYear = :jqYear";
 
             }
 
-            sql += "  Group By d.Jq_Id, d.College) Res";
+            hql += "  group by jqId, college";
 
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
             if(null != college && !"".equals(college.trim()))
             {
@@ -125,68 +121,41 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 全校数据指标 List
-    @Override
+    @Nullable
     public List<ResultDistribut> getSchoolResultDistribut(String college, String jqYear, String jqQici, PageBean pageBean)
     {
         log.debug("全校数据指标");
         try
         {
-            String sql =
-                    "Select Rownum Id,\n" +
-                            "       Res.*,\n" +
-                            "       (Res.Prosum - Res.Endsum) Delaysum,\n" +
-                            "       Decode(Res.Decsum, 0, 0, Round((Res.Prosum / Res.Decsum), 3)) Prorate,\n" +
-                            "       Decode(Res.Prosum, 0, 0, Round((Res.Bestsum / Res.Prosum), 3)) Bestrate,\n" +
-                            "       Decode(Res.Prosum, 0, 0, Round((Res.Endsum / Res.Prosum), 3)) Endrate,\n" +
-                            "       Decode(Res.Prosum,\n" +
-                            "              0,\n" +
-                            "              0,\n" +
-                            "              Round(((Res.Prosum - Res.Endsum) / Res.Prosum), 3)) Delayrate\n" +
-                            "  From (Select d.Jq_Id,\n" +
-                            "               d.College,\n" +
-                            "               (Select u.Unit_Name From t_Unit u Where u.Unit_Id = d.College) Collegename,\n" +
-                            "               (Select j.Jq_Year || '年 第' || j.Qici || '期'\n" +
-                            "                  From t_Jieqi j\n" +
-                            "                 Where j.Jq_Id = d.Jq_Id) Jqname,\n" +
-                            "               Count(d.Declar_Id) Decsum,\n" +
-                            "               (Select Count(p.Project_Id)\n" +
-                            "                  From t_Project p\n" +
-                            "                 Where p.Jq_Id = d.Jq_Id\n" +
-                            "                   And p.Unit_Id = d.College) Prosum,\n" +
-                            "               (Select Count(p.Project_Id)\n" +
-                            "                  From t_Project p\n" +
-                            "                 Where p.Project_Score = '优秀'\n" +
-                            "                   And p.Jq_Id = d.Jq_Id\n" +
-                            "                   And p.Unit_Id = d.College) Bestsum,\n" +
-                            "               (Select Count(p.Project_Id)\n" +
-                            "                  From t_Project p\n" +
-                            "                 Where p.Project_Score = '不及格'\n" +
-                            "                   And p.Jq_Id = d.Jq_Id\n" +
-                            "                   And p.Unit_Id = d.College) Badsum,\n" +
-                            "               (Select Count(Ep.Endproject_Id)\n" +
-                            "                  From t_End_Project Ep\n" +
-                            "                 Where Ep.Jq_Id = d.Jq_Id\n" +
-                            "                   And Ep.Unit_Id = d.College) Endsum\n" +
-                            "          From t_Declaration d\n" +
-                            "         Where d.Isdeleted = 'N'\n" ;
+            String hql = "select d.jqId, d.college, u.unitName," +
+                    " concat(j.jqYear, '年 第', j.qici, '期') as jqname, count(d) as decsum," +
+                    " count(p1) as prosum, count(p2) as bestsum, count(p3) as badsum, count(ep) as endsum" +
+                    " from TDeclaration d, TUnit u, TJieqi j, TProject  p1, TProject p2, TProject p3, TEndProject ep" +
+                    " where d.isdeleted = 'N'" +
+                    " and u.unitId = d.college" +
+                    " and j.jqId = d.jqId" +
+                    " and p1.jqId = d.jqId and p1.unitId = d.college" +
+                    " and p2.jqId = d.jqId and p2.unitId = d.college and p2.projectScore = '优秀'" +
+                    " and p3.jqId = d.jqId and p3.unitId = d.college and p3.projectScore = '不及格'" +
+                    " and ep.jqId = d.jqId and ep.unitId = d.college";
 
             if(null != college && !"".equals(college.trim()))
             {
-                sql += " And d.college In (Select u.unit_id From t_unit u Where u.unit_name like :college) \n";
+                hql += " and d.college in (select unitId from TUnit where unitName like :college)";
             }
 
             if(null != jqQici && !"".equals(jqQici.trim()))
             {
-                sql += "  And d.jq_id = :jqQici  \n";
+                hql += " and d.jqId = :jqQici";
             }
             else if(null != jqYear && !"".equals(jqYear.trim()))
             {
-                sql += "  And d.jq_id In (Select j.jq_id From t_jieqi j Where j.jq_year = :jqYear ) \n";
+                hql += " and d.jqId in (select jqId from TJieqi where jqYear = :jqYear)";
             }
 
-            sql += "  Group By d.Jq_Id, d.College) Res";
+            hql += " group by d.jqId, d.college";
 
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(ResultDistribut.class);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
             if(null != college && !"".equals(college.trim()))
             {
@@ -202,14 +171,45 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
                 query.setString("jqYear", jqYear);
             }
 
-
-
-            query.setFirstResult(pageBean.getBeginIndex());
-            query.setMaxResults(pageBean.getPageCapibility());
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
             @SuppressWarnings("unchecked")
-            List<ResultDistribut> result = (List<ResultDistribut>)query.list();
+            List<Object[]> middleResult = query.list();
+            List<ResultDistribut> result = new ArrayList<ResultDistribut>();
+            for (int i = 0; i < middleResult.size(); ++i) {
+                Object[] objs = middleResult.get(i);
+                int decsum = (Integer)objs[4];
+                int prosum = (Integer)objs[5];
+                int bestsum = (Integer)objs[6];
+                int badsum = (Integer)objs[7];
+                int endsum = (Integer)objs[8];
+                double prorate = Math.round(prosum * 1.0 / decsum * 1000) / 1000;
+                double bestrate = Math.round(bestsum * 1.0 / prosum * 1000) / 1000;
+                double endrate = Math.round(endsum * 1.0 / prosum * 1000) / 1000;
+                double delayrate = Math.round((prosum - endsum) * 1.0 / prosum * 1000) / 1000;
 
-            if(null != result && result.size() > 0)
+                ResultDistribut resultDistribut = new ResultDistribut();
+                resultDistribut.setId(String.valueOf(i));
+                resultDistribut.setJqId((String)objs[0]);
+                resultDistribut.setCollege((String)objs[1]);
+                resultDistribut.setCollegename((String)objs[2]);
+                resultDistribut.setJqname((String)objs[3]);
+                resultDistribut.setDecsum(decsum * 1.0);
+                resultDistribut.setProsum(prosum * 1.0);
+                resultDistribut.setBestsum(bestsum * 1.0);
+                resultDistribut.setBadsum(badsum * 1.0);
+                resultDistribut.setEndsum(endsum * 1.0);
+                resultDistribut.setProrate(prorate);
+                resultDistribut.setBestrate(bestrate);
+                resultDistribut.setEndrate(endrate);
+                resultDistribut.setDelayrate(delayrate);
+
+                result.add(resultDistribut);
+            }
+
+            if(result.size() > 0)
             {
                 return result;
             }
@@ -229,168 +229,23 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 按期次查看各学院数据
-    @Override
+    @Nullable
     public List<ResultDistribut> getSchoolStatisticsData(String jqQici)
     {
         log.debug("按期次查看各学院统计数据，参数-期次");
-        try
-        {
-            if(null != jqQici && !"".equals(jqQici.trim()))
-            {
-                String sql =
-                        "Select Rownum Id,\n" +
-                                "       Res.*,\n" +
-                                "       (Res.Prosum - Res.Endsum) Delaysum,\n" +
-                                "       Decode(Res.Decsum, 0, 0, Round((Res.Prosum / Res.Decsum), 3)) Prorate,\n" +
-                                "       Decode(Res.Prosum, 0, 0, Round((Res.Bestsum / Res.Prosum), 3)) Bestrate,\n" +
-                                "       Decode(Res.Prosum, 0, 0, Round((Res.Endsum / Res.Prosum), 3)) Endrate,\n" +
-                                "       Decode(Res.Prosum,\n" +
-                                "              0,\n" +
-                                "              0,\n" +
-                                "              Round(((Res.Prosum - Res.Endsum) / Res.Prosum), 3)) Delayrate\n" +
-                                "  From (Select d.Jq_Id,\n" +
-                                "               d.College,\n" +
-                                "               (Select u.Unit_Name From t_Unit u Where u.Unit_Id = d.College) Collegename,\n" +
-                                "               (Select j.Jq_Year || '年 第' || j.Qici || '期'\n" +
-                                "                  From t_Jieqi j\n" +
-                                "                 Where j.Jq_Id = d.Jq_Id) Jqname,\n" +
-                                "               Count(d.Declar_Id) Decsum,\n" +
-                                "               (Select Count(p.Project_Id)\n" +
-                                "                  From t_Project p\n" +
-                                "                 Where p.Jq_Id = d.Jq_Id\n" +
-                                "                   And p.Unit_Id = d.College) Prosum,\n" +
-                                "               (Select Count(p.Project_Id)\n" +
-                                "                  From t_Project p\n" +
-                                "                 Where p.Project_Score = '优秀'\n" +
-                                "                   And p.Jq_Id = d.Jq_Id\n" +
-                                "                   And p.Unit_Id = d.College) Bestsum,\n" +
-                                "               (Select Count(p.Project_Id)\n" +
-                                "                  From t_Project p\n" +
-                                "                 Where p.Project_Score = '不及格'\n" +
-                                "                   And p.Jq_Id = d.Jq_Id\n" +
-                                "                   And p.Unit_Id = d.College) Badsum,\n" +
-                                "               (Select Count(Ep.Endproject_Id)\n" +
-                                "                  From t_End_Project Ep\n" +
-                                "                 Where Ep.Jq_Id = d.Jq_Id\n" +
-                                "                   And Ep.Unit_Id = d.College) Endsum\n" +
-                                "          From t_Declaration d\n" +
-                                "         Where d.Isdeleted = 'N'\n" +
-                                "          And d.jq_id = :jqQici \n" +
-                                "         Group By d.college, d.Jq_Id) Res";
-
-                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(ResultDistribut.class);
-                query.setString("jqQici", jqQici);
-
-                @SuppressWarnings("unchecked")
-                List<ResultDistribut> result = (List<ResultDistribut>)query.list();
-
-                if(null != result && result.size() > 0)
-                {
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                log.error("parameter is null");
-                return null;
-            }
-        }
-        catch(RuntimeException e)
-        {
-            log.error(e.toString());
-            e.printStackTrace();
-            throw e;
-        }
+        return getSchoolResultDistribut(null, null, jqQici, null);
     }
 
     // 按学院查看各期次统计数据
-    @Override
+    @Nullable
     public List<ResultDistribut> getSchoolStatisticDataByCollege(String college)
     {
         log.debug("按学院查看各期次统计数据,参数-学院");
-        try
-        {
-            if(null != college && !"".equals(college.trim()))
-            {
-                String sql =
-                        "Select Rownum Id,\n" +
-                                "       Res.*,\n" +
-                                "       (Res.Prosum - Res.Endsum) Delaysum,\n" +
-                                "       Decode(Res.Decsum, 0, 0, Round((Res.Prosum / Res.Decsum), 3)) Prorate,\n" +
-                                "       Decode(Res.Prosum, 0, 0, Round((Res.Bestsum / Res.Prosum), 3)) Bestrate,\n" +
-                                "       Decode(Res.Prosum, 0, 0, Round((Res.Endsum / Res.Prosum), 3)) Endrate,\n" +
-                                "       Decode(Res.Prosum,\n" +
-                                "              0,\n" +
-                                "              0,\n" +
-                                "              Round(((Res.Prosum - Res.Endsum) / Res.Prosum), 3)) Delayrate\n" +
-                                "  From (Select d.Jq_Id,\n" +
-                                "               d.College,\n" +
-                                "               (Select u.Unit_Name From t_Unit u Where u.Unit_Id = d.College) Collegename,\n" +
-                                "               (Select j.Jq_Year || '年 第' || j.Qici || '期'\n" +
-                                "                  From t_Jieqi j\n" +
-                                "                 Where j.Jq_Id = d.Jq_Id) Jqname,\n" +
-                                "               Count(d.Declar_Id) Decsum,\n" +
-                                "               (Select Count(p.Project_Id)\n" +
-                                "                  From t_Project p\n" +
-                                "                 Where p.Jq_Id = d.Jq_Id\n" +
-                                "                   And p.Unit_Id = d.College) Prosum,\n" +
-                                "               (Select Count(p.Project_Id)\n" +
-                                "                  From t_Project p\n" +
-                                "                 Where p.Project_Score = '优秀'\n" +
-                                "                   And p.Jq_Id = d.Jq_Id\n" +
-                                "                   And p.Unit_Id = d.College) Bestsum,\n" +
-                                "               (Select Count(p.Project_Id)\n" +
-                                "                  From t_Project p\n" +
-                                "                 Where p.Project_Score = '不及格'\n" +
-                                "                   And p.Jq_Id = d.Jq_Id\n" +
-                                "                   And p.Unit_Id = d.College) Badsum,\n" +
-                                "               (Select Count(Ep.Endproject_Id)\n" +
-                                "                  From t_End_Project Ep\n" +
-                                "                 Where Ep.Jq_Id = d.Jq_Id\n" +
-                                "                   And Ep.Unit_Id = d.College) Endsum\n" +
-                                "          From t_Declaration d\n" +
-                                "         Where d.Isdeleted = 'N'\n" +
-                                "          And d.college In (Select u.unit_id From t_unit u Where u.unit_name Like :college)\n" +
-                                "         Group By d.college, d.Jq_Id) Res";
-
-                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(ResultDistribut.class);
-                query.setString("college", college);
-
-                @SuppressWarnings("unchecked")
-                List<ResultDistribut> resultList = (List<ResultDistribut> )query.list();
-
-                if(null != resultList && resultList.size() > 0)
-                {
-                    return resultList;
-                }
-                else
-                {
-                    log.debug("no data");
-                    return null;
-                }
-
-            }
-            else
-            {
-                log.debug("学院参数- null");
-                return null;
-            }
-        }
-        catch(RuntimeException e)
-        {
-            log.error(e.toString());
-            e.printStackTrace();
-            throw e;
-        }
+       return getSchoolResultDistribut(college, null, null, null);
     }
 
 
     // 根据学院名称参数，判断参数是否合法
-    @Override
     public int getCollegeCountByName(String college)
     {
         log.debug("根据学院名称参数，查询学院取值，判断参数是否合法");
@@ -427,7 +282,7 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 根据届期id获取当前届期信息
-    @Override
+    @Nullable
     public TJieqi getJieqiById(String id)
     {
         log.debug("根据届期id获取当前届期信息");
@@ -435,8 +290,8 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
         {
             if(null != id && !"".equals(id.trim()))
             {
-                String sql = "select * from t_jieqi j where j.jq_id = :id";
-                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(TJieqi.class);
+                String hql = "from TJieqi where jqId = :id";
+                Query query = getSessionFactory().getCurrentSession().createQuery(hql);
                 query.setString("id", id);
 
                 @SuppressWarnings("unchecked")
@@ -466,15 +321,16 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 获取当前结题届期id
-    @Override
+    // I cannot see the `current` means.
+    @Nullable
     public TJieqi getCurrentJieqi()
     {
         log.debug("获取当前结题届期");
         try
         {
-            String sql = "Select * From t_jieqi j Where j.endproject_state = '01' And j.isdeleted = 'N'";
+            String hql = "from TJieqi  where endprojectState = '01' and isdeleted = 'N'";
 
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(TJieqi.class);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
             @SuppressWarnings("unchecked")
             List<TJieqi>  tmpList = query.list();
