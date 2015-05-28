@@ -24,27 +24,23 @@ public class TDeclJobDAOImpl extends BaseDaoImpl<TDeclJob> implements edu.cqu.no
     public static final String ISDELETED = "isdeleted";
 
 
-    @Override
     public List findByJobContent(Object jobContent) {
         return findByProperty(JOB_CONTENT, jobContent);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public static TDeclJobDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TDeclJobDAO) ctx.getBean("TDeclJobDAO");
     }
 
-    @Override
     public List<TDeclJob> findByDeclarId(String declarId){
         log.debug("finding all TDeclJob instances");
         try {
             String queryStr = "from TDeclJob as a where a.isdeleted = 'N' " +
-                    "and a.TDeclaration.declarId=:code ";
+                    "and a.declarId=:code ";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", declarId);
@@ -55,7 +51,7 @@ public class TDeclJobDAOImpl extends BaseDaoImpl<TDeclJob> implements edu.cqu.no
             throw re;
         }
     }
-    @Override
+
     public int deleteJobByDeclId(String declarId) throws Exception{
         log.debug("deleteJobByDeclId");
         try {

@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/27.
  */
-
+// TODO
 @Repository
 public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements edu.cqu.no1.dao.TAnnouncementDAO {
     private static final Logger log = LoggerFactory
@@ -32,43 +32,42 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     public static final String CHECK_STATE = "checkState";
     public static final String ISDELETED = "isdeleted";
 
-
-    @Override
+    
     public List findByAnnounTitle(Object announTitle) {
         return findByProperty(ANNOUN_TITLE, announTitle);
     }
 
-    @Override
+    
     public List findByAnnounContent(Object announContent) {
         return findByProperty(ANNOUN_CONTENT, announContent);
     }
 
-    @Override
+    
     public List findByPublisherCode(Object publisherCode) {
         return findByProperty(PUBLISHER_CODE, publisherCode);
     }
 
-    @Override
+    
     public List findByPublisherRole(Object publisherRole) {
         return findByProperty(PUBLISHER_ROLE, publisherRole);
     }
 
-    @Override
+    
     public List findByPublishState(Object publishState) {
         return findByProperty(PUBLISH_STATE, publishState);
     }
 
-    @Override
+    
     public List findByCheckerCode(Object checkerCode) {
         return findByProperty(CHECKER_CODE, checkerCode);
     }
 
-    @Override
+    
     public List findByCheckState(Object checkState) {
         return findByProperty(CHECK_STATE, checkState);
     }
 
-    @Override
+    
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
@@ -80,7 +79,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param announId
      * @return
      */
-    @Override
+    
     public TAnnouncementModel getAnnounById(String announId) {
         log.debug("get a announcement with publisherName by announId");
         try {
@@ -111,7 +110,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-    @Override
+    
     public List findStuTeatAnnoun(String number, String announName,
                                   Date announDate, PageBean pageBean) {
         log.debug("finding Student TAnnouncement instances");
@@ -141,7 +140,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
 
     }
 
-    @Override
+    
     public int findStuTeaAnnounCount(String number, String announName,
                                      Date announDate) {
         log.debug("finding StuTea count TAnnouncement instances");
@@ -182,7 +181,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-    @Override
+    
     public List findUnitAnnoun(String teaCode, String announName,
                                Date announDate, PageBean pageBean) {
         log.debug("finding unit TAnnouncement");
@@ -217,7 +216,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int findUnitAnnounCount(String teaCode, String announName,
                                    Date announDate) {
         log.debug("finding unit TAnnouncement");
@@ -266,7 +265,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-    @Override
+    
     public List findSchoolAnnoun(String announName, String checkState,
                                  Date announDate, String publisherName, String typeName,
                                  PageBean pageBean) {
@@ -320,7 +319,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
 
     }
 
-    @Override
+    
     public int findSchoolAnnounCount(String announName, String checkState,
                                      Date announDate, String publisherName, String typeName) {
         log.debug("find school count TAnnouncements ");
@@ -380,7 +379,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param code     学生学号/指导老师教职工号
      * @param pageBean return List
      */
-    @Override
+    
     public List getStuTeaAnnounctment(String code, PageBean pageBean) {
         log.debug("finding all person TAnnouncement instances by pageBeanun");
         try {// as publisherName
@@ -396,7 +395,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int getStuTeaAnnouncementCount(String code) {
         log.debug("finding all person TAnnouncement count");
         try {
@@ -422,7 +421,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param unitTeaCode 学院主管老师的教职工号
      * @param pageBean    return List
      */
-    @Override
+    
     public List getUnitAnnounctment(String unitTeaCode, PageBean pageBean) {
         log.debug("finding unit all TAnnouncement instances by pageBeanun");
         try {
@@ -441,7 +440,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int getUnitAnnounctmentCount(String unitTeaCode) {
         log.debug("finding unit all TAnnouncement instances by pageBeanun");
         try {
@@ -465,13 +464,13 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //通过当前学生所在学院获取学院公告
-    @Override
+    
     public List getUnitAnnounctmentByStuCode(String unitStuCode, PageBean pageBean) {
         log.debug("getting unit all TAnnouncement instances by pageBeanun");
         try {
             String queryStr = "from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
-                    "(select tt.teaCode from TTeacher tt where tt.TUnit.unitId = " +
-                    "(select s.TUnit.unitId from TStudent s where s.TUser.userId =:unitStuCode) " +
+                    "(select tt.teaCode from TTeacher tt where tt.unitId = " +
+                    "(select s.unitId from TStudent s where s.userId =:unitStuCode) " +
                     "and tt.teaCode in (select u.userId from TUser u where u.userType = '02' or u.userType = '03'))";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("unitStuCode", unitStuCode);
@@ -484,13 +483,13 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int getUnitAnnounctmentByStuCodeCount(String unitStuCode) {
         log.debug("getting unit all TAnnouncement count instances by pageBean");
         try {
             String queryStr = "select count(*) from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
-                    "(select tt.teaCode from TTeacher tt where tt.TUnit.unitId = " +
-                    "(select s.TUnit.unitId from TStudent s where s.TUser.userId =:unitStuCode) " +
+                    "(select tt.teaCode from TTeacher tt where tt.unitId = " +
+                    "(select s.unitId from TStudent s where s.userId =:unitStuCode) " +
                     "and tt.teaCode in (select u.userId from TUser u where u.userType = '02' or u.userType = '03'))";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("unitStuCode", unitStuCode);
@@ -507,13 +506,13 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //查询当前学生所在学院的学院公告
-    @Override
+    
     public List findUnitAnnounctmentByStuCode(String unitStuCode, String announTitle, Date publishTime, PageBean pageBean) {
         log.debug("finding unit all TAnnouncement instances by pageBean");
         try {
             String queryStr = "from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
-                    "(select tt.teaCode from TTeacher tt where tt.TUnit.unitId = " +
-                    "(select s.TUnit.unitId from TStudent s where s.TUser.userId =:unitStuCode) " +
+                    "(select tt.teaCode from TTeacher tt where tt.unitId = " +
+                    "(select s.unitId from TStudent s where s.userId =:unitStuCode) " +
                     "and tt.teaCode in (select u.userId from TUser u where u.userType = '02' or u.userType = '03'))";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 queryStr += " and t.announTitle like :announTitle";
@@ -540,13 +539,13 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int findUnitAnnounctmentByStuCodeCount(String unitStuCode, String announTitle, Date publishTime) {
         log.debug("finding unit all TAnnouncement count instances by pageBeanun");
         try {
             String queryStr = "select count(*) from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
-                    "(select tt.teaCode from TTeacher tt where tt.TUnit.unitId = " +
-                    "(select s.TUnit.unitId from TStudent s where s.TUser.userId =:unitStuCode) " +
+                    "(select tt.teaCode from TTeacher tt where tt.unitId = " +
+                    "(select s.unitId from TStudent s where s.userId =:unitStuCode) " +
                     "and tt.teaCode in (select u.userId from TUser u where u.userType = '02' or u.userType = '03'))";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 queryStr += " and t.announTitle like :announTitle";
@@ -577,7 +576,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //获取普通学生和普通教师的公告
-    @Override
+    
     public List getCommonStuAndTeaAnnoun(PageBean pageBean) {
         log.debug("getting common student and teacher TAnnouncement instances by pageBeanun");
         try {
@@ -593,7 +592,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int getCommonStuAndTeaAnnounCount() {
         log.debug("getting common student and teacher TAnnouncement count instances by pageBeanun");
         try {
@@ -613,7 +612,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //查询普通学生和普通教师的公告
-    @Override
+    
     public List findCommonStuAndTeaAnnoun(String announTitle, String announContent, Date publishTime, PageBean pageBean) {
         log.debug("finding common student and teacher TAnnouncement instances by pageBeanun");
         try {
@@ -648,7 +647,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int findCommonStuAndTeaAnnounCount(String announTitle, String announContent, Date publishTime) {
         log.debug("finding common student and teacher TAnnouncement count instances by pageBeanun");
         try {
@@ -693,7 +692,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      *
      * @param pageBean return List
      */
-    @Override
+    
     public List getSchoolAnnounctment(PageBean pageBean) {
         log.debug("finding all School TAnnouncement instances by pageBeanun");
         try {
@@ -708,7 +707,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int getSchoolAnnounctmentCount() {
         log.debug("finding all School TAnnouncement count");
         try {
@@ -732,7 +731,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param typeName 公告类别名称
      * @return
      */
-    @Override
+    
     public List findAnnounByType(String typeName, PageBean pageBean) {
         log.debug("find TAnnouncement by type");
         try {
@@ -750,7 +749,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
 
     }
 
-    @Override
+    
     public int findAnnounByTypeCount(String typeName) {
         log.debug("find TAnnouncement count by type");
         try {
@@ -772,7 +771,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //查询主页学校公告
-    @Override
+    
     public List findIndexSchoolAnnoument(String announTitle, Date publishTime, String typeName, PageBean pageBean) {
         log.debug("find TAnnouncement by type");
         try {
@@ -805,10 +804,11 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         }
     }
 
-    @Override
+    
     public int findIndexSchoolAnnoumentCount(String announTitle, Date publishTime, String typeName) {
         log.debug("find TAnnouncement count by type");
         try {
+            // TODO
             String queryString = "select count(*) from T_Announcement t,T_announ_type Ta "
                     + "where t.ISDELETED='N' and t.PUBLISH_STATE = 'Y' and t.ANNOUN_TYPE_ID=Ta.Announ_Type_Id and Ta.Announ_Type_Name like :tName";
             if (null != announTitle && !announTitle.trim().equals("")) {

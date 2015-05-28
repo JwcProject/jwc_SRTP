@@ -33,11 +33,11 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
     public static final String ISDELETED = "isdeleted";
 
     //通过学院主管教师的id找到本学院所有的教师
-    @Override
     public List getTeachers(String code) {
         log.debug("get all Teacher ");
         try {
-            String queryStr = "from TTeacher t where t.isdeleted = 'N' and t.TUnit.unitId=(select a.TUnit.unitId from TTeacher a where a.teaCode=:code)";
+            String queryStr = "from TTeacher t where t.isdeleted = 'N' and" +
+                    " t.unitId=(select a.unitId from TTeacher a where a.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", code);
             return query.list();
@@ -51,11 +51,13 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
      * 得到不是专家教师的教师
      * type 为类别，01 为申报的专家教师，02为结题的专家教师
      */
-    @Override
     public List getCommonTeachers(String code, String type) {
         log.debug("get all common Teacher ");
         try {
-            String queryStr = "from TTeacher t where t.isdeleted = 'N' and t.TUnit.unitId=(select a.TUnit.unitId from TTeacher a where a.teaCode=:code) and not exists(from TExpertTeacher ET where ET.isdeleted='N' and ET.TTeacher.teaId=t.teaId and ET.TExpertLib.type=:type)";
+            String queryStr = "from TTeacher t where t.isdeleted = 'N' and t.unitId=" +
+                    "(select a.unitId from TTeacher a where a.teaCode=:code) and not exists" +
+                    "(from TExpertTeacher ET where ET.isdeleted='N' and ET.teaId=t.teaId and" +
+                    " ET.libId in (from TExpertLib where libId = ET.libId and type = :type))"; // ET.TExpertLib.type=:type)
             //select t.* from t_teacher t where t.isdeleted = 'N' and t.unit_id=(select a.unit_id from t_teacher a where a.tea_code='rj1000') and not exists(select ET.EX_TEA_ID from t_expert_teacher ET where ET.Isdeleted='N' and ET.Tea_Id=t.tea_id)
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", code);
@@ -68,11 +70,10 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
     }
 
     //多条件查询当前主管教师所在学院的所有教师
-    @Override
     public List findTeachers(String teaCode, String teaName, String teaTitle) {
         log.debug("find all Teacher ");
         try {
-            String queryStr = "from TTeacher t where t.isdeleted = 'N' and t.TUnit.unitId=(select a.TUnit.unitId from TTeacher a where a.teaCode=:code)";
+            String queryStr = "from TTeacher t where t.isdeleted = 'N' and t.unitId=(select a.unitId from TTeacher a where a.teaCode=:code)";
 
             if(null != teaName && !teaName.trim().equals(""))
             {
@@ -106,7 +107,6 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
         }
     }
 
-    @Override
     public List findTeacherByCode(String code) {
         log.debug("find teacher by teacher code");
         try {
@@ -120,52 +120,42 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
         }
     }
 
-    @Override
     public List findByTeaName(Object teaName) {
         return findByProperty(TEA_NAME, teaName);
     }
 
-    @Override
     public List findByTeaCode(Object teaCode) {
         return findByProperty(TEA_CODE, teaCode);
     }
 
-    @Override
     public List findByTeaSex(Object teaSex) {
         return findByProperty(TEA_SEX, teaSex);
     }
 
-    @Override
     public List findByTeaTitle(Object teaTitle) {
         return findByProperty(TEA_TITLE, teaTitle);
     }
 
-    @Override
     public List findByTeaTele(Object teaTele) {
         return findByProperty(TEA_TELE, teaTele);
     }
 
-    @Override
     public List findByTeaEmail(Object teaEmail) {
         return findByProperty(TEA_EMAIL, teaEmail);
     }
 
-    @Override
     public List findByTeaState(Object teaState) {
         return findByProperty(TEA_STATE, teaState);
     }
 
-    @Override
     public List findByTeaIntro(Object teaIntro) {
         return findByProperty(TEA_INTRO, teaIntro);
     }
 
-    @Override
     public List findByTeaRemark(Object teaRemark) {
         return findByProperty(TEA_REMARK, teaRemark);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
@@ -177,7 +167,6 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
     /**
      * lsp
      */
-    @Override
     public List findTeachersByName(String name){
         log.debug("findTeachersByName");
         try {

@@ -2,7 +2,6 @@ package edu.cqu.no1.dao.impl;
 
 import edu.cqu.no1.dao.StatisticDAO;
 import edu.cqu.no1.domain.TJieqi;
-import edu.cqu.no1.util.PageBean;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

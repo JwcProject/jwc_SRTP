@@ -22,7 +22,6 @@ public class TExpertReviewDAOImpl extends BaseDaoImpl<TExpertReview> implements 
     // property constants
     public static final String ISDELETED = "isdeleted";
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
@@ -39,13 +38,12 @@ public class TExpertReviewDAOImpl extends BaseDaoImpl<TExpertReview> implements 
      *@param type
      *@return
      */
-    @Override
     public TExpertReview getTExpertReview(String jqId, String teaCode, String declId, String type){
         log.debug("get TExpertREview By jqId,teaCode,declId,type");
         try {
-            String queryString  = "From TExpertReview ER where ER.TDeclaration.declarId=:declId and ER.TExpertTeacher.exTeaId =" +
-                    " (select ET.exTeaId From TExpertTeacher ET where ET.TTeacher.teaId=(select TT.teaId from TTeacher TT where TT.teaCode=:teaCode)" +
-                    "and ET.TExpertLib.libId=(select EL.libId from TExpertLib EL where EL.TJieqi.jqId=:jqId and EL.type=:type))";
+            String queryString  = "From TExpertReview ER where ER.declarId=:declId and ER.exTeaId =" +
+                    " (select ET.exTeaId From TExpertTeacher ET where ET.teaId=(select TT.teaId from TTeacher TT where TT.teaCode=:teaCode)" +
+                    "and ET.libId=(select EL.libId from TExpertLib EL where EL.jqId=:jqId and EL.type=:type))";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("declId", declId);
             query.setString("teaCode", teaCode);

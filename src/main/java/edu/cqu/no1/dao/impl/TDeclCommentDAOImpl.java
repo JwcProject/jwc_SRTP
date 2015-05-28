@@ -24,12 +24,11 @@ public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements ed
     public static final String ISDELETED = "isdeleted";
 
     //通过专家评审id得到网评对象
-    @Override
     public TDeclComment findByExpertReview(String exReviewId)
     {
         log.debug("get TDeclComment by expertReview");
         try {
-            String queryString = "from TDeclComment td where td.isdeleted = 'N' and td.TExpertReview.exReviewId=:exReviewId";
+            String queryString = "from TDeclComment td where td.isdeleted = 'N' and td.exReviewId=:exReviewId";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("exReviewId", exReviewId);
             TDeclComment tDeclComment = null;
@@ -46,17 +45,14 @@ public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements ed
         }
     }
 
-    @Override
     public List findByDeclArgument(Object declArgument) {
         return findByProperty(DECL_ARGUMENT, declArgument);
     }
 
-    @Override
     public List findByCompEval(Object compEval) {
         return findByProperty(COMP_EVAL, compEval);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

@@ -23,23 +23,19 @@ public class TAchievemenTypeDAOImpl extends BaseDaoImpl<TAchievemenType> impleme
     public static final String ACHIEVEMENTYPE_INTRODUCTION = "achievementypeIntroduction";
     public static final String ISDELETED = "isdeleted";
 
-    @Override
     public List findByAchievementypeName(Object achievementypeName) {
         return findByProperty(ACHIEVEMENTYPE_NAME, achievementypeName);
     }
 
-    @Override
     public List findByAchievementypeIntroduction(
             Object achievementypeIntroduction) {
         return findByProperty(ACHIEVEMENTYPE_INTRODUCTION,
                 achievementypeIntroduction);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public static TAchievemenTypeDAOImpl getFromApplicationContext(
             ApplicationContext ctx) {

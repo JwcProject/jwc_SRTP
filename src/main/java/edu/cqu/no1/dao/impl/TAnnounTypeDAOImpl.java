@@ -23,8 +23,6 @@ public class TAnnounTypeDAOImpl extends BaseDaoImpl<TAnnounType> implements edu.
     public static final String ISDELETED = "isdeleted";
 
 
-
-    @Override
     public TAnnounType findByAnnounName(String announTypeName)
     {
         log.debug("finding TAnnounType by annoument name");
@@ -46,17 +44,13 @@ public class TAnnounTypeDAOImpl extends BaseDaoImpl<TAnnounType> implements edu.
         }
     }
 
-    @Override
     public List findByAnnounTypeName(Object announTypeName) {
         return findByProperty(ANNOUN_TYPE_NAME, announTypeName);
     }
-
-    @Override
+    
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
-
 
     public static TAnnounTypeDAO getFromApplicationContext(
             ApplicationContext ctx) {

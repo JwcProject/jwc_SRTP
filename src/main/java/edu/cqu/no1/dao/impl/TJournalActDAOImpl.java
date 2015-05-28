@@ -30,7 +30,6 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     public static final String USER_ID = "userId";
 
 
-    @Override
     public int getAllTJournalActCount()
     {
         log.debug("finding all TJournalAct counts");
@@ -54,7 +53,6 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     }
 
 
-    @Override
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TJournalAct instances");
         try {
@@ -74,7 +72,6 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     }
 
     //多条件查询获取查询列表
-    @Override
     public List findByMultiCondition(String userId, String journalactType, String journalactIntroduction, Date time, final PageBean pageBean) {
         log.debug("finding all SelectedTJournalAct instances");
         try {
@@ -145,7 +142,6 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     }
 
     //多条件查询获取查询列表长度
-    @Override
     public int findByMultiConditionCount(String userId, String journalactType, String journalactIntroduction, Date time) {
         log.debug("finding all SelectedTJournalAct counts");
         try {
@@ -221,27 +217,22 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
         }
     }
 
-    @Override
     public List findByJournalactType(Object journalactType) {
         return findByProperty(JOURNALACT_TYPE, journalactType);
     }
 
-    @Override
     public List findByJournalactIntroduction(Object journalactIntroduction) {
         return findByProperty(JOURNALACT_INTRODUCTION, journalactIntroduction);
     }
 
-    @Override
     public List findByJournalactRemark(Object journalactRemark) {
         return findByProperty(JOURNALACT_REMARK, journalactRemark);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    @Override
     public List findByUserId(Object userId) {
         return findByProperty(USER_ID, userId);
     }

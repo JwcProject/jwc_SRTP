@@ -20,12 +20,10 @@ public class TCreditDAOImpl extends BaseDaoImpl<TCredit> implements edu.cqu.no1.
     public static final String CREDIT_SCORE = "creditScore";
     public static final String ISDELETED = "isdeleted";
 
-    @Override
     public List findByCreditScore(Object creditScore) {
         return findByProperty(CREDIT_SCORE, creditScore);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

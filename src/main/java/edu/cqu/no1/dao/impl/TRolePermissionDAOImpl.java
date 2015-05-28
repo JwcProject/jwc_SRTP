@@ -22,14 +22,12 @@ public class TRolePermissionDAOImpl extends BaseDaoImpl<TRolePermission> impleme
     public static final String ISDELETED = "isdeleted";
 
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
 
 
-    @Override
     public List findByRoleId(String roleId) {
  /*       log.debug("finding all TRolePermission instances by role id");
         try {

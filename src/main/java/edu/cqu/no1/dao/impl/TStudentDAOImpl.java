@@ -31,7 +31,6 @@ public class TStudentDAOImpl extends BaseDaoImpl<TStudent> implements TStudentDA
     public static final String ISDELETED = "isdeleted";
 
 
-    @Override
     public List findStudentByCode(String code) {
         log.debug("find student by student code");
         try {
@@ -45,51 +44,41 @@ public class TStudentDAOImpl extends BaseDaoImpl<TStudent> implements TStudentDA
         }
     }
 
-    @Override
     public List findByStudentNumber(Object studentNumber) {
         return findByProperty(STUDENT_NUMBER, studentNumber);
     }
 
-    @Override
     public List findByStudentSex(Object studentSex) {
         return findByProperty(STUDENT_SEX, studentSex);
     }
 
-    @Override
     public List findByStudentName(Object studentName) {
         return findByProperty(STUDENT_NAME, studentName);
     }
 
-    @Override
     public List findByStudentAge(Object studentAge) {
         return findByProperty(STUDENT_AGE, studentAge);
     }
 
-    @Override
     public List findByStudentEmail(Object studentEmail) {
         return findByProperty(STUDENT_EMAIL, studentEmail);
     }
 
-    @Override
     public List findByStudentTelphone(Object studentTelphone) {
         return findByProperty(STUDENT_TELPHONE, studentTelphone);
     }
 
-    @Override
     public List findByStudentDegree(Object studentDegree) {
         return findByProperty(STUDENT_DEGREE, studentDegree);
     }
 
-    @Override
     public List findByStudentRemark(Object studentRemark) {
         return findByProperty(STUDENT_REMARK, studentRemark);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public static TStudentDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TStudentDAO) ctx.getBean("TStudentDAO");

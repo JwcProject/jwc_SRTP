@@ -25,39 +25,32 @@ public class TProjectChangeContentDAOImpl extends BaseDaoImpl<TProjectChangeCont
     public static final String ISDELETED = "isdeleted";
 
 
-
-    @Override
     public List findByProjectchangecontentField(Object projectchangecontentField) {
         return findByProperty(PROJECTCHANGECONTENT_FIELD,
                 projectchangecontentField);
     }
 
-    @Override
     public List findByProjectchangecontentFieldname(
             Object projectchangecontentFieldname) {
         return findByProperty(PROJECTCHANGECONTENT_FIELDNAME,
                 projectchangecontentFieldname);
     }
 
-    @Override
     public List findByProjectchangecontentOvalue(
             Object projectchangecontentOvalue) {
         return findByProperty(PROJECTCHANGECONTENT_OVALUE,
                 projectchangecontentOvalue);
     }
 
-    @Override
     public List findByProjectchangecontentNvalue(
             Object projectchangecontentNvalue) {
         return findByProperty(PROJECTCHANGECONTENT_NVALUE,
                 projectchangecontentNvalue);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
 
     public static TProjectChangeContentDAO getFromApplicationContext(

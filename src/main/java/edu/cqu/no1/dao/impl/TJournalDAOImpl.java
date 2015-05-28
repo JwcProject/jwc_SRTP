@@ -29,22 +29,18 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements edu.cqu.no
     public static final String JOURNAL_LOGINIP = "journalLoginip";
 
 
-    @Override
     public List findByUserName(Object userName) {
         return findByProperty(USER_NAME, userName);
     }
 
-    @Override
     public List findByJournalRemark(Object journalRemark) {
         return findByProperty(JOURNAL_REMARK, journalRemark);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    @Override
     public List findByJournalLoginip(Object journalLoginip) {
         return findByProperty(JOURNAL_LOGINIP, journalLoginip);
     }
@@ -57,14 +53,12 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements edu.cqu.no
      * **********************************
      */
 
-    @Override
     public List findByQueryString(String queryString) {
         //return getHibernateTemplate().find(queryString);
         return null;
     }
 
     //多条件查询获取查询列表
-    @Override
     public List findByMultiCondition(String userId, String userName, String journalLoginip, Date journalLogintime, Date journalQuitime, final PageBean pageBean) {
         log.debug("finding all SelectedTJournal instances");
         try {
@@ -137,7 +131,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements edu.cqu.no
     }
 
     //多条件查询获取查询列表长度
-    @Override
     public int findByMultiConditionCount(String userId, String userName, String journalLoginip, Date journalLogintime, Date journalQuitime) {
         log.debug("finding all SelectedTJournal counts");
         try {
@@ -212,7 +205,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements edu.cqu.no
         }
     }
 
-    @Override
     public int getAllTJournalCount() {
         log.debug("finding all TJournal counts");
         try {
@@ -234,7 +226,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements edu.cqu.no
     }
 
 
-    @Override
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TJournal instances");
         try {

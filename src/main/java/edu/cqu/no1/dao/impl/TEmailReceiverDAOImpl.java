@@ -25,27 +25,22 @@ public class TEmailReceiverDAOImpl extends BaseDaoImpl<TEmailReceiver> implement
     public static final String IS_RECEIVED = "isReceived";
     public static final String ISDELETED = "isdeleted";
 
-    @Override
     public List findByReceiverCode(Object receiverCode) {
         return findByProperty(RECEIVER_CODE, receiverCode);
     }
 
-    @Override
     public List findByReceiverRole(Object receiverRole) {
         return findByProperty(RECEIVER_ROLE, receiverRole);
     }
 
-    @Override
     public List findByEmailAddress(Object emailAddress) {
         return findByProperty(EMAIL_ADDRESS, emailAddress);
     }
 
-    @Override
     public List findByIsReceived(Object isReceived) {
         return findByProperty(IS_RECEIVED, isReceived);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

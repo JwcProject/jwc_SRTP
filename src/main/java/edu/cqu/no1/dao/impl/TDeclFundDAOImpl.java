@@ -25,22 +25,18 @@ public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.
     public static final String AMOUNT = "amount";
     public static final String ISDELETED = "isdeleted";
 
-    @Override
     public List findBySerialNum(Object serialNum) {
         return findByProperty(SERIAL_NUM, serialNum);
     }
 
-    @Override
     public List findByFundContent(Object fundContent) {
         return findByProperty(FUND_CONTENT, fundContent);
     }
 
-    @Override
     public List findByAmount(Object amount) {
         return findByProperty(AMOUNT, amount);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
@@ -50,12 +46,11 @@ public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.
         return (TDeclFundDAO) ctx.getBean("TDeclFundDAO");
     }
 
-    @Override
     public List<TDeclFund> findByDeclarId(String declarId){
         log.debug("finding all TDeclFund instances");
         try {
             String queryStr = "from TDeclFund as a where a.isdeleted = 'N' " +
-                    "and a.TDeclaration.declarId=:code ";
+                    "and a.declarId=:code ";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", declarId);
@@ -66,7 +61,7 @@ public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.
             throw re;
         }
     }
-    @Override
+
     public int deleteFundByDeclId(String declarId) throws Exception{
         log.debug("deleteFundByDeclId");
         try {

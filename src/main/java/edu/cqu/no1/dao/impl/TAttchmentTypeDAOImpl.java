@@ -21,12 +21,10 @@ public class TAttchmentTypeDAOImpl extends BaseDaoImpl<TAttchmentType> implement
     public static final String ATTA_TYPE_NAME = "attaTypeName";
     public static final String ISDELETED = "isdeleted";
 
-    @Override
     public List findByAttaTypeName(Object attaTypeName) {
         return findByProperty(ATTA_TYPE_NAME, attaTypeName);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

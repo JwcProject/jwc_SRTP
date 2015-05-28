@@ -27,10 +27,10 @@ public class TEndProjectCommentDAOImpl extends BaseDaoImpl<TEndProjectComment> i
 
 
     //获取一个教师可以评审的结题
-    @Override
     public List<TEndProjectComment> findMyReviewEndPros(String teaCode, PageBean pageBean){
         log.debug("finding teacher review TEndProjectComment by pageBean");
         try {
+            // TODO
             String sql = "From TEndProjectComment T where T.isdeleted='N' and T.TEndProjectExport.TExpertTeacher.TTeacher.teaCode=:code";
             Query query = getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString("code", teaCode);
@@ -42,10 +42,11 @@ public class TEndProjectCommentDAOImpl extends BaseDaoImpl<TEndProjectComment> i
             throw e;
         }
     }
-    @Override
+
     public int findMyReviewEndProsCount(String teaCode){
         log.debug("finding teacher review TEndProjectComment count");
         try {
+            // TODO
             String sql = "select count(*) From TEndProjectComment T where T.isdeleted='N' and T.TEndProjectExport.TExpertTeacher.TTeacher.teaCode=:code";
             Query query = getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString("code", teaCode);
@@ -61,18 +62,15 @@ public class TEndProjectCommentDAOImpl extends BaseDaoImpl<TEndProjectComment> i
         }
     }
 
-    @Override
     public List findByEndprojectcommentAdvise(Object endprojectcommentAdvise) {
         return findByProperty(ENDPROJECTCOMMENT_ADVISE, endprojectcommentAdvise);
     }
 
-    @Override
     public List findByEndprojectcommentContent(Object endprojectcommentContent) {
         return findByProperty(ENDPROJECTCOMMENT_CONTENT,
                 endprojectcommentContent);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

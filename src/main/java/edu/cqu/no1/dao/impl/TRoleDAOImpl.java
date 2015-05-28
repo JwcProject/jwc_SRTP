@@ -26,35 +26,27 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     public static final String ISDELETED = "isdeleted";
 
 
-
-    @Override
     public List findByRoleName(Object roleName) {
         return findByProperty(ROLE_NAME, roleName);
     }
 
-    @Override
     public List findByRoleState(Object roleState) {
         return findByProperty(ROLE_STATE, roleState);
     }
 
-    @Override
     public List findByRoleIntroduction(Object roleIntroduction) {
         return findByProperty(ROLE_INTRODUCTION, roleIntroduction);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
-
 
     public static TRoleDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TRoleDAO) ctx.getBean("TRoleDAO");
     }
 
     //获取Role数量
-    @Override
     @SuppressWarnings("rawtypes")
     public int getAllTRoleCount()
     {
@@ -78,7 +70,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
         }
     }
 
-    @Override
     @SuppressWarnings("rawtypes")
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TRole instances");
@@ -96,7 +87,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
         }
     }
 
-    @Override
     @SuppressWarnings("rawtypes")
     public List findByKeyword(String keyword, PageBean pageBean) {
         log.debug("find TRole by keyword");
@@ -121,7 +111,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
         }
     }
 
-    @Override
     @SuppressWarnings("rawtypes")
     public int getRoleByKeywordCount(String keyword) {
         log.debug("find role count by keyword");
@@ -150,7 +139,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     }
 
     //通过用户id查询到该用户的角色名称
-    @Override
     public String findRoleNameByUserId(String userId){
         log.debug("find roleName by userId");
         try {

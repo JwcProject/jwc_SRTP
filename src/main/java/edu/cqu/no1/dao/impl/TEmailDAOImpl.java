@@ -26,32 +26,26 @@ public class TEmailDAOImpl extends BaseDaoImpl<TEmail> implements edu.cqu.no1.da
     public static final String ISDELETED = "isdeleted";
 
 
-    @Override
     public List findByEmailTitle(Object emailTitle) {
         return findByProperty(EMAIL_TITLE, emailTitle);
     }
 
-    @Override
     public List findByEmailContent(Object emailContent) {
         return findByProperty(EMAIL_CONTENT, emailContent);
     }
 
-    @Override
     public List findBySender(Object sender) {
         return findByProperty(SENDER, sender);
     }
 
-    @Override
     public List findByEmailSecret(Object emailSecret) {
         return findByProperty(EMAIL_SECRET, emailSecret);
     }
 
-    @Override
     public List findBySendState(Object sendState) {
         return findByProperty(SEND_STATE, sendState);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

@@ -60,7 +60,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public void delete(Class<T> entityClazz, Serializable id) {
         getSessionFactory().getCurrentSession()
                 .createQuery("delete " + entityClazz.getSimpleName()
-                        + " en where en.id = ?0")
+                        + " en where en.id = ?")
                 .setParameter("0", id)
                 .executeUpdate();
     }
@@ -151,27 +151,22 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
 
-    @Override
     public List findByExample(T instance) {
         return null;
     }
 
-    @Override
     public List findByProperty(String propertyName, Object value) {
         return null;
     }
 
-    @Override
     public T merge(T detachedInstance) {
         return null;
     }
 
-    @Override
     public void attachDirty(T instance) {
 
     }
 
-    @Override
     public void attachClean(T instance) {
 
     }

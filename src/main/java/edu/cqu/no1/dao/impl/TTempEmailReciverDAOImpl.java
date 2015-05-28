@@ -29,11 +29,10 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
     public static final String TYPE="type";
 
 
-    @Override
     public List findTempEmailReciverByJQid(String jqId) {
         log.debug("find tempEmailReciver by JQ id");
         try {
-            String queryStr = "from TTempEmailReciver t where t.isdeleted = 'N' and t.jqId=:jqId)";
+            String queryStr = "from TTempEmailReciver t where t.isdeleted = 'N' and t.jqId=:jqId";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jqId);
 
@@ -52,13 +51,14 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
      *@param teaCode
      *@return
      */
-    @Override
     @SuppressWarnings("unchecked")
     public List<TTempEmailReciver> findTempEmailRecivers(String jqId,
                                                          String teaCode, String type) {
         log.debug("find tempEmailRecivers by jieqi Id and teaCode ");
         try {
-            String queryStr = "from TTempEmailReciver t where t.isdeleted = 'N' and t.type=:type and t.jqId=:jqId and t.departId=(select TT.TUnit.unitId from TTeacher TT where TT.isdeleted='N' and TT.teaCode=:code)";
+            String queryStr = "from TTempEmailReciver t where t.isdeleted = 'N' and t.type=:type and t.jqId=:jqId" +
+                    " and t.departId=(select TT.unitId from TTeacher TT" +
+                    " where TT.isdeleted='N' and TT.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jqId);
             query.setString("type", type);
@@ -71,11 +71,12 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
     }
 
     // 通过届期ID和主管教师教职工号查找临时邮件接收人的邮箱
-    @Override
     public List findEmailByJQid(String jqId, String teaCode, String type) {
         log.debug("find tempEmailReciver by JQ id and teaCode");
         try {
-            String queryStr = "select distinct t.email from TTempEmailReciver t where t.isdeleted = 'N' and t.type=:type and t.jqId=:jqId and t.departId=(select TT.TUnit.unitId from TTeacher TT where TT.isdeleted='N' and TT.teaCode=:code)";
+            String queryStr = "select distinct t.email from TTempEmailReciver t where t.isdeleted = 'N'" +
+                    " and t.type=:type and t.jqId=:jqId and t.departId=(select TT.unitId from TTeacher TT" +
+                    " where TT.isdeleted='N' and TT.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jqId);
             query.setString("type", type);
@@ -88,7 +89,6 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
     }
 
     // 通过届期和教师工号得到临时邮件收信人
-    @Override
     public TTempEmailReciver findTempEmailReciver(String jqId, String teaCode) {
         log.debug("find tempEmailReciver ");
         try {
@@ -108,32 +108,26 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
         }
     }
 
-    @Override
     public List findByDepartId(Object departId) {
         return findByProperty(DEPART_ID, departId);
     }
 
-    @Override
     public List findByJqId(Object jqId) {
         return findByProperty(JQ_ID, jqId);
     }
 
-    @Override
     public List findByCode(Object code) {
         return findByProperty(CODE, code);
     }
 
-    @Override
     public List findByName(Object name) {
         return findByProperty(NAME, name);
     }
 
-    @Override
     public List findByEmail(Object email) {
         return findByProperty(EMAIL, email);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

@@ -31,11 +31,10 @@ public class TEndprojectJobDAOImpl extends BaseDaoImpl<TEndprojectJob> implement
      *@param endprojectId
      *@return
      */
-    @Override
     public List findEndProJobsByEndProId(String endprojectId){
         log.debug("find endprojectjobs by endproject id");
         try {
-            String queryString = "From TEndprojectJob T where T.isdeleted='N' and T.TEndProject.endprojectId=:id";
+            String queryString = "From TEndprojectJob T where T.isdeleted='N' and T.endprojectId=:id";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("id", endprojectId);
             return query.list();
@@ -45,21 +44,18 @@ public class TEndprojectJobDAOImpl extends BaseDaoImpl<TEndprojectJob> implement
         }
     }
 
-    @Override
     public List findByJobContent(Object jobContent
     ) {
         return findByProperty(JOB_CONTENT, jobContent
         );
     }
 
-    @Override
     public List findByFinished(Object finished
     ) {
         return findByProperty(FINISHED, finished
         );
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted
     ) {
         return findByProperty(ISDELETED, isdeleted

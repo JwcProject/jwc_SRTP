@@ -167,7 +167,8 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
     public TEndProject findByLeaderCode(String leaderCode){
         log.debug("find endproject by leader code");
         try {
-            String sqlString="from TEndProject T where T.isdeleted = 'N' and T.TProject.TStudentByProjectLeader.studentNumber=:number";
+            String sqlString="from TEndProject T where T.isdeleted = 'N' and" +
+                    " T.projectId = (select projectId from TProject where projectLeader = :number)";
             Query query = getSessionFactory().getCurrentSession().createQuery(sqlString);
             query.setString("number", leaderCode);
             List list = query.list();
@@ -347,7 +348,9 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
                                        PageBean pageBean) {
         log.debug("finding unit all TEndproject instances by pageBean");
         try {
-            String queryStr = "From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01' and T.endprojectState =:checkState and T.TProject.TUnit.unitId = (select TE.TUnit.unitId From TTeacher TE where TE.teaCode =:code) order by T.TProject.projectBegintime desc";
+            String queryStr = "From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01' and" +
+                    " T.endprojectState =:checkState and T.unitId = (select TE.unitId From TTeacher TE where" +
+                    " TE.teaCode =:code) order by (select projectBegintime from TProject where projectId = T.projectId) desc";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
             query.setString("checkState", checkState);
@@ -363,7 +366,10 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
     public int getUnitEndProCount(String unitTeaCode, String checkState) {
         log.debug("get unit TEndproject count");
         try {
-            String queryStr = "select count(*) From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01' and T.endprojectState =:checkState and T.TProject.TUnit.unitId = (select TE.TUnit.unitId From TTeacher TE where TE.teaCode =:code)";
+            // TODO
+            String queryStr = "select count(*) From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01'" +
+                    " and T.endprojectState =:checkState and T.TProject.TUnit.unitId =" +
+                    " (select TE.unitId From TTeacher TE where TE.teaCode =:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
             query.setString("checkState", checkState);
@@ -391,7 +397,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
     public List findMyEndProjects(String studentNum) {
         log.debug("find endprojects by leadercodes");
         try {
-
+            // TODO
             String sql = "From TEndProject T where (T.TProject.TStudentByProjectLeader.studentId=(select S.studentId from TStudent S where S.studentNumber=:number and S.isdeleted='N') or T.TProject.TStudentByProjectUser1.studentId=(select S.studentId from TStudent S where S.studentNumber=:number and S.isdeleted='N') or T.TProject.TStudentByProjectUser2.studentId=(select S.studentId from TStudent S where S.studentNumber=:number and S.isdeleted='N')) and T.isdeleted='N'";
             Query query = getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString("number", studentNum);

@@ -35,7 +35,6 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.
      *@param endproId
      *@return
      */
-    @Override
     public List findAttachsByEndProId(String endproId){
         log.debug("find attachments by endproject id");
         try {
@@ -49,37 +48,30 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.
         }
     }
 
-    @Override
     public List findByFileName(Object fileName) {
         return findByProperty(FILE_NAME, fileName);
     }
 
-    @Override
     public List findByFileFormat(Object fileFormat) {
         return findByProperty(FILE_FORMAT, fileFormat);
     }
 
-    @Override
     public List findByFileUrl(Object fileUrl) {
         return findByProperty(FILE_URL, fileUrl);
     }
 
-    @Override
     public List findByUploaderCode(Object uploaderCode) {
         return findByProperty(UPLOADER_CODE, uploaderCode);
     }
 
-    @Override
     public List findByUploaderRole(Object uploaderRole) {
         return findByProperty(UPLOADER_ROLE, uploaderRole);
     }
 
-    @Override
     public List findByObjectCode(Object objectCode) {
         return findByProperty(OBJECT_CODE, objectCode);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
@@ -88,7 +80,7 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.
             ApplicationContext ctx) {
         return (TAttachmentDAO) ctx.getBean("TAttachmentDAO");
     }
-    @Override
+
     public void deleteTAttachmentsByObjectCode(String objectId){
         log.debug("deleteTAttachmentsByObjectCode");
         try {

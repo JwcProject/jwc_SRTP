@@ -26,17 +26,14 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
     public static final String TYPE="type";
 
 
-    @Override
     public List findByIsAssigned(Object isAssigned) {
         return findByProperty(IS_ASSIGNED, isAssigned);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    @Override
     public List findByTYPE(Object type) {
         return findByProperty(TYPE, type);
     }
@@ -50,12 +47,11 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
      *@param pageBean
      *@return
      */
-    @Override
     @SuppressWarnings("unchecked")
     public List<TExpertLib> findExpsByUnitTeaCode(String teaCode, String type, PageBean pageBean) {
         log.debug("get unit expert team");
         try {
-            String queryString="from TExpertLib T where T.isdeleted = 'N' and T.type=:type and T.TTeacher.TUnit.unitId in (select Te.TUnit.unitId from TTeacher Te where Te.teaCode=:code)";
+            String queryString="from TExpertLib T where T.isdeleted = 'N' and T.type=:type and T.unitId in (select Te.unitId from TTeacher Te where Te.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("code", teaCode);
             query.setString("type", type);
@@ -68,11 +64,12 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
         }
     }
 
-    @Override
     public int findExpsCountByUnitTeaCode(String teaCode, String type) {
         log.debug("get unit expert team count");
         try {
-            String queryString="Select count(*) From TExpertLib T where T.isdeleted='N' and T.type=:type and T.TTeacher.TUnit.unitId in (select Te.TUnit.unitId from TTeacher Te where Te.teaCode=:code)";
+            String queryString="Select count(*) From TExpertLib T where T.isdeleted='N' and" +
+                    " T.type=:type and T.unitId in (select Te.unitId from TTeacher Te" +
+                    " where Te.teaCode=:code)";
 //			System.out.println(queryString);
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("code", teaCode);
@@ -96,11 +93,13 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
      *@param type 专家库的类型（01为申报的，02为结题的）
      *@return
      */
-    @Override
     public TExpertLib findNowJieQiExpLib(String type){
         log.debug("get ExpertLib Now");
         try {
-            String queryString = "from TExpertLib as model where SYSDATE() between model.TJieqi.startOn and model.TJieqi.endOn and model.isdeleted='N' and model.type=:type";
+            String queryString = "from TExpertLib as model where current_date() between" +
+                    " (select startOn from TJieqi where model.jqId = jqId) and" +
+                    " (select endOn from TJieqi where model.jqId = jqId) and" +
+                    " model.isdeleted='N' and model.type=:type";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("type", type);
             List list = query.list();
@@ -120,11 +119,10 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
     /**
      * 根据届期查询专家库
      */
-    @Override
     public List findExpertLibByQici(String jieqiId, String unitId, String type){
         log.debug("findExpertLibByQici");
         try {
-            String queryString="from TExpertLib T where T.isdeleted = 'N' and T.TJieqi.jqId=:jqId and T.TUnit.unitId = :unitId and T.type= :type";
+            String queryString="from TExpertLib T where T.isdeleted = 'N' and T.jqId=:jqId and T.unitId = :unitId and T.type= :type";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("jqId", jieqiId);
             query.setString("unitId", unitId);

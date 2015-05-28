@@ -31,42 +31,34 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.
     public static final String ISDELETED = "isdeleted";
 
 
-    @Override
     public List findByPermissionName(Object permissionName) {
         return findByProperty(PERMISSION_NAME, permissionName);
     }
 
-    @Override
     public List findByPermissionState(Object permissionState) {
         return findByProperty(PERMISSION_STATE, permissionState);
     }
 
-    @Override
     public List findByPermissionUrl(Object permissionUrl) {
         return findByProperty(PERMISSION_URL, permissionUrl);
     }
 
-    @Override
     public List findByPermissionLevel(Object permissionLevel) {
         return findByProperty(PERMISSION_LEVEL, permissionLevel);
     }
 
-    @Override
     public List findByPermissionFatherid(Object permissionFatherid) {
         return findByProperty(PERMISSION_FATHERID, permissionFatherid);
     }
 
-    @Override
     public List findByPermissionIntroduction(Object permissionIntroduction) {
         return findByProperty(PERMISSION_INTRODUCTION, permissionIntroduction);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    @Override
     public int getAllTPermissionCount()
     {
         log.debug("finding all TPermission counts");
@@ -97,7 +89,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.
     }
 
 
-    @Override
     public List findAll(PageBean pageBean) {
         log.debug("finding all TPermission instances");
         try {
@@ -112,7 +103,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.
         }
     }
     //write by pzh
-    @Override
     public List findAllExceptDeleted() {
         log.debug("finding all TPermission instances except deleted");
         try {
@@ -138,7 +128,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.
     /**
      * 过滤查询
      */
-    @Override
     public List seachPermission(TPermission instance, PageBean pageBean){
         log.debug("search TPermission instances except deleted");
         try {
@@ -158,7 +147,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.
             throw re;
         }
     }
-    @Override
     public int getSearchCount(TPermission instance){
         log.debug("search TPermission count except deleted");
         try {
@@ -209,7 +197,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements edu.
         }
         return query;
     }
-    @Override
     @SuppressWarnings("unchecked")
     public List getChildPermissionsById(String id){
         String sql = "from TPermission where isdeleted='N' and permissionFatherid is null";

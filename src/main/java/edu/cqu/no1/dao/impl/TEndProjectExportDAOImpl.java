@@ -30,11 +30,12 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
      *@param jieqiId
      *@return
      */
-    @Override
     public List<TEndProjectExport> findMyReviewEndPros(String teaCode, String jieqiId, PageBean pageBean){
         log.debug("find my review endprojects");
         try {
-            String queryString = "From TEndProjectExport T where T.isdeleted='N' and T.TExpertTeacher.TTeacher.teaCode=:code and T.TEndProject.TJieqi.jqId=:id";
+            String queryString = "From TEndProjectExport T where T.isdeleted='N' and" +
+                    " T.expertId = (select teaId from TTeacher where teaCode = :code) and" +
+                    " T.endprojectId = :id";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("code", teaCode);
             query.setString("id", jieqiId);
@@ -55,11 +56,11 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
      *@param endProId
      *@return
      */
-    @Override
     public TEndProjectExport findEndProExp(String teaCode, String endProId){
         log.debug("find TEndProjectExport by teaCode and endprojectId");
         try {
-            String queryString="From TEndProjectExport T where T.isdeleted='N' and T.TEndProject.endprojectId=:id and T.TExpertTeacher.TTeacher.teaCode=:code";
+            String queryString="From TEndProjectExport T where T.isdeleted='N' and T.endprojectId=:id and" +
+                    " T.expertId = (select teaId from TTeacher where teaCode = :code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("id", endProId);
             query.setString("code", teaCode);
@@ -74,11 +75,12 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
             throw e;
         }
     }
-    @Override
     public int findMyReviewEndPros(String teaCode, String jieqiId){
         log.debug("find my review endprojects");
         try {
-            String queryString = "select count(*) From TEndProjectExport T where T.isdeleted='N' and T.TExpertTeacher.TTeacher.teaCode=:code and T.TEndProject.TJieqi.jqId=:id";
+            String queryString = "select count(*) From TEndProjectExport T where T.isdeleted='N' and" +
+                    " T.expertId = (select teaId from TTeacher where teaCode = :code) and" +
+                    " T.endprojectId = :id";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("code", teaCode);
             query.setString("id", jieqiId);
@@ -95,7 +97,6 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
     }
 
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
