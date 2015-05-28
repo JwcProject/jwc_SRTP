@@ -28,37 +28,30 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     public static final String ISDELETED = "isdeleted";
     public static final String USER_TYPE = "userType";
 
-    @Override
     public List<TUser> findByUserName(Object userName) {
         return findByProperty(USER_NAME, userName);
     }
 
-    @Override
     public List<TUser> findByUserPassword(Object userPassword) {
         return findByProperty(USER_PASSWORD, userPassword);
     }
 
-    @Override
     public List<TUser> findByUserState(Object userState) {
         return findByProperty(USER_STATE, userState);
     }
 
-    @Override
     public List<TUser> findByUserIntroduction(Object userIntroduction) {
         return findByProperty(USER_INTRODUCTION, userIntroduction);
     }
 
-    @Override
     public List<TUser> findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    @Override
     public List<TUser> findByUserType(Object userType) {
         return findByProperty(USER_TYPE, userType);
     }
 
-    @Override
     public int getAllTUserCount()
     {
         log.debug("finding all TUser counts");
@@ -88,7 +81,6 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         }
     }
 
-    @Override
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TUser instances");
         try {
@@ -122,7 +114,6 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         }
     }
 
-    @Override
     public int getTUserCountByMutiProperty(String userId, String userName, String userType, String userState)
     {
         log.debug("finding all getTUserCountByMutiProperty");
@@ -197,7 +188,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         }
     }
 
-    @Override
+
     public List getTUserByMutiProperty(String userId, String userName, String userType, String userState, final PageBean pageBean)
     {
         log.debug("finding all getTUserCountByMutiProperty");
@@ -269,7 +260,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     public static TUserDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TUserDAO) ctx.getBean("TUserDAO");
     }
-    @Override
+
     public List findByUserIdAndPwd(String userId, String password){
         log.debug("findByUserIdAndPwd");
         try {

@@ -21,8 +21,6 @@ public class TUserRoleDAOImpl extends BaseDaoImpl<TUserRole> implements TUserRol
     // property constants
     public static final String ISDELETED = "isdeleted";
 
-
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }

@@ -27,32 +27,26 @@ public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
     public static final String ISDELETED = "isdeleted";
 
 
-    @Override
     public List findByUnitName(Object unitName) {
         return findByProperty(UNIT_NAME, unitName);
     }
 
-    @Override
     public List findByUnitType(Object unitType) {
         return findByProperty(UNIT_TYPE, unitType);
     }
 
-    @Override
     public List findByUnitFatherid(Object unitFatherid) {
         return findByProperty(UNIT_FATHERID, unitFatherid);
     }
 
-    @Override
     public List findByUnitCode(Object unitCode) {
         return findByProperty(UNIT_CODE, unitCode);
     }
 
-    @Override
     public List findByUnitRemark(Object unitRemark) {
         return findByProperty(UNIT_REMARK, unitRemark);
     }
 
-    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
@@ -66,7 +60,6 @@ public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
     /**
      * 根据教师ID查询单位
      */
-    @Override
     public TUnit getUnitByTeacherId(String teaId){
         log.debug("getUnitByUserId");
         try {
@@ -85,7 +78,6 @@ public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
             throw re;
         }
     }
-    @Override
     public List getAllColleges(){
         log.debug("getAllColleges");
         try {
