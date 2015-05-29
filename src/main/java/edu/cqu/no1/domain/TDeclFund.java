@@ -3,7 +3,7 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_decl_fund", schema = "", catalog = "srtp")
@@ -12,11 +12,11 @@ public class TDeclFund {
     private String declarId;
     private String serialNum;
     private String fundContent;
-    private Double amount;
+    private Float amount;
     private String isdeleted;
 
     @Id
-    @Column(name = "DECL_FUND_ID")
+    @Column(name = "decl_fund_id")
     public String getDeclFundId() {
         return declFundId;
     }
@@ -26,7 +26,7 @@ public class TDeclFund {
     }
 
     @Basic
-    @Column(name = "DECLAR_ID")
+    @Column(name = "declar_id")
     public String getDeclarId() {
         return declarId;
     }
@@ -36,7 +36,7 @@ public class TDeclFund {
     }
 
     @Basic
-    @Column(name = "SERIAL_NUM")
+    @Column(name = "serial_num")
     public String getSerialNum() {
         return serialNum;
     }
@@ -46,7 +46,7 @@ public class TDeclFund {
     }
 
     @Basic
-    @Column(name = "FUND_CONTENT")
+    @Column(name = "fund_content")
     public String getFundContent() {
         return fundContent;
     }
@@ -56,17 +56,17 @@ public class TDeclFund {
     }
 
     @Basic
-    @Column(name = "AMOUNT")
-    public Double getAmount() {
+    @Column(name = "amount")
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -82,13 +82,13 @@ public class TDeclFund {
 
         TDeclFund tDeclFund = (TDeclFund) o;
 
-        if (amount != null ? !amount.equals(tDeclFund.amount) : tDeclFund.amount != null) return false;
         if (declFundId != null ? !declFundId.equals(tDeclFund.declFundId) : tDeclFund.declFundId != null) return false;
         if (declarId != null ? !declarId.equals(tDeclFund.declarId) : tDeclFund.declarId != null) return false;
+        if (serialNum != null ? !serialNum.equals(tDeclFund.serialNum) : tDeclFund.serialNum != null) return false;
         if (fundContent != null ? !fundContent.equals(tDeclFund.fundContent) : tDeclFund.fundContent != null)
             return false;
+        if (amount != null ? !amount.equals(tDeclFund.amount) : tDeclFund.amount != null) return false;
         if (isdeleted != null ? !isdeleted.equals(tDeclFund.isdeleted) : tDeclFund.isdeleted != null) return false;
-        if (serialNum != null ? !serialNum.equals(tDeclFund.serialNum) : tDeclFund.serialNum != null) return false;
 
         return true;
     }

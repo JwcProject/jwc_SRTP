@@ -3,7 +3,7 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_code", schema = "", catalog = "srtp")
@@ -15,7 +15,7 @@ public class TCode {
     private String isdeleted;
 
     @Id
-    @Column(name = "ENCODE_ID")
+    @Column(name = "encode_id")
     public String getEncodeId() {
         return encodeId;
     }
@@ -25,7 +25,7 @@ public class TCode {
     }
 
     @Basic
-    @Column(name = "ENCODE_VALUE")
+    @Column(name = "encode_value")
     public String getEncodeValue() {
         return encodeValue;
     }
@@ -35,7 +35,7 @@ public class TCode {
     }
 
     @Basic
-    @Column(name = "ENCODE_DESC")
+    @Column(name = "encode_desc")
     public String getEncodeDesc() {
         return encodeDesc;
     }
@@ -45,7 +45,7 @@ public class TCode {
     }
 
     @Basic
-    @Column(name = "ENCODE_REMARK")
+    @Column(name = "encode_remark")
     public String getEncodeRemark() {
         return encodeRemark;
     }
@@ -55,7 +55,7 @@ public class TCode {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -71,10 +71,10 @@ public class TCode {
 
         TCode tCode = (TCode) o;
 
-        if (encodeDesc != null ? !encodeDesc.equals(tCode.encodeDesc) : tCode.encodeDesc != null) return false;
         if (encodeId != null ? !encodeId.equals(tCode.encodeId) : tCode.encodeId != null) return false;
-        if (encodeRemark != null ? !encodeRemark.equals(tCode.encodeRemark) : tCode.encodeRemark != null) return false;
         if (encodeValue != null ? !encodeValue.equals(tCode.encodeValue) : tCode.encodeValue != null) return false;
+        if (encodeDesc != null ? !encodeDesc.equals(tCode.encodeDesc) : tCode.encodeDesc != null) return false;
+        if (encodeRemark != null ? !encodeRemark.equals(tCode.encodeRemark) : tCode.encodeRemark != null) return false;
         if (isdeleted != null ? !isdeleted.equals(tCode.isdeleted) : tCode.isdeleted != null) return false;
 
         return true;

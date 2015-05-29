@@ -3,7 +3,7 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_funds", schema = "", catalog = "srtp")
@@ -12,8 +12,8 @@ public class TFunds {
     private String projectId;
     private String fundsId;
     private String fundsName;
-    private String fundsIsreimburse;
-    private Double fundsMoney;
+    private String fundsIsReimburse;
+    private Float fundsMoney;
     private String fundsDetail;
     private String fundsUse;
     private String isdeleted;
@@ -29,7 +29,7 @@ public class TFunds {
     }
 
     @Basic
-    @Column(name = "PROJECT_ID")
+    @Column(name = "project_id")
     public String getProjectId() {
         return projectId;
     }
@@ -39,7 +39,7 @@ public class TFunds {
     }
 
     @Basic
-    @Column(name = "FUNDS_ID")
+    @Column(name = "funds_id")
     public String getFundsId() {
         return fundsId;
     }
@@ -49,7 +49,7 @@ public class TFunds {
     }
 
     @Basic
-    @Column(name = "FUNDS_NAME")
+    @Column(name = "funds_name")
     public String getFundsName() {
         return fundsName;
     }
@@ -59,27 +59,27 @@ public class TFunds {
     }
 
     @Basic
-    @Column(name = "FUNDS_ISREIMBURSE")
-    public String getFundsIsreimburse() {
-        return fundsIsreimburse;
+    @Column(name = "funds_isReimburse")
+    public String getFundsIsReimburse() {
+        return fundsIsReimburse;
     }
 
-    public void setFundsIsreimburse(String fundsIsreimburse) {
-        this.fundsIsreimburse = fundsIsreimburse;
+    public void setFundsIsReimburse(String fundsIsReimburse) {
+        this.fundsIsReimburse = fundsIsReimburse;
     }
 
     @Basic
-    @Column(name = "FUNDS_MONEY")
-    public Double getFundsMoney() {
+    @Column(name = "funds_money")
+    public Float getFundsMoney() {
         return fundsMoney;
     }
 
-    public void setFundsMoney(Double fundsMoney) {
+    public void setFundsMoney(Float fundsMoney) {
         this.fundsMoney = fundsMoney;
     }
 
     @Basic
-    @Column(name = "FUNDS_DETAIL")
+    @Column(name = "funds_detail")
     public String getFundsDetail() {
         return fundsDetail;
     }
@@ -89,7 +89,7 @@ public class TFunds {
     }
 
     @Basic
-    @Column(name = "FUNDS_USE")
+    @Column(name = "funds_use")
     public String getFundsUse() {
         return fundsUse;
     }
@@ -99,7 +99,7 @@ public class TFunds {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -115,16 +115,16 @@ public class TFunds {
 
         TFunds tFunds = (TFunds) o;
 
-        if (fundsDetail != null ? !fundsDetail.equals(tFunds.fundsDetail) : tFunds.fundsDetail != null) return false;
+        if (id != null ? !id.equals(tFunds.id) : tFunds.id != null) return false;
+        if (projectId != null ? !projectId.equals(tFunds.projectId) : tFunds.projectId != null) return false;
         if (fundsId != null ? !fundsId.equals(tFunds.fundsId) : tFunds.fundsId != null) return false;
-        if (fundsIsreimburse != null ? !fundsIsreimburse.equals(tFunds.fundsIsreimburse) : tFunds.fundsIsreimburse != null)
+        if (fundsName != null ? !fundsName.equals(tFunds.fundsName) : tFunds.fundsName != null) return false;
+        if (fundsIsReimburse != null ? !fundsIsReimburse.equals(tFunds.fundsIsReimburse) : tFunds.fundsIsReimburse != null)
             return false;
         if (fundsMoney != null ? !fundsMoney.equals(tFunds.fundsMoney) : tFunds.fundsMoney != null) return false;
-        if (fundsName != null ? !fundsName.equals(tFunds.fundsName) : tFunds.fundsName != null) return false;
+        if (fundsDetail != null ? !fundsDetail.equals(tFunds.fundsDetail) : tFunds.fundsDetail != null) return false;
         if (fundsUse != null ? !fundsUse.equals(tFunds.fundsUse) : tFunds.fundsUse != null) return false;
-        if (id != null ? !id.equals(tFunds.id) : tFunds.id != null) return false;
         if (isdeleted != null ? !isdeleted.equals(tFunds.isdeleted) : tFunds.isdeleted != null) return false;
-        if (projectId != null ? !projectId.equals(tFunds.projectId) : tFunds.projectId != null) return false;
 
         return true;
     }
@@ -135,7 +135,7 @@ public class TFunds {
         result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
         result = 31 * result + (fundsId != null ? fundsId.hashCode() : 0);
         result = 31 * result + (fundsName != null ? fundsName.hashCode() : 0);
-        result = 31 * result + (fundsIsreimburse != null ? fundsIsreimburse.hashCode() : 0);
+        result = 31 * result + (fundsIsReimburse != null ? fundsIsReimburse.hashCode() : 0);
         result = 31 * result + (fundsMoney != null ? fundsMoney.hashCode() : 0);
         result = 31 * result + (fundsDetail != null ? fundsDetail.hashCode() : 0);
         result = 31 * result + (fundsUse != null ? fundsUse.hashCode() : 0);

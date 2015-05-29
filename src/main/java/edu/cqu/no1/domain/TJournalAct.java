@@ -4,32 +4,33 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_journal_act", schema = "", catalog = "srtp")
 public class TJournalAct {
-    private String journalactId;
+    private String journalActId;
     private String journalId;
-    private String journalactType;
-    private String journalactIntroduction;
+    private String journalActType;
+    private String journalActIntroduction;
     private Timestamp time;
-    private String journalactRemark;
+    private String journalActRemark;
     private String isdeleted;
     private String userId;
+    private TJournal tJournalByJournalId;
 
     @Id
-    @Column(name = "JOURNALACT_ID")
-    public String getJournalactId() {
-        return journalactId;
+    @Column(name = "journalAct_id")
+    public String getJournalActId() {
+        return journalActId;
     }
 
-    public void setJournalactId(String journalactId) {
-        this.journalactId = journalactId;
+    public void setJournalActId(String journalActId) {
+        this.journalActId = journalActId;
     }
 
     @Basic
-    @Column(name = "JOURNAL_ID")
+    @Column(name = "journal_id")
     public String getJournalId() {
         return journalId;
     }
@@ -39,27 +40,27 @@ public class TJournalAct {
     }
 
     @Basic
-    @Column(name = "JOURNALACT_TYPE")
-    public String getJournalactType() {
-        return journalactType;
+    @Column(name = "journalAct_type")
+    public String getJournalActType() {
+        return journalActType;
     }
 
-    public void setJournalactType(String journalactType) {
-        this.journalactType = journalactType;
-    }
-
-    @Basic
-    @Column(name = "JOURNALACT_INTRODUCTION")
-    public String getJournalactIntroduction() {
-        return journalactIntroduction;
-    }
-
-    public void setJournalactIntroduction(String journalactIntroduction) {
-        this.journalactIntroduction = journalactIntroduction;
+    public void setJournalActType(String journalActType) {
+        this.journalActType = journalActType;
     }
 
     @Basic
-    @Column(name = "TIME")
+    @Column(name = "journalAct_introduction")
+    public String getJournalActIntroduction() {
+        return journalActIntroduction;
+    }
+
+    public void setJournalActIntroduction(String journalActIntroduction) {
+        this.journalActIntroduction = journalActIntroduction;
+    }
+
+    @Basic
+    @Column(name = "time")
     public Timestamp getTime() {
         return time;
     }
@@ -69,17 +70,17 @@ public class TJournalAct {
     }
 
     @Basic
-    @Column(name = "JOURNALACT_REMARK")
-    public String getJournalactRemark() {
-        return journalactRemark;
+    @Column(name = "journalAct_remark")
+    public String getJournalActRemark() {
+        return journalActRemark;
     }
 
-    public void setJournalactRemark(String journalactRemark) {
-        this.journalactRemark = journalactRemark;
+    public void setJournalActRemark(String journalActRemark) {
+        this.journalActRemark = journalActRemark;
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -89,7 +90,7 @@ public class TJournalAct {
     }
 
     @Basic
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     public String getUserId() {
         return userId;
     }
@@ -105,16 +106,16 @@ public class TJournalAct {
 
         TJournalAct that = (TJournalAct) o;
 
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+        if (journalActId != null ? !journalActId.equals(that.journalActId) : that.journalActId != null) return false;
         if (journalId != null ? !journalId.equals(that.journalId) : that.journalId != null) return false;
-        if (journalactId != null ? !journalactId.equals(that.journalactId) : that.journalactId != null) return false;
-        if (journalactIntroduction != null ? !journalactIntroduction.equals(that.journalactIntroduction) : that.journalactIntroduction != null)
+        if (journalActType != null ? !journalActType.equals(that.journalActType) : that.journalActType != null)
             return false;
-        if (journalactRemark != null ? !journalactRemark.equals(that.journalactRemark) : that.journalactRemark != null)
-            return false;
-        if (journalactType != null ? !journalactType.equals(that.journalactType) : that.journalactType != null)
+        if (journalActIntroduction != null ? !journalActIntroduction.equals(that.journalActIntroduction) : that.journalActIntroduction != null)
             return false;
         if (time != null ? !time.equals(that.time) : that.time != null) return false;
+        if (journalActRemark != null ? !journalActRemark.equals(that.journalActRemark) : that.journalActRemark != null)
+            return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
         if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
 
         return true;
@@ -122,14 +123,24 @@ public class TJournalAct {
 
     @Override
     public int hashCode() {
-        int result = journalactId != null ? journalactId.hashCode() : 0;
+        int result = journalActId != null ? journalActId.hashCode() : 0;
         result = 31 * result + (journalId != null ? journalId.hashCode() : 0);
-        result = 31 * result + (journalactType != null ? journalactType.hashCode() : 0);
-        result = 31 * result + (journalactIntroduction != null ? journalactIntroduction.hashCode() : 0);
+        result = 31 * result + (journalActType != null ? journalActType.hashCode() : 0);
+        result = 31 * result + (journalActIntroduction != null ? journalActIntroduction.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (journalactRemark != null ? journalactRemark.hashCode() : 0);
+        result = 31 * result + (journalActRemark != null ? journalActRemark.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "journal_id", referencedColumnName = "journal_id")
+    public TJournal gettJournalByJournalId() {
+        return tJournalByJournalId;
+    }
+
+    public void settJournalByJournalId(TJournal tJournalByJournalId) {
+        this.tJournalByJournalId = tJournalByJournalId;
     }
 }

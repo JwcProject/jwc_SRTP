@@ -102,7 +102,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
 
     /**
      *
-     *TODO 根据年份获取届期
+     *根据年份获取届期
      *authoy lzh
      *@param year
      *@return

@@ -3,7 +3,7 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_temp_email_reciver", schema = "", catalog = "srtp")
@@ -18,7 +18,7 @@ public class TTempEmailReciver {
     private String type;
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     public String getId() {
         return id;
     }
@@ -28,7 +28,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "DEPART_ID")
+    @Column(name = "depart_id")
     public String getDepartId() {
         return departId;
     }
@@ -38,7 +38,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "JQ_ID")
+    @Column(name = "jq_id")
     public String getJqId() {
         return jqId;
     }
@@ -48,7 +48,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "CODE")
+    @Column(name = "code")
     public String getCode() {
         return code;
     }
@@ -58,7 +58,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "NAME")
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -68,7 +68,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -78,7 +78,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -88,7 +88,7 @@ public class TTempEmailReciver {
     }
 
     @Basic
-    @Column(name = "TYPE")
+    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -104,13 +104,13 @@ public class TTempEmailReciver {
 
         TTempEmailReciver that = (TTempEmailReciver) o;
 
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (departId != null ? !departId.equals(that.departId) : that.departId != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+        if (departId != null ? !departId.equals(that.departId) : that.departId != null) return false;
         if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;

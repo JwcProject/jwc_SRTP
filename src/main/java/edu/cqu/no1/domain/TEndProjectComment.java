@@ -4,21 +4,22 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_end_project_comment", schema = "", catalog = "srtp")
 public class TEndProjectComment {
     private String id;
-    private String eprojectexportId;
-    private String endprojectcommentAdvise;
-    private Integer endprojectcommentScore;
-    private String endprojectcommentContent;
+    private String eProjectExportId;
+    private String endProjectCommentAdvise;
+    private Integer endProjectCommentScore;
+    private String endProjectCommentContent;
     private String isdeleted;
-    private Timestamp endprojectcommentTime;
+    private Timestamp endProjectCommentTime;
+    private TEndProjectExport tEndProjectExportByEProjectExportId;
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     public String getId() {
         return id;
     }
@@ -28,47 +29,47 @@ public class TEndProjectComment {
     }
 
     @Basic
-    @Column(name = "EPROJECTEXPORT_ID")
-    public String getEprojectexportId() {
-        return eprojectexportId;
+    @Column(name = "EProjectExport_id")
+    public String geteProjectExportId() {
+        return eProjectExportId;
     }
 
-    public void setEprojectexportId(String eprojectexportId) {
-        this.eprojectexportId = eprojectexportId;
-    }
-
-    @Basic
-    @Column(name = "ENDPROJECTCOMMENT_ADVISE")
-    public String getEndprojectcommentAdvise() {
-        return endprojectcommentAdvise;
-    }
-
-    public void setEndprojectcommentAdvise(String endprojectcommentAdvise) {
-        this.endprojectcommentAdvise = endprojectcommentAdvise;
+    public void seteProjectExportId(String eProjectExportId) {
+        this.eProjectExportId = eProjectExportId;
     }
 
     @Basic
-    @Column(name = "ENDPROJECTCOMMENT_SCORE")
-    public Integer getEndprojectcommentScore() {
-        return endprojectcommentScore;
+    @Column(name = "endProjectComment_advise")
+    public String getEndProjectCommentAdvise() {
+        return endProjectCommentAdvise;
     }
 
-    public void setEndprojectcommentScore(Integer endprojectcommentScore) {
-        this.endprojectcommentScore = endprojectcommentScore;
-    }
-
-    @Basic
-    @Column(name = "ENDPROJECTCOMMENT_CONTENT")
-    public String getEndprojectcommentContent() {
-        return endprojectcommentContent;
-    }
-
-    public void setEndprojectcommentContent(String endprojectcommentContent) {
-        this.endprojectcommentContent = endprojectcommentContent;
+    public void setEndProjectCommentAdvise(String endProjectCommentAdvise) {
+        this.endProjectCommentAdvise = endProjectCommentAdvise;
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "endProjectComment_score")
+    public Integer getEndProjectCommentScore() {
+        return endProjectCommentScore;
+    }
+
+    public void setEndProjectCommentScore(Integer endProjectCommentScore) {
+        this.endProjectCommentScore = endProjectCommentScore;
+    }
+
+    @Basic
+    @Column(name = "endProjectComment_content")
+    public String getEndProjectCommentContent() {
+        return endProjectCommentContent;
+    }
+
+    public void setEndProjectCommentContent(String endProjectCommentContent) {
+        this.endProjectCommentContent = endProjectCommentContent;
+    }
+
+    @Basic
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -78,13 +79,13 @@ public class TEndProjectComment {
     }
 
     @Basic
-    @Column(name = "ENDPROJECTCOMMENT_TIME")
-    public Timestamp getEndprojectcommentTime() {
-        return endprojectcommentTime;
+    @Column(name = "endProjectComment_time")
+    public Timestamp getEndProjectCommentTime() {
+        return endProjectCommentTime;
     }
 
-    public void setEndprojectcommentTime(Timestamp endprojectcommentTime) {
-        this.endprojectcommentTime = endprojectcommentTime;
+    public void setEndProjectCommentTime(Timestamp endProjectCommentTime) {
+        this.endProjectCommentTime = endProjectCommentTime;
     }
 
     @Override
@@ -94,18 +95,18 @@ public class TEndProjectComment {
 
         TEndProjectComment that = (TEndProjectComment) o;
 
-        if (endprojectcommentAdvise != null ? !endprojectcommentAdvise.equals(that.endprojectcommentAdvise) : that.endprojectcommentAdvise != null)
-            return false;
-        if (endprojectcommentContent != null ? !endprojectcommentContent.equals(that.endprojectcommentContent) : that.endprojectcommentContent != null)
-            return false;
-        if (endprojectcommentScore != null ? !endprojectcommentScore.equals(that.endprojectcommentScore) : that.endprojectcommentScore != null)
-            return false;
-        if (endprojectcommentTime != null ? !endprojectcommentTime.equals(that.endprojectcommentTime) : that.endprojectcommentTime != null)
-            return false;
-        if (eprojectexportId != null ? !eprojectexportId.equals(that.eprojectexportId) : that.eprojectexportId != null)
-            return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (eProjectExportId != null ? !eProjectExportId.equals(that.eProjectExportId) : that.eProjectExportId != null)
+            return false;
+        if (endProjectCommentAdvise != null ? !endProjectCommentAdvise.equals(that.endProjectCommentAdvise) : that.endProjectCommentAdvise != null)
+            return false;
+        if (endProjectCommentScore != null ? !endProjectCommentScore.equals(that.endProjectCommentScore) : that.endProjectCommentScore != null)
+            return false;
+        if (endProjectCommentContent != null ? !endProjectCommentContent.equals(that.endProjectCommentContent) : that.endProjectCommentContent != null)
+            return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+        if (endProjectCommentTime != null ? !endProjectCommentTime.equals(that.endProjectCommentTime) : that.endProjectCommentTime != null)
+            return false;
 
         return true;
     }
@@ -113,12 +114,22 @@ public class TEndProjectComment {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (eprojectexportId != null ? eprojectexportId.hashCode() : 0);
-        result = 31 * result + (endprojectcommentAdvise != null ? endprojectcommentAdvise.hashCode() : 0);
-        result = 31 * result + (endprojectcommentScore != null ? endprojectcommentScore.hashCode() : 0);
-        result = 31 * result + (endprojectcommentContent != null ? endprojectcommentContent.hashCode() : 0);
+        result = 31 * result + (eProjectExportId != null ? eProjectExportId.hashCode() : 0);
+        result = 31 * result + (endProjectCommentAdvise != null ? endProjectCommentAdvise.hashCode() : 0);
+        result = 31 * result + (endProjectCommentScore != null ? endProjectCommentScore.hashCode() : 0);
+        result = 31 * result + (endProjectCommentContent != null ? endProjectCommentContent.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (endprojectcommentTime != null ? endprojectcommentTime.hashCode() : 0);
+        result = 31 * result + (endProjectCommentTime != null ? endProjectCommentTime.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "EProjectExport_id", referencedColumnName = "id")
+    public TEndProjectExport gettEndProjectExportByEProjectExportId() {
+        return tEndProjectExportByEProjectExportId;
+    }
+
+    public void settEndProjectExportByEProjectExportId(TEndProjectExport tEndProjectExportByEProjectExportId) {
+        this.tEndProjectExportByEProjectExportId = tEndProjectExportByEProjectExportId;
     }
 }

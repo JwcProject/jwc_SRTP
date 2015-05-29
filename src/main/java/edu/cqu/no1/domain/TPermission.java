@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_permission", schema = "", catalog = "srtp")
@@ -16,9 +17,10 @@ public class TPermission {
     private String permissionFatherid;
     private String permissionIntroduction;
     private String isdeleted;
+    private Collection<TRolePermission> tRolePermissionsByPermissionId;
 
     @Id
-    @Column(name = "PERMISSION_ID")
+    @Column(name = "permission_id")
     public String getPermissionId() {
         return permissionId;
     }
@@ -28,7 +30,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_NAME")
+    @Column(name = "permission_name")
     public String getPermissionName() {
         return permissionName;
     }
@@ -38,7 +40,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_STATE")
+    @Column(name = "permission_state")
     public String getPermissionState() {
         return permissionState;
     }
@@ -48,7 +50,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_URL")
+    @Column(name = "permission_url")
     public String getPermissionUrl() {
         return permissionUrl;
     }
@@ -58,7 +60,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_LEVEL")
+    @Column(name = "permission_level")
     public String getPermissionLevel() {
         return permissionLevel;
     }
@@ -68,7 +70,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_FATHERID")
+    @Column(name = "permission_fatherid")
     public String getPermissionFatherid() {
         return permissionFatherid;
     }
@@ -78,7 +80,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_INTRODUCTION")
+    @Column(name = "permission_introduction")
     public String getPermissionIntroduction() {
         return permissionIntroduction;
     }
@@ -88,7 +90,7 @@ public class TPermission {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -104,20 +106,20 @@ public class TPermission {
 
         TPermission that = (TPermission) o;
 
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (permissionFatherid != null ? !permissionFatherid.equals(that.permissionFatherid) : that.permissionFatherid != null)
-            return false;
         if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) return false;
-        if (permissionIntroduction != null ? !permissionIntroduction.equals(that.permissionIntroduction) : that.permissionIntroduction != null)
-            return false;
-        if (permissionLevel != null ? !permissionLevel.equals(that.permissionLevel) : that.permissionLevel != null)
-            return false;
         if (permissionName != null ? !permissionName.equals(that.permissionName) : that.permissionName != null)
             return false;
         if (permissionState != null ? !permissionState.equals(that.permissionState) : that.permissionState != null)
             return false;
         if (permissionUrl != null ? !permissionUrl.equals(that.permissionUrl) : that.permissionUrl != null)
             return false;
+        if (permissionLevel != null ? !permissionLevel.equals(that.permissionLevel) : that.permissionLevel != null)
+            return false;
+        if (permissionFatherid != null ? !permissionFatherid.equals(that.permissionFatherid) : that.permissionFatherid != null)
+            return false;
+        if (permissionIntroduction != null ? !permissionIntroduction.equals(that.permissionIntroduction) : that.permissionIntroduction != null)
+            return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
 
         return true;
     }
@@ -133,5 +135,14 @@ public class TPermission {
         result = 31 * result + (permissionIntroduction != null ? permissionIntroduction.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tPermissionByPermissionId")
+    public Collection<TRolePermission> gettRolePermissionsByPermissionId() {
+        return tRolePermissionsByPermissionId;
+    }
+
+    public void settRolePermissionsByPermissionId(Collection<TRolePermission> tRolePermissionsByPermissionId) {
+        this.tRolePermissionsByPermissionId = tRolePermissionsByPermissionId;
     }
 }

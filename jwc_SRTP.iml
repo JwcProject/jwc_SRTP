@@ -29,7 +29,9 @@
         <datasource-map>
           <unit-entry name="sessionFactory" value="bbbaf06a-a369-4bed-89a6-f30043a2a734" />
         </datasource-map>
-        <naming-strategy-map />
+        <naming-strategy-map>
+          <unit-entry name="sessionFactory" />
+        </naming-strategy-map>
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/java/edu/cqu/no1/dao/impl/hibernate.test.cfg.xml" />
       </configuration>
     </facet>

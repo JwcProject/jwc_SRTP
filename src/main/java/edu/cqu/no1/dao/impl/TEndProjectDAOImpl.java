@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.NotNull;
 import edu.cqu.no1.dao.TEndProjectDAO;
 import edu.cqu.no1.datamodel.EndProjectProperty;
 import edu.cqu.no1.domain.TEndProject;
@@ -185,7 +186,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     /**
      *
-     * TODO 多条件查询结题 authoy lzh
+     * authoy lzh
      *
      * @param teaCode
      * @param year
@@ -337,7 +338,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     /**
      *
-     * TODO 根据学院主管教师教职工号获取学院的结题列表 authoy lzh
+     * 根据学院主管教师教职工号获取学院的结题列表 authoy lzh
      *
      * @param unitTeaCode
      * @param checkState
@@ -348,8 +349,8 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
                                        PageBean pageBean) {
         log.debug("finding unit all TEndproject instances by pageBean");
         try {
-            String queryStr = "From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01' and" +
-                    " T.endprojectState =:checkState and T.unitId = (select TE.unitId From TTeacher TE where" +
+            String queryStr = "From TEndProject T Where T.isdeleted='N' and T.endProjectPassApply='01' and" +
+                    " T.endProjectState =:checkState and T.unitId = (select TE.unitId From TTeacher TE where" +
                     " TE.teaCode =:code) order by (select projectBegintime from TProject where projectId = T.projectId) desc";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
@@ -366,11 +367,12 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
     public int getUnitEndProCount(String unitTeaCode, String checkState) {
         log.debug("get unit TEndproject count");
         try {
-            // TODO
-            String queryStr = "select count(*) From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01'" +
-                    " and T.endprojectState =:checkState and T.TProject.TUnit.unitId =" +
-                    " (select TE.unitId From TTeacher TE where TE.teaCode =:code)";
-            Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
+            String hql = "select count(*) from TEndProject ep, TProject pro" +
+                    " where ep.projectId = pro.projectId and ep.isdeleted = 'N' and ep.endProjectPassApply = '01'" +
+                    " and ep.endProjectState = :checkState and pro.unitId =" +
+                    " (select unitId from TTeacher  where teaCode = :code)";
+
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", unitTeaCode);
             query.setString("checkState", checkState);
             List tmpList = query.list();
@@ -389,26 +391,26 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     /**
      *
-     * TODO 根据组长学号获取结题 authoy lzh
+     * 根据组长学号获取结题 authoy lzh
      *
      * @param studentNum
      * @return
      */
+    @NotNull
     public List findMyEndProjects(String studentNum) {
         log.debug("find endprojects by leadercodes");
         try {
-            // TODO
-            String sql = "From TEndProject T where (T.TProject.TStudentByProjectLeader.studentId=(select S.studentId from TStudent S where S.studentNumber=:number and S.isdeleted='N') or T.TProject.TStudentByProjectUser1.studentId=(select S.studentId from TStudent S where S.studentNumber=:number and S.isdeleted='N') or T.TProject.TStudentByProjectUser2.studentId=(select S.studentId from TStudent S where S.studentNumber=:number and S.isdeleted='N')) and T.isdeleted='N'";
-            Query query = getSessionFactory().getCurrentSession().createQuery(sql);
+            String hql = "from TEndProject ep, TProject pro, TStudent stu where ep.projectId = pro.projectId" +
+                    " and stu.studentNumber = :number and stu.isdeleted = 'N'" +
+                    " and stu.studentId in (pro.projectLeader, pro.projectUser1, pro.projectUser2)";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("number", studentNum);
             return query.list();
         } catch (RuntimeException e) {
             log.error("find endprojects by leadercodes failed" + e);
             throw e;
         }
-
     }
-
 
 
     public List findByEndprojectState(Object endprojectState) {

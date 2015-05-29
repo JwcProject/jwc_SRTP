@@ -3,20 +3,20 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_endproject_job", schema = "", catalog = "srtp")
 public class TEndprojectJob {
     private String jobId;
+    private String endProjectId;
     private String studentId;
-    private String endprojectId;
     private String jobContent;
     private String finished;
     private String isdeleted;
 
     @Id
-    @Column(name = "JOB_ID")
+    @Column(name = "job_id")
     public String getJobId() {
         return jobId;
     }
@@ -26,7 +26,17 @@ public class TEndprojectJob {
     }
 
     @Basic
-    @Column(name = "STUDENT_ID")
+    @Column(name = "endProject_id")
+    public String getEndProjectId() {
+        return endProjectId;
+    }
+
+    public void setEndProjectId(String endProjectId) {
+        this.endProjectId = endProjectId;
+    }
+
+    @Basic
+    @Column(name = "student_id")
     public String getStudentId() {
         return studentId;
     }
@@ -36,17 +46,7 @@ public class TEndprojectJob {
     }
 
     @Basic
-    @Column(name = "ENDPROJECT_ID")
-    public String getEndprojectId() {
-        return endprojectId;
-    }
-
-    public void setEndprojectId(String endprojectId) {
-        this.endprojectId = endprojectId;
-    }
-
-    @Basic
-    @Column(name = "JOB_CONTENT")
+    @Column(name = "job_content")
     public String getJobContent() {
         return jobContent;
     }
@@ -56,7 +56,7 @@ public class TEndprojectJob {
     }
 
     @Basic
-    @Column(name = "FINISHED")
+    @Column(name = "finished")
     public String getFinished() {
         return finished;
     }
@@ -66,7 +66,7 @@ public class TEndprojectJob {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -82,12 +82,12 @@ public class TEndprojectJob {
 
         TEndprojectJob that = (TEndprojectJob) o;
 
-        if (endprojectId != null ? !endprojectId.equals(that.endprojectId) : that.endprojectId != null) return false;
+        if (jobId != null ? !jobId.equals(that.jobId) : that.jobId != null) return false;
+        if (endProjectId != null ? !endProjectId.equals(that.endProjectId) : that.endProjectId != null) return false;
+        if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
+        if (jobContent != null ? !jobContent.equals(that.jobContent) : that.jobContent != null) return false;
         if (finished != null ? !finished.equals(that.finished) : that.finished != null) return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (jobContent != null ? !jobContent.equals(that.jobContent) : that.jobContent != null) return false;
-        if (jobId != null ? !jobId.equals(that.jobId) : that.jobId != null) return false;
-        if (studentId != null ? !studentId.equals(that.studentId) : that.studentId != null) return false;
 
         return true;
     }
@@ -95,8 +95,8 @@ public class TEndprojectJob {
     @Override
     public int hashCode() {
         int result = jobId != null ? jobId.hashCode() : 0;
+        result = 31 * result + (endProjectId != null ? endProjectId.hashCode() : 0);
         result = 31 * result + (studentId != null ? studentId.hashCode() : 0);
-        result = 31 * result + (endprojectId != null ? endprojectId.hashCode() : 0);
         result = 31 * result + (jobContent != null ? jobContent.hashCode() : 0);
         result = 31 * result + (finished != null ? finished.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);

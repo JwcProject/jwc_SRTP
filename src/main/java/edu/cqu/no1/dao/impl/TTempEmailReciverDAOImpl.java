@@ -45,7 +45,7 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
 
     /**
      *
-     *TODO 通过届期ID和学院主管教师教职工号获取临时邮件接收人
+     *通过届期ID和学院主管教师教职工号获取临时邮件接收人
      *authoy lzh
      *@param jqId
      *@param teaCode

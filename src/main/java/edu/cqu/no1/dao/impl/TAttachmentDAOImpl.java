@@ -30,7 +30,7 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.
 
     /**
      *
-     *TODO 根据结题ID 获取附件
+     *根据结题ID 获取附件
      *authoy lzh
      *@param endproId
      *@return

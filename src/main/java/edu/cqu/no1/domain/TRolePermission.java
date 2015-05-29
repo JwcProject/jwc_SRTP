@@ -3,28 +3,30 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_role_permission", schema = "", catalog = "srtp")
 public class TRolePermission {
-    private String rolepermissionId;
+    private String rolePermissionId;
     private String roleId;
     private String permissionId;
     private String isdeleted;
+    private TPermission tPermissionByPermissionId;
+    private TRole tRoleByRoleId;
 
     @Id
-    @Column(name = "ROLEPERMISSION_ID")
-    public String getRolepermissionId() {
-        return rolepermissionId;
+    @Column(name = "rolePermission_id")
+    public String getRolePermissionId() {
+        return rolePermissionId;
     }
 
-    public void setRolepermissionId(String rolepermissionId) {
-        this.rolepermissionId = rolepermissionId;
+    public void setRolePermissionId(String rolePermissionId) {
+        this.rolePermissionId = rolePermissionId;
     }
 
     @Basic
-    @Column(name = "ROLE_ID")
+    @Column(name = "role_id")
     public String getRoleId() {
         return roleId;
     }
@@ -34,7 +36,7 @@ public class TRolePermission {
     }
 
     @Basic
-    @Column(name = "PERMISSION_ID")
+    @Column(name = "permission_id")
     public String getPermissionId() {
         return permissionId;
     }
@@ -44,7 +46,7 @@ public class TRolePermission {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -60,21 +62,41 @@ public class TRolePermission {
 
         TRolePermission that = (TRolePermission) o;
 
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) return false;
-        if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) return false;
-        if (rolepermissionId != null ? !rolepermissionId.equals(that.rolepermissionId) : that.rolepermissionId != null)
+        if (rolePermissionId != null ? !rolePermissionId.equals(that.rolePermissionId) : that.rolePermissionId != null)
             return false;
+        if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) return false;
+        if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = rolepermissionId != null ? rolepermissionId.hashCode() : 0;
+        int result = rolePermissionId != null ? rolePermissionId.hashCode() : 0;
         result = 31 * result + (roleId != null ? roleId.hashCode() : 0);
         result = 31 * result + (permissionId != null ? permissionId.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "permission_id", referencedColumnName = "permission_id")
+    public TPermission gettPermissionByPermissionId() {
+        return tPermissionByPermissionId;
+    }
+
+    public void settPermissionByPermissionId(TPermission tPermissionByPermissionId) {
+        this.tPermissionByPermissionId = tPermissionByPermissionId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    public TRole gettRoleByRoleId() {
+        return tRoleByRoleId;
+    }
+
+    public void settRoleByRoleId(TRole tRoleByRoleId) {
+        this.tRoleByRoleId = tRoleByRoleId;
     }
 }

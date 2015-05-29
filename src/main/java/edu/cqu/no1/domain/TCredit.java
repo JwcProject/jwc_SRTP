@@ -3,19 +3,29 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_credit", schema = "", catalog = "srtp")
 public class TCredit {
-    private String creditId;
     private String projectId;
+    private String creditId;
     private Integer creditContribution;
-    private Double creditScore;
+    private Float creditScore;
     private String isdeleted;
 
+    @Basic
+    @Column(name = "project_id")
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
     @Id
-    @Column(name = "CREDIT_ID")
+    @Column(name = "credit_id")
     public String getCreditId() {
         return creditId;
     }
@@ -25,17 +35,7 @@ public class TCredit {
     }
 
     @Basic
-    @Column(name = "PROJECT_ID")
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    @Basic
-    @Column(name = "CREDIT_CONTRIBUTION")
+    @Column(name = "credit_contribution")
     public Integer getCreditContribution() {
         return creditContribution;
     }
@@ -45,17 +45,17 @@ public class TCredit {
     }
 
     @Basic
-    @Column(name = "CREDIT_SCORE")
-    public Double getCreditScore() {
+    @Column(name = "credit_score")
+    public Float getCreditScore() {
         return creditScore;
     }
 
-    public void setCreditScore(Double creditScore) {
+    public void setCreditScore(Float creditScore) {
         this.creditScore = creditScore;
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -71,20 +71,20 @@ public class TCredit {
 
         TCredit tCredit = (TCredit) o;
 
+        if (projectId != null ? !projectId.equals(tCredit.projectId) : tCredit.projectId != null) return false;
+        if (creditId != null ? !creditId.equals(tCredit.creditId) : tCredit.creditId != null) return false;
         if (creditContribution != null ? !creditContribution.equals(tCredit.creditContribution) : tCredit.creditContribution != null)
             return false;
-        if (creditId != null ? !creditId.equals(tCredit.creditId) : tCredit.creditId != null) return false;
         if (creditScore != null ? !creditScore.equals(tCredit.creditScore) : tCredit.creditScore != null) return false;
         if (isdeleted != null ? !isdeleted.equals(tCredit.isdeleted) : tCredit.isdeleted != null) return false;
-        if (projectId != null ? !projectId.equals(tCredit.projectId) : tCredit.projectId != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = creditId != null ? creditId.hashCode() : 0;
-        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
+        int result = projectId != null ? projectId.hashCode() : 0;
+        result = 31 * result + (creditId != null ? creditId.hashCode() : 0);
         result = 31 * result + (creditContribution != null ? creditContribution.hashCode() : 0);
         result = 31 * result + (creditScore != null ? creditScore.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);

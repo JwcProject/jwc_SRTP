@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_announ_type", schema = "", catalog = "srtp")
@@ -11,9 +12,11 @@ public class TAnnounType {
     private String announTypeId;
     private String announTypeName;
     private String isdeleted;
+    private Collection<TAnnouncement> tAnnouncementsByAnnounTypeId;
+    private Collection<TAnnouncementModel> tannouncementmodelsByAnnounTypeId;
 
     @Id
-    @Column(name = "ANNOUN_TYPE_ID")
+    @Column(name = "announ_type_id")
     public String getAnnounTypeId() {
         return announTypeId;
     }
@@ -23,7 +26,7 @@ public class TAnnounType {
     }
 
     @Basic
-    @Column(name = "ANNOUN_TYPE_NAME")
+    @Column(name = "announ_type_name")
     public String getAnnounTypeName() {
         return announTypeName;
     }
@@ -33,7 +36,7 @@ public class TAnnounType {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -63,5 +66,23 @@ public class TAnnounType {
         result = 31 * result + (announTypeName != null ? announTypeName.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tAnnounTypeByAnnounTypeId")
+    public Collection<TAnnouncement> gettAnnouncementsByAnnounTypeId() {
+        return tAnnouncementsByAnnounTypeId;
+    }
+
+    public void settAnnouncementsByAnnounTypeId(Collection<TAnnouncement> tAnnouncementsByAnnounTypeId) {
+        this.tAnnouncementsByAnnounTypeId = tAnnouncementsByAnnounTypeId;
+    }
+
+    @OneToMany(mappedBy = "tAnnounTypeByAnnounTypeId")
+    public Collection<TAnnouncementModel> getTannouncementmodelsByAnnounTypeId() {
+        return tannouncementmodelsByAnnounTypeId;
+    }
+
+    public void setTannouncementmodelsByAnnounTypeId(Collection<TAnnouncementModel> tannouncementmodelsByAnnounTypeId) {
+        this.tannouncementmodelsByAnnounTypeId = tannouncementmodelsByAnnounTypeId;
     }
 }

@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_profession", schema = "", catalog = "srtp")
@@ -15,9 +16,11 @@ public class TProfession {
     private String professionClass;
     private String professionRemark;
     private String professionIsdeleted;
+    private TUnit tUnitByUnitId;
+    private Collection<TTeacher> tTeachersByProfessionId;
 
     @Id
-    @Column(name = "PROFESSION_ID")
+    @Column(name = "profession_id")
     public String getProfessionId() {
         return professionId;
     }
@@ -27,7 +30,7 @@ public class TProfession {
     }
 
     @Basic
-    @Column(name = "UNIT_ID")
+    @Column(name = "unit_id")
     public String getUnitId() {
         return unitId;
     }
@@ -37,7 +40,7 @@ public class TProfession {
     }
 
     @Basic
-    @Column(name = "PROFESSION_NAME")
+    @Column(name = "profession_name")
     public String getProfessionName() {
         return professionName;
     }
@@ -47,7 +50,7 @@ public class TProfession {
     }
 
     @Basic
-    @Column(name = "PROFESSION_SESSION")
+    @Column(name = "profession_session")
     public String getProfessionSession() {
         return professionSession;
     }
@@ -57,7 +60,7 @@ public class TProfession {
     }
 
     @Basic
-    @Column(name = "PROFESSION_CLASS")
+    @Column(name = "profession_class")
     public String getProfessionClass() {
         return professionClass;
     }
@@ -67,7 +70,7 @@ public class TProfession {
     }
 
     @Basic
-    @Column(name = "PROFESSION_REMARK")
+    @Column(name = "profession_remark")
     public String getProfessionRemark() {
         return professionRemark;
     }
@@ -77,7 +80,7 @@ public class TProfession {
     }
 
     @Basic
-    @Column(name = "PROFESSION_ISDELETED")
+    @Column(name = "profession_isdeleted")
     public String getProfessionIsdeleted() {
         return professionIsdeleted;
     }
@@ -93,18 +96,18 @@ public class TProfession {
 
         TProfession that = (TProfession) o;
 
-        if (professionClass != null ? !professionClass.equals(that.professionClass) : that.professionClass != null)
-            return false;
         if (professionId != null ? !professionId.equals(that.professionId) : that.professionId != null) return false;
-        if (professionIsdeleted != null ? !professionIsdeleted.equals(that.professionIsdeleted) : that.professionIsdeleted != null)
-            return false;
+        if (unitId != null ? !unitId.equals(that.unitId) : that.unitId != null) return false;
         if (professionName != null ? !professionName.equals(that.professionName) : that.professionName != null)
-            return false;
-        if (professionRemark != null ? !professionRemark.equals(that.professionRemark) : that.professionRemark != null)
             return false;
         if (professionSession != null ? !professionSession.equals(that.professionSession) : that.professionSession != null)
             return false;
-        if (unitId != null ? !unitId.equals(that.unitId) : that.unitId != null) return false;
+        if (professionClass != null ? !professionClass.equals(that.professionClass) : that.professionClass != null)
+            return false;
+        if (professionRemark != null ? !professionRemark.equals(that.professionRemark) : that.professionRemark != null)
+            return false;
+        if (professionIsdeleted != null ? !professionIsdeleted.equals(that.professionIsdeleted) : that.professionIsdeleted != null)
+            return false;
 
         return true;
     }
@@ -119,5 +122,24 @@ public class TProfession {
         result = 31 * result + (professionRemark != null ? professionRemark.hashCode() : 0);
         result = 31 * result + (professionIsdeleted != null ? professionIsdeleted.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "unit_id", referencedColumnName = "unit_id")
+    public TUnit gettUnitByUnitId() {
+        return tUnitByUnitId;
+    }
+
+    public void settUnitByUnitId(TUnit tUnitByUnitId) {
+        this.tUnitByUnitId = tUnitByUnitId;
+    }
+
+    @OneToMany(mappedBy = "tProfessionByProfessionId")
+    public Collection<TTeacher> gettTeachersByProfessionId() {
+        return tTeachersByProfessionId;
+    }
+
+    public void settTeachersByProfessionId(Collection<TTeacher> tTeachersByProfessionId) {
+        this.tTeachersByProfessionId = tTeachersByProfessionId;
     }
 }

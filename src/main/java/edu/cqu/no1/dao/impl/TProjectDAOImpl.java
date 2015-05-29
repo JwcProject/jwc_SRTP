@@ -401,7 +401,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return count;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("finding school all TProject count failed", e);
             throw e;
         }
@@ -557,7 +556,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return list;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -586,7 +584,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return list;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -612,7 +609,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return count;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -622,7 +618,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public List findTeaProject(String teaCode, String projectName, String stuCode, PageBean pageBean){
         log.debug("find teacher project ");
         try{
-            // TODO
             String queryString = "From TProject D Where D.isdeleted='N' and" +
                     " D.projectTeacher2=(select S.teaId from TTeacher S" +
                     " where S.isdeleted='N' and S.teaCode=:number) OR" +
@@ -702,7 +697,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
 
     /**
      *
-     *TODO 根据项目组长的学号获取未申请结题的项目信息项目信息
+     *根据项目组长的学号获取未申请结题的项目信息项目信息
      *authoy lzh
      *@param leaderCode 项目组长的学号
      *@return
@@ -710,10 +705,9 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public TProject findByLeaderCode(String leaderCode){
         try {
             log.debug("find project by leader code");
-            // TODO
             String sql ="From TProject T where T.projectLeader=:leaderCode" +
                     " and T.isdeleted='N' and T.projectId not in (select TE.projectId" +
-                    " from TEndProject TE where TE.isdeleted='N' and TE.endprojectState > '01')";
+                    " from TEndProject TE where TE.isdeleted='N' and TE.endProjectState > '01')";
             Query query =  getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString("leaderCode", leaderCode);
             List<TProject> list = query.list();

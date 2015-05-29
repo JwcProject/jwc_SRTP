@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_attchment_type", schema = "", catalog = "srtp")
@@ -11,9 +12,10 @@ public class TAttchmentType {
     private String attaTypeId;
     private String attaTypeName;
     private String isdeleted;
+    private Collection<TAttachment> tAttachmentsByAttaTypeId;
 
     @Id
-    @Column(name = "ATTA_TYPE_ID")
+    @Column(name = "atta_type_id")
     public String getAttaTypeId() {
         return attaTypeId;
     }
@@ -23,7 +25,7 @@ public class TAttchmentType {
     }
 
     @Basic
-    @Column(name = "ATTA_TYPE_NAME")
+    @Column(name = "atta_type_name")
     public String getAttaTypeName() {
         return attaTypeName;
     }
@@ -33,7 +35,7 @@ public class TAttchmentType {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -62,5 +64,14 @@ public class TAttchmentType {
         result = 31 * result + (attaTypeName != null ? attaTypeName.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tAttchmentTypeByAttaTypeId")
+    public Collection<TAttachment> gettAttachmentsByAttaTypeId() {
+        return tAttachmentsByAttaTypeId;
+    }
+
+    public void settAttachmentsByAttaTypeId(Collection<TAttachment> tAttachmentsByAttaTypeId) {
+        this.tAttachmentsByAttaTypeId = tAttachmentsByAttaTypeId;
     }
 }

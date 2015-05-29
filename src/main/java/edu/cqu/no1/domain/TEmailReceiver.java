@@ -3,7 +3,7 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_email_receiver", schema = "", catalog = "srtp")
@@ -15,9 +15,10 @@ public class TEmailReceiver {
     private String emailAddress;
     private String isReceived;
     private String isdeleted;
+    private TEmail tEmailByEmailId;
 
     @Id
-    @Column(name = "RECEIVER_ID")
+    @Column(name = "receiver_id")
     public String getReceiverId() {
         return receiverId;
     }
@@ -27,7 +28,7 @@ public class TEmailReceiver {
     }
 
     @Basic
-    @Column(name = "EMAIL_ID")
+    @Column(name = "email_id")
     public String getEmailId() {
         return emailId;
     }
@@ -37,7 +38,7 @@ public class TEmailReceiver {
     }
 
     @Basic
-    @Column(name = "RECEIVER_CODE")
+    @Column(name = "receiver_code")
     public String getReceiverCode() {
         return receiverCode;
     }
@@ -47,7 +48,7 @@ public class TEmailReceiver {
     }
 
     @Basic
-    @Column(name = "RECEIVER_ROLE")
+    @Column(name = "receiver_role")
     public String getReceiverRole() {
         return receiverRole;
     }
@@ -57,7 +58,7 @@ public class TEmailReceiver {
     }
 
     @Basic
-    @Column(name = "EMAIL_ADDRESS")
+    @Column(name = "email_address")
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -67,7 +68,7 @@ public class TEmailReceiver {
     }
 
     @Basic
-    @Column(name = "IS_RECEIVED")
+    @Column(name = "is_received")
     public String getIsReceived() {
         return isReceived;
     }
@@ -77,7 +78,7 @@ public class TEmailReceiver {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -93,13 +94,13 @@ public class TEmailReceiver {
 
         TEmailReceiver that = (TEmailReceiver) o;
 
-        if (emailAddress != null ? !emailAddress.equals(that.emailAddress) : that.emailAddress != null) return false;
+        if (receiverId != null ? !receiverId.equals(that.receiverId) : that.receiverId != null) return false;
         if (emailId != null ? !emailId.equals(that.emailId) : that.emailId != null) return false;
+        if (receiverCode != null ? !receiverCode.equals(that.receiverCode) : that.receiverCode != null) return false;
+        if (receiverRole != null ? !receiverRole.equals(that.receiverRole) : that.receiverRole != null) return false;
+        if (emailAddress != null ? !emailAddress.equals(that.emailAddress) : that.emailAddress != null) return false;
         if (isReceived != null ? !isReceived.equals(that.isReceived) : that.isReceived != null) return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (receiverCode != null ? !receiverCode.equals(that.receiverCode) : that.receiverCode != null) return false;
-        if (receiverId != null ? !receiverId.equals(that.receiverId) : that.receiverId != null) return false;
-        if (receiverRole != null ? !receiverRole.equals(that.receiverRole) : that.receiverRole != null) return false;
 
         return true;
     }
@@ -114,5 +115,15 @@ public class TEmailReceiver {
         result = 31 * result + (isReceived != null ? isReceived.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "email_id", referencedColumnName = "email_id")
+    public TEmail gettEmailByEmailId() {
+        return tEmailByEmailId;
+    }
+
+    public void settEmailByEmailId(TEmail tEmailByEmailId) {
+        this.tEmailByEmailId = tEmailByEmailId;
     }
 }

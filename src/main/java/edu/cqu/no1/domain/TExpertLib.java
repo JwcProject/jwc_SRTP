@@ -2,9 +2,10 @@ package edu.cqu.no1.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_expert_lib", schema = "", catalog = "srtp")
@@ -17,9 +18,14 @@ public class TExpertLib {
     private String isdeleted;
     private String type;
     private String unitId;
+    private TUnit tUnitByUnitId;
+    private TTeacher tTeacherByTeaId;
+    private TJieqi tJieqiByJqId;
+    private Collection<TExpertTeacher> tExpertTeachersByLibId;
+    private Collection<TExpertTeacherModel> texpertteachermodelsByLibId;
 
     @Id
-    @Column(name = "LIB_ID")
+    @Column(name = "lib_id")
     public String getLibId() {
         return libId;
     }
@@ -29,7 +35,7 @@ public class TExpertLib {
     }
 
     @Basic
-    @Column(name = "JQ_ID")
+    @Column(name = "jq_id")
     public String getJqId() {
         return jqId;
     }
@@ -39,7 +45,7 @@ public class TExpertLib {
     }
 
     @Basic
-    @Column(name = "TEA_ID")
+    @Column(name = "tea_id")
     public String getTeaId() {
         return teaId;
     }
@@ -49,7 +55,7 @@ public class TExpertLib {
     }
 
     @Basic
-    @Column(name = "CREAT_ON")
+    @Column(name = "creat_on")
     public Timestamp getCreatOn() {
         return creatOn;
     }
@@ -59,7 +65,7 @@ public class TExpertLib {
     }
 
     @Basic
-    @Column(name = "IS_ASSIGNED")
+    @Column(name = "is_assigned")
     public String getIsAssigned() {
         return isAssigned;
     }
@@ -69,7 +75,7 @@ public class TExpertLib {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -79,7 +85,7 @@ public class TExpertLib {
     }
 
     @Basic
-    @Column(name = "TYPE")
+    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -105,12 +111,12 @@ public class TExpertLib {
 
         TExpertLib that = (TExpertLib) o;
 
+        if (libId != null ? !libId.equals(that.libId) : that.libId != null) return false;
+        if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
+        if (teaId != null ? !teaId.equals(that.teaId) : that.teaId != null) return false;
         if (creatOn != null ? !creatOn.equals(that.creatOn) : that.creatOn != null) return false;
         if (isAssigned != null ? !isAssigned.equals(that.isAssigned) : that.isAssigned != null) return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
-        if (libId != null ? !libId.equals(that.libId) : that.libId != null) return false;
-        if (teaId != null ? !teaId.equals(that.teaId) : that.teaId != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (unitId != null ? !unitId.equals(that.unitId) : that.unitId != null) return false;
 
@@ -128,5 +134,53 @@ public class TExpertLib {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "UNIT_ID", referencedColumnName = "unit_id")
+    public TUnit gettUnitByUnitId() {
+        return tUnitByUnitId;
+    }
+
+    public void settUnitByUnitId(TUnit tUnitByUnitId) {
+        this.tUnitByUnitId = tUnitByUnitId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tea_id", referencedColumnName = "tea_id")
+    public TTeacher gettTeacherByTeaId() {
+        return tTeacherByTeaId;
+    }
+
+    public void settTeacherByTeaId(TTeacher tTeacherByTeaId) {
+        this.tTeacherByTeaId = tTeacherByTeaId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "jq_id", referencedColumnName = "jq_id")
+    public TJieqi gettJieqiByJqId() {
+        return tJieqiByJqId;
+    }
+
+    public void settJieqiByJqId(TJieqi tJieqiByJqId) {
+        this.tJieqiByJqId = tJieqiByJqId;
+    }
+
+    @OneToMany(mappedBy = "tExpertLibByLibId")
+    public Collection<TExpertTeacher> gettExpertTeachersByLibId() {
+        return tExpertTeachersByLibId;
+    }
+
+    public void settExpertTeachersByLibId(Collection<TExpertTeacher> tExpertTeachersByLibId) {
+        this.tExpertTeachersByLibId = tExpertTeachersByLibId;
+    }
+
+    @OneToMany(mappedBy = "tExpertLibByLibId")
+    public Collection<TExpertTeacherModel> getTexpertteachermodelsByLibId() {
+        return texpertteachermodelsByLibId;
+    }
+
+    public void setTexpertteachermodelsByLibId(Collection<TExpertTeacherModel> texpertteachermodelsByLibId) {
+        this.texpertteachermodelsByLibId = texpertteachermodelsByLibId;
     }
 }

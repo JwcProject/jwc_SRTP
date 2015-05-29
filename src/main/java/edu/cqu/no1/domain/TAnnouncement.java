@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_announcement", schema = "", catalog = "srtp")
@@ -21,9 +21,10 @@ public class TAnnouncement {
     private Timestamp checkTime;
     private String checkState;
     private String isdeleted;
+    private TAnnounType tAnnounTypeByAnnounTypeId;
 
     @Id
-    @Column(name = "ANNOUN_ID")
+    @Column(name = "announ_id")
     public String getAnnounId() {
         return announId;
     }
@@ -33,7 +34,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "ANNOUN_TYPE_ID")
+    @Column(name = "announ_type_id")
     public String getAnnounTypeId() {
         return announTypeId;
     }
@@ -43,7 +44,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "ANNOUN_TITLE")
+    @Column(name = "announ_title")
     public String getAnnounTitle() {
         return announTitle;
     }
@@ -53,7 +54,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "ANNOUN_CONTENT")
+    @Column(name = "announ_content")
     public String getAnnounContent() {
         return announContent;
     }
@@ -63,7 +64,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "PUBLISHER_CODE")
+    @Column(name = "publisher_code")
     public String getPublisherCode() {
         return publisherCode;
     }
@@ -73,7 +74,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "PUBLISHER_ROLE")
+    @Column(name = "publisher_role")
     public String getPublisherRole() {
         return publisherRole;
     }
@@ -83,7 +84,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "PUBLISH_TIME")
+    @Column(name = "publish_time")
     public Timestamp getPublishTime() {
         return publishTime;
     }
@@ -93,7 +94,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "PUBLISH_STATE")
+    @Column(name = "publish_state")
     public String getPublishState() {
         return publishState;
     }
@@ -103,7 +104,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "CHECKER_CODE")
+    @Column(name = "checker_code")
     public String getCheckerCode() {
         return checkerCode;
     }
@@ -113,7 +114,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "CHECK_TIME")
+    @Column(name = "check_time")
     public Timestamp getCheckTime() {
         return checkTime;
     }
@@ -123,7 +124,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "CHECK_STATE")
+    @Column(name = "check_state")
     public String getCheckState() {
         return checkState;
     }
@@ -133,7 +134,7 @@ public class TAnnouncement {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -149,21 +150,21 @@ public class TAnnouncement {
 
         TAnnouncement that = (TAnnouncement) o;
 
+        if (announId != null ? !announId.equals(that.announId) : that.announId != null) return false;
+        if (announTypeId != null ? !announTypeId.equals(that.announTypeId) : that.announTypeId != null) return false;
+        if (announTitle != null ? !announTitle.equals(that.announTitle) : that.announTitle != null) return false;
         if (announContent != null ? !announContent.equals(that.announContent) : that.announContent != null)
             return false;
-        if (announId != null ? !announId.equals(that.announId) : that.announId != null) return false;
-        if (announTitle != null ? !announTitle.equals(that.announTitle) : that.announTitle != null) return false;
-        if (announTypeId != null ? !announTypeId.equals(that.announTypeId) : that.announTypeId != null) return false;
-        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
-        if (checkTime != null ? !checkTime.equals(that.checkTime) : that.checkTime != null) return false;
-        if (checkerCode != null ? !checkerCode.equals(that.checkerCode) : that.checkerCode != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (publishState != null ? !publishState.equals(that.publishState) : that.publishState != null) return false;
-        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
         if (publisherCode != null ? !publisherCode.equals(that.publisherCode) : that.publisherCode != null)
             return false;
         if (publisherRole != null ? !publisherRole.equals(that.publisherRole) : that.publisherRole != null)
             return false;
+        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
+        if (publishState != null ? !publishState.equals(that.publishState) : that.publishState != null) return false;
+        if (checkerCode != null ? !checkerCode.equals(that.checkerCode) : that.checkerCode != null) return false;
+        if (checkTime != null ? !checkTime.equals(that.checkTime) : that.checkTime != null) return false;
+        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
 
         return true;
     }
@@ -183,5 +184,15 @@ public class TAnnouncement {
         result = 31 * result + (checkState != null ? checkState.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "announ_type_id", referencedColumnName = "announ_type_id")
+    public TAnnounType gettAnnounTypeByAnnounTypeId() {
+        return tAnnounTypeByAnnounTypeId;
+    }
+
+    public void settAnnounTypeByAnnounTypeId(TAnnounType tAnnounTypeByAnnounTypeId) {
+        this.tAnnounTypeByAnnounTypeId = tAnnounTypeByAnnounTypeId;
     }
 }

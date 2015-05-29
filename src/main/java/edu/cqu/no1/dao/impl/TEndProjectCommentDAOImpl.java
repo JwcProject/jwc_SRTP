@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.NotNull;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TEndProjectComment;
 import edu.cqu.no1.util.PageBean;
@@ -27,15 +28,18 @@ public class TEndProjectCommentDAOImpl extends BaseDaoImpl<TEndProjectComment> i
 
 
     //获取一个教师可以评审的结题
+    @NotNull
     public List<TEndProjectComment> findMyReviewEndPros(String teaCode, PageBean pageBean){
         log.debug("finding teacher review TEndProjectComment by pageBean");
         try {
-            // TODO
-            String sql = "From TEndProjectComment T where T.isdeleted='N' and T.TEndProjectExport.TExpertTeacher.TTeacher.teaCode=:code";
-            Query query = getSessionFactory().getCurrentSession().createQuery(sql);
+            String hql = "from TEndProjectComment epc, TExpertTeacher et, TTeacher t where epc.isdeleted = 'N'" +
+                    " and epc.eProjectExportId = et.exTeaId and et.teaId = t.teaId and t.teaCode = :code";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", teaCode);
-            query.setFirstResult(pageBean.getBeginIndex());
-            query.setMaxResults(pageBean.getPageCapibility());
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
             return query.list();
         } catch (RuntimeException e) {
             log.error("finding teacher review TEndProjectComment by pageBean failed", e);
@@ -46,9 +50,9 @@ public class TEndProjectCommentDAOImpl extends BaseDaoImpl<TEndProjectComment> i
     public int findMyReviewEndProsCount(String teaCode){
         log.debug("finding teacher review TEndProjectComment count");
         try {
-            // TODO
-            String sql = "select count(*) From TEndProjectComment T where T.isdeleted='N' and T.TEndProjectExport.TExpertTeacher.TTeacher.teaCode=:code";
-            Query query = getSessionFactory().getCurrentSession().createQuery(sql);
+            String hql = "select count(*) from TEndProjectComment epc, TExpertTeacher et, TTeacher t where epc.isdeleted = 'N'" +
+                    " and epc.eProjectExportId = et.exTeaId and et.teaId = t.teaId and t.teaCode = :code";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", teaCode);
             List list = query.list();
             int count = 0;

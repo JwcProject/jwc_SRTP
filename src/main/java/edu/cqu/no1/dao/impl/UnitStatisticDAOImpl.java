@@ -126,7 +126,6 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
         } catch (RuntimeException e) {
             e.printStackTrace();
             throw e;
-            // TODO: handle exception
         }
     }
 

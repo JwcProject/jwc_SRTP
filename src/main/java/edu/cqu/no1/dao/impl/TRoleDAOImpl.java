@@ -142,8 +142,9 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     public String findRoleNameByUserId(String userId){
         log.debug("find roleName by userId");
         try {
-            String queryString = "Select r.roleName From TRole r Where r.roleId In(Select ur.TRole.roleId From TUserRole ur Where ur.TUser.userId =:userId) And Rownum = 1";
+            String queryString = "Select r.roleName From TRole r Where r.roleId In(Select ur.tRoleByRoleId.roleId From TUserRole ur Where ur.tUserByUserId.userId =:userId)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
+            query.setMaxResults(1);
             query.setString("userId", userId);
             String roleName = "";
             List tmpList = query.list();
@@ -153,7 +154,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             }
             return roleName;
         } catch (RuntimeException re) {
-            // TODO: handle exception
             log.error("find roleName by userId failed", re);
             throw re;
         }

@@ -1,13 +1,10 @@
 package edu.cqu.no1.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 public class TAnnouncementModel {
@@ -24,6 +21,25 @@ public class TAnnouncementModel {
     private String checkState;
     private String isdeleted;
     private String publishername;
+    private TAnnounType tAnnounTypeByAnnounTypeId;
+
+    public TAnnouncementModel() { /* null */ }
+
+    public TAnnouncementModel(TAnnouncement tAnnouncement, String publishername) {
+        this.announId = tAnnouncement.getAnnounId();
+        this.announTypeId = tAnnouncement.getAnnounTypeId();
+        this.announTitle = tAnnouncement.getAnnounTitle();
+        this.announContent = tAnnouncement.getAnnounContent();
+        this.publisherCode = tAnnouncement.getPublisherCode();
+        this.publisherRole = tAnnouncement.getPublisherRole();
+        this.publishTime = tAnnouncement.getPublishTime();
+        this.publishState = tAnnouncement.getPublishState();
+        this.checkerCode = tAnnouncement.getCheckerCode();
+        this.checkTime = tAnnouncement.getCheckTime();
+        this.checkState = tAnnouncement.getCheckState();
+        this.isdeleted = tAnnouncement.getIsdeleted();
+        this.publishername = publishername;
+    }
 
     @Id
     @Column(name = "ANNOUN_ID")
@@ -162,21 +178,21 @@ public class TAnnouncementModel {
 
         TAnnouncementModel that = (TAnnouncementModel) o;
 
+        if (announId != null ? !announId.equals(that.announId) : that.announId != null) return false;
+        if (announTypeId != null ? !announTypeId.equals(that.announTypeId) : that.announTypeId != null) return false;
+        if (announTitle != null ? !announTitle.equals(that.announTitle) : that.announTitle != null) return false;
         if (announContent != null ? !announContent.equals(that.announContent) : that.announContent != null)
             return false;
-        if (announId != null ? !announId.equals(that.announId) : that.announId != null) return false;
-        if (announTitle != null ? !announTitle.equals(that.announTitle) : that.announTitle != null) return false;
-        if (announTypeId != null ? !announTypeId.equals(that.announTypeId) : that.announTypeId != null) return false;
-        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
-        if (checkTime != null ? !checkTime.equals(that.checkTime) : that.checkTime != null) return false;
-        if (checkerCode != null ? !checkerCode.equals(that.checkerCode) : that.checkerCode != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (publishState != null ? !publishState.equals(that.publishState) : that.publishState != null) return false;
-        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
         if (publisherCode != null ? !publisherCode.equals(that.publisherCode) : that.publisherCode != null)
             return false;
         if (publisherRole != null ? !publisherRole.equals(that.publisherRole) : that.publisherRole != null)
             return false;
+        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
+        if (publishState != null ? !publishState.equals(that.publishState) : that.publishState != null) return false;
+        if (checkerCode != null ? !checkerCode.equals(that.checkerCode) : that.checkerCode != null) return false;
+        if (checkTime != null ? !checkTime.equals(that.checkTime) : that.checkTime != null) return false;
+        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
         if (publishername != null ? !publishername.equals(that.publishername) : that.publishername != null)
             return false;
 
@@ -199,5 +215,15 @@ public class TAnnouncementModel {
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         result = 31 * result + (publishername != null ? publishername.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ANNOUN_TYPE_ID", referencedColumnName = "announ_type_id")
+    public TAnnounType gettAnnounTypeByAnnounTypeId() {
+        return tAnnounTypeByAnnounTypeId;
+    }
+
+    public void settAnnounTypeByAnnounTypeId(TAnnounType tAnnounTypeByAnnounTypeId) {
+        this.tAnnounTypeByAnnounTypeId = tAnnounTypeByAnnounTypeId;
     }
 }

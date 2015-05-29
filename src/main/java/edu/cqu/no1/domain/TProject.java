@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @javax.persistence.Table(name = "t_project", schema = "", catalog = "srtp")
@@ -14,7 +14,7 @@ public class TProject {
     private String projectId;
 
     @Id
-    @javax.persistence.Column(name = "PROJECT_ID")
+    @javax.persistence.Column(name = "project_id")
     public String getProjectId() {
         return projectId;
     }
@@ -23,58 +23,10 @@ public class TProject {
         this.projectId = projectId;
     }
 
-    private String projectTeacher2;
-
-    @Basic
-    @javax.persistence.Column(name = "PROJECT_TEACHER2")
-    public String getProjectTeacher2() {
-        return projectTeacher2;
-    }
-
-    public void setProjectTeacher2(String projectTeacher2) {
-        this.projectTeacher2 = projectTeacher2;
-    }
-
-    private String projectTeacher1;
-
-    @Basic
-    @javax.persistence.Column(name = "PROJECT_TEACHER1")
-    public String getProjectTeacher1() {
-        return projectTeacher1;
-    }
-
-    public void setProjectTeacher1(String projectTeacher1) {
-        this.projectTeacher1 = projectTeacher1;
-    }
-
-    private String jqId;
-
-    @Basic
-    @javax.persistence.Column(name = "JQ_ID")
-    public String getJqId() {
-        return jqId;
-    }
-
-    public void setJqId(String jqId) {
-        this.jqId = jqId;
-    }
-
-    private String projectLeader;
-
-    @Basic
-    @javax.persistence.Column(name = "PROJECT_LEADER")
-    public String getProjectLeader() {
-        return projectLeader;
-    }
-
-    public void setProjectLeader(String projectLeader) {
-        this.projectLeader = projectLeader;
-    }
-
     private String declarId;
 
     @Basic
-    @javax.persistence.Column(name = "DECLAR_ID")
+    @javax.persistence.Column(name = "declar_id")
     public String getDeclarId() {
         return declarId;
     }
@@ -83,22 +35,10 @@ public class TProject {
         this.declarId = declarId;
     }
 
-    private String projectUser2;
-
-    @Basic
-    @javax.persistence.Column(name = "PROJECT_USER2")
-    public String getProjectUser2() {
-        return projectUser2;
-    }
-
-    public void setProjectUser2(String projectUser2) {
-        this.projectUser2 = projectUser2;
-    }
-
     private String unitId;
 
     @Basic
-    @javax.persistence.Column(name = "UNIT_ID")
+    @javax.persistence.Column(name = "unit_id")
     public String getUnitId() {
         return unitId;
     }
@@ -107,22 +47,22 @@ public class TProject {
         this.unitId = unitId;
     }
 
-    private String projectUser1;
+    private String jqId;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_USER1")
-    public String getProjectUser1() {
-        return projectUser1;
+    @javax.persistence.Column(name = "jq_id")
+    public String getJqId() {
+        return jqId;
     }
 
-    public void setProjectUser1(String projectUser1) {
-        this.projectUser1 = projectUser1;
+    public void setJqId(String jqId) {
+        this.jqId = jqId;
     }
 
     private String projectLine;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_LINE")
+    @javax.persistence.Column(name = "project_line")
     public String getProjectLine() {
         return projectLine;
     }
@@ -134,7 +74,7 @@ public class TProject {
     private String projectState;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_STATE")
+    @javax.persistence.Column(name = "project_state")
     public String getProjectState() {
         return projectState;
     }
@@ -146,7 +86,7 @@ public class TProject {
     private String projectNumber;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_NUMBER")
+    @javax.persistence.Column(name = "project_number")
     public String getProjectNumber() {
         return projectNumber;
     }
@@ -158,7 +98,7 @@ public class TProject {
     private String projectSense;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_SENSE")
+    @javax.persistence.Column(name = "project_sense")
     public String getProjectSense() {
         return projectSense;
     }
@@ -170,7 +110,7 @@ public class TProject {
     private String projectContent;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_CONTENT")
+    @javax.persistence.Column(name = "project_content")
     public String getProjectContent() {
         return projectContent;
     }
@@ -182,7 +122,7 @@ public class TProject {
     private String projectLabtype;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_LABTYPE")
+    @javax.persistence.Column(name = "project_labtype")
     public String getProjectLabtype() {
         return projectLabtype;
     }
@@ -194,7 +134,7 @@ public class TProject {
     private String projectLabname;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_LABNAME")
+    @javax.persistence.Column(name = "project_labname")
     public String getProjectLabname() {
         return projectLabname;
     }
@@ -206,7 +146,7 @@ public class TProject {
     private String projectName;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_NAME")
+    @javax.persistence.Column(name = "project_name")
     public String getProjectName() {
         return projectName;
     }
@@ -218,7 +158,7 @@ public class TProject {
     private String projectIntroduction;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_INTRODUCTION")
+    @javax.persistence.Column(name = "project_introduction")
     public String getProjectIntroduction() {
         return projectIntroduction;
     }
@@ -227,22 +167,22 @@ public class TProject {
         this.projectIntroduction = projectIntroduction;
     }
 
-    private Double projectFund;
+    private Float projectFund;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_FUND")
-    public Double getProjectFund() {
+    @javax.persistence.Column(name = "project_fund")
+    public Float getProjectFund() {
         return projectFund;
     }
 
-    public void setProjectFund(Double projectFund) {
+    public void setProjectFund(Float projectFund) {
         this.projectFund = projectFund;
     }
 
     private Timestamp projectBegintime;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_BEGINTIME")
+    @javax.persistence.Column(name = "project_begintime")
     public Timestamp getProjectBegintime() {
         return projectBegintime;
     }
@@ -254,7 +194,7 @@ public class TProject {
     private Timestamp projectEndtime;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_ENDTIME")
+    @javax.persistence.Column(name = "project_endtime")
     public Timestamp getProjectEndtime() {
         return projectEndtime;
     }
@@ -263,10 +203,22 @@ public class TProject {
         this.projectEndtime = projectEndtime;
     }
 
+    private String projectLeader;
+
+    @Basic
+    @javax.persistence.Column(name = "project_leader")
+    public String getProjectLeader() {
+        return projectLeader;
+    }
+
+    public void setProjectLeader(String projectLeader) {
+        this.projectLeader = projectLeader;
+    }
+
     private String projectInnovate;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_INNOVATE")
+    @javax.persistence.Column(name = "project_innovate")
     public String getProjectInnovate() {
         return projectInnovate;
     }
@@ -278,7 +230,7 @@ public class TProject {
     private String projectCondition;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_CONDITION")
+    @javax.persistence.Column(name = "project_condition")
     public String getProjectCondition() {
         return projectCondition;
     }
@@ -290,7 +242,7 @@ public class TProject {
     private String projectProgress;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_PROGRESS")
+    @javax.persistence.Column(name = "project_progress")
     public String getProjectProgress() {
         return projectProgress;
     }
@@ -302,7 +254,7 @@ public class TProject {
     private String projectGoal;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_GOAL")
+    @javax.persistence.Column(name = "project_goal")
     public String getProjectGoal() {
         return projectGoal;
     }
@@ -314,7 +266,7 @@ public class TProject {
     private String projectAchievement;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_ACHIEVEMENT")
+    @javax.persistence.Column(name = "project_achievement")
     public String getProjectAchievement() {
         return projectAchievement;
     }
@@ -326,7 +278,7 @@ public class TProject {
     private String projectWork;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_WORK")
+    @javax.persistence.Column(name = "project_work")
     public String getProjectWork() {
         return projectWork;
     }
@@ -338,7 +290,7 @@ public class TProject {
     private String redmineProjectid;
 
     @Basic
-    @javax.persistence.Column(name = "REDMINE_PROJECTID")
+    @javax.persistence.Column(name = "redmine_projectid")
     public String getRedmineProjectid() {
         return redmineProjectid;
     }
@@ -350,7 +302,7 @@ public class TProject {
     private String projectScore;
 
     @Basic
-    @javax.persistence.Column(name = "PROJECT_SCORE")
+    @javax.persistence.Column(name = "project_score")
     public String getProjectScore() {
         return projectScore;
     }
@@ -362,13 +314,61 @@ public class TProject {
     private String isdeleted;
 
     @Basic
-    @javax.persistence.Column(name = "ISDELETED")
+    @javax.persistence.Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
 
     public void setIsdeleted(String isdeleted) {
         this.isdeleted = isdeleted;
+    }
+
+    private String projectUser1;
+
+    @Basic
+    @javax.persistence.Column(name = "project_user1")
+    public String getProjectUser1() {
+        return projectUser1;
+    }
+
+    public void setProjectUser1(String projectUser1) {
+        this.projectUser1 = projectUser1;
+    }
+
+    private String projectUser2;
+
+    @Basic
+    @javax.persistence.Column(name = "project_user2")
+    public String getProjectUser2() {
+        return projectUser2;
+    }
+
+    public void setProjectUser2(String projectUser2) {
+        this.projectUser2 = projectUser2;
+    }
+
+    private String projectTeacher1;
+
+    @Basic
+    @javax.persistence.Column(name = "project_teacher1")
+    public String getProjectTeacher1() {
+        return projectTeacher1;
+    }
+
+    public void setProjectTeacher1(String projectTeacher1) {
+        this.projectTeacher1 = projectTeacher1;
+    }
+
+    private String projectTeacher2;
+
+    @Basic
+    @javax.persistence.Column(name = "project_teacher2")
+    public String getProjectTeacher2() {
+        return projectTeacher2;
+    }
+
+    public void setProjectTeacher2(String projectTeacher2) {
+        this.projectTeacher2 = projectTeacher2;
     }
 
     @Override
@@ -378,61 +378,61 @@ public class TProject {
 
         TProject tProject = (TProject) o;
 
-        if (declarId != null ? !declarId.equals(tProject.declarId) : tProject.declarId != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tProject.isdeleted) : tProject.isdeleted != null) return false;
-        if (jqId != null ? !jqId.equals(tProject.jqId) : tProject.jqId != null) return false;
-        if (projectAchievement != null ? !projectAchievement.equals(tProject.projectAchievement) : tProject.projectAchievement != null)
-            return false;
-        if (projectBegintime != null ? !projectBegintime.equals(tProject.projectBegintime) : tProject.projectBegintime != null)
-            return false;
-        if (projectCondition != null ? !projectCondition.equals(tProject.projectCondition) : tProject.projectCondition != null)
-            return false;
-        if (projectContent != null ? !projectContent.equals(tProject.projectContent) : tProject.projectContent != null)
-            return false;
-        if (projectEndtime != null ? !projectEndtime.equals(tProject.projectEndtime) : tProject.projectEndtime != null)
-            return false;
-        if (projectFund != null ? !projectFund.equals(tProject.projectFund) : tProject.projectFund != null)
-            return false;
-        if (projectGoal != null ? !projectGoal.equals(tProject.projectGoal) : tProject.projectGoal != null)
-            return false;
         if (projectId != null ? !projectId.equals(tProject.projectId) : tProject.projectId != null) return false;
-        if (projectInnovate != null ? !projectInnovate.equals(tProject.projectInnovate) : tProject.projectInnovate != null)
-            return false;
-        if (projectIntroduction != null ? !projectIntroduction.equals(tProject.projectIntroduction) : tProject.projectIntroduction != null)
-            return false;
-        if (projectLabname != null ? !projectLabname.equals(tProject.projectLabname) : tProject.projectLabname != null)
-            return false;
-        if (projectLabtype != null ? !projectLabtype.equals(tProject.projectLabtype) : tProject.projectLabtype != null)
-            return false;
-        if (projectLeader != null ? !projectLeader.equals(tProject.projectLeader) : tProject.projectLeader != null)
-            return false;
+        if (declarId != null ? !declarId.equals(tProject.declarId) : tProject.declarId != null) return false;
+        if (unitId != null ? !unitId.equals(tProject.unitId) : tProject.unitId != null) return false;
+        if (jqId != null ? !jqId.equals(tProject.jqId) : tProject.jqId != null) return false;
         if (projectLine != null ? !projectLine.equals(tProject.projectLine) : tProject.projectLine != null)
-            return false;
-        if (projectName != null ? !projectName.equals(tProject.projectName) : tProject.projectName != null)
-            return false;
-        if (projectNumber != null ? !projectNumber.equals(tProject.projectNumber) : tProject.projectNumber != null)
-            return false;
-        if (projectProgress != null ? !projectProgress.equals(tProject.projectProgress) : tProject.projectProgress != null)
-            return false;
-        if (projectScore != null ? !projectScore.equals(tProject.projectScore) : tProject.projectScore != null)
-            return false;
-        if (projectSense != null ? !projectSense.equals(tProject.projectSense) : tProject.projectSense != null)
             return false;
         if (projectState != null ? !projectState.equals(tProject.projectState) : tProject.projectState != null)
             return false;
-        if (projectTeacher1 != null ? !projectTeacher1.equals(tProject.projectTeacher1) : tProject.projectTeacher1 != null)
+        if (projectNumber != null ? !projectNumber.equals(tProject.projectNumber) : tProject.projectNumber != null)
             return false;
-        if (projectTeacher2 != null ? !projectTeacher2.equals(tProject.projectTeacher2) : tProject.projectTeacher2 != null)
+        if (projectSense != null ? !projectSense.equals(tProject.projectSense) : tProject.projectSense != null)
             return false;
-        if (projectUser1 != null ? !projectUser1.equals(tProject.projectUser1) : tProject.projectUser1 != null)
+        if (projectContent != null ? !projectContent.equals(tProject.projectContent) : tProject.projectContent != null)
             return false;
-        if (projectUser2 != null ? !projectUser2.equals(tProject.projectUser2) : tProject.projectUser2 != null)
+        if (projectLabtype != null ? !projectLabtype.equals(tProject.projectLabtype) : tProject.projectLabtype != null)
+            return false;
+        if (projectLabname != null ? !projectLabname.equals(tProject.projectLabname) : tProject.projectLabname != null)
+            return false;
+        if (projectName != null ? !projectName.equals(tProject.projectName) : tProject.projectName != null)
+            return false;
+        if (projectIntroduction != null ? !projectIntroduction.equals(tProject.projectIntroduction) : tProject.projectIntroduction != null)
+            return false;
+        if (projectFund != null ? !projectFund.equals(tProject.projectFund) : tProject.projectFund != null)
+            return false;
+        if (projectBegintime != null ? !projectBegintime.equals(tProject.projectBegintime) : tProject.projectBegintime != null)
+            return false;
+        if (projectEndtime != null ? !projectEndtime.equals(tProject.projectEndtime) : tProject.projectEndtime != null)
+            return false;
+        if (projectLeader != null ? !projectLeader.equals(tProject.projectLeader) : tProject.projectLeader != null)
+            return false;
+        if (projectInnovate != null ? !projectInnovate.equals(tProject.projectInnovate) : tProject.projectInnovate != null)
+            return false;
+        if (projectCondition != null ? !projectCondition.equals(tProject.projectCondition) : tProject.projectCondition != null)
+            return false;
+        if (projectProgress != null ? !projectProgress.equals(tProject.projectProgress) : tProject.projectProgress != null)
+            return false;
+        if (projectGoal != null ? !projectGoal.equals(tProject.projectGoal) : tProject.projectGoal != null)
+            return false;
+        if (projectAchievement != null ? !projectAchievement.equals(tProject.projectAchievement) : tProject.projectAchievement != null)
             return false;
         if (projectWork != null ? !projectWork.equals(tProject.projectWork) : tProject.projectWork != null)
             return false;
         if (redmineProjectid != null ? !redmineProjectid.equals(tProject.redmineProjectid) : tProject.redmineProjectid != null)
             return false;
-        if (unitId != null ? !unitId.equals(tProject.unitId) : tProject.unitId != null) return false;
+        if (projectScore != null ? !projectScore.equals(tProject.projectScore) : tProject.projectScore != null)
+            return false;
+        if (isdeleted != null ? !isdeleted.equals(tProject.isdeleted) : tProject.isdeleted != null) return false;
+        if (projectUser1 != null ? !projectUser1.equals(tProject.projectUser1) : tProject.projectUser1 != null)
+            return false;
+        if (projectUser2 != null ? !projectUser2.equals(tProject.projectUser2) : tProject.projectUser2 != null)
+            return false;
+        if (projectTeacher1 != null ? !projectTeacher1.equals(tProject.projectTeacher1) : tProject.projectTeacher1 != null)
+            return false;
+        if (projectTeacher2 != null ? !projectTeacher2.equals(tProject.projectTeacher2) : tProject.projectTeacher2 != null)
+            return false;
 
         return true;
     }
@@ -440,14 +440,9 @@ public class TProject {
     @Override
     public int hashCode() {
         int result = projectId != null ? projectId.hashCode() : 0;
-        result = 31 * result + (projectTeacher2 != null ? projectTeacher2.hashCode() : 0);
-        result = 31 * result + (projectTeacher1 != null ? projectTeacher1.hashCode() : 0);
-        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
-        result = 31 * result + (projectLeader != null ? projectLeader.hashCode() : 0);
         result = 31 * result + (declarId != null ? declarId.hashCode() : 0);
-        result = 31 * result + (projectUser2 != null ? projectUser2.hashCode() : 0);
         result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
-        result = 31 * result + (projectUser1 != null ? projectUser1.hashCode() : 0);
+        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
         result = 31 * result + (projectLine != null ? projectLine.hashCode() : 0);
         result = 31 * result + (projectState != null ? projectState.hashCode() : 0);
         result = 31 * result + (projectNumber != null ? projectNumber.hashCode() : 0);
@@ -460,6 +455,7 @@ public class TProject {
         result = 31 * result + (projectFund != null ? projectFund.hashCode() : 0);
         result = 31 * result + (projectBegintime != null ? projectBegintime.hashCode() : 0);
         result = 31 * result + (projectEndtime != null ? projectEndtime.hashCode() : 0);
+        result = 31 * result + (projectLeader != null ? projectLeader.hashCode() : 0);
         result = 31 * result + (projectInnovate != null ? projectInnovate.hashCode() : 0);
         result = 31 * result + (projectCondition != null ? projectCondition.hashCode() : 0);
         result = 31 * result + (projectProgress != null ? projectProgress.hashCode() : 0);
@@ -469,6 +465,10 @@ public class TProject {
         result = 31 * result + (redmineProjectid != null ? redmineProjectid.hashCode() : 0);
         result = 31 * result + (projectScore != null ? projectScore.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
+        result = 31 * result + (projectUser1 != null ? projectUser1.hashCode() : 0);
+        result = 31 * result + (projectUser2 != null ? projectUser2.hashCode() : 0);
+        result = 31 * result + (projectTeacher1 != null ? projectTeacher1.hashCode() : 0);
+        result = 31 * result + (projectTeacher2 != null ? projectTeacher2.hashCode() : 0);
         return result;
     }
 }

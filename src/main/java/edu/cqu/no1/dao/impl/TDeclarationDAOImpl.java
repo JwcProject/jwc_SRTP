@@ -48,7 +48,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
 
     /**
      *
-     *TODO 判断一个学生是否参与了申报
+     *判断一个学生是否参与了申报
      *authoy lzh
      *@param stuNumber
      *@return
@@ -717,7 +717,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
 
     /**
      *
-     *TODO 根据申报状态查询学院申报
+     *根据申报状态查询学院申报
      *authoy lzh
      *@param teaCode 学院主管老师的教职工号
      *@param state  申报状态
@@ -787,7 +787,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         } catch (RuntimeException e) {
             log.error("find unit declaration count by state" + e);
             throw e;
-            // TODO: handle exception
         }
     }
 
@@ -808,7 +807,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
             return count;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -1074,18 +1072,22 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     public String getDeclarationSerial(String unitId){
         log.debug("getDeclarationSerial");
         try {
-            // TODO
-            String queryStr = "Select Extract(Year From Sysdate) || '-' || " +
-                    "Decode(U.Unit_Code, Null, 'cqu', U.Unit_Code) || '-' || " +
-                    "(Count(D.Declar_Id)+1000) As Serial From T_Unit u, T_Declaration d " +
-                    "Where D.College = U.Unit_Id Group By U.Unit_Id,u.unit_code Having U.Unit_Id=:unitid";
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            query.setString("unitid", unitId);
-            List tmpList = query.list();
+            String hql = "select year(current_date()) || '-', u.unitCode, '-' || count(d.declarId) + 1000 as serial from" +
+                    " TUnit u, TDeclaration  d where d.college = u.unitId group by u.unitId, u.unitCode" +
+                    " having u.unitId = :unitId";
+
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("unitId", unitId);
+            List<Object[]> tmpList = query.list();
             String serial = "";
             if(tmpList.size()>0)
             {
-                serial = ""+tmpList.get(0);
+                Object [] objs = tmpList.get(0);
+                assert 3 == objs.length;
+                for (int i = 0; i < objs.length; ++i) {
+                    if (1 == i && null == objs[i]) objs[i] = "cqu";
+                    serial += (String)objs[i];
+                }
             }
             return serial;
         } catch (RuntimeException re) {

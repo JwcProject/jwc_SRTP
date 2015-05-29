@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_role", schema = "", catalog = "srtp")
@@ -13,9 +14,11 @@ public class TRole {
     private String roleState;
     private String roleIntroduction;
     private String isdeleted;
+    private Collection<TRolePermission> tRolePermissionsByRoleId;
+    private Collection<TUserRole> tUserRolesByRoleId;
 
     @Id
-    @Column(name = "ROLE_ID")
+    @Column(name = "role_id")
     public String getRoleId() {
         return roleId;
     }
@@ -25,7 +28,7 @@ public class TRole {
     }
 
     @Basic
-    @Column(name = "ROLE_NAME")
+    @Column(name = "role_name")
     public String getRoleName() {
         return roleName;
     }
@@ -35,7 +38,7 @@ public class TRole {
     }
 
     @Basic
-    @Column(name = "ROLE_STATE")
+    @Column(name = "role_state")
     public String getRoleState() {
         return roleState;
     }
@@ -45,7 +48,7 @@ public class TRole {
     }
 
     @Basic
-    @Column(name = "ROLE_INTRODUCTION")
+    @Column(name = "role_introduction")
     public String getRoleIntroduction() {
         return roleIntroduction;
     }
@@ -55,7 +58,7 @@ public class TRole {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -71,12 +74,12 @@ public class TRole {
 
         TRole tRole = (TRole) o;
 
-        if (isdeleted != null ? !isdeleted.equals(tRole.isdeleted) : tRole.isdeleted != null) return false;
         if (roleId != null ? !roleId.equals(tRole.roleId) : tRole.roleId != null) return false;
-        if (roleIntroduction != null ? !roleIntroduction.equals(tRole.roleIntroduction) : tRole.roleIntroduction != null)
-            return false;
         if (roleName != null ? !roleName.equals(tRole.roleName) : tRole.roleName != null) return false;
         if (roleState != null ? !roleState.equals(tRole.roleState) : tRole.roleState != null) return false;
+        if (roleIntroduction != null ? !roleIntroduction.equals(tRole.roleIntroduction) : tRole.roleIntroduction != null)
+            return false;
+        if (isdeleted != null ? !isdeleted.equals(tRole.isdeleted) : tRole.isdeleted != null) return false;
 
         return true;
     }
@@ -89,5 +92,23 @@ public class TRole {
         result = 31 * result + (roleIntroduction != null ? roleIntroduction.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tRoleByRoleId")
+    public Collection<TRolePermission> gettRolePermissionsByRoleId() {
+        return tRolePermissionsByRoleId;
+    }
+
+    public void settRolePermissionsByRoleId(Collection<TRolePermission> tRolePermissionsByRoleId) {
+        this.tRolePermissionsByRoleId = tRolePermissionsByRoleId;
+    }
+
+    @OneToMany(mappedBy = "tRoleByRoleId")
+    public Collection<TUserRole> gettUserRolesByRoleId() {
+        return tUserRolesByRoleId;
+    }
+
+    public void settUserRolesByRoleId(Collection<TUserRole> tUserRolesByRoleId) {
+        this.tUserRolesByRoleId = tUserRolesByRoleId;
     }
 }

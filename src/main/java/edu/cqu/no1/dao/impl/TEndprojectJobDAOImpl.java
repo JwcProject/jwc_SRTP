@@ -26,7 +26,7 @@ public class TEndprojectJobDAOImpl extends BaseDaoImpl<TEndprojectJob> implement
 
     /**
      *
-     *TODO 根据结题获取结题分工
+     *根据结题获取结题分工
      *authoy lzh
      *@param endprojectId
      *@return
@@ -34,7 +34,7 @@ public class TEndprojectJobDAOImpl extends BaseDaoImpl<TEndprojectJob> implement
     public List findEndProJobsByEndProId(String endprojectId){
         log.debug("find endprojectjobs by endproject id");
         try {
-            String queryString = "From TEndprojectJob T where T.isdeleted='N' and T.endprojectId=:id";
+            String queryString = "From TEndprojectJob T where T.isdeleted='N' and T.endProjectId=:id";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("id", endprojectId);
             return query.list();

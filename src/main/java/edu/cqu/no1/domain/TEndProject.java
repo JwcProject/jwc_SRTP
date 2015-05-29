@@ -6,285 +6,21 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @javax.persistence.Table(name = "t_end_project", schema = "", catalog = "srtp")
 public class TEndProject {
-    private String endprojectId;
-
-    @Id
-    @javax.persistence.Column(name = "ENDPROJECT_ID")
-    public String getEndprojectId() {
-        return endprojectId;
-    }
-
-    public void setEndprojectId(String endprojectId) {
-        this.endprojectId = endprojectId;
-    }
-
-    private String jqId;
+    private Timestamp schoolTypeinTime;
 
     @Basic
-    @javax.persistence.Column(name = "JQ_ID")
-    public String getJqId() {
-        return jqId;
+    @javax.persistence.Column(name = "SCHOOL_TYPEIN_TIME")
+    public Timestamp getSchoolTypeinTime() {
+        return schoolTypeinTime;
     }
 
-    public void setJqId(String jqId) {
-        this.jqId = jqId;
-    }
-
-    private String projectId;
-
-    @Basic
-    @javax.persistence.Column(name = "PROJECT_ID")
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    private String unitId;
-
-    @Basic
-    @javax.persistence.Column(name = "UNIT_ID")
-    public String getUnitId() {
-        return unitId;
-    }
-
-    public void setUnitId(String unitId) {
-        this.unitId = unitId;
-    }
-
-    private String endprojectState;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_STATE")
-    public String getEndprojectState() {
-        return endprojectState;
-    }
-
-    public void setEndprojectState(String endprojectState) {
-        this.endprojectState = endprojectState;
-    }
-
-    private String endprojectSummary;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_SUMMARY")
-    public String getEndprojectSummary() {
-        return endprojectSummary;
-    }
-
-    public void setEndprojectSummary(String endprojectSummary) {
-        this.endprojectSummary = endprojectSummary;
-    }
-
-    private String endprojectMethod;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_METHOD")
-    public String getEndprojectMethod() {
-        return endprojectMethod;
-    }
-
-    public void setEndprojectMethod(String endprojectMethod) {
-        this.endprojectMethod = endprojectMethod;
-    }
-
-    private String endprojectScore;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_SCORE")
-    public String getEndprojectScore() {
-        return endprojectScore;
-    }
-
-    public void setEndprojectScore(String endprojectScore) {
-        this.endprojectScore = endprojectScore;
-    }
-
-    private String lastScore;
-
-    @Basic
-    @javax.persistence.Column(name = "LAST_SCORE")
-    public String getLastScore() {
-        return lastScore;
-    }
-
-    public void setLastScore(String lastScore) {
-        this.lastScore = lastScore;
-    }
-
-    private String endprojectNumber;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_NUMBER")
-    public String getEndprojectNumber() {
-        return endprojectNumber;
-    }
-
-    public void setEndprojectNumber(String endprojectNumber) {
-        this.endprojectNumber = endprojectNumber;
-    }
-
-    private String lastComment;
-
-    @Basic
-    @javax.persistence.Column(name = "LAST_COMMENT")
-    public String getLastComment() {
-        return lastComment;
-    }
-
-    public void setLastComment(String lastComment) {
-        this.lastComment = lastComment;
-    }
-
-    private String endprojectComment;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_COMMENT")
-    public String getEndprojectComment() {
-        return endprojectComment;
-    }
-
-    public void setEndprojectComment(String endprojectComment) {
-        this.endprojectComment = endprojectComment;
-    }
-
-    private String endprojectName;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_NAME")
-    public String getEndprojectName() {
-        return endprojectName;
-    }
-
-    public void setEndprojectName(String endprojectName) {
-        this.endprojectName = endprojectName;
-    }
-
-    private String endprojectSense;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_SENSE")
-    public String getEndprojectSense() {
-        return endprojectSense;
-    }
-
-    public void setEndprojectSense(String endprojectSense) {
-        this.endprojectSense = endprojectSense;
-    }
-
-    private String endprojectContent;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_CONTENT")
-    public String getEndprojectContent() {
-        return endprojectContent;
-    }
-
-    public void setEndprojectContent(String endprojectContent) {
-        this.endprojectContent = endprojectContent;
-    }
-
-    private Double endprojectCredit;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_CREDIT")
-    public Double getEndprojectCredit() {
-        return endprojectCredit;
-    }
-
-    public void setEndprojectCredit(Double endprojectCredit) {
-        this.endprojectCredit = endprojectCredit;
-    }
-
-    private String endprojectProblem;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_PROBLEM")
-    public String getEndprojectProblem() {
-        return endprojectProblem;
-    }
-
-    public void setEndprojectProblem(String endprojectProblem) {
-        this.endprojectProblem = endprojectProblem;
-    }
-
-    private String endprojectInnovate;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_INNOVATE")
-    public String getEndprojectInnovate() {
-        return endprojectInnovate;
-    }
-
-    public void setEndprojectInnovate(String endprojectInnovate) {
-        this.endprojectInnovate = endprojectInnovate;
-    }
-
-    private String endprojectIntroduction;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_INTRODUCTION")
-    public String getEndprojectIntroduction() {
-        return endprojectIntroduction;
-    }
-
-    public void setEndprojectIntroduction(String endprojectIntroduction) {
-        this.endprojectIntroduction = endprojectIntroduction;
-    }
-
-    private String endprojectWork;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_WORK")
-    public String getEndprojectWork() {
-        return endprojectWork;
-    }
-
-    public void setEndprojectWork(String endprojectWork) {
-        this.endprojectWork = endprojectWork;
-    }
-
-    private String isdeleted;
-
-    @Basic
-    @javax.persistence.Column(name = "ISDELETED")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
-
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
-
-    private String endprojectPassapply;
-
-    @Basic
-    @javax.persistence.Column(name = "ENDPROJECT_PASSAPPLY")
-    public String getEndprojectPassapply() {
-        return endprojectPassapply;
-    }
-
-    public void setEndprojectPassapply(String endprojectPassapply) {
-        this.endprojectPassapply = endprojectPassapply;
-    }
-
-    private Timestamp submitTime;
-
-    @Basic
-    @javax.persistence.Column(name = "SUBMIT_TIME")
-    public Timestamp getSubmitTime() {
-        return submitTime;
-    }
-
-    public void setSubmitTime(Timestamp submitTime) {
-        this.submitTime = submitTime;
+    public void setSchoolTypeinTime(Timestamp schoolTypeinTime) {
+        this.schoolTypeinTime = schoolTypeinTime;
     }
 
     private Timestamp unitTypeinTime;
@@ -299,16 +35,280 @@ public class TEndProject {
         this.unitTypeinTime = unitTypeinTime;
     }
 
-    private Timestamp schoolTypeinTime;
+    private Timestamp submitTime;
 
     @Basic
-    @javax.persistence.Column(name = "SCHOOL_TYPEIN_TIME")
-    public Timestamp getSchoolTypeinTime() {
-        return schoolTypeinTime;
+    @javax.persistence.Column(name = "SUBMIT_TIME")
+    public Timestamp getSubmitTime() {
+        return submitTime;
     }
 
-    public void setSchoolTypeinTime(Timestamp schoolTypeinTime) {
-        this.schoolTypeinTime = schoolTypeinTime;
+    public void setSubmitTime(Timestamp submitTime) {
+        this.submitTime = submitTime;
+    }
+
+    private String endProjectId;
+
+    @Id
+    @javax.persistence.Column(name = "endProject_id")
+    public String getEndProjectId() {
+        return endProjectId;
+    }
+
+    public void setEndProjectId(String endProjectId) {
+        this.endProjectId = endProjectId;
+    }
+
+    private String projectId;
+
+    @Basic
+    @javax.persistence.Column(name = "project_id")
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    private String jqId;
+
+    @Basic
+    @javax.persistence.Column(name = "jq_id")
+    public String getJqId() {
+        return jqId;
+    }
+
+    public void setJqId(String jqId) {
+        this.jqId = jqId;
+    }
+
+    private String endProjectState;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_state")
+    public String getEndProjectState() {
+        return endProjectState;
+    }
+
+    public void setEndProjectState(String endProjectState) {
+        this.endProjectState = endProjectState;
+    }
+
+    private String endProjectSummary;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_summary")
+    public String getEndProjectSummary() {
+        return endProjectSummary;
+    }
+
+    public void setEndProjectSummary(String endProjectSummary) {
+        this.endProjectSummary = endProjectSummary;
+    }
+
+    private String endProjectMethod;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_method")
+    public String getEndProjectMethod() {
+        return endProjectMethod;
+    }
+
+    public void setEndProjectMethod(String endProjectMethod) {
+        this.endProjectMethod = endProjectMethod;
+    }
+
+    private String endProjectScore;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_score")
+    public String getEndProjectScore() {
+        return endProjectScore;
+    }
+
+    public void setEndProjectScore(String endProjectScore) {
+        this.endProjectScore = endProjectScore;
+    }
+
+    private String lastScore;
+
+    @Basic
+    @javax.persistence.Column(name = "last_score")
+    public String getLastScore() {
+        return lastScore;
+    }
+
+    public void setLastScore(String lastScore) {
+        this.lastScore = lastScore;
+    }
+
+    private String endProjectNumber;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_number")
+    public String getEndProjectNumber() {
+        return endProjectNumber;
+    }
+
+    public void setEndProjectNumber(String endProjectNumber) {
+        this.endProjectNumber = endProjectNumber;
+    }
+
+    private String lastComment;
+
+    @Basic
+    @javax.persistence.Column(name = "last_comment")
+    public String getLastComment() {
+        return lastComment;
+    }
+
+    public void setLastComment(String lastComment) {
+        this.lastComment = lastComment;
+    }
+
+    private String endProjectComment;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_comment")
+    public String getEndProjectComment() {
+        return endProjectComment;
+    }
+
+    public void setEndProjectComment(String endProjectComment) {
+        this.endProjectComment = endProjectComment;
+    }
+
+    private String endProjectName;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_name")
+    public String getEndProjectName() {
+        return endProjectName;
+    }
+
+    public void setEndProjectName(String endProjectName) {
+        this.endProjectName = endProjectName;
+    }
+
+    private String endProjectSense;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_sense")
+    public String getEndProjectSense() {
+        return endProjectSense;
+    }
+
+    public void setEndProjectSense(String endProjectSense) {
+        this.endProjectSense = endProjectSense;
+    }
+
+    private String endProjectContent;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_content")
+    public String getEndProjectContent() {
+        return endProjectContent;
+    }
+
+    public void setEndProjectContent(String endProjectContent) {
+        this.endProjectContent = endProjectContent;
+    }
+
+    private Float endProjectCredit;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_credit")
+    public Float getEndProjectCredit() {
+        return endProjectCredit;
+    }
+
+    public void setEndProjectCredit(Float endProjectCredit) {
+        this.endProjectCredit = endProjectCredit;
+    }
+
+    private String endProjectProblem;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_problem")
+    public String getEndProjectProblem() {
+        return endProjectProblem;
+    }
+
+    public void setEndProjectProblem(String endProjectProblem) {
+        this.endProjectProblem = endProjectProblem;
+    }
+
+    private String endProjectInnovate;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_innovate")
+    public String getEndProjectInnovate() {
+        return endProjectInnovate;
+    }
+
+    public void setEndProjectInnovate(String endProjectInnovate) {
+        this.endProjectInnovate = endProjectInnovate;
+    }
+
+    private String endProjectIntroduction;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_introduction")
+    public String getEndProjectIntroduction() {
+        return endProjectIntroduction;
+    }
+
+    public void setEndProjectIntroduction(String endProjectIntroduction) {
+        this.endProjectIntroduction = endProjectIntroduction;
+    }
+
+    private String endProjectWork;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_work")
+    public String getEndProjectWork() {
+        return endProjectWork;
+    }
+
+    public void setEndProjectWork(String endProjectWork) {
+        this.endProjectWork = endProjectWork;
+    }
+
+    private String isdeleted;
+
+    @Basic
+    @javax.persistence.Column(name = "isdeleted")
+    public String getIsdeleted() {
+        return isdeleted;
+    }
+
+    public void setIsdeleted(String isdeleted) {
+        this.isdeleted = isdeleted;
+    }
+
+    private String endProjectPassApply;
+
+    @Basic
+    @javax.persistence.Column(name = "endProject_passApply")
+    public String getEndProjectPassApply() {
+        return endProjectPassApply;
+    }
+
+    public void setEndProjectPassApply(String endProjectPassApply) {
+        this.endProjectPassApply = endProjectPassApply;
+    }
+
+    private String unitId;
+
+    @Basic
+    @javax.persistence.Column(name = "UNIT_ID")
+    public String getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(String unitId) {
+        this.unitId = unitId;
     }
 
     @Override
@@ -318,79 +318,79 @@ public class TEndProject {
 
         TEndProject that = (TEndProject) o;
 
-        if (endprojectComment != null ? !endprojectComment.equals(that.endprojectComment) : that.endprojectComment != null)
-            return false;
-        if (endprojectContent != null ? !endprojectContent.equals(that.endprojectContent) : that.endprojectContent != null)
-            return false;
-        if (endprojectCredit != null ? !endprojectCredit.equals(that.endprojectCredit) : that.endprojectCredit != null)
-            return false;
-        if (endprojectId != null ? !endprojectId.equals(that.endprojectId) : that.endprojectId != null) return false;
-        if (endprojectInnovate != null ? !endprojectInnovate.equals(that.endprojectInnovate) : that.endprojectInnovate != null)
-            return false;
-        if (endprojectIntroduction != null ? !endprojectIntroduction.equals(that.endprojectIntroduction) : that.endprojectIntroduction != null)
-            return false;
-        if (endprojectMethod != null ? !endprojectMethod.equals(that.endprojectMethod) : that.endprojectMethod != null)
-            return false;
-        if (endprojectName != null ? !endprojectName.equals(that.endprojectName) : that.endprojectName != null)
-            return false;
-        if (endprojectNumber != null ? !endprojectNumber.equals(that.endprojectNumber) : that.endprojectNumber != null)
-            return false;
-        if (endprojectPassapply != null ? !endprojectPassapply.equals(that.endprojectPassapply) : that.endprojectPassapply != null)
-            return false;
-        if (endprojectProblem != null ? !endprojectProblem.equals(that.endprojectProblem) : that.endprojectProblem != null)
-            return false;
-        if (endprojectScore != null ? !endprojectScore.equals(that.endprojectScore) : that.endprojectScore != null)
-            return false;
-        if (endprojectSense != null ? !endprojectSense.equals(that.endprojectSense) : that.endprojectSense != null)
-            return false;
-        if (endprojectState != null ? !endprojectState.equals(that.endprojectState) : that.endprojectState != null)
-            return false;
-        if (endprojectSummary != null ? !endprojectSummary.equals(that.endprojectSummary) : that.endprojectSummary != null)
-            return false;
-        if (endprojectWork != null ? !endprojectWork.equals(that.endprojectWork) : that.endprojectWork != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
-        if (lastComment != null ? !lastComment.equals(that.lastComment) : that.lastComment != null) return false;
-        if (lastScore != null ? !lastScore.equals(that.lastScore) : that.lastScore != null) return false;
-        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
         if (schoolTypeinTime != null ? !schoolTypeinTime.equals(that.schoolTypeinTime) : that.schoolTypeinTime != null)
             return false;
-        if (submitTime != null ? !submitTime.equals(that.submitTime) : that.submitTime != null) return false;
-        if (unitId != null ? !unitId.equals(that.unitId) : that.unitId != null) return false;
         if (unitTypeinTime != null ? !unitTypeinTime.equals(that.unitTypeinTime) : that.unitTypeinTime != null)
             return false;
+        if (submitTime != null ? !submitTime.equals(that.submitTime) : that.submitTime != null) return false;
+        if (endProjectId != null ? !endProjectId.equals(that.endProjectId) : that.endProjectId != null) return false;
+        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
+        if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
+        if (endProjectState != null ? !endProjectState.equals(that.endProjectState) : that.endProjectState != null)
+            return false;
+        if (endProjectSummary != null ? !endProjectSummary.equals(that.endProjectSummary) : that.endProjectSummary != null)
+            return false;
+        if (endProjectMethod != null ? !endProjectMethod.equals(that.endProjectMethod) : that.endProjectMethod != null)
+            return false;
+        if (endProjectScore != null ? !endProjectScore.equals(that.endProjectScore) : that.endProjectScore != null)
+            return false;
+        if (lastScore != null ? !lastScore.equals(that.lastScore) : that.lastScore != null) return false;
+        if (endProjectNumber != null ? !endProjectNumber.equals(that.endProjectNumber) : that.endProjectNumber != null)
+            return false;
+        if (lastComment != null ? !lastComment.equals(that.lastComment) : that.lastComment != null) return false;
+        if (endProjectComment != null ? !endProjectComment.equals(that.endProjectComment) : that.endProjectComment != null)
+            return false;
+        if (endProjectName != null ? !endProjectName.equals(that.endProjectName) : that.endProjectName != null)
+            return false;
+        if (endProjectSense != null ? !endProjectSense.equals(that.endProjectSense) : that.endProjectSense != null)
+            return false;
+        if (endProjectContent != null ? !endProjectContent.equals(that.endProjectContent) : that.endProjectContent != null)
+            return false;
+        if (endProjectCredit != null ? !endProjectCredit.equals(that.endProjectCredit) : that.endProjectCredit != null)
+            return false;
+        if (endProjectProblem != null ? !endProjectProblem.equals(that.endProjectProblem) : that.endProjectProblem != null)
+            return false;
+        if (endProjectInnovate != null ? !endProjectInnovate.equals(that.endProjectInnovate) : that.endProjectInnovate != null)
+            return false;
+        if (endProjectIntroduction != null ? !endProjectIntroduction.equals(that.endProjectIntroduction) : that.endProjectIntroduction != null)
+            return false;
+        if (endProjectWork != null ? !endProjectWork.equals(that.endProjectWork) : that.endProjectWork != null)
+            return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+        if (endProjectPassApply != null ? !endProjectPassApply.equals(that.endProjectPassApply) : that.endProjectPassApply != null)
+            return false;
+        if (unitId != null ? !unitId.equals(that.unitId) : that.unitId != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = endprojectId != null ? endprojectId.hashCode() : 0;
-        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
-        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
-        result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
-        result = 31 * result + (endprojectState != null ? endprojectState.hashCode() : 0);
-        result = 31 * result + (endprojectSummary != null ? endprojectSummary.hashCode() : 0);
-        result = 31 * result + (endprojectMethod != null ? endprojectMethod.hashCode() : 0);
-        result = 31 * result + (endprojectScore != null ? endprojectScore.hashCode() : 0);
-        result = 31 * result + (lastScore != null ? lastScore.hashCode() : 0);
-        result = 31 * result + (endprojectNumber != null ? endprojectNumber.hashCode() : 0);
-        result = 31 * result + (lastComment != null ? lastComment.hashCode() : 0);
-        result = 31 * result + (endprojectComment != null ? endprojectComment.hashCode() : 0);
-        result = 31 * result + (endprojectName != null ? endprojectName.hashCode() : 0);
-        result = 31 * result + (endprojectSense != null ? endprojectSense.hashCode() : 0);
-        result = 31 * result + (endprojectContent != null ? endprojectContent.hashCode() : 0);
-        result = 31 * result + (endprojectCredit != null ? endprojectCredit.hashCode() : 0);
-        result = 31 * result + (endprojectProblem != null ? endprojectProblem.hashCode() : 0);
-        result = 31 * result + (endprojectInnovate != null ? endprojectInnovate.hashCode() : 0);
-        result = 31 * result + (endprojectIntroduction != null ? endprojectIntroduction.hashCode() : 0);
-        result = 31 * result + (endprojectWork != null ? endprojectWork.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (endprojectPassapply != null ? endprojectPassapply.hashCode() : 0);
-        result = 31 * result + (submitTime != null ? submitTime.hashCode() : 0);
+        int result = schoolTypeinTime != null ? schoolTypeinTime.hashCode() : 0;
         result = 31 * result + (unitTypeinTime != null ? unitTypeinTime.hashCode() : 0);
-        result = 31 * result + (schoolTypeinTime != null ? schoolTypeinTime.hashCode() : 0);
+        result = 31 * result + (submitTime != null ? submitTime.hashCode() : 0);
+        result = 31 * result + (endProjectId != null ? endProjectId.hashCode() : 0);
+        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
+        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
+        result = 31 * result + (endProjectState != null ? endProjectState.hashCode() : 0);
+        result = 31 * result + (endProjectSummary != null ? endProjectSummary.hashCode() : 0);
+        result = 31 * result + (endProjectMethod != null ? endProjectMethod.hashCode() : 0);
+        result = 31 * result + (endProjectScore != null ? endProjectScore.hashCode() : 0);
+        result = 31 * result + (lastScore != null ? lastScore.hashCode() : 0);
+        result = 31 * result + (endProjectNumber != null ? endProjectNumber.hashCode() : 0);
+        result = 31 * result + (lastComment != null ? lastComment.hashCode() : 0);
+        result = 31 * result + (endProjectComment != null ? endProjectComment.hashCode() : 0);
+        result = 31 * result + (endProjectName != null ? endProjectName.hashCode() : 0);
+        result = 31 * result + (endProjectSense != null ? endProjectSense.hashCode() : 0);
+        result = 31 * result + (endProjectContent != null ? endProjectContent.hashCode() : 0);
+        result = 31 * result + (endProjectCredit != null ? endProjectCredit.hashCode() : 0);
+        result = 31 * result + (endProjectProblem != null ? endProjectProblem.hashCode() : 0);
+        result = 31 * result + (endProjectInnovate != null ? endProjectInnovate.hashCode() : 0);
+        result = 31 * result + (endProjectIntroduction != null ? endProjectIntroduction.hashCode() : 0);
+        result = 31 * result + (endProjectWork != null ? endProjectWork.hashCode() : 0);
+        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
+        result = 31 * result + (endProjectPassApply != null ? endProjectPassApply.hashCode() : 0);
+        result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
         return result;
     }
 }

@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_user", schema = "", catalog = "srtp")
@@ -15,9 +16,12 @@ public class TUser {
     private String userIntroduction;
     private String isdeleted;
     private String userType;
+    private Collection<TAttachment> tAttachmentsByUserId;
+    private Collection<TJournal> tJournalsByUserId;
+    private Collection<TUserRole> tUserRolesByUserId;
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     public String getUserId() {
         return userId;
     }
@@ -27,7 +31,7 @@ public class TUser {
     }
 
     @Basic
-    @Column(name = "USER_NAME")
+    @Column(name = "user_name")
     public String getUserName() {
         return userName;
     }
@@ -37,7 +41,7 @@ public class TUser {
     }
 
     @Basic
-    @Column(name = "USER_PASSWORD")
+    @Column(name = "user_password")
     public String getUserPassword() {
         return userPassword;
     }
@@ -47,7 +51,7 @@ public class TUser {
     }
 
     @Basic
-    @Column(name = "USER_STATE")
+    @Column(name = "user_state")
     public String getUserState() {
         return userState;
     }
@@ -57,7 +61,7 @@ public class TUser {
     }
 
     @Basic
-    @Column(name = "USER_INTRODUCTION")
+    @Column(name = "user_introduction")
     public String getUserIntroduction() {
         return userIntroduction;
     }
@@ -67,7 +71,7 @@ public class TUser {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -77,7 +81,7 @@ public class TUser {
     }
 
     @Basic
-    @Column(name = "USER_TYPE")
+    @Column(name = "user_type")
     public String getUserType() {
         return userType;
     }
@@ -93,13 +97,13 @@ public class TUser {
 
         TUser tUser = (TUser) o;
 
-        if (isdeleted != null ? !isdeleted.equals(tUser.isdeleted) : tUser.isdeleted != null) return false;
         if (userId != null ? !userId.equals(tUser.userId) : tUser.userId != null) return false;
-        if (userIntroduction != null ? !userIntroduction.equals(tUser.userIntroduction) : tUser.userIntroduction != null)
-            return false;
         if (userName != null ? !userName.equals(tUser.userName) : tUser.userName != null) return false;
         if (userPassword != null ? !userPassword.equals(tUser.userPassword) : tUser.userPassword != null) return false;
         if (userState != null ? !userState.equals(tUser.userState) : tUser.userState != null) return false;
+        if (userIntroduction != null ? !userIntroduction.equals(tUser.userIntroduction) : tUser.userIntroduction != null)
+            return false;
+        if (isdeleted != null ? !isdeleted.equals(tUser.isdeleted) : tUser.isdeleted != null) return false;
         if (userType != null ? !userType.equals(tUser.userType) : tUser.userType != null) return false;
 
         return true;
@@ -115,5 +119,32 @@ public class TUser {
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         result = 31 * result + (userType != null ? userType.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tUserByUploaderCode")
+    public Collection<TAttachment> gettAttachmentsByUserId() {
+        return tAttachmentsByUserId;
+    }
+
+    public void settAttachmentsByUserId(Collection<TAttachment> tAttachmentsByUserId) {
+        this.tAttachmentsByUserId = tAttachmentsByUserId;
+    }
+
+    @OneToMany(mappedBy = "tUserByUserId")
+    public Collection<TJournal> gettJournalsByUserId() {
+        return tJournalsByUserId;
+    }
+
+    public void settJournalsByUserId(Collection<TJournal> tJournalsByUserId) {
+        this.tJournalsByUserId = tJournalsByUserId;
+    }
+
+    @OneToMany(mappedBy = "tUserByUserId")
+    public Collection<TUserRole> gettUserRolesByUserId() {
+        return tUserRolesByUserId;
+    }
+
+    public void settUserRolesByUserId(Collection<TUserRole> tUserRolesByUserId) {
+        this.tUserRolesByUserId = tUserRolesByUserId;
     }
 }

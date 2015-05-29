@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 public class ResultDistribut {
@@ -183,21 +183,21 @@ public class ResultDistribut {
 
         ResultDistribut that = (ResultDistribut) o;
 
-        if (badsum != null ? !badsum.equals(that.badsum) : that.badsum != null) return false;
-        if (bestrate != null ? !bestrate.equals(that.bestrate) : that.bestrate != null) return false;
-        if (bestsum != null ? !bestsum.equals(that.bestsum) : that.bestsum != null) return false;
-        if (college != null ? !college.equals(that.college) : that.college != null) return false;
-        if (collegename != null ? !collegename.equals(that.collegename) : that.collegename != null) return false;
-        if (decsum != null ? !decsum.equals(that.decsum) : that.decsum != null) return false;
-        if (delayrate != null ? !delayrate.equals(that.delayrate) : that.delayrate != null) return false;
-        if (delaysum != null ? !delaysum.equals(that.delaysum) : that.delaysum != null) return false;
-        if (endrate != null ? !endrate.equals(that.endrate) : that.endrate != null) return false;
-        if (endsum != null ? !endsum.equals(that.endsum) : that.endsum != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
+        if (college != null ? !college.equals(that.college) : that.college != null) return false;
+        if (collegename != null ? !collegename.equals(that.collegename) : that.collegename != null) return false;
         if (jqname != null ? !jqname.equals(that.jqname) : that.jqname != null) return false;
-        if (prorate != null ? !prorate.equals(that.prorate) : that.prorate != null) return false;
+        if (decsum != null ? !decsum.equals(that.decsum) : that.decsum != null) return false;
         if (prosum != null ? !prosum.equals(that.prosum) : that.prosum != null) return false;
+        if (bestsum != null ? !bestsum.equals(that.bestsum) : that.bestsum != null) return false;
+        if (badsum != null ? !badsum.equals(that.badsum) : that.badsum != null) return false;
+        if (endsum != null ? !endsum.equals(that.endsum) : that.endsum != null) return false;
+        if (delaysum != null ? !delaysum.equals(that.delaysum) : that.delaysum != null) return false;
+        if (prorate != null ? !prorate.equals(that.prorate) : that.prorate != null) return false;
+        if (bestrate != null ? !bestrate.equals(that.bestrate) : that.bestrate != null) return false;
+        if (endrate != null ? !endrate.equals(that.endrate) : that.endrate != null) return false;
+        if (delayrate != null ? !delayrate.equals(that.delayrate) : that.delayrate != null) return false;
 
         return true;
     }

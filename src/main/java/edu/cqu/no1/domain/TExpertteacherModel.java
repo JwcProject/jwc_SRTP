@@ -1,12 +1,10 @@
 package edu.cqu.no1.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 public class TExpertTeacherModel {
@@ -17,6 +15,10 @@ public class TExpertTeacherModel {
     private String isdeleted;
     private Integer jqYear;
     private String qici;
+    private Collection<TEndProjectExport> tEndProjectExportsByExTeaId;
+    private Collection<TExpertReview> tExpertReviewsByExTeaId;
+    private TTeacher tTeacherByTeaId;
+    private TExpertLib tExpertLibByLibId;
 
     @Id
     @Column(name = "EX_TEA_ID")
@@ -96,12 +98,12 @@ public class TExpertTeacherModel {
         TExpertTeacherModel that = (TExpertTeacherModel) o;
 
         if (exTeaId != null ? !exTeaId.equals(that.exTeaId) : that.exTeaId != null) return false;
+        if (libId != null ? !libId.equals(that.libId) : that.libId != null) return false;
+        if (teaId != null ? !teaId.equals(that.teaId) : that.teaId != null) return false;
+        if (reDeclNum != null ? !reDeclNum.equals(that.reDeclNum) : that.reDeclNum != null) return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
         if (jqYear != null ? !jqYear.equals(that.jqYear) : that.jqYear != null) return false;
-        if (libId != null ? !libId.equals(that.libId) : that.libId != null) return false;
         if (qici != null ? !qici.equals(that.qici) : that.qici != null) return false;
-        if (reDeclNum != null ? !reDeclNum.equals(that.reDeclNum) : that.reDeclNum != null) return false;
-        if (teaId != null ? !teaId.equals(that.teaId) : that.teaId != null) return false;
 
         return true;
     }
@@ -116,5 +118,43 @@ public class TExpertTeacherModel {
         result = 31 * result + (jqYear != null ? jqYear.hashCode() : 0);
         result = 31 * result + (qici != null ? qici.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "texpertteachermodelByExpertId")
+    public Collection<TEndProjectExport> gettEndProjectExportsByExTeaId() {
+        return tEndProjectExportsByExTeaId;
+    }
+
+    public void settEndProjectExportsByExTeaId(Collection<TEndProjectExport> tEndProjectExportsByExTeaId) {
+        this.tEndProjectExportsByExTeaId = tEndProjectExportsByExTeaId;
+    }
+
+    @OneToMany(mappedBy = "texpertteachermodelByExTeaId")
+    public Collection<TExpertReview> gettExpertReviewsByExTeaId() {
+        return tExpertReviewsByExTeaId;
+    }
+
+    public void settExpertReviewsByExTeaId(Collection<TExpertReview> tExpertReviewsByExTeaId) {
+        this.tExpertReviewsByExTeaId = tExpertReviewsByExTeaId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "TEA_ID", referencedColumnName = "tea_id")
+    public TTeacher gettTeacherByTeaId() {
+        return tTeacherByTeaId;
+    }
+
+    public void settTeacherByTeaId(TTeacher tTeacherByTeaId) {
+        this.tTeacherByTeaId = tTeacherByTeaId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "LIB_ID", referencedColumnName = "lib_id")
+    public TExpertLib gettExpertLibByLibId() {
+        return tExpertLibByLibId;
+    }
+
+    public void settExpertLibByLibId(TExpertLib tExpertLibByLibId) {
+        this.tExpertLibByLibId = tExpertLibByLibId;
     }
 }

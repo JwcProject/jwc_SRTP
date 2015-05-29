@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TExpertLib;
 import edu.cqu.no1.domain.TExpertTeacher;
@@ -119,32 +120,23 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过单个老师的id找到最近的专家教师对象
+    @Nullable
     public TExpertTeacher getExpertTeachersByTeaId(String teaId, String type){
         log.debug("get expertTeachers by teacher id");
         try {
-            // TODO
-            String hql = "from TExpertTeacher";
-            String queryStr =
-                    "select t.*\n" +
-                            "  from t_expert_teacher t , (select l.lib_id\n" +
-                            "  from t_expert_lib l\n" +
-                            " where l.lib_id in\n" +
-                            "       (select tt.lib_id\n" +
-                            "          from t_expert_teacher tt\n" +
-                            "         where tt.isdeleted = 'N'\n" +
-                            "           and tt.tea_id =:teaId)\n" +
-                            "            and l.type =:type And Rownum = 1\n" +
-                            " order by l.creat_on Desc ) tmp\n" +
-                            " where t.isdeleted = 'N'\n" +
-                            "   and t.tea_id =:teaId\n" +
-                            "   and t.lib_id = tmp.lib_id ";
+            String hql = "select et from TExpertTeacher et, TExpertLib eb where eb.libId in (select" +
+                    " libId from TExpertTeacher where isdeleted = 'N' and teaId = :teaId) and eb.type = :type" +
+                    " and et.isdeleted = 'N' and et.teaId = :teaId and et.libId = eb.libId" +
+                    " order by eb.creatOn desc";
+
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setMaxResults(1);
             query.setString("teaId", teaId);
             query.setString("type", type);
             List list = query.list();
 
-            if (null!= query.list() && query.list().size()>0) {
-                return (TExpertTeacher)query.list().get(0);
+            if (null!= list && list.size()>0) {
+                return (TExpertTeacher)list.get(0);
             } else {
                 return null;
             }
@@ -210,7 +202,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *TODO 根据专家库ID获取某一期的专家教师（分页）
+     *根据专家库ID获取某一期的专家教师（分页）
      *authoy lzh
      *@param expLibId
      *@return
@@ -250,7 +242,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *TODO 根据专家库ID获取某一期的专家教师（不分页）
+     *根据专家库ID获取某一期的专家教师（不分页）
      *authoy lzh
      *@param expLibId
      *@return
@@ -290,7 +282,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *TODO 根据教职工号获取专家教师对象
+     *根据教职工号获取专家教师对象
      *authoy lzh
      *@param teaCode
      *@return

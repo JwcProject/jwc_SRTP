@@ -3,7 +3,7 @@ package edu.cqu.no1.domain;
 import javax.persistence.*;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_achievemen_type", schema = "", catalog = "srtp")
@@ -14,7 +14,7 @@ public class TAchievemenType {
     private String isdeleted;
 
     @Id
-    @Column(name = "ACHIEVEMENTYPE_ID")
+    @Column(name = "achievementype_id")
     public String getAchievementypeId() {
         return achievementypeId;
     }
@@ -24,7 +24,7 @@ public class TAchievemenType {
     }
 
     @Basic
-    @Column(name = "ACHIEVEMENTYPE_NAME")
+    @Column(name = "achievementype_name")
     public String getAchievementypeName() {
         return achievementypeName;
     }
@@ -34,7 +34,7 @@ public class TAchievemenType {
     }
 
     @Basic
-    @Column(name = "ACHIEVEMENTYPE_INTRODUCTION")
+    @Column(name = "achievementype_introduction")
     public String getAchievementypeIntroduction() {
         return achievementypeIntroduction;
     }
@@ -44,7 +44,7 @@ public class TAchievemenType {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -62,9 +62,9 @@ public class TAchievemenType {
 
         if (achievementypeId != null ? !achievementypeId.equals(that.achievementypeId) : that.achievementypeId != null)
             return false;
-        if (achievementypeIntroduction != null ? !achievementypeIntroduction.equals(that.achievementypeIntroduction) : that.achievementypeIntroduction != null)
-            return false;
         if (achievementypeName != null ? !achievementypeName.equals(that.achievementypeName) : that.achievementypeName != null)
+            return false;
+        if (achievementypeIntroduction != null ? !achievementypeIntroduction.equals(that.achievementypeIntroduction) : that.achievementypeIntroduction != null)
             return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
 

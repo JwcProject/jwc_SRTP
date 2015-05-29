@@ -1,9 +1,10 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_unit", schema = "", catalog = "srtp")
@@ -15,9 +16,12 @@ public class TUnit {
     private String unitCode;
     private String unitRemark;
     private String isdeleted;
+    private Collection<TExpertLib> tExpertLibsByUnitId;
+    private Collection<TProfession> tProfessionsByUnitId;
+    private Collection<TTeacher> tTeachersByUnitId;
 
     @Id
-    @Column(name = "UNIT_ID")
+    @Column(name = "unit_id")
     public String getUnitId() {
         return unitId;
     }
@@ -27,7 +31,7 @@ public class TUnit {
     }
 
     @Basic
-    @Column(name = "UNIT_NAME")
+    @Column(name = "unit_name")
     public String getUnitName() {
         return unitName;
     }
@@ -37,7 +41,7 @@ public class TUnit {
     }
 
     @Basic
-    @Column(name = "UNIT_TYPE")
+    @Column(name = "unit_type")
     public String getUnitType() {
         return unitType;
     }
@@ -47,7 +51,7 @@ public class TUnit {
     }
 
     @Basic
-    @Column(name = "UNIT_FATHERID")
+    @Column(name = "unit_fatherid")
     public String getUnitFatherid() {
         return unitFatherid;
     }
@@ -57,7 +61,7 @@ public class TUnit {
     }
 
     @Basic
-    @Column(name = "UNIT_CODE")
+    @Column(name = "unit_code")
     public String getUnitCode() {
         return unitCode;
     }
@@ -67,7 +71,7 @@ public class TUnit {
     }
 
     @Basic
-    @Column(name = "UNIT_REMARK")
+    @Column(name = "unit_remark")
     public String getUnitRemark() {
         return unitRemark;
     }
@@ -77,7 +81,7 @@ public class TUnit {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -93,13 +97,13 @@ public class TUnit {
 
         TUnit tUnit = (TUnit) o;
 
-        if (isdeleted != null ? !isdeleted.equals(tUnit.isdeleted) : tUnit.isdeleted != null) return false;
-        if (unitCode != null ? !unitCode.equals(tUnit.unitCode) : tUnit.unitCode != null) return false;
-        if (unitFatherid != null ? !unitFatherid.equals(tUnit.unitFatherid) : tUnit.unitFatherid != null) return false;
         if (unitId != null ? !unitId.equals(tUnit.unitId) : tUnit.unitId != null) return false;
         if (unitName != null ? !unitName.equals(tUnit.unitName) : tUnit.unitName != null) return false;
-        if (unitRemark != null ? !unitRemark.equals(tUnit.unitRemark) : tUnit.unitRemark != null) return false;
         if (unitType != null ? !unitType.equals(tUnit.unitType) : tUnit.unitType != null) return false;
+        if (unitFatherid != null ? !unitFatherid.equals(tUnit.unitFatherid) : tUnit.unitFatherid != null) return false;
+        if (unitCode != null ? !unitCode.equals(tUnit.unitCode) : tUnit.unitCode != null) return false;
+        if (unitRemark != null ? !unitRemark.equals(tUnit.unitRemark) : tUnit.unitRemark != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(tUnit.isdeleted) : tUnit.isdeleted != null) return false;
 
         return true;
     }
@@ -114,5 +118,32 @@ public class TUnit {
         result = 31 * result + (unitRemark != null ? unitRemark.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tUnitByUnitId")
+    public Collection<TExpertLib> gettExpertLibsByUnitId() {
+        return tExpertLibsByUnitId;
+    }
+
+    public void settExpertLibsByUnitId(Collection<TExpertLib> tExpertLibsByUnitId) {
+        this.tExpertLibsByUnitId = tExpertLibsByUnitId;
+    }
+
+    @OneToMany(mappedBy = "tUnitByUnitId")
+    public Collection<TProfession> gettProfessionsByUnitId() {
+        return tProfessionsByUnitId;
+    }
+
+    public void settProfessionsByUnitId(Collection<TProfession> tProfessionsByUnitId) {
+        this.tProfessionsByUnitId = tProfessionsByUnitId;
+    }
+
+    @OneToMany(mappedBy = "tUnitByUnitId")
+    public Collection<TTeacher> gettTeachersByUnitId() {
+        return tTeachersByUnitId;
+    }
+
+    public void settTeachersByUnitId(Collection<TTeacher> tTeachersByUnitId) {
+        this.tTeachersByUnitId = tTeachersByUnitId;
     }
 }

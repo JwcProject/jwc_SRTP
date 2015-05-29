@@ -2,9 +2,10 @@ package edu.cqu.no1.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_journal", schema = "", catalog = "srtp")
@@ -16,10 +17,12 @@ public class TJournal {
     private Timestamp journalQuitime;
     private String journalRemark;
     private String isdeleted;
-    private String journalLoginip;
+    private String journalLoginIp;
+    private TUser tUserByUserId;
+    private Collection<TJournalAct> tJournalActsByJournalId;
 
     @Id
-    @Column(name = "JOURNAL_ID")
+    @Column(name = "journal_id")
     public String getJournalId() {
         return journalId;
     }
@@ -29,7 +32,7 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     public String getUserId() {
         return userId;
     }
@@ -39,7 +42,7 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "USER_NAME")
+    @Column(name = "user_name")
     public String getUserName() {
         return userName;
     }
@@ -49,7 +52,7 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "JOURNAL_LOGINTIME")
+    @Column(name = "journal_logintime")
     public Timestamp getJournalLogintime() {
         return journalLogintime;
     }
@@ -59,7 +62,7 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "JOURNAL_QUITIME")
+    @Column(name = "journal_quitime")
     public Timestamp getJournalQuitime() {
         return journalQuitime;
     }
@@ -69,7 +72,7 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "JOURNAL_REMARK")
+    @Column(name = "journal_remark")
     public String getJournalRemark() {
         return journalRemark;
     }
@@ -79,7 +82,7 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -89,13 +92,13 @@ public class TJournal {
     }
 
     @Basic
-    @Column(name = "JOURNAL_LOGINIP")
-    public String getJournalLoginip() {
-        return journalLoginip;
+    @Column(name = "journal_loginIp")
+    public String getJournalLoginIp() {
+        return journalLoginIp;
     }
 
-    public void setJournalLoginip(String journalLoginip) {
-        this.journalLoginip = journalLoginip;
+    public void setJournalLoginIp(String journalLoginIp) {
+        this.journalLoginIp = journalLoginIp;
     }
 
     @Override
@@ -105,18 +108,18 @@ public class TJournal {
 
         TJournal tJournal = (TJournal) o;
 
-        if (isdeleted != null ? !isdeleted.equals(tJournal.isdeleted) : tJournal.isdeleted != null) return false;
         if (journalId != null ? !journalId.equals(tJournal.journalId) : tJournal.journalId != null) return false;
-        if (journalLoginip != null ? !journalLoginip.equals(tJournal.journalLoginip) : tJournal.journalLoginip != null)
-            return false;
+        if (userId != null ? !userId.equals(tJournal.userId) : tJournal.userId != null) return false;
+        if (userName != null ? !userName.equals(tJournal.userName) : tJournal.userName != null) return false;
         if (journalLogintime != null ? !journalLogintime.equals(tJournal.journalLogintime) : tJournal.journalLogintime != null)
             return false;
         if (journalQuitime != null ? !journalQuitime.equals(tJournal.journalQuitime) : tJournal.journalQuitime != null)
             return false;
         if (journalRemark != null ? !journalRemark.equals(tJournal.journalRemark) : tJournal.journalRemark != null)
             return false;
-        if (userId != null ? !userId.equals(tJournal.userId) : tJournal.userId != null) return false;
-        if (userName != null ? !userName.equals(tJournal.userName) : tJournal.userName != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(tJournal.isdeleted) : tJournal.isdeleted != null) return false;
+        if (journalLoginIp != null ? !journalLoginIp.equals(tJournal.journalLoginIp) : tJournal.journalLoginIp != null)
+            return false;
 
         return true;
     }
@@ -130,7 +133,26 @@ public class TJournal {
         result = 31 * result + (journalQuitime != null ? journalQuitime.hashCode() : 0);
         result = 31 * result + (journalRemark != null ? journalRemark.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (journalLoginip != null ? journalLoginip.hashCode() : 0);
+        result = 31 * result + (journalLoginIp != null ? journalLoginIp.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    public TUser gettUserByUserId() {
+        return tUserByUserId;
+    }
+
+    public void settUserByUserId(TUser tUserByUserId) {
+        this.tUserByUserId = tUserByUserId;
+    }
+
+    @OneToMany(mappedBy = "tJournalByJournalId")
+    public Collection<TJournalAct> gettJournalActsByJournalId() {
+        return tJournalActsByJournalId;
+    }
+
+    public void settJournalActsByJournalId(Collection<TJournalAct> tJournalActsByJournalId) {
+        this.tJournalActsByJournalId = tJournalActsByJournalId;
     }
 }

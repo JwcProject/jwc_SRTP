@@ -41,7 +41,7 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
 
     /**
      *
-     *TODO 获取一个学院所有的专家团队
+     *获取一个学院所有的专家团队
      *authoy lzh
      *@param teaCode 学院主管教师教职工号
      *@param pageBean
@@ -88,7 +88,7 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements edu.cq
 
     /**
      *
-     *TODO 获取当前届期对应的专家库对象
+     *获取当前届期对应的专家库对象
      *authoy lzh
      *@param type 专家库的类型（01为申报的，02为结题的）
      *@return

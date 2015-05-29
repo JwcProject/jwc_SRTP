@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_decl_comment", schema = "", catalog = "srtp")
@@ -16,9 +16,10 @@ public class TDeclComment {
     private Integer declScore;
     private Timestamp reviewTime;
     private String isdeleted;
+    private TExpertReview tExpertReviewByExReviewId;
 
     @Id
-    @Column(name = "DECL_COM_ID")
+    @Column(name = "decl_com_id")
     public String getDeclComId() {
         return declComId;
     }
@@ -28,7 +29,7 @@ public class TDeclComment {
     }
 
     @Basic
-    @Column(name = "EX_REVIEW_ID")
+    @Column(name = "ex_review_id")
     public String getExReviewId() {
         return exReviewId;
     }
@@ -38,7 +39,7 @@ public class TDeclComment {
     }
 
     @Basic
-    @Column(name = "DECL_ARGUMENT")
+    @Column(name = "decl_argument")
     public String getDeclArgument() {
         return declArgument;
     }
@@ -48,7 +49,7 @@ public class TDeclComment {
     }
 
     @Basic
-    @Column(name = "COMP_EVAL")
+    @Column(name = "comp_eval")
     public String getCompEval() {
         return compEval;
     }
@@ -58,7 +59,7 @@ public class TDeclComment {
     }
 
     @Basic
-    @Column(name = "DECL_SCORE")
+    @Column(name = "decl_score")
     public Integer getDeclScore() {
         return declScore;
     }
@@ -68,7 +69,7 @@ public class TDeclComment {
     }
 
     @Basic
-    @Column(name = "REVIEW_TIME")
+    @Column(name = "review_time")
     public Timestamp getReviewTime() {
         return reviewTime;
     }
@@ -78,7 +79,7 @@ public class TDeclComment {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -94,13 +95,13 @@ public class TDeclComment {
 
         TDeclComment that = (TDeclComment) o;
 
-        if (compEval != null ? !compEval.equals(that.compEval) : that.compEval != null) return false;
-        if (declArgument != null ? !declArgument.equals(that.declArgument) : that.declArgument != null) return false;
         if (declComId != null ? !declComId.equals(that.declComId) : that.declComId != null) return false;
-        if (declScore != null ? !declScore.equals(that.declScore) : that.declScore != null) return false;
         if (exReviewId != null ? !exReviewId.equals(that.exReviewId) : that.exReviewId != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+        if (declArgument != null ? !declArgument.equals(that.declArgument) : that.declArgument != null) return false;
+        if (compEval != null ? !compEval.equals(that.compEval) : that.compEval != null) return false;
+        if (declScore != null ? !declScore.equals(that.declScore) : that.declScore != null) return false;
         if (reviewTime != null ? !reviewTime.equals(that.reviewTime) : that.reviewTime != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
 
         return true;
     }
@@ -115,5 +116,15 @@ public class TDeclComment {
         result = 31 * result + (reviewTime != null ? reviewTime.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ex_review_id", referencedColumnName = "ex_review_id")
+    public TExpertReview gettExpertReviewByExReviewId() {
+        return tExpertReviewByExReviewId;
+    }
+
+    public void settExpertReviewByExReviewId(TExpertReview tExpertReviewByExReviewId) {
+        this.tExpertReviewByExReviewId = tExpertReviewByExReviewId;
     }
 }

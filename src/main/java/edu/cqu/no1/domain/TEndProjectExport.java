@@ -1,20 +1,24 @@
 package edu.cqu.no1.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_end_project_export", schema = "", catalog = "srtp")
 public class TEndProjectExport {
     private String id;
     private String expertId;
-    private String endprojectId;
+    private String endProjectId;
     private String isdeleted;
+    private Collection<TEndProjectComment> tEndProjectCommentsById;
+    private TExpertTeacherModel texpertteachermodelByExpertId;
+    private TExpertTeacher tExpertTeacherByExpertId;
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     public String getId() {
         return id;
     }
@@ -24,7 +28,7 @@ public class TEndProjectExport {
     }
 
     @Basic
-    @Column(name = "EXPERT_ID")
+    @Column(name = "expert_id")
     public String getExpertId() {
         return expertId;
     }
@@ -34,17 +38,17 @@ public class TEndProjectExport {
     }
 
     @Basic
-    @Column(name = "ENDPROJECT_ID")
-    public String getEndprojectId() {
-        return endprojectId;
+    @Column(name = "endProject_id")
+    public String getEndProjectId() {
+        return endProjectId;
     }
 
-    public void setEndprojectId(String endprojectId) {
-        this.endprojectId = endprojectId;
+    public void setEndProjectId(String endProjectId) {
+        this.endProjectId = endProjectId;
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -60,9 +64,9 @@ public class TEndProjectExport {
 
         TEndProjectExport that = (TEndProjectExport) o;
 
-        if (endprojectId != null ? !endprojectId.equals(that.endprojectId) : that.endprojectId != null) return false;
-        if (expertId != null ? !expertId.equals(that.expertId) : that.expertId != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (expertId != null ? !expertId.equals(that.expertId) : that.expertId != null) return false;
+        if (endProjectId != null ? !endProjectId.equals(that.endProjectId) : that.endProjectId != null) return false;
         if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
 
         return true;
@@ -72,8 +76,37 @@ public class TEndProjectExport {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (expertId != null ? expertId.hashCode() : 0);
-        result = 31 * result + (endprojectId != null ? endprojectId.hashCode() : 0);
+        result = 31 * result + (endProjectId != null ? endProjectId.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "tEndProjectExportByEProjectExportId")
+    public Collection<TEndProjectComment> gettEndProjectCommentsById() {
+        return tEndProjectCommentsById;
+    }
+
+    public void settEndProjectCommentsById(Collection<TEndProjectComment> tEndProjectCommentsById) {
+        this.tEndProjectCommentsById = tEndProjectCommentsById;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "expert_id", referencedColumnName = "EX_TEA_ID")
+    public TExpertTeacherModel getTexpertteachermodelByExpertId() {
+        return texpertteachermodelByExpertId;
+    }
+
+    public void setTexpertteachermodelByExpertId(TExpertTeacherModel texpertteachermodelByExpertId) {
+        this.texpertteachermodelByExpertId = texpertteachermodelByExpertId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "expert_id", referencedColumnName = "ex_tea_id")
+    public TExpertTeacher gettExpertTeacherByExpertId() {
+        return tExpertTeacherByExpertId;
+    }
+
+    public void settExpertTeacherByExpertId(TExpertTeacher tExpertTeacherByExpertId) {
+        this.tExpertTeacherByExpertId = tExpertTeacherByExpertId;
     }
 }

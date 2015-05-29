@@ -2,9 +2,10 @@ package edu.cqu.no1.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @Table(name = "t_email", schema = "", catalog = "srtp")
@@ -20,9 +21,12 @@ public class TEmail {
     private String sendState;
     private Timestamp sendOn;
     private String isdeleted;
+    private TJieqi tJieqiByJqId;
+    private TTeacher tTeacherByTeaId;
+    private Collection<TEmailReceiver> tEmailReceiversByEmailId;
 
     @Id
-    @Column(name = "EMAIL_ID")
+    @Column(name = "email_id")
     public String getEmailId() {
         return emailId;
     }
@@ -32,7 +36,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "JQ_ID")
+    @Column(name = "jq_id")
     public String getJqId() {
         return jqId;
     }
@@ -42,7 +46,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "TEA_ID")
+    @Column(name = "tea_id")
     public String getTeaId() {
         return teaId;
     }
@@ -52,7 +56,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "EMAIL_TITLE")
+    @Column(name = "email_title")
     public String getEmailTitle() {
         return emailTitle;
     }
@@ -62,7 +66,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "EMAIL_CONTENT")
+    @Column(name = "email_content")
     public String getEmailContent() {
         return emailContent;
     }
@@ -72,7 +76,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "SENDER")
+    @Column(name = "sender")
     public String getSender() {
         return sender;
     }
@@ -82,7 +86,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "EMAIL_SECRET")
+    @Column(name = "email_secret")
     public String getEmailSecret() {
         return emailSecret;
     }
@@ -92,7 +96,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "CREAT_ON")
+    @Column(name = "creat_on")
     public Timestamp getCreatOn() {
         return creatOn;
     }
@@ -102,7 +106,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "SEND_STATE")
+    @Column(name = "send_state")
     public String getSendState() {
         return sendState;
     }
@@ -112,7 +116,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "SEND_ON")
+    @Column(name = "send_on")
     public Timestamp getSendOn() {
         return sendOn;
     }
@@ -122,7 +126,7 @@ public class TEmail {
     }
 
     @Basic
-    @Column(name = "ISDELETED")
+    @Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
@@ -138,18 +142,18 @@ public class TEmail {
 
         TEmail tEmail = (TEmail) o;
 
-        if (creatOn != null ? !creatOn.equals(tEmail.creatOn) : tEmail.creatOn != null) return false;
+        if (emailId != null ? !emailId.equals(tEmail.emailId) : tEmail.emailId != null) return false;
+        if (jqId != null ? !jqId.equals(tEmail.jqId) : tEmail.jqId != null) return false;
+        if (teaId != null ? !teaId.equals(tEmail.teaId) : tEmail.teaId != null) return false;
+        if (emailTitle != null ? !emailTitle.equals(tEmail.emailTitle) : tEmail.emailTitle != null) return false;
         if (emailContent != null ? !emailContent.equals(tEmail.emailContent) : tEmail.emailContent != null)
             return false;
-        if (emailId != null ? !emailId.equals(tEmail.emailId) : tEmail.emailId != null) return false;
-        if (emailSecret != null ? !emailSecret.equals(tEmail.emailSecret) : tEmail.emailSecret != null) return false;
-        if (emailTitle != null ? !emailTitle.equals(tEmail.emailTitle) : tEmail.emailTitle != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tEmail.isdeleted) : tEmail.isdeleted != null) return false;
-        if (jqId != null ? !jqId.equals(tEmail.jqId) : tEmail.jqId != null) return false;
-        if (sendOn != null ? !sendOn.equals(tEmail.sendOn) : tEmail.sendOn != null) return false;
-        if (sendState != null ? !sendState.equals(tEmail.sendState) : tEmail.sendState != null) return false;
         if (sender != null ? !sender.equals(tEmail.sender) : tEmail.sender != null) return false;
-        if (teaId != null ? !teaId.equals(tEmail.teaId) : tEmail.teaId != null) return false;
+        if (emailSecret != null ? !emailSecret.equals(tEmail.emailSecret) : tEmail.emailSecret != null) return false;
+        if (creatOn != null ? !creatOn.equals(tEmail.creatOn) : tEmail.creatOn != null) return false;
+        if (sendState != null ? !sendState.equals(tEmail.sendState) : tEmail.sendState != null) return false;
+        if (sendOn != null ? !sendOn.equals(tEmail.sendOn) : tEmail.sendOn != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(tEmail.isdeleted) : tEmail.isdeleted != null) return false;
 
         return true;
     }
@@ -168,5 +172,34 @@ public class TEmail {
         result = 31 * result + (sendOn != null ? sendOn.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "jq_id", referencedColumnName = "jq_id")
+    public TJieqi gettJieqiByJqId() {
+        return tJieqiByJqId;
+    }
+
+    public void settJieqiByJqId(TJieqi tJieqiByJqId) {
+        this.tJieqiByJqId = tJieqiByJqId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tea_id", referencedColumnName = "tea_id")
+    public TTeacher gettTeacherByTeaId() {
+        return tTeacherByTeaId;
+    }
+
+    public void settTeacherByTeaId(TTeacher tTeacherByTeaId) {
+        this.tTeacherByTeaId = tTeacherByTeaId;
+    }
+
+    @OneToMany(mappedBy = "tEmailByEmailId")
+    public Collection<TEmailReceiver> gettEmailReceiversByEmailId() {
+        return tEmailReceiversByEmailId;
+    }
+
+    public void settEmailReceiversByEmailId(Collection<TEmailReceiver> tEmailReceiversByEmailId) {
+        this.tEmailReceiversByEmailId = tEmailReceiversByEmailId;
     }
 }

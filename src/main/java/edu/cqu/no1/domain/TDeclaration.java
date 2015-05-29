@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
- * Created by ZKQ on 2015/5/27.
+ * Created by Huxley on 5/29/15.
  */
 @Entity
 @javax.persistence.Table(name = "t_declaration", schema = "", catalog = "srtp")
@@ -14,7 +14,7 @@ public class TDeclaration {
     private String declarId;
 
     @Id
-    @javax.persistence.Column(name = "DECLAR_ID")
+    @javax.persistence.Column(name = "declar_id")
     public String getDeclarId() {
         return declarId;
     }
@@ -26,7 +26,7 @@ public class TDeclaration {
     private String jqId;
 
     @Basic
-    @javax.persistence.Column(name = "JQ_ID")
+    @javax.persistence.Column(name = "jq_id")
     public String getJqId() {
         return jqId;
     }
@@ -35,82 +35,10 @@ public class TDeclaration {
         this.jqId = jqId;
     }
 
-    private String teacher2Code;
-
-    @Basic
-    @javax.persistence.Column(name = "TEACHER2_CODE")
-    public String getTeacher2Code() {
-        return teacher2Code;
-    }
-
-    public void setTeacher2Code(String teacher2Code) {
-        this.teacher2Code = teacher2Code;
-    }
-
-    private String teacher1Code;
-
-    @Basic
-    @javax.persistence.Column(name = "TEACHER1_CODE")
-    public String getTeacher1Code() {
-        return teacher1Code;
-    }
-
-    public void setTeacher1Code(String teacher1Code) {
-        this.teacher1Code = teacher1Code;
-    }
-
-    private String member2Code;
-
-    @Basic
-    @javax.persistence.Column(name = "MEMBER2_CODE")
-    public String getMember2Code() {
-        return member2Code;
-    }
-
-    public void setMember2Code(String member2Code) {
-        this.member2Code = member2Code;
-    }
-
-    private String member1Code;
-
-    @Basic
-    @javax.persistence.Column(name = "MEMBER1_CODE")
-    public String getMember1Code() {
-        return member1Code;
-    }
-
-    public void setMember1Code(String member1Code) {
-        this.member1Code = member1Code;
-    }
-
-    private String college;
-
-    @Basic
-    @javax.persistence.Column(name = "COLLEGE")
-    public String getCollege() {
-        return college;
-    }
-
-    public void setCollege(String college) {
-        this.college = college;
-    }
-
-    private String leaderCode;
-
-    @Basic
-    @javax.persistence.Column(name = "LEADER_CODE")
-    public String getLeaderCode() {
-        return leaderCode;
-    }
-
-    public void setLeaderCode(String leaderCode) {
-        this.leaderCode = leaderCode;
-    }
-
     private String proSerial;
 
     @Basic
-    @javax.persistence.Column(name = "PRO_SERIAL")
+    @javax.persistence.Column(name = "pro_serial")
     public String getProSerial() {
         return proSerial;
     }
@@ -122,7 +50,7 @@ public class TDeclaration {
     private String proName;
 
     @Basic
-    @javax.persistence.Column(name = "PRO_NAME")
+    @javax.persistence.Column(name = "pro_name")
     public String getProName() {
         return proName;
     }
@@ -134,7 +62,7 @@ public class TDeclaration {
     private String labLevel;
 
     @Basic
-    @javax.persistence.Column(name = "LAB_LEVEL")
+    @javax.persistence.Column(name = "lab_level")
     public String getLabLevel() {
         return labLevel;
     }
@@ -146,7 +74,7 @@ public class TDeclaration {
     private String labName;
 
     @Basic
-    @javax.persistence.Column(name = "LAB_NAME")
+    @javax.persistence.Column(name = "lab_name")
     public String getLabName() {
         return labName;
     }
@@ -158,7 +86,7 @@ public class TDeclaration {
     private Integer memberAmount;
 
     @Basic
-    @javax.persistence.Column(name = "MEMBER_AMOUNT")
+    @javax.persistence.Column(name = "member_amount")
     public Integer getMemberAmount() {
         return memberAmount;
     }
@@ -170,7 +98,7 @@ public class TDeclaration {
     private Timestamp startOn;
 
     @Basic
-    @javax.persistence.Column(name = "START_ON")
+    @javax.persistence.Column(name = "start_on")
     public Timestamp getStartOn() {
         return startOn;
     }
@@ -182,7 +110,7 @@ public class TDeclaration {
     private Timestamp endOn;
 
     @Basic
-    @javax.persistence.Column(name = "END_ON")
+    @javax.persistence.Column(name = "end_on")
     public Timestamp getEndOn() {
         return endOn;
     }
@@ -191,10 +119,82 @@ public class TDeclaration {
         this.endOn = endOn;
     }
 
+    private String leaderCode;
+
+    @Basic
+    @javax.persistence.Column(name = "leader_code")
+    public String getLeaderCode() {
+        return leaderCode;
+    }
+
+    public void setLeaderCode(String leaderCode) {
+        this.leaderCode = leaderCode;
+    }
+
+    private String member1Code;
+
+    @Basic
+    @javax.persistence.Column(name = "member1_code")
+    public String getMember1Code() {
+        return member1Code;
+    }
+
+    public void setMember1Code(String member1Code) {
+        this.member1Code = member1Code;
+    }
+
+    private String member2Code;
+
+    @Basic
+    @javax.persistence.Column(name = "member2_code")
+    public String getMember2Code() {
+        return member2Code;
+    }
+
+    public void setMember2Code(String member2Code) {
+        this.member2Code = member2Code;
+    }
+
+    private String teacher1Code;
+
+    @Basic
+    @javax.persistence.Column(name = "teacher1_code")
+    public String getTeacher1Code() {
+        return teacher1Code;
+    }
+
+    public void setTeacher1Code(String teacher1Code) {
+        this.teacher1Code = teacher1Code;
+    }
+
+    private String teacher2Code;
+
+    @Basic
+    @javax.persistence.Column(name = "teacher2_code")
+    public String getTeacher2Code() {
+        return teacher2Code;
+    }
+
+    public void setTeacher2Code(String teacher2Code) {
+        this.teacher2Code = teacher2Code;
+    }
+
+    private String college;
+
+    @Basic
+    @javax.persistence.Column(name = "college")
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
     private Timestamp declTime;
 
     @Basic
-    @javax.persistence.Column(name = "DECL_TIME")
+    @javax.persistence.Column(name = "decl_time")
     public Timestamp getDeclTime() {
         return declTime;
     }
@@ -206,7 +206,7 @@ public class TDeclaration {
     private String checkState;
 
     @Basic
-    @javax.persistence.Column(name = "CHECK_STATE")
+    @javax.persistence.Column(name = "check_state")
     public String getCheckState() {
         return checkState;
     }
@@ -218,7 +218,7 @@ public class TDeclaration {
     private String proIntro;
 
     @Basic
-    @javax.persistence.Column(name = "PRO_INTRO")
+    @javax.persistence.Column(name = "pro_intro")
     public String getProIntro() {
         return proIntro;
     }
@@ -230,7 +230,7 @@ public class TDeclaration {
     private String resContent;
 
     @Basic
-    @javax.persistence.Column(name = "RES_CONTENT")
+    @javax.persistence.Column(name = "res_content")
     public String getResContent() {
         return resContent;
     }
@@ -242,7 +242,7 @@ public class TDeclaration {
     private String proAdv;
 
     @Basic
-    @javax.persistence.Column(name = "PRO_ADV")
+    @javax.persistence.Column(name = "pro_adv")
     public String getProAdv() {
         return proAdv;
     }
@@ -254,7 +254,7 @@ public class TDeclaration {
     private String resProgram;
 
     @Basic
-    @javax.persistence.Column(name = "RES_PROGRAM")
+    @javax.persistence.Column(name = "res_program")
     public String getResProgram() {
         return resProgram;
     }
@@ -266,7 +266,7 @@ public class TDeclaration {
     private String innoPoint;
 
     @Basic
-    @javax.persistence.Column(name = "INNO_POINT")
+    @javax.persistence.Column(name = "inno_point")
     public String getInnoPoint() {
         return innoPoint;
     }
@@ -278,7 +278,7 @@ public class TDeclaration {
     private String resCondition;
 
     @Basic
-    @javax.persistence.Column(name = "RES_CONDITION")
+    @javax.persistence.Column(name = "res_condition")
     public String getResCondition() {
         return resCondition;
     }
@@ -290,7 +290,7 @@ public class TDeclaration {
     private String proPlan;
 
     @Basic
-    @javax.persistence.Column(name = "PRO_PLAN")
+    @javax.persistence.Column(name = "pro_plan")
     public String getProPlan() {
         return proPlan;
     }
@@ -302,7 +302,7 @@ public class TDeclaration {
     private String expResult;
 
     @Basic
-    @javax.persistence.Column(name = "EXP_RESULT")
+    @javax.persistence.Column(name = "exp_result")
     public String getExpResult() {
         return expResult;
     }
@@ -314,7 +314,7 @@ public class TDeclaration {
     private String expTarget;
 
     @Basic
-    @javax.persistence.Column(name = "EXP_TARGET")
+    @javax.persistence.Column(name = "exp_target")
     public String getExpTarget() {
         return expTarget;
     }
@@ -326,37 +326,13 @@ public class TDeclaration {
     private String isdeleted;
 
     @Basic
-    @javax.persistence.Column(name = "ISDELETED")
+    @javax.persistence.Column(name = "isdeleted")
     public String getIsdeleted() {
         return isdeleted;
     }
 
     public void setIsdeleted(String isdeleted) {
         this.isdeleted = isdeleted;
-    }
-
-    private String proType;
-
-    @Basic
-    @javax.persistence.Column(name = "PRO_TYPE")
-    public String getProType() {
-        return proType;
-    }
-
-    public void setProType(String proType) {
-        this.proType = proType;
-    }
-
-    private Double proFund;
-
-    @Basic
-    @javax.persistence.Column(name = "PRO_FUND")
-    public Double getProFund() {
-        return proFund;
-    }
-
-    public void setProFund(Double proFund) {
-        this.proFund = proFund;
     }
 
     private String reviewOpinion;
@@ -383,6 +359,30 @@ public class TDeclaration {
         this.reviewResult = reviewResult;
     }
 
+    private String proType;
+
+    @Basic
+    @javax.persistence.Column(name = "PRO_TYPE")
+    public String getProType() {
+        return proType;
+    }
+
+    public void setProType(String proType) {
+        this.proType = proType;
+    }
+
+    private Double proFund;
+
+    @Basic
+    @javax.persistence.Column(name = "PRO_FUND")
+    public Double getProFund() {
+        return proFund;
+    }
+
+    public void setProFund(Double proFund) {
+        this.proFund = proFund;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -390,38 +390,38 @@ public class TDeclaration {
 
         TDeclaration that = (TDeclaration) o;
 
-        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
-        if (college != null ? !college.equals(that.college) : that.college != null) return false;
-        if (declTime != null ? !declTime.equals(that.declTime) : that.declTime != null) return false;
         if (declarId != null ? !declarId.equals(that.declarId) : that.declarId != null) return false;
-        if (endOn != null ? !endOn.equals(that.endOn) : that.endOn != null) return false;
-        if (expResult != null ? !expResult.equals(that.expResult) : that.expResult != null) return false;
-        if (expTarget != null ? !expTarget.equals(that.expTarget) : that.expTarget != null) return false;
-        if (innoPoint != null ? !innoPoint.equals(that.innoPoint) : that.innoPoint != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
         if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
+        if (proSerial != null ? !proSerial.equals(that.proSerial) : that.proSerial != null) return false;
+        if (proName != null ? !proName.equals(that.proName) : that.proName != null) return false;
         if (labLevel != null ? !labLevel.equals(that.labLevel) : that.labLevel != null) return false;
         if (labName != null ? !labName.equals(that.labName) : that.labName != null) return false;
+        if (memberAmount != null ? !memberAmount.equals(that.memberAmount) : that.memberAmount != null) return false;
+        if (startOn != null ? !startOn.equals(that.startOn) : that.startOn != null) return false;
+        if (endOn != null ? !endOn.equals(that.endOn) : that.endOn != null) return false;
         if (leaderCode != null ? !leaderCode.equals(that.leaderCode) : that.leaderCode != null) return false;
         if (member1Code != null ? !member1Code.equals(that.member1Code) : that.member1Code != null) return false;
         if (member2Code != null ? !member2Code.equals(that.member2Code) : that.member2Code != null) return false;
-        if (memberAmount != null ? !memberAmount.equals(that.memberAmount) : that.memberAmount != null) return false;
-        if (proAdv != null ? !proAdv.equals(that.proAdv) : that.proAdv != null) return false;
-        if (proFund != null ? !proFund.equals(that.proFund) : that.proFund != null) return false;
+        if (teacher1Code != null ? !teacher1Code.equals(that.teacher1Code) : that.teacher1Code != null) return false;
+        if (teacher2Code != null ? !teacher2Code.equals(that.teacher2Code) : that.teacher2Code != null) return false;
+        if (college != null ? !college.equals(that.college) : that.college != null) return false;
+        if (declTime != null ? !declTime.equals(that.declTime) : that.declTime != null) return false;
+        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
         if (proIntro != null ? !proIntro.equals(that.proIntro) : that.proIntro != null) return false;
-        if (proName != null ? !proName.equals(that.proName) : that.proName != null) return false;
-        if (proPlan != null ? !proPlan.equals(that.proPlan) : that.proPlan != null) return false;
-        if (proSerial != null ? !proSerial.equals(that.proSerial) : that.proSerial != null) return false;
-        if (proType != null ? !proType.equals(that.proType) : that.proType != null) return false;
-        if (resCondition != null ? !resCondition.equals(that.resCondition) : that.resCondition != null) return false;
         if (resContent != null ? !resContent.equals(that.resContent) : that.resContent != null) return false;
+        if (proAdv != null ? !proAdv.equals(that.proAdv) : that.proAdv != null) return false;
         if (resProgram != null ? !resProgram.equals(that.resProgram) : that.resProgram != null) return false;
+        if (innoPoint != null ? !innoPoint.equals(that.innoPoint) : that.innoPoint != null) return false;
+        if (resCondition != null ? !resCondition.equals(that.resCondition) : that.resCondition != null) return false;
+        if (proPlan != null ? !proPlan.equals(that.proPlan) : that.proPlan != null) return false;
+        if (expResult != null ? !expResult.equals(that.expResult) : that.expResult != null) return false;
+        if (expTarget != null ? !expTarget.equals(that.expTarget) : that.expTarget != null) return false;
+        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
         if (reviewOpinion != null ? !reviewOpinion.equals(that.reviewOpinion) : that.reviewOpinion != null)
             return false;
         if (reviewResult != null ? !reviewResult.equals(that.reviewResult) : that.reviewResult != null) return false;
-        if (startOn != null ? !startOn.equals(that.startOn) : that.startOn != null) return false;
-        if (teacher1Code != null ? !teacher1Code.equals(that.teacher1Code) : that.teacher1Code != null) return false;
-        if (teacher2Code != null ? !teacher2Code.equals(that.teacher2Code) : that.teacher2Code != null) return false;
+        if (proType != null ? !proType.equals(that.proType) : that.proType != null) return false;
+        if (proFund != null ? !proFund.equals(that.proFund) : that.proFund != null) return false;
 
         return true;
     }
@@ -430,12 +430,6 @@ public class TDeclaration {
     public int hashCode() {
         int result = declarId != null ? declarId.hashCode() : 0;
         result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
-        result = 31 * result + (teacher2Code != null ? teacher2Code.hashCode() : 0);
-        result = 31 * result + (teacher1Code != null ? teacher1Code.hashCode() : 0);
-        result = 31 * result + (member2Code != null ? member2Code.hashCode() : 0);
-        result = 31 * result + (member1Code != null ? member1Code.hashCode() : 0);
-        result = 31 * result + (college != null ? college.hashCode() : 0);
-        result = 31 * result + (leaderCode != null ? leaderCode.hashCode() : 0);
         result = 31 * result + (proSerial != null ? proSerial.hashCode() : 0);
         result = 31 * result + (proName != null ? proName.hashCode() : 0);
         result = 31 * result + (labLevel != null ? labLevel.hashCode() : 0);
@@ -443,6 +437,12 @@ public class TDeclaration {
         result = 31 * result + (memberAmount != null ? memberAmount.hashCode() : 0);
         result = 31 * result + (startOn != null ? startOn.hashCode() : 0);
         result = 31 * result + (endOn != null ? endOn.hashCode() : 0);
+        result = 31 * result + (leaderCode != null ? leaderCode.hashCode() : 0);
+        result = 31 * result + (member1Code != null ? member1Code.hashCode() : 0);
+        result = 31 * result + (member2Code != null ? member2Code.hashCode() : 0);
+        result = 31 * result + (teacher1Code != null ? teacher1Code.hashCode() : 0);
+        result = 31 * result + (teacher2Code != null ? teacher2Code.hashCode() : 0);
+        result = 31 * result + (college != null ? college.hashCode() : 0);
         result = 31 * result + (declTime != null ? declTime.hashCode() : 0);
         result = 31 * result + (checkState != null ? checkState.hashCode() : 0);
         result = 31 * result + (proIntro != null ? proIntro.hashCode() : 0);
@@ -455,10 +455,10 @@ public class TDeclaration {
         result = 31 * result + (expResult != null ? expResult.hashCode() : 0);
         result = 31 * result + (expTarget != null ? expTarget.hashCode() : 0);
         result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (proType != null ? proType.hashCode() : 0);
-        result = 31 * result + (proFund != null ? proFund.hashCode() : 0);
         result = 31 * result + (reviewOpinion != null ? reviewOpinion.hashCode() : 0);
         result = 31 * result + (reviewResult != null ? reviewResult.hashCode() : 0);
+        result = 31 * result + (proType != null ? proType.hashCode() : 0);
+        result = 31 * result + (proFund != null ? proFund.hashCode() : 0);
         return result;
     }
 }
