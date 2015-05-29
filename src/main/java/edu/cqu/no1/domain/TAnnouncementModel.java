@@ -23,6 +23,23 @@ public class TAnnouncementModel {
     private String publishername;
     private TAnnounType tAnnounTypeByAnnounTypeId;
 
+    public TAnnouncementModel() { /* null */ }
+
+    public TAnnouncementModel(TAnnouncement tAnnouncement, String publishername) {
+        this.announId = tAnnouncement.getAnnounId();
+        this.announTitle = tAnnouncement.getAnnounTitle();
+        this.announContent = tAnnouncement.getAnnounContent();
+        this.publisherCode = tAnnouncement.getPublisherCode();
+        this.publisherRole = tAnnouncement.getPublisherRole();
+        this.publishTime = tAnnouncement.getPublishTime();
+        this.publishState = tAnnouncement.getPublishState();
+        this.checkerCode = tAnnouncement.getCheckerCode();
+        this.checkTime = tAnnouncement.getCheckTime();
+        this.checkState = tAnnouncement.getCheckState();
+        this.isdeleted = tAnnouncement.getIsdeleted();
+        this.publishername = publishername;
+    }
+
     @Id
     @Column(name = "ANNOUN_ID")
     public String getAnnounId() {
