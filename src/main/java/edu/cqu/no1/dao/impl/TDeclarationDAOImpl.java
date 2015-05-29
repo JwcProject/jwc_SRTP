@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Repository
-public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements edu.cqu.no1.dao.TDeclarationDAO {
+public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TDeclarationDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TDeclarationDAO.class);
     // property constants
@@ -48,15 +48,16 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
 
     /**
      *
-     *判断一个学生是否参与了申报
+     *TODO 判断一个学生是否参与了申报
      *authoy lzh
      *@param stuNumber
      *@return
      */
+
     public boolean checkHadReqDecla(String stuNumber){
         log.debug("check a student whether had request declaration");
         try {
-            String  quesString ="From TDeclaration T where T.isdeleted='N' and (T.leaderCode=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number) OR T.member1Code=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number) OR T.member2Code=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number))";
+            String  quesString ="From TDeclaration T where T.isdeleted='N' and (T.TStudentByLeaderCode.studentId=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number) OR T.TStudentByMember1Code.studentId=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number) OR T.TStudentByMember2Code.studentId=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number))";
             Query query = getSessionFactory().getCurrentSession().createQuery(quesString);
             query.setString("number", stuNumber);
             List tmpList = query.list();
@@ -74,10 +75,11 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     /*
      * 通过学院主管教师的code得到该学院的所有申报
      */
+
     public List getUnitDeclarationByTeaCode(String unitTeaCode, String checkState1, String checkState2, PageBean pageBean) {
         log.debug("finding unit all TDeclaration instances by pageBean");
         try {
-            String queryStr = "From TDeclaration D Where D.isdeleted='N' and D.checkState >=:checkState1 and D.checkState <=:checkState2 and D.college = (select T.unitId From TTeacher T where T.teaCode =:code) order by D.declTime desc";
+            String queryStr = "From TDeclaration D Where D.isdeleted='N' and D.checkState >=:checkState1 and D.checkState <=:checkState2 and D.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code) order by D.declTime desc";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
             //query.setString("jqId", jqId);
@@ -92,11 +94,12 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
+
     public int getUnitDeclarationCount(String unitTeaCode, String checkState1, String checkState2) {
         log.debug("finding all person TDeclaration count");
         try {
 
-            String queryStr = "select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState >=:checkState1 and D.checkState <=:checkState2 and D.college = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryStr = "select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState >=:checkState1 and D.checkState <=:checkState2 and D.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
             //query.setString("jqId", jqId);
@@ -118,6 +121,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     /*
      * 获取教务处的申报列表
      */
+
     public List getSchoolDeclaration(String checkState1, String checkState2, PageBean pageBean) {
         log.debug("finding school all TDeclaration instances by pageBean");
         try {
@@ -133,6 +137,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
             throw e;
         }
     }
+
 
     public int getSchoolDeclarationCount(String checkState1, String checkState2) {
         log.debug("finding all school TDeclaration count");
@@ -157,12 +162,29 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     /*
      * 通过评审教师的id得到其评审的申报列表 
      */
+
     public List getReviewTeaDeclaration(String teaCode, PageBean pageBean) {
         log.debug("finding school all TDeclaration instances by pageBean");
         try {
-            String queryStr = "from TDeclComment dc where dc.isdeleted = 'N' and dc.exReviewId in" +
-                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.exTeaId in" +
-                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.teaId=(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
+			/*String queryStr = 
+				"  from TDeclComment dc\n" + 
+				" where dc.isdeleted = 'N'\n" + 
+				"   and dc.TExpertReview.exReviewId in\n" + 
+				"       (select er.exReviewId\n" + 
+				"          from TExpertReview er\n" + 
+				"         where er.isdeleted = 'N'\n" + 
+				"           and er.TExpertTeacher.exTeaId in\n" + 
+				"               (select et.exTeaId\n" + 
+				"                  from TExpertTeacher et\n" + 
+				"                 where et.isdeleted = 'N'\n" + 
+				"                   and et.TTeacher.teaCode =:teaCode)\n" + 
+				"                   and et.TExpertLib.libId in (select el.libId\n" + 
+				"                                      from TExpertLib el\n" + 
+				"                                     where el.isdeleted = 'N'\n" + 
+				"                                       and el.TJieqi.jqId =:jqId))";*/
+            String queryStr = "from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
+                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" +
+                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
             //String queryStr = "From TDeclaration D Where D.isdeleted='N' and D.checkState>='03' and D.TJieqi.jqId=:jqId and D.declarId in(select E.TDeclaration.declarId from TExpertReview E where E.isdeleted='N' and E.TExpertTeacher.exTeaId in(select et.exTeaId from TExpertTeacher et where et.TTeacher.teaCode=:teaCode))";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
@@ -177,15 +199,15 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public int getReviewTeaDeclarationCount(String teaCode) {
         log.debug("finding all school TDeclaration count");
         try {
             //String queryStr = "select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState>='03' and D.TJieqi.jqId=:jqId and D.declarId in(select E.TDeclaration.declarId from TExpertReview E where E.isdeleted='N' and E.TExpertTeacher.exTeaId in(select et.exTeaId from TExpertTeacher et where et.TTeacher.teaCode=:teaCode))";
 
-            String queryStr = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.exReviewId in" +
-                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.exTeaId in" +
-                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.teaId=(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
+            String queryStr = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
+                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" +
+                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             //query.setString("jqId", jqId);
             query.setString("teaCode", teaCode);
@@ -207,11 +229,11 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
 	 */
 
     //多条件查询学院申报
-    
+
     public List findUnitDeclaration(String teaCode, String jqYear, String jqId, String professionName, String leaderCode, String checkState, String proSerial, String proName, PageBean pageBean) {
         log.debug("find unit declaration");
         try {
-            String queryString = "From TDeclaration D Where D.isdeleted='N' and D.college = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryString = "From TDeclaration D Where D.isdeleted='N' and D.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             if (null != jqId && !jqId.trim().equals("")) {
                 queryString += " and D.TJieqi.jqId =:jqId";
             }
@@ -305,11 +327,11 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public int findUnitDeclarationCount(String teaCode, String jqYear, String jqId, String professionName, String leaderCode, String checkState, String proSerial, String proName) {
         log.debug("find unit declaration count ");
         try {
-            String queryString = "Select count(*) From TDeclaration D Where D.isdeleted='N' and D.college = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryString = "Select count(*) From TDeclaration D Where D.isdeleted='N' and D.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             if (null != jqId && !jqId.trim().equals("")) {
                 queryString += " and D.TJieqi.jqId =:jqId";
             }
@@ -406,7 +428,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     /*
      * 多条件查询教务处申报列表
      */
-    
+
     public List findSchoolDeclaration(String proName, String jqYear, String jqId, String checkState, String college, PageBean pageBean) {
         log.debug("find school declaration");
         try {
@@ -475,7 +497,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public int findSchoolDeclarationCount(String proName, String jqYear, String jqId, String checkState, String college) {
         log.debug("find unit declaration count ");
         try {
@@ -550,16 +572,16 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     /*
      * 多条件查询评审专家个人相关申报
      */
-    
+
     public List findReviewTeaDeclaration(String teaCode, String jqYear, String jqId, String professionName, String leaderCode, String compEval, PageBean pageBean) {
         log.debug("find review teacher declaration");
         try {
 
 
 
-            String queryString = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.exReviewId in" +
-                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.exTeaId in" +
-                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.teaId=" +
+            String queryString = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
+                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" +
+                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=" +
                     "(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
             if (null != jqId && !jqId.trim().equals("")) {
                 queryString += " and D.TJieqi.jqId =:jqId";
@@ -627,7 +649,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public int findReviewTeaDeclarationCount(String teaCode, String jqYear, String jqId, String professionName, String leaderCode, String compEval) {
         log.debug("find review teacher declaration count ");
         try {
@@ -637,9 +659,9 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
 			        "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
 			 * */
 
-            String queryString = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.exReviewId in" +
-                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.exTeaId in" +
-                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.teaId=" +
+            String queryString = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
+                    "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" +
+                    "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=" +
                     "(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
 
             if (null != jqId && !jqId.trim().equals("")) {
@@ -717,17 +739,17 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
 
     /**
      *
-     *根据申报状态查询学院申报
+     *TODO 根据申报状态查询学院申报
      *authoy lzh
      *@param teaCode 学院主管老师的教职工号
      *@param state  申报状态
      *@return
      */
-    
+
     public List findUnitDecByState(String teaCode, String state, PageBean pageBean){
         try {
             log.error("find unit declaration by state");
-            String sqlquery ="From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.college =(select T.unitId from TTeacher T where T.teaCode=:code)";
+            String sqlquery ="From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.TUnit.unitId =(select T.TUnit.unitId from TTeacher T where T.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(sqlquery);
             query.setString("state", state);
             query.setString("code", teaCode);
@@ -744,11 +766,11 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public int findUnitDecByStateCount(String teaCode, String state){
         try {
             log.error("find unit declaration count by state");
-            String sqlquery ="select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.college =(select T.unitId from TTeacher T where T.teaCode=:code)";
+            String sqlquery ="select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.TUnit.unitId =(select T.TUnit.unitId from TTeacher T where T.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(sqlquery);
             query.setString("state", state);
             query.setString("code", teaCode);
@@ -765,12 +787,12 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
     }
 
     //获取普通教师的个人申报列表
-    
+
     public List getTeaDeclaration(String teaCode, PageBean pageBean)
     {
         log.error("find teacher personal declaration ");
         try {
-            String queryString = "From TDeclaration T Where T.isdeleted='N' and (T.teacher1Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.teacher2Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode = :number))";
+            String queryString = "From TDeclaration T Where T.isdeleted='N' and (T.TTeacherByTeacher1Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.TTeacherByTeacher2Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("number", teaCode);
 
@@ -787,14 +809,15 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         } catch (RuntimeException e) {
             log.error("find unit declaration count by state" + e);
             throw e;
+            // TODO: handle exception
         }
     }
 
-    
+
     public int getTeaDeclarationCount(String teaCode){
         log.debug("find student project ");
         try {
-            String queryString = "select count(*) From TDeclaration T Where T.isdeleted='N' and (T.teacher1Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.teacher2Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode = :number))";
+            String queryString = "select count(*) From TDeclaration T Where T.isdeleted='N' and (T.TTeacherByTeacher1Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.TTeacherByTeacher2Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("number", teaCode);
 
@@ -807,17 +830,18 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
             return count;
 
         } catch (RuntimeException e) {
+            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
     }
 
     //多条件查询教师个人申报
-    
+
     public List findTeaDeclaration(String teaCode, String projectName, String stuCode, PageBean pageBean){
         log.debug("find teacher project ");
         try{
-            String queryString = "From TDeclaration T Where T.isdeleted='N' and (T.teacher1Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.teacher2Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode = :number))";
+            String queryString = "From TDeclaration T Where T.isdeleted='N' and (T.TTeacherByTeacher1Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.TTeacherByTeacher2Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
 
             if (null != projectName && !projectName.trim().equals("")){
                 queryString += " and D.projectName like :projectName";
@@ -847,12 +871,12 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public int findTeaDeclarationCount(String teaCode, String projectName, String stuCode)
     {
         log.debug("find teacher project count");
         try{
-            String queryString = "select count(*) From TDeclaration T Where T.isdeleted='N' and (T.teacher1Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.teacher2Code=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
+            String queryString = "select count(*) From TDeclaration T Where T.isdeleted='N' and (T.TTeacherByTeacher1Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.TTeacherByTeacher2Code.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
 
             if (null != projectName && !projectName.trim().equals("")){
                 queryString += " and D.projectName like :projectName";
@@ -887,117 +911,117 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         }
     }
 
-    
+
     public List findByProSerial(Object proSerial) {
         return findByProperty(PRO_SERIAL, proSerial);
     }
 
-    
+
     public List findByProName(Object proName) {
         return findByProperty(PRO_NAME, proName);
     }
 
-    
+
     public List findByLabLevel(Object labLevel) {
         return findByProperty(LAB_LEVEL, labLevel);
     }
 
-    
+
     public List findByLabName(Object labName) {
         return findByProperty(LAB_NAME, labName);
     }
 
-    
+
     public List findByLeaderCode(Object leaderCode) {
         return findByProperty(LEADER_CODE, leaderCode);
     }
 
-    
+
     public List findByMember1Code(Object member1Code) {
         return findByProperty(MEMBER1_CODE, member1Code);
     }
 
-    
+
     public List findByMember2Code(Object member2Code) {
         return findByProperty(MEMBER2_CODE, member2Code);
     }
 
-    
+
     public List findByTeacher1Code(Object teacher1Code) {
         return findByProperty(TEACHER1_CODE, teacher1Code);
     }
 
-    
+
     public List findByTeacher2Code(Object teacher2Code) {
         return findByProperty(TEACHER2_CODE, teacher2Code);
     }
 
-    
+
     public List findByCollege(Object college) {
         return findByProperty(COLLEGE, college);
     }
 
-    
+
     public List findByCheckState(Object checkState) {
         return findByProperty(CHECK_STATE, checkState);
     }
 
-    
+
     public List findByProIntro(Object proIntro) {
         return findByProperty(PRO_INTRO, proIntro);
     }
 
-    
+
     public List findByResContent(Object resContent) {
         return findByProperty(RES_CONTENT, resContent);
     }
 
-    
+
     public List findByProAdv(Object proAdv) {
         return findByProperty(PRO_ADV, proAdv);
     }
 
-    
+
     public List findByResProgram(Object resProgram) {
         return findByProperty(RES_PROGRAM, resProgram);
     }
 
-    
+
     public List findByInnoPoint(Object innoPoint) {
         return findByProperty(INNO_POINT, innoPoint);
     }
 
-    
+
     public List findByResCondition(Object resCondition) {
         return findByProperty(RES_CONDITION, resCondition);
     }
 
-    
+
     public List findByProPlan(Object proPlan) {
         return findByProperty(PRO_PLAN, proPlan);
     }
 
-    
+
     public List findByExpResult(Object expResult) {
         return findByProperty(EXP_RESULT, expResult);
     }
 
-    
+
     public List findByExpTarget(Object expTarget) {
         return findByProperty(EXP_TARGET, expTarget);
     }
 
-    
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    
+
     public List findByProType(Object proType) {
         return findByProperty(PRO_TYPE, proType);
     }
 
-    
+
     public List findByProFund(Object proFund) {
         return findByProperty(PRO_FUND, proFund);
     }
@@ -1007,7 +1031,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
         return (TDeclarationDAO) ctx.getBean("TDeclarationDAO");
     }
 
-    
+
     public List findAll(final PageBean pageBean, String studentId) {
         log.debug("finding all TDeclaration instances");
         try {
@@ -1041,17 +1065,33 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
             throw re;
         }
     }
-    
+
     public int getAllTDeclarationCount(String studentId)
     {
         log.debug("finding all TDeclaration counts");
         try {
+			
+			
+			/*String queryStr = "select count(*) from TDeclaration as a where a.isdeleted='N' " +
+					"and (a.TStudentByLeaderCode.studentId=:code or a.TStudentByMember1Code.studentId=:code " +
+					"or a.TStudentByMember2Code.studentId=:code)";*/
 
-            String hql = "select count(*) from TDeclaration where isdeleted = 'N' and" +
-                    " member1Code in (select studentId from TStudent where studentNumber = :code) or" +
-                    " leaderCode in (select studentId from TStudent where studentNumber = :code) or" +
-                    " member2Code in (select studentId from TStudent where studentNumber = :code)";
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            String queryStr =
+                    "Select count(1)\n" +
+                            "  From T_Declaration d\n" +
+                            " Where D.Isdeleted = 'N'\n" +
+                            "   And ((D.Member1_Code In\n" +
+                            "       (Select S.Student_Id\n" +
+                            "            From T_Student s\n" +
+                            "           Where S.Student_Number = :code)) Or\n" +
+                            "       (D.Leader_Code In\n" +
+                            "       (Select S.Student_Id\n" +
+                            "            From T_Student s\n" +
+                            "           Where S.Student_Number = :code))\n" +
+                            "           Or (d.member2_code In (Select S.Student_Id\n" +
+                            "            From T_Student s\n" +
+                            "           Where S.Student_Number = :code)))";
+            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
             query.setString("code", studentId);
             List tmpList = query.list();
 
@@ -1068,26 +1108,18 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements ed
             throw re;
         }
     }
-    
+
     public String getDeclarationSerial(String unitId){
         log.debug("getDeclarationSerial");
         try {
-            String hql = "select year(current_date()) || '-', u.unitCode, '-' || count(d.declarId) + 1000 as serial from" +
-                    " TUnit u, TDeclaration  d where d.college = u.unitId group by u.unitId, u.unitCode" +
-                    " having u.unitId = :unitId";
-
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-            query.setString("unitId", unitId);
-            List<Object[]> tmpList = query.list();
+            String queryStr = "Select Extract(Year From Sysdate) || '-' || Decode(U.Unit_Code, Null, 'cqu', U.Unit_Code) || '-' || (Count(D.Declar_Id)+1000) As Serial From T_Unit u, T_Declaration d Where D.College = U.Unit_Id Group By U.Unit_Id,u.unit_code Having U.Unit_Id=:unitid";
+            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
+            query.setString("unitid", unitId);
+            List tmpList = query.list();
             String serial = "";
             if(tmpList.size()>0)
             {
-                Object [] objs = tmpList.get(0);
-                assert 3 == objs.length;
-                for (int i = 0; i < objs.length; ++i) {
-                    if (1 == i && null == objs[i]) objs[i] = "cqu";
-                    serial += (String)objs[i];
-                }
+                serial = ""+tmpList.get(0);
             }
             return serial;
         } catch (RuntimeException re) {

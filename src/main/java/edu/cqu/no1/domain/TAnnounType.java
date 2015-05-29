@@ -1,88 +1,97 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TAnnounType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_announ_type", schema = "", catalog = "srtp")
-public class TAnnounType {
-    private String announTypeId;
-    private String announTypeName;
-    private String isdeleted;
-    private Collection<TAnnouncement> tAnnouncementsByAnnounTypeId;
-    private Collection<TAnnouncementModel> tannouncementmodelsByAnnounTypeId;
+@Table(name = "t_announ_type", catalog = "srtp")
+public class TAnnounType implements java.io.Serializable {
 
-    @Id
-    @Column(name = "announ_type_id")
-    public String getAnnounTypeId() {
-        return announTypeId;
-    }
+	// Fields
 
-    public void setAnnounTypeId(String announTypeId) {
-        this.announTypeId = announTypeId;
-    }
+	private String announTypeId;
+	private String announTypeName;
+	private String isdeleted;
+	private Set<TAnnouncementModel> TAnnouncementModels = new HashSet<TAnnouncementModel>(
+			0);
+	private Set<TAnnouncement> TAnnouncements = new HashSet<TAnnouncement>(0);
 
-    @Basic
-    @Column(name = "announ_type_name")
-    public String getAnnounTypeName() {
-        return announTypeName;
-    }
+	// Constructors
 
-    public void setAnnounTypeName(String announTypeName) {
-        this.announTypeName = announTypeName;
-    }
+	/** default constructor */
+	public TAnnounType() {
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	/** full constructor */
+	public TAnnounType(String announTypeName, String isdeleted,
+			Set<TAnnouncementModel> TAnnouncementModels,
+			Set<TAnnouncement> TAnnouncements) {
+		this.announTypeName = announTypeName;
+		this.isdeleted = isdeleted;
+		this.TAnnouncementModels = TAnnouncementModels;
+		this.TAnnouncements = TAnnouncements;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "announ_type_id", unique = true, nullable = false, length = 32)
+	public String getAnnounTypeId() {
+		return this.announTypeId;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setAnnounTypeId(String announTypeId) {
+		this.announTypeId = announTypeId;
+	}
 
-        TAnnounType that = (TAnnounType) o;
+	@Column(name = "announ_type_name", length = 100)
+	public String getAnnounTypeName() {
+		return this.announTypeName;
+	}
 
-        if (announTypeId != null ? !announTypeId.equals(that.announTypeId) : that.announTypeId != null) return false;
-        if (announTypeName != null ? !announTypeName.equals(that.announTypeName) : that.announTypeName != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setAnnounTypeName(String announTypeName) {
+		this.announTypeName = announTypeName;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = announTypeId != null ? announTypeId.hashCode() : 0;
-        result = 31 * result + (announTypeName != null ? announTypeName.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tAnnounTypeByAnnounTypeId")
-    public Collection<TAnnouncement> gettAnnouncementsByAnnounTypeId() {
-        return tAnnouncementsByAnnounTypeId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TAnnounType")
+	public Set<TAnnouncementModel> getTAnnouncementModels() {
+		return this.TAnnouncementModels;
+	}
 
-    public void settAnnouncementsByAnnounTypeId(Collection<TAnnouncement> tAnnouncementsByAnnounTypeId) {
-        this.tAnnouncementsByAnnounTypeId = tAnnouncementsByAnnounTypeId;
-    }
+	public void setTAnnouncementModels(
+			Set<TAnnouncementModel> TAnnouncementModels) {
+		this.TAnnouncementModels = TAnnouncementModels;
+	}
 
-    @OneToMany(mappedBy = "tAnnounTypeByAnnounTypeId")
-    public Collection<TAnnouncementModel> getTannouncementmodelsByAnnounTypeId() {
-        return tannouncementmodelsByAnnounTypeId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TAnnounType")
+	public Set<TAnnouncement> getTAnnouncements() {
+		return this.TAnnouncements;
+	}
 
-    public void setTannouncementmodelsByAnnounTypeId(Collection<TAnnouncementModel> tannouncementmodelsByAnnounTypeId) {
-        this.tannouncementmodelsByAnnounTypeId = tannouncementmodelsByAnnounTypeId;
-    }
+	public void setTAnnouncements(Set<TAnnouncement> TAnnouncements) {
+		this.TAnnouncements = TAnnouncements;
+	}
+
 }

@@ -1,112 +1,112 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TExpertReview entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_expert_review", schema = "", catalog = "srtp")
-public class TExpertReview {
-    private String exReviewId;
-    private String exTeaId;
-    private String declarId;
-    private String isdeleted;
-    private Collection<TDeclComment> tDeclCommentsByExReviewId;
-    private TExpertTeacherModel texpertteachermodelByExTeaId;
-    private TExpertTeacher tExpertTeacherByExTeaId;
+@Table(name = "t_expert_review", catalog = "srtp")
+public class TExpertReview implements java.io.Serializable {
 
-    @Id
-    @Column(name = "ex_review_id")
-    public String getExReviewId() {
-        return exReviewId;
-    }
+	// Fields
 
-    public void setExReviewId(String exReviewId) {
-        this.exReviewId = exReviewId;
-    }
+	private String exReviewId;
+	private TDeclaration TDeclaration;
+	private TExpertTeacherModel TExpertTeacherModel;
+	private TExpertTeacher TExpertTeacher;
+	private String isdeleted;
+	private Set<TDeclComment> TDeclComments = new HashSet<TDeclComment>(0);
 
-    @Basic
-    @Column(name = "ex_tea_id")
-    public String getExTeaId() {
-        return exTeaId;
-    }
+	// Constructors
 
-    public void setExTeaId(String exTeaId) {
-        this.exTeaId = exTeaId;
-    }
+	/** default constructor */
+	public TExpertReview() {
+	}
 
-    @Basic
-    @Column(name = "declar_id")
-    public String getDeclarId() {
-        return declarId;
-    }
+	/** full constructor */
+	public TExpertReview(TDeclaration TDeclaration,
+			TExpertTeacherModel TExpertTeacherModel,
+			TExpertTeacher TExpertTeacher, String isdeleted,
+			Set<TDeclComment> TDeclComments) {
+		this.TDeclaration = TDeclaration;
+		this.TExpertTeacherModel = TExpertTeacherModel;
+		this.TExpertTeacher = TExpertTeacher;
+		this.isdeleted = isdeleted;
+		this.TDeclComments = TDeclComments;
+	}
 
-    public void setDeclarId(String declarId) {
-        this.declarId = declarId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "ex_review_id", unique = true, nullable = false, length = 32)
+	public String getExReviewId() {
+		return this.exReviewId;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setExReviewId(String exReviewId) {
+		this.exReviewId = exReviewId;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "declar_id")
+	public TDeclaration getTDeclaration() {
+		return this.TDeclaration;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTDeclaration(TDeclaration TDeclaration) {
+		this.TDeclaration = TDeclaration;
+	}
 
-        TExpertReview that = (TExpertReview) o;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ex_tea_id")
+	public TExpertTeacherModel getTExpertTeacherModel() {
+		return this.TExpertTeacherModel;
+	}
 
-        if (exReviewId != null ? !exReviewId.equals(that.exReviewId) : that.exReviewId != null) return false;
-        if (exTeaId != null ? !exTeaId.equals(that.exTeaId) : that.exTeaId != null) return false;
-        if (declarId != null ? !declarId.equals(that.declarId) : that.declarId != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setTExpertTeacherModel(TExpertTeacherModel TExpertTeacherModel) {
+		this.TExpertTeacherModel = TExpertTeacherModel;
+	}
 
-        return true;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ex_tea_id", insertable = false, updatable = false)
+	public TExpertTeacher getTExpertTeacher() {
+		return this.TExpertTeacher;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = exReviewId != null ? exReviewId.hashCode() : 0;
-        result = 31 * result + (exTeaId != null ? exTeaId.hashCode() : 0);
-        result = 31 * result + (declarId != null ? declarId.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setTExpertTeacher(TExpertTeacher TExpertTeacher) {
+		this.TExpertTeacher = TExpertTeacher;
+	}
 
-    @OneToMany(mappedBy = "tExpertReviewByExReviewId")
-    public Collection<TDeclComment> gettDeclCommentsByExReviewId() {
-        return tDeclCommentsByExReviewId;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    public void settDeclCommentsByExReviewId(Collection<TDeclComment> tDeclCommentsByExReviewId) {
-        this.tDeclCommentsByExReviewId = tDeclCommentsByExReviewId;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "ex_tea_id", referencedColumnName = "EX_TEA_ID")
-    public TExpertTeacherModel getTexpertteachermodelByExTeaId() {
-        return texpertteachermodelByExTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertReview")
+	public Set<TDeclComment> getTDeclComments() {
+		return this.TDeclComments;
+	}
 
-    public void setTexpertteachermodelByExTeaId(TExpertTeacherModel texpertteachermodelByExTeaId) {
-        this.texpertteachermodelByExTeaId = texpertteachermodelByExTeaId;
-    }
+	public void setTDeclComments(Set<TDeclComment> TDeclComments) {
+		this.TDeclComments = TDeclComments;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "ex_tea_id", referencedColumnName = "ex_tea_id")
-    public TExpertTeacher gettExpertTeacherByExTeaId() {
-        return tExpertTeacherByExTeaId;
-    }
-
-    public void settExpertTeacherByExTeaId(TExpertTeacher tExpertTeacherByExTeaId) {
-        this.tExpertTeacherByExTeaId = tExpertTeacherByExTeaId;
-    }
 }

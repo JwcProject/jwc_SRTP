@@ -28,29 +28,36 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     public static final String ISDELETED = "isdeleted";
     public static final String USER_TYPE = "userType";
 
+
     public List<TUser> findByUserName(Object userName) {
         return findByProperty(USER_NAME, userName);
     }
+
 
     public List<TUser> findByUserPassword(Object userPassword) {
         return findByProperty(USER_PASSWORD, userPassword);
     }
 
+
     public List<TUser> findByUserState(Object userState) {
         return findByProperty(USER_STATE, userState);
     }
+
 
     public List<TUser> findByUserIntroduction(Object userIntroduction) {
         return findByProperty(USER_INTRODUCTION, userIntroduction);
     }
 
+
     public List<TUser> findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
+
     public List<TUser> findByUserType(Object userType) {
         return findByProperty(USER_TYPE, userType);
     }
+
 
     public int getAllTUserCount()
     {
@@ -80,6 +87,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             throw re;
         }
     }
+
 
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TUser instances");
@@ -113,6 +121,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             throw re;
         }
     }
+
 
     public int getTUserCountByMutiProperty(String userId, String userName, String userType, String userState)
     {

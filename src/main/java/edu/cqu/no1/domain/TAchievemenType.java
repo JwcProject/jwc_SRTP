@@ -1,82 +1,95 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TAchievemenType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_achievemen_type", schema = "", catalog = "srtp")
-public class TAchievemenType {
-    private String achievementypeId;
-    private String achievementypeName;
-    private String achievementypeIntroduction;
-    private String isdeleted;
+@Table(name = "t_achievemen_type", catalog = "srtp")
+public class TAchievemenType implements java.io.Serializable {
 
-    @Id
-    @Column(name = "achievementype_id")
-    public String getAchievementypeId() {
-        return achievementypeId;
-    }
+	// Fields
 
-    public void setAchievementypeId(String achievementypeId) {
-        this.achievementypeId = achievementypeId;
-    }
+	private String achievementypeId;
+	private String achievementypeName;
+	private String achievementypeIntroduction;
+	private String isdeleted;
+	private Set<TAchievement> TAchievements = new HashSet<TAchievement>(0);
 
-    @Basic
-    @Column(name = "achievementype_name")
-    public String getAchievementypeName() {
-        return achievementypeName;
-    }
+	// Constructors
 
-    public void setAchievementypeName(String achievementypeName) {
-        this.achievementypeName = achievementypeName;
-    }
+	/** default constructor */
+	public TAchievemenType() {
+	}
 
-    @Basic
-    @Column(name = "achievementype_introduction")
-    public String getAchievementypeIntroduction() {
-        return achievementypeIntroduction;
-    }
+	/** full constructor */
+	public TAchievemenType(String achievementypeName,
+			String achievementypeIntroduction, String isdeleted,
+			Set<TAchievement> TAchievements) {
+		this.achievementypeName = achievementypeName;
+		this.achievementypeIntroduction = achievementypeIntroduction;
+		this.isdeleted = isdeleted;
+		this.TAchievements = TAchievements;
+	}
 
-    public void setAchievementypeIntroduction(String achievementypeIntroduction) {
-        this.achievementypeIntroduction = achievementypeIntroduction;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "achievementype_id", unique = true, nullable = false, length = 32)
+	public String getAchievementypeId() {
+		return this.achievementypeId;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setAchievementypeId(String achievementypeId) {
+		this.achievementypeId = achievementypeId;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "achievementype_name", length = 50)
+	public String getAchievementypeName() {
+		return this.achievementypeName;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setAchievementypeName(String achievementypeName) {
+		this.achievementypeName = achievementypeName;
+	}
 
-        TAchievemenType that = (TAchievemenType) o;
+	@Column(name = "achievementype_introduction", length = 200)
+	public String getAchievementypeIntroduction() {
+		return this.achievementypeIntroduction;
+	}
 
-        if (achievementypeId != null ? !achievementypeId.equals(that.achievementypeId) : that.achievementypeId != null)
-            return false;
-        if (achievementypeName != null ? !achievementypeName.equals(that.achievementypeName) : that.achievementypeName != null)
-            return false;
-        if (achievementypeIntroduction != null ? !achievementypeIntroduction.equals(that.achievementypeIntroduction) : that.achievementypeIntroduction != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setAchievementypeIntroduction(String achievementypeIntroduction) {
+		this.achievementypeIntroduction = achievementypeIntroduction;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = achievementypeId != null ? achievementypeId.hashCode() : 0;
-        result = 31 * result + (achievementypeName != null ? achievementypeName.hashCode() : 0);
-        result = 31 * result + (achievementypeIntroduction != null ? achievementypeIntroduction.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TAchievemenType")
+	public Set<TAchievement> getTAchievements() {
+		return this.TAchievements;
+	}
+
+	public void setTAchievements(Set<TAchievement> TAchievements) {
+		this.TAchievements = TAchievements;
+	}
+
 }

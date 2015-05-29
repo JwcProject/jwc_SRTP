@@ -1,148 +1,141 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TPermission entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_permission", schema = "", catalog = "srtp")
-public class TPermission {
-    private String permissionId;
-    private String permissionName;
-    private String permissionState;
-    private String permissionUrl;
-    private String permissionLevel;
-    private String permissionFatherid;
-    private String permissionIntroduction;
-    private String isdeleted;
-    private Collection<TRolePermission> tRolePermissionsByPermissionId;
+@Table(name = "t_permission", catalog = "srtp")
+public class TPermission implements java.io.Serializable {
 
-    @Id
-    @Column(name = "permission_id")
-    public String getPermissionId() {
-        return permissionId;
-    }
+	// Fields
 
-    public void setPermissionId(String permissionId) {
-        this.permissionId = permissionId;
-    }
+	private String permissionId;
+	private String permissionName;
+	private String permissionState;
+	private String permissionUrl;
+	private String permissionLevel;
+	private String permissionFatherid;
+	private String permissionIntroduction;
+	private String isdeleted;
+	private Set<TRolePermission> TRolePermissions = new HashSet<TRolePermission>(
+			0);
 
-    @Basic
-    @Column(name = "permission_name")
-    public String getPermissionName() {
-        return permissionName;
-    }
+	// Constructors
 
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName;
-    }
+	/** default constructor */
+	public TPermission() {
+	}
 
-    @Basic
-    @Column(name = "permission_state")
-    public String getPermissionState() {
-        return permissionState;
-    }
+	/** full constructor */
+	public TPermission(String permissionName, String permissionState,
+			String permissionUrl, String permissionLevel,
+			String permissionFatherid, String permissionIntroduction,
+			String isdeleted, Set<TRolePermission> TRolePermissions) {
+		this.permissionName = permissionName;
+		this.permissionState = permissionState;
+		this.permissionUrl = permissionUrl;
+		this.permissionLevel = permissionLevel;
+		this.permissionFatherid = permissionFatherid;
+		this.permissionIntroduction = permissionIntroduction;
+		this.isdeleted = isdeleted;
+		this.TRolePermissions = TRolePermissions;
+	}
 
-    public void setPermissionState(String permissionState) {
-        this.permissionState = permissionState;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "permission_id", unique = true, nullable = false, length = 32)
+	public String getPermissionId() {
+		return this.permissionId;
+	}
 
-    @Basic
-    @Column(name = "permission_url")
-    public String getPermissionUrl() {
-        return permissionUrl;
-    }
+	public void setPermissionId(String permissionId) {
+		this.permissionId = permissionId;
+	}
 
-    public void setPermissionUrl(String permissionUrl) {
-        this.permissionUrl = permissionUrl;
-    }
+	@Column(name = "permission_name", length = 50)
+	public String getPermissionName() {
+		return this.permissionName;
+	}
 
-    @Basic
-    @Column(name = "permission_level")
-    public String getPermissionLevel() {
-        return permissionLevel;
-    }
+	public void setPermissionName(String permissionName) {
+		this.permissionName = permissionName;
+	}
 
-    public void setPermissionLevel(String permissionLevel) {
-        this.permissionLevel = permissionLevel;
-    }
+	@Column(name = "permission_state", length = 2)
+	public String getPermissionState() {
+		return this.permissionState;
+	}
 
-    @Basic
-    @Column(name = "permission_fatherid")
-    public String getPermissionFatherid() {
-        return permissionFatherid;
-    }
+	public void setPermissionState(String permissionState) {
+		this.permissionState = permissionState;
+	}
 
-    public void setPermissionFatherid(String permissionFatherid) {
-        this.permissionFatherid = permissionFatherid;
-    }
+	@Column(name = "permission_url", length = 200)
+	public String getPermissionUrl() {
+		return this.permissionUrl;
+	}
 
-    @Basic
-    @Column(name = "permission_introduction")
-    public String getPermissionIntroduction() {
-        return permissionIntroduction;
-    }
+	public void setPermissionUrl(String permissionUrl) {
+		this.permissionUrl = permissionUrl;
+	}
 
-    public void setPermissionIntroduction(String permissionIntroduction) {
-        this.permissionIntroduction = permissionIntroduction;
-    }
+	@Column(name = "permission_level", length = 2)
+	public String getPermissionLevel() {
+		return this.permissionLevel;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setPermissionLevel(String permissionLevel) {
+		this.permissionLevel = permissionLevel;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "permission_fatherid", length = 32)
+	public String getPermissionFatherid() {
+		return this.permissionFatherid;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setPermissionFatherid(String permissionFatherid) {
+		this.permissionFatherid = permissionFatherid;
+	}
 
-        TPermission that = (TPermission) o;
+	@Column(name = "permission_introduction", length = 200)
+	public String getPermissionIntroduction() {
+		return this.permissionIntroduction;
+	}
 
-        if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) return false;
-        if (permissionName != null ? !permissionName.equals(that.permissionName) : that.permissionName != null)
-            return false;
-        if (permissionState != null ? !permissionState.equals(that.permissionState) : that.permissionState != null)
-            return false;
-        if (permissionUrl != null ? !permissionUrl.equals(that.permissionUrl) : that.permissionUrl != null)
-            return false;
-        if (permissionLevel != null ? !permissionLevel.equals(that.permissionLevel) : that.permissionLevel != null)
-            return false;
-        if (permissionFatherid != null ? !permissionFatherid.equals(that.permissionFatherid) : that.permissionFatherid != null)
-            return false;
-        if (permissionIntroduction != null ? !permissionIntroduction.equals(that.permissionIntroduction) : that.permissionIntroduction != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setPermissionIntroduction(String permissionIntroduction) {
+		this.permissionIntroduction = permissionIntroduction;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = permissionId != null ? permissionId.hashCode() : 0;
-        result = 31 * result + (permissionName != null ? permissionName.hashCode() : 0);
-        result = 31 * result + (permissionState != null ? permissionState.hashCode() : 0);
-        result = 31 * result + (permissionUrl != null ? permissionUrl.hashCode() : 0);
-        result = 31 * result + (permissionLevel != null ? permissionLevel.hashCode() : 0);
-        result = 31 * result + (permissionFatherid != null ? permissionFatherid.hashCode() : 0);
-        result = 31 * result + (permissionIntroduction != null ? permissionIntroduction.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tPermissionByPermissionId")
-    public Collection<TRolePermission> gettRolePermissionsByPermissionId() {
-        return tRolePermissionsByPermissionId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TPermission")
+	public Set<TRolePermission> getTRolePermissions() {
+		return this.TRolePermissions;
+	}
 
-    public void settRolePermissionsByPermissionId(Collection<TRolePermission> tRolePermissionsByPermissionId) {
-        this.tRolePermissionsByPermissionId = tRolePermissionsByPermissionId;
-    }
+	public void setTRolePermissions(Set<TRolePermission> TRolePermissions) {
+		this.TRolePermissions = TRolePermissions;
+	}
+
 }

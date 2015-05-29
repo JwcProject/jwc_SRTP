@@ -15,12 +15,14 @@ import java.util.List;
  */
 
 @Repository
-public class TAnnounTypeDAOImpl extends BaseDaoImpl<TAnnounType> implements edu.cqu.no1.dao.TAnnounTypeDAO {
+public class TAnnounTypeDAOImpl extends BaseDaoImpl<TAnnounType> implements TAnnounTypeDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TAnnounTypeDAO.class);
     // property constants
     public static final String ANNOUN_TYPE_NAME = "announTypeName";
     public static final String ISDELETED = "isdeleted";
+
+
 
 
     public TAnnounType findByAnnounName(String announTypeName)
@@ -44,13 +46,17 @@ public class TAnnounTypeDAOImpl extends BaseDaoImpl<TAnnounType> implements edu.
         }
     }
 
+
     public List findByAnnounTypeName(Object announTypeName) {
         return findByProperty(ANNOUN_TYPE_NAME, announTypeName);
     }
-    
+
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
+
+
 
     public static TAnnounTypeDAO getFromApplicationContext(
             ApplicationContext ctx) {

@@ -1,13 +1,13 @@
 package edu.cqu.no1.dao;
 
-import edu.cqu.no1.domain.TEndprojectJob;
+import edu.cqu.no1.domain.TEndProjectJob;
 
 import java.util.List;
 
 /**
  * Created by ZKQ on 2015/5/27.
  */
-public interface TEndprojectJobDAO extends BaseDao<TEndprojectJob> {
+public interface TEndprojectJobDAO extends BaseDao<TEndProjectJob> {
     List findEndProJobsByEndProId(String endprojectId);
 
     List findByJobContent(Object jobContent

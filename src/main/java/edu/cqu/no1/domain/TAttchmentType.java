@@ -1,77 +1,83 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TAttchmentType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_attchment_type", schema = "", catalog = "srtp")
-public class TAttchmentType {
-    private String attaTypeId;
-    private String attaTypeName;
-    private String isdeleted;
-    private Collection<TAttachment> tAttachmentsByAttaTypeId;
+@Table(name = "t_attchment_type", catalog = "srtp")
+public class TAttchmentType implements java.io.Serializable {
 
-    @Id
-    @Column(name = "atta_type_id")
-    public String getAttaTypeId() {
-        return attaTypeId;
-    }
+	// Fields
 
-    public void setAttaTypeId(String attaTypeId) {
-        this.attaTypeId = attaTypeId;
-    }
+	private String attaTypeId;
+	private String attaTypeName;
+	private String isdeleted;
+	private Set<TAttachment> TAttachments = new HashSet<TAttachment>(0);
 
-    @Basic
-    @Column(name = "atta_type_name")
-    public String getAttaTypeName() {
-        return attaTypeName;
-    }
+	// Constructors
 
-    public void setAttaTypeName(String attaTypeName) {
-        this.attaTypeName = attaTypeName;
-    }
+	/** default constructor */
+	public TAttchmentType() {
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	/** full constructor */
+	public TAttchmentType(String attaTypeName, String isdeleted,
+			Set<TAttachment> TAttachments) {
+		this.attaTypeName = attaTypeName;
+		this.isdeleted = isdeleted;
+		this.TAttachments = TAttachments;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "atta_type_id", unique = true, nullable = false, length = 32)
+	public String getAttaTypeId() {
+		return this.attaTypeId;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setAttaTypeId(String attaTypeId) {
+		this.attaTypeId = attaTypeId;
+	}
 
-        TAttchmentType that = (TAttchmentType) o;
+	@Column(name = "atta_type_name", length = 50)
+	public String getAttaTypeName() {
+		return this.attaTypeName;
+	}
 
-        if (attaTypeId != null ? !attaTypeId.equals(that.attaTypeId) : that.attaTypeId != null) return false;
-        if (attaTypeName != null ? !attaTypeName.equals(that.attaTypeName) : that.attaTypeName != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setAttaTypeName(String attaTypeName) {
+		this.attaTypeName = attaTypeName;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = attaTypeId != null ? attaTypeId.hashCode() : 0;
-        result = 31 * result + (attaTypeName != null ? attaTypeName.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tAttchmentTypeByAttaTypeId")
-    public Collection<TAttachment> gettAttachmentsByAttaTypeId() {
-        return tAttachmentsByAttaTypeId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TAttchmentType")
+	public Set<TAttachment> getTAttachments() {
+		return this.TAttachments;
+	}
 
-    public void settAttachmentsByAttaTypeId(Collection<TAttachment> tAttachmentsByAttaTypeId) {
-        this.tAttachmentsByAttaTypeId = tAttachmentsByAttaTypeId;
-    }
+	public void setTAttachments(Set<TAttachment> TAttachments) {
+		this.TAttachments = TAttachments;
+	}
+
 }

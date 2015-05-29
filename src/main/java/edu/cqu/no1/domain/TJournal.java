@@ -1,158 +1,143 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TJournal entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_journal", schema = "", catalog = "srtp")
-public class TJournal {
-    private String journalId;
-    private String userId;
-    private String userName;
-    private Timestamp journalLogintime;
-    private Timestamp journalQuitime;
-    private String journalRemark;
-    private String isdeleted;
-    private String journalLoginIp;
-    private TUser tUserByUserId;
-    private Collection<TJournalAct> tJournalActsByJournalId;
+@Table(name = "t_journal", catalog = "srtp")
+public class TJournal implements java.io.Serializable {
 
-    @Id
-    @Column(name = "journal_id")
-    public String getJournalId() {
-        return journalId;
-    }
+	// Fields
 
-    public void setJournalId(String journalId) {
-        this.journalId = journalId;
-    }
+	private String journalId;
+	private TUser TUser;
+	private String userName;
+	private Timestamp journalLogintime;
+	private Timestamp journalQuitime;
+	private String journalRemark;
+	private String isdeleted;
+	private String journalLoginIp;
+	private Set<TJournalAct> TJournalActs = new HashSet<TJournalAct>(0);
 
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
+	// Constructors
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	/** default constructor */
+	public TJournal() {
+	}
 
-    @Basic
-    @Column(name = "user_name")
-    public String getUserName() {
-        return userName;
-    }
+	/** full constructor */
+	public TJournal(TUser TUser, String userName, Timestamp journalLogintime,
+			Timestamp journalQuitime, String journalRemark, String isdeleted,
+			String journalLoginIp, Set<TJournalAct> TJournalActs) {
+		this.TUser = TUser;
+		this.userName = userName;
+		this.journalLogintime = journalLogintime;
+		this.journalQuitime = journalQuitime;
+		this.journalRemark = journalRemark;
+		this.isdeleted = isdeleted;
+		this.journalLoginIp = journalLoginIp;
+		this.TJournalActs = TJournalActs;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "journal_id", unique = true, nullable = false, length = 32)
+	public String getJournalId() {
+		return this.journalId;
+	}
 
-    @Basic
-    @Column(name = "journal_logintime")
-    public Timestamp getJournalLogintime() {
-        return journalLogintime;
-    }
+	public void setJournalId(String journalId) {
+		this.journalId = journalId;
+	}
 
-    public void setJournalLogintime(Timestamp journalLogintime) {
-        this.journalLogintime = journalLogintime;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public TUser getTUser() {
+		return this.TUser;
+	}
 
-    @Basic
-    @Column(name = "journal_quitime")
-    public Timestamp getJournalQuitime() {
-        return journalQuitime;
-    }
+	public void setTUser(TUser TUser) {
+		this.TUser = TUser;
+	}
 
-    public void setJournalQuitime(Timestamp journalQuitime) {
-        this.journalQuitime = journalQuitime;
-    }
+	@Column(name = "user_name", length = 100)
+	public String getUserName() {
+		return this.userName;
+	}
 
-    @Basic
-    @Column(name = "journal_remark")
-    public String getJournalRemark() {
-        return journalRemark;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public void setJournalRemark(String journalRemark) {
-        this.journalRemark = journalRemark;
-    }
+	@Column(name = "journal_logintime", length = 19)
+	public Timestamp getJournalLogintime() {
+		return this.journalLogintime;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setJournalLogintime(Timestamp journalLogintime) {
+		this.journalLogintime = journalLogintime;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "journal_quitime", length = 19)
+	public Timestamp getJournalQuitime() {
+		return this.journalQuitime;
+	}
 
-    @Basic
-    @Column(name = "journal_loginIp")
-    public String getJournalLoginIp() {
-        return journalLoginIp;
-    }
+	public void setJournalQuitime(Timestamp journalQuitime) {
+		this.journalQuitime = journalQuitime;
+	}
 
-    public void setJournalLoginIp(String journalLoginIp) {
-        this.journalLoginIp = journalLoginIp;
-    }
+	@Column(name = "journal_remark", length = 100)
+	public String getJournalRemark() {
+		return this.journalRemark;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setJournalRemark(String journalRemark) {
+		this.journalRemark = journalRemark;
+	}
 
-        TJournal tJournal = (TJournal) o;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-        if (journalId != null ? !journalId.equals(tJournal.journalId) : tJournal.journalId != null) return false;
-        if (userId != null ? !userId.equals(tJournal.userId) : tJournal.userId != null) return false;
-        if (userName != null ? !userName.equals(tJournal.userName) : tJournal.userName != null) return false;
-        if (journalLogintime != null ? !journalLogintime.equals(tJournal.journalLogintime) : tJournal.journalLogintime != null)
-            return false;
-        if (journalQuitime != null ? !journalQuitime.equals(tJournal.journalQuitime) : tJournal.journalQuitime != null)
-            return false;
-        if (journalRemark != null ? !journalRemark.equals(tJournal.journalRemark) : tJournal.journalRemark != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(tJournal.isdeleted) : tJournal.isdeleted != null) return false;
-        if (journalLoginIp != null ? !journalLoginIp.equals(tJournal.journalLoginIp) : tJournal.journalLoginIp != null)
-            return false;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-        return true;
-    }
+	@Column(name = "journal_loginIp", length = 50)
+	public String getJournalLoginIp() {
+		return this.journalLoginIp;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = journalId != null ? journalId.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (journalLogintime != null ? journalLogintime.hashCode() : 0);
-        result = 31 * result + (journalQuitime != null ? journalQuitime.hashCode() : 0);
-        result = 31 * result + (journalRemark != null ? journalRemark.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (journalLoginIp != null ? journalLoginIp.hashCode() : 0);
-        return result;
-    }
+	public void setJournalLoginIp(String journalLoginIp) {
+		this.journalLoginIp = journalLoginIp;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    public TUser gettUserByUserId() {
-        return tUserByUserId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJournal")
+	public Set<TJournalAct> getTJournalActs() {
+		return this.TJournalActs;
+	}
 
-    public void settUserByUserId(TUser tUserByUserId) {
-        this.tUserByUserId = tUserByUserId;
-    }
+	public void setTJournalActs(Set<TJournalAct> TJournalActs) {
+		this.TJournalActs = TJournalActs;
+	}
 
-    @OneToMany(mappedBy = "tJournalByJournalId")
-    public Collection<TJournalAct> gettJournalActsByJournalId() {
-        return tJournalActsByJournalId;
-    }
-
-    public void settJournalActsByJournalId(Collection<TJournalAct> tJournalActsByJournalId) {
-        this.tJournalActsByJournalId = tJournalActsByJournalId;
-    }
 }

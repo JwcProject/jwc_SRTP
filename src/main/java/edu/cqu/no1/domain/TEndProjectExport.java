@@ -1,112 +1,113 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TEndProjectExport entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_end_project_export", schema = "", catalog = "srtp")
-public class TEndProjectExport {
-    private String id;
-    private String expertId;
-    private String endProjectId;
-    private String isdeleted;
-    private Collection<TEndProjectComment> tEndProjectCommentsById;
-    private TExpertTeacherModel texpertteachermodelByExpertId;
-    private TExpertTeacher tExpertTeacherByExpertId;
+@Table(name = "t_end_project_export", catalog = "srtp")
+public class TEndProjectExport implements java.io.Serializable {
 
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
+	// Fields
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	private String id;
+	private TExpertTeacherModel TExpertTeacherModel;
+	private TExpertTeacher TExpertTeacher;
+	private TEndProject TEndProject;
+	private String isdeleted;
+	private Set<TEndProjectComment> TEndProjectComments = new HashSet<TEndProjectComment>(
+			0);
 
-    @Basic
-    @Column(name = "expert_id")
-    public String getExpertId() {
-        return expertId;
-    }
+	// Constructors
 
-    public void setExpertId(String expertId) {
-        this.expertId = expertId;
-    }
+	/** default constructor */
+	public TEndProjectExport() {
+	}
 
-    @Basic
-    @Column(name = "endProject_id")
-    public String getEndProjectId() {
-        return endProjectId;
-    }
+	/** full constructor */
+	public TEndProjectExport(TExpertTeacherModel TExpertTeacherModel,
+			TExpertTeacher TExpertTeacher, TEndProject TEndProject,
+			String isdeleted, Set<TEndProjectComment> TEndProjectComments) {
+		this.TExpertTeacherModel = TExpertTeacherModel;
+		this.TExpertTeacher = TExpertTeacher;
+		this.TEndProject = TEndProject;
+		this.isdeleted = isdeleted;
+		this.TEndProjectComments = TEndProjectComments;
+	}
 
-    public void setEndProjectId(String endProjectId) {
-        this.endProjectId = endProjectId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "id", unique = true, nullable = false, length = 32)
+	public String getId() {
+		return this.id;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "expert_id")
+	public TExpertTeacherModel getTExpertTeacherModel() {
+		return this.TExpertTeacherModel;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTExpertTeacherModel(TExpertTeacherModel TExpertTeacherModel) {
+		this.TExpertTeacherModel = TExpertTeacherModel;
+	}
 
-        TEndProjectExport that = (TEndProjectExport) o;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "expert_id", insertable = false, updatable = false)
+	public TExpertTeacher getTExpertTeacher() {
+		return this.TExpertTeacher;
+	}
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (expertId != null ? !expertId.equals(that.expertId) : that.expertId != null) return false;
-        if (endProjectId != null ? !endProjectId.equals(that.endProjectId) : that.endProjectId != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setTExpertTeacher(TExpertTeacher TExpertTeacher) {
+		this.TExpertTeacher = TExpertTeacher;
+	}
 
-        return true;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "endProject_id")
+	public TEndProject getTEndProject() {
+		return this.TEndProject;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (expertId != null ? expertId.hashCode() : 0);
-        result = 31 * result + (endProjectId != null ? endProjectId.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setTEndProject(TEndProject TEndProject) {
+		this.TEndProject = TEndProject;
+	}
 
-    @OneToMany(mappedBy = "tEndProjectExportByEProjectExportId")
-    public Collection<TEndProjectComment> gettEndProjectCommentsById() {
-        return tEndProjectCommentsById;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    public void settEndProjectCommentsById(Collection<TEndProjectComment> tEndProjectCommentsById) {
-        this.tEndProjectCommentsById = tEndProjectCommentsById;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "expert_id", referencedColumnName = "EX_TEA_ID")
-    public TExpertTeacherModel getTexpertteachermodelByExpertId() {
-        return texpertteachermodelByExpertId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TEndProjectExport")
+	public Set<TEndProjectComment> getTEndProjectComments() {
+		return this.TEndProjectComments;
+	}
 
-    public void setTexpertteachermodelByExpertId(TExpertTeacherModel texpertteachermodelByExpertId) {
-        this.texpertteachermodelByExpertId = texpertteachermodelByExpertId;
-    }
+	public void setTEndProjectComments(
+			Set<TEndProjectComment> TEndProjectComments) {
+		this.TEndProjectComments = TEndProjectComments;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "expert_id", referencedColumnName = "ex_tea_id")
-    public TExpertTeacher gettExpertTeacherByExpertId() {
-        return tExpertTeacherByExpertId;
-    }
-
-    public void settExpertTeacherByExpertId(TExpertTeacher tExpertTeacherByExpertId) {
-        this.tExpertTeacherByExpertId = tExpertTeacherByExpertId;
-    }
 }

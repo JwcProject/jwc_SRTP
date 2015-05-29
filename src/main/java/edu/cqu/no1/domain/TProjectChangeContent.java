@@ -1,135 +1,119 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TProjectChangeContent entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_project_change_content", schema = "", catalog = "srtp")
-public class TProjectChangeContent {
-    private String projectChangeId;
-    private String projectChangeContentId;
-    private String projectChangeContentField;
-    private String projectChangeContentFieldname;
-    private String projectChangeContentOvalue;
-    private String projectChangeContentNvalue;
-    private String isdeleted;
-    private TProjectChange tProjectChangeByProjectChangeId;
+@Table(name = "t_project_change_content", catalog = "srtp")
+public class TProjectChangeContent implements java.io.Serializable {
 
-    @Basic
-    @Column(name = "projectChange_id")
-    public String getProjectChangeId() {
-        return projectChangeId;
-    }
+	// Fields
 
-    public void setProjectChangeId(String projectChangeId) {
-        this.projectChangeId = projectChangeId;
-    }
+	private String projectChangeContentId;
+	private TProjectChange TProjectChange;
+	private String projectChangeContentField;
+	private String projectChangeContentFieldname;
+	private String projectChangeContentOvalue;
+	private String projectChangeContentNvalue;
+	private String isdeleted;
 
-    @Id
-    @Column(name = "projectChangeContent_id")
-    public String getProjectChangeContentId() {
-        return projectChangeContentId;
-    }
+	// Constructors
 
-    public void setProjectChangeContentId(String projectChangeContentId) {
-        this.projectChangeContentId = projectChangeContentId;
-    }
+	/** default constructor */
+	public TProjectChangeContent() {
+	}
 
-    @Basic
-    @Column(name = "projectChangeContent_field")
-    public String getProjectChangeContentField() {
-        return projectChangeContentField;
-    }
+	/** full constructor */
+	public TProjectChangeContent(TProjectChange TProjectChange,
+			String projectChangeContentField,
+			String projectChangeContentFieldname,
+			String projectChangeContentOvalue,
+			String projectChangeContentNvalue, String isdeleted) {
+		this.TProjectChange = TProjectChange;
+		this.projectChangeContentField = projectChangeContentField;
+		this.projectChangeContentFieldname = projectChangeContentFieldname;
+		this.projectChangeContentOvalue = projectChangeContentOvalue;
+		this.projectChangeContentNvalue = projectChangeContentNvalue;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setProjectChangeContentField(String projectChangeContentField) {
-        this.projectChangeContentField = projectChangeContentField;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "projectChangeContent_id", unique = true, nullable = false, length = 32)
+	public String getProjectChangeContentId() {
+		return this.projectChangeContentId;
+	}
 
-    @Basic
-    @Column(name = "projectChangeContent_fieldname")
-    public String getProjectChangeContentFieldname() {
-        return projectChangeContentFieldname;
-    }
+	public void setProjectChangeContentId(String projectChangeContentId) {
+		this.projectChangeContentId = projectChangeContentId;
+	}
 
-    public void setProjectChangeContentFieldname(String projectChangeContentFieldname) {
-        this.projectChangeContentFieldname = projectChangeContentFieldname;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "projectChange_id")
+	public TProjectChange getTProjectChange() {
+		return this.TProjectChange;
+	}
 
-    @Basic
-    @Column(name = "projectChangeContent_ovalue")
-    public String getProjectChangeContentOvalue() {
-        return projectChangeContentOvalue;
-    }
+	public void setTProjectChange(TProjectChange TProjectChange) {
+		this.TProjectChange = TProjectChange;
+	}
 
-    public void setProjectChangeContentOvalue(String projectChangeContentOvalue) {
-        this.projectChangeContentOvalue = projectChangeContentOvalue;
-    }
+	@Column(name = "projectChangeContent_field", length = 100)
+	public String getProjectChangeContentField() {
+		return this.projectChangeContentField;
+	}
 
-    @Basic
-    @Column(name = "projectChangeContent_nvalue")
-    public String getProjectChangeContentNvalue() {
-        return projectChangeContentNvalue;
-    }
+	public void setProjectChangeContentField(String projectChangeContentField) {
+		this.projectChangeContentField = projectChangeContentField;
+	}
 
-    public void setProjectChangeContentNvalue(String projectChangeContentNvalue) {
-        this.projectChangeContentNvalue = projectChangeContentNvalue;
-    }
+	@Column(name = "projectChangeContent_fieldname", length = 100)
+	public String getProjectChangeContentFieldname() {
+		return this.projectChangeContentFieldname;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setProjectChangeContentFieldname(
+			String projectChangeContentFieldname) {
+		this.projectChangeContentFieldname = projectChangeContentFieldname;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "projectChangeContent_ovalue", length = 1000)
+	public String getProjectChangeContentOvalue() {
+		return this.projectChangeContentOvalue;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setProjectChangeContentOvalue(String projectChangeContentOvalue) {
+		this.projectChangeContentOvalue = projectChangeContentOvalue;
+	}
 
-        TProjectChangeContent that = (TProjectChangeContent) o;
+	@Column(name = "projectChangeContent_nvalue", length = 1000)
+	public String getProjectChangeContentNvalue() {
+		return this.projectChangeContentNvalue;
+	}
 
-        if (projectChangeId != null ? !projectChangeId.equals(that.projectChangeId) : that.projectChangeId != null)
-            return false;
-        if (projectChangeContentId != null ? !projectChangeContentId.equals(that.projectChangeContentId) : that.projectChangeContentId != null)
-            return false;
-        if (projectChangeContentField != null ? !projectChangeContentField.equals(that.projectChangeContentField) : that.projectChangeContentField != null)
-            return false;
-        if (projectChangeContentFieldname != null ? !projectChangeContentFieldname.equals(that.projectChangeContentFieldname) : that.projectChangeContentFieldname != null)
-            return false;
-        if (projectChangeContentOvalue != null ? !projectChangeContentOvalue.equals(that.projectChangeContentOvalue) : that.projectChangeContentOvalue != null)
-            return false;
-        if (projectChangeContentNvalue != null ? !projectChangeContentNvalue.equals(that.projectChangeContentNvalue) : that.projectChangeContentNvalue != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setProjectChangeContentNvalue(String projectChangeContentNvalue) {
+		this.projectChangeContentNvalue = projectChangeContentNvalue;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = projectChangeId != null ? projectChangeId.hashCode() : 0;
-        result = 31 * result + (projectChangeContentId != null ? projectChangeContentId.hashCode() : 0);
-        result = 31 * result + (projectChangeContentField != null ? projectChangeContentField.hashCode() : 0);
-        result = 31 * result + (projectChangeContentFieldname != null ? projectChangeContentFieldname.hashCode() : 0);
-        result = 31 * result + (projectChangeContentOvalue != null ? projectChangeContentOvalue.hashCode() : 0);
-        result = 31 * result + (projectChangeContentNvalue != null ? projectChangeContentNvalue.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "projectChange_id", referencedColumnName = "projectChange_id")
-    public TProjectChange gettProjectChangeByProjectChangeId() {
-        return tProjectChangeByProjectChangeId;
-    }
-
-    public void settProjectChangeByProjectChangeId(TProjectChange tProjectChangeByProjectChangeId) {
-        this.tProjectChangeByProjectChangeId = tProjectChangeByProjectChangeId;
-    }
 }

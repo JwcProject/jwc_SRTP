@@ -1,177 +1,169 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TProjectChange entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_project_change", schema = "", catalog = "srtp")
-public class TProjectChange {
-    private String projectId;
-    private String projectChangeId;
-    private String projectChangeState;
-    private String projectChangeAtid;
-    private String projectChangeCtid;
-    private Timestamp projectChangeCtime;
-    private Timestamp projectChangeAtime;
-    private Timestamp projectChangeDate;
-    private String projectChangeReason;
-    private String isdeleted;
-    private Collection<TProjectChangeContent> tProjectChangeContentsByProjectChangeId;
+@Table(name = "t_project_change", catalog = "srtp")
+public class TProjectChange implements java.io.Serializable {
 
-    @Basic
-    @Column(name = "project_id")
-    public String getProjectId() {
-        return projectId;
-    }
+	// Fields
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
+	private String projectChangeId;
+	private TProject TProject;
+	private String projectChangeState;
+	private String projectChangeAtid;
+	private String projectChangeCtid;
+	private Timestamp projectChangeCtime;
+	private Timestamp projectChangeAtime;
+	private Timestamp projectChangeDate;
+	private String projectChangeReason;
+	private String isdeleted;
+	private Set<TProjectChangeContent> TProjectChangeContents = new HashSet<TProjectChangeContent>(
+			0);
 
-    @Id
-    @Column(name = "projectChange_id")
-    public String getProjectChangeId() {
-        return projectChangeId;
-    }
+	// Constructors
 
-    public void setProjectChangeId(String projectChangeId) {
-        this.projectChangeId = projectChangeId;
-    }
+	/** default constructor */
+	public TProjectChange() {
+	}
 
-    @Basic
-    @Column(name = "projectChange_state")
-    public String getProjectChangeState() {
-        return projectChangeState;
-    }
+	/** full constructor */
+	public TProjectChange(TProject TProject, String projectChangeState,
+			String projectChangeAtid, String projectChangeCtid,
+			Timestamp projectChangeCtime, Timestamp projectChangeAtime,
+			Timestamp projectChangeDate, String projectChangeReason,
+			String isdeleted, Set<TProjectChangeContent> TProjectChangeContents) {
+		this.TProject = TProject;
+		this.projectChangeState = projectChangeState;
+		this.projectChangeAtid = projectChangeAtid;
+		this.projectChangeCtid = projectChangeCtid;
+		this.projectChangeCtime = projectChangeCtime;
+		this.projectChangeAtime = projectChangeAtime;
+		this.projectChangeDate = projectChangeDate;
+		this.projectChangeReason = projectChangeReason;
+		this.isdeleted = isdeleted;
+		this.TProjectChangeContents = TProjectChangeContents;
+	}
 
-    public void setProjectChangeState(String projectChangeState) {
-        this.projectChangeState = projectChangeState;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "projectChange_id", unique = true, nullable = false, length = 32)
+	public String getProjectChangeId() {
+		return this.projectChangeId;
+	}
 
-    @Basic
-    @Column(name = "projectChange_atid")
-    public String getProjectChangeAtid() {
-        return projectChangeAtid;
-    }
+	public void setProjectChangeId(String projectChangeId) {
+		this.projectChangeId = projectChangeId;
+	}
 
-    public void setProjectChangeAtid(String projectChangeAtid) {
-        this.projectChangeAtid = projectChangeAtid;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
+	public TProject getTProject() {
+		return this.TProject;
+	}
 
-    @Basic
-    @Column(name = "projectChange_ctid")
-    public String getProjectChangeCtid() {
-        return projectChangeCtid;
-    }
+	public void setTProject(TProject TProject) {
+		this.TProject = TProject;
+	}
 
-    public void setProjectChangeCtid(String projectChangeCtid) {
-        this.projectChangeCtid = projectChangeCtid;
-    }
+	@Column(name = "projectChange_state", length = 2)
+	public String getProjectChangeState() {
+		return this.projectChangeState;
+	}
 
-    @Basic
-    @Column(name = "projectChange_ctime")
-    public Timestamp getProjectChangeCtime() {
-        return projectChangeCtime;
-    }
+	public void setProjectChangeState(String projectChangeState) {
+		this.projectChangeState = projectChangeState;
+	}
 
-    public void setProjectChangeCtime(Timestamp projectChangeCtime) {
-        this.projectChangeCtime = projectChangeCtime;
-    }
+	@Column(name = "projectChange_atid", length = 32)
+	public String getProjectChangeAtid() {
+		return this.projectChangeAtid;
+	}
 
-    @Basic
-    @Column(name = "projectChange_atime")
-    public Timestamp getProjectChangeAtime() {
-        return projectChangeAtime;
-    }
+	public void setProjectChangeAtid(String projectChangeAtid) {
+		this.projectChangeAtid = projectChangeAtid;
+	}
 
-    public void setProjectChangeAtime(Timestamp projectChangeAtime) {
-        this.projectChangeAtime = projectChangeAtime;
-    }
+	@Column(name = "projectChange_ctid", length = 32)
+	public String getProjectChangeCtid() {
+		return this.projectChangeCtid;
+	}
 
-    @Basic
-    @Column(name = "projectChange_date")
-    public Timestamp getProjectChangeDate() {
-        return projectChangeDate;
-    }
+	public void setProjectChangeCtid(String projectChangeCtid) {
+		this.projectChangeCtid = projectChangeCtid;
+	}
 
-    public void setProjectChangeDate(Timestamp projectChangeDate) {
-        this.projectChangeDate = projectChangeDate;
-    }
+	@Column(name = "projectChange_ctime", length = 19)
+	public Timestamp getProjectChangeCtime() {
+		return this.projectChangeCtime;
+	}
 
-    @Basic
-    @Column(name = "projectChange_reason")
-    public String getProjectChangeReason() {
-        return projectChangeReason;
-    }
+	public void setProjectChangeCtime(Timestamp projectChangeCtime) {
+		this.projectChangeCtime = projectChangeCtime;
+	}
 
-    public void setProjectChangeReason(String projectChangeReason) {
-        this.projectChangeReason = projectChangeReason;
-    }
+	@Column(name = "projectChange_atime", length = 19)
+	public Timestamp getProjectChangeAtime() {
+		return this.projectChangeAtime;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setProjectChangeAtime(Timestamp projectChangeAtime) {
+		this.projectChangeAtime = projectChangeAtime;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "projectChange_date", length = 19)
+	public Timestamp getProjectChangeDate() {
+		return this.projectChangeDate;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setProjectChangeDate(Timestamp projectChangeDate) {
+		this.projectChangeDate = projectChangeDate;
+	}
 
-        TProjectChange that = (TProjectChange) o;
+	@Column(name = "projectChange_reason", length = 200)
+	public String getProjectChangeReason() {
+		return this.projectChangeReason;
+	}
 
-        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
-        if (projectChangeId != null ? !projectChangeId.equals(that.projectChangeId) : that.projectChangeId != null)
-            return false;
-        if (projectChangeState != null ? !projectChangeState.equals(that.projectChangeState) : that.projectChangeState != null)
-            return false;
-        if (projectChangeAtid != null ? !projectChangeAtid.equals(that.projectChangeAtid) : that.projectChangeAtid != null)
-            return false;
-        if (projectChangeCtid != null ? !projectChangeCtid.equals(that.projectChangeCtid) : that.projectChangeCtid != null)
-            return false;
-        if (projectChangeCtime != null ? !projectChangeCtime.equals(that.projectChangeCtime) : that.projectChangeCtime != null)
-            return false;
-        if (projectChangeAtime != null ? !projectChangeAtime.equals(that.projectChangeAtime) : that.projectChangeAtime != null)
-            return false;
-        if (projectChangeDate != null ? !projectChangeDate.equals(that.projectChangeDate) : that.projectChangeDate != null)
-            return false;
-        if (projectChangeReason != null ? !projectChangeReason.equals(that.projectChangeReason) : that.projectChangeReason != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setProjectChangeReason(String projectChangeReason) {
+		this.projectChangeReason = projectChangeReason;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = projectId != null ? projectId.hashCode() : 0;
-        result = 31 * result + (projectChangeId != null ? projectChangeId.hashCode() : 0);
-        result = 31 * result + (projectChangeState != null ? projectChangeState.hashCode() : 0);
-        result = 31 * result + (projectChangeAtid != null ? projectChangeAtid.hashCode() : 0);
-        result = 31 * result + (projectChangeCtid != null ? projectChangeCtid.hashCode() : 0);
-        result = 31 * result + (projectChangeCtime != null ? projectChangeCtime.hashCode() : 0);
-        result = 31 * result + (projectChangeAtime != null ? projectChangeAtime.hashCode() : 0);
-        result = 31 * result + (projectChangeDate != null ? projectChangeDate.hashCode() : 0);
-        result = 31 * result + (projectChangeReason != null ? projectChangeReason.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tProjectChangeByProjectChangeId")
-    public Collection<TProjectChangeContent> gettProjectChangeContentsByProjectChangeId() {
-        return tProjectChangeContentsByProjectChangeId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProjectChange")
+	public Set<TProjectChangeContent> getTProjectChangeContents() {
+		return this.TProjectChangeContents;
+	}
 
-    public void settProjectChangeContentsByProjectChangeId(Collection<TProjectChangeContent> tProjectChangeContentsByProjectChangeId) {
-        this.tProjectChangeContentsByProjectChangeId = tProjectChangeContentsByProjectChangeId;
-    }
+	public void setTProjectChangeContents(
+			Set<TProjectChangeContent> TProjectChangeContents) {
+		this.TProjectChangeContents = TProjectChangeContents;
+	}
+
 }

@@ -1,129 +1,116 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TEmailReceiver entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_email_receiver", schema = "", catalog = "srtp")
-public class TEmailReceiver {
-    private String receiverId;
-    private String emailId;
-    private String receiverCode;
-    private String receiverRole;
-    private String emailAddress;
-    private String isReceived;
-    private String isdeleted;
-    private TEmail tEmailByEmailId;
+@Table(name = "t_email_receiver", catalog = "srtp")
+public class TEmailReceiver implements java.io.Serializable {
 
-    @Id
-    @Column(name = "receiver_id")
-    public String getReceiverId() {
-        return receiverId;
-    }
+	// Fields
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
-    }
+	private String receiverId;
+	private TEmail TEmail;
+	private String receiverCode;
+	private String receiverRole;
+	private String emailAddress;
+	private String isReceived;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "email_id")
-    public String getEmailId() {
-        return emailId;
-    }
+	// Constructors
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
+	/** default constructor */
+	public TEmailReceiver() {
+	}
 
-    @Basic
-    @Column(name = "receiver_code")
-    public String getReceiverCode() {
-        return receiverCode;
-    }
+	/** full constructor */
+	public TEmailReceiver(TEmail TEmail, String receiverCode,
+			String receiverRole, String emailAddress, String isReceived,
+			String isdeleted) {
+		this.TEmail = TEmail;
+		this.receiverCode = receiverCode;
+		this.receiverRole = receiverRole;
+		this.emailAddress = emailAddress;
+		this.isReceived = isReceived;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setReceiverCode(String receiverCode) {
-        this.receiverCode = receiverCode;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "receiver_id", unique = true, nullable = false, length = 32)
+	public String getReceiverId() {
+		return this.receiverId;
+	}
 
-    @Basic
-    @Column(name = "receiver_role")
-    public String getReceiverRole() {
-        return receiverRole;
-    }
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
+	}
 
-    public void setReceiverRole(String receiverRole) {
-        this.receiverRole = receiverRole;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "email_id")
+	public TEmail getTEmail() {
+		return this.TEmail;
+	}
 
-    @Basic
-    @Column(name = "email_address")
-    public String getEmailAddress() {
-        return emailAddress;
-    }
+	public void setTEmail(TEmail TEmail) {
+		this.TEmail = TEmail;
+	}
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
+	@Column(name = "receiver_code", length = 32)
+	public String getReceiverCode() {
+		return this.receiverCode;
+	}
 
-    @Basic
-    @Column(name = "is_received")
-    public String getIsReceived() {
-        return isReceived;
-    }
+	public void setReceiverCode(String receiverCode) {
+		this.receiverCode = receiverCode;
+	}
 
-    public void setIsReceived(String isReceived) {
-        this.isReceived = isReceived;
-    }
+	@Column(name = "receiver_role", length = 20)
+	public String getReceiverRole() {
+		return this.receiverRole;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setReceiverRole(String receiverRole) {
+		this.receiverRole = receiverRole;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "email_address", length = 100)
+	public String getEmailAddress() {
+		return this.emailAddress;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
 
-        TEmailReceiver that = (TEmailReceiver) o;
+	@Column(name = "is_received", length = 2)
+	public String getIsReceived() {
+		return this.isReceived;
+	}
 
-        if (receiverId != null ? !receiverId.equals(that.receiverId) : that.receiverId != null) return false;
-        if (emailId != null ? !emailId.equals(that.emailId) : that.emailId != null) return false;
-        if (receiverCode != null ? !receiverCode.equals(that.receiverCode) : that.receiverCode != null) return false;
-        if (receiverRole != null ? !receiverRole.equals(that.receiverRole) : that.receiverRole != null) return false;
-        if (emailAddress != null ? !emailAddress.equals(that.emailAddress) : that.emailAddress != null) return false;
-        if (isReceived != null ? !isReceived.equals(that.isReceived) : that.isReceived != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setIsReceived(String isReceived) {
+		this.isReceived = isReceived;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = receiverId != null ? receiverId.hashCode() : 0;
-        result = 31 * result + (emailId != null ? emailId.hashCode() : 0);
-        result = 31 * result + (receiverCode != null ? receiverCode.hashCode() : 0);
-        result = 31 * result + (receiverRole != null ? receiverRole.hashCode() : 0);
-        result = 31 * result + (emailAddress != null ? emailAddress.hashCode() : 0);
-        result = 31 * result + (isReceived != null ? isReceived.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "email_id", referencedColumnName = "email_id")
-    public TEmail gettEmailByEmailId() {
-        return tEmailByEmailId;
-    }
-
-    public void settEmailByEmailId(TEmail tEmailByEmailId) {
-        this.tEmailByEmailId = tEmailByEmailId;
-    }
 }

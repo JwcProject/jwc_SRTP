@@ -11,32 +11,34 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * TDeclJob entity. @author MyEclipse Persistence Tools
+ * TEndProjectJob entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_job", catalog = "srtp")
-public class TDeclJob implements java.io.Serializable {
+@Table(name = "t_end_project_job", catalog = "srtp")
+public class TEndProjectJob implements java.io.Serializable {
 
 	// Fields
 
 	private String jobId;
 	private TStudent TStudent;
-	private TDeclaration TDeclaration;
+	private TEndProject TEndProject;
 	private String jobContent;
+	private String finished;
 	private String isdeleted;
 
 	// Constructors
 
 	/** default constructor */
-	public TDeclJob() {
+	public TEndProjectJob() {
 	}
 
 	/** full constructor */
-	public TDeclJob(TStudent TStudent, TDeclaration TDeclaration,
-			String jobContent, String isdeleted) {
+	public TEndProjectJob(TStudent TStudent, TEndProject TEndProject,
+			String jobContent, String finished, String isdeleted) {
 		this.TStudent = TStudent;
-		this.TDeclaration = TDeclaration;
+		this.TEndProject = TEndProject;
 		this.jobContent = jobContent;
+		this.finished = finished;
 		this.isdeleted = isdeleted;
 	}
 
@@ -64,13 +66,13 @@ public class TDeclJob implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "declar_id")
-	public TDeclaration getTDeclaration() {
-		return this.TDeclaration;
+	@JoinColumn(name = "endProject_id")
+	public TEndProject getTEndProject() {
+		return this.TEndProject;
 	}
 
-	public void setTDeclaration(TDeclaration TDeclaration) {
-		this.TDeclaration = TDeclaration;
+	public void setTEndProject(TEndProject TEndProject) {
+		this.TEndProject = TEndProject;
 	}
 
 	@Column(name = "job_content", length = 500)
@@ -80,6 +82,15 @@ public class TDeclJob implements java.io.Serializable {
 
 	public void setJobContent(String jobContent) {
 		this.jobContent = jobContent;
+	}
+
+	@Column(name = "finished", length = 50)
+	public String getFinished() {
+		return this.finished;
+	}
+
+	public void setFinished(String finished) {
+		this.finished = finished;
 	}
 
 	@Column(name = "isdeleted", length = 1)

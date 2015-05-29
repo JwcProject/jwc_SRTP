@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Repository
-public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.dao.TJieqiDAO {
+public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
 
     private static final Logger log = LoggerFactory.getLogger(TJieqiDAO.class);
     // property constants
@@ -28,25 +28,31 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
     public static final String ISDELETED = "isdeleted";
 
 
+
     public List findByJqName(Object jqName) {
         return findByProperty(JQ_NAME, jqName);
     }
+
 
     public List findByQici(Object qici) {
         return findByProperty(QICI, qici);
     }
 
+
     public List findBySecondaryAssessment(Object secondaryAssessment) {
         return findByProperty(SECONDARY_ASSESSMENT, secondaryAssessment);
     }
+
 
     public List findBySecondaryRespondent(Object secondaryRespondent) {
         return findByProperty(SECONDARY_RESPONDENT, secondaryRespondent);
     }
 
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
+
 
 
     public static TJieqiDAO getFromApplicationContext(ApplicationContext ctx) {
@@ -55,6 +61,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
     /**
      * lsp 根据当前时间获取届期（当前申报的）
      */
+
 
     public TJieqi getJieqiNow(){
         log.debug("getJieqiNow");
@@ -78,6 +85,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
         }
     }
     // 获取当前结题届期
+
     public TJieqi getCurrentJieqi(){
         log.debug("getJieqi");
         try {
@@ -102,11 +110,12 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
 
     /**
      *
-     *根据年份获取届期
+     *TODO 根据年份获取届期
      *authoy lzh
      *@param year
      *@return
      */
+
     public List getJieqiByYear(String year){
         log.debug("get Jieqi By year");
         try {
@@ -119,6 +128,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
             throw e;
         }
     }
+
 
     public List findAllYears(){
         log.debug("get all years from jieqi");
@@ -133,10 +143,11 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
     }
 
     //获取未分派的专家库的年份
+
     public List findUnassignYears(){
         log.debug("find unassign years");
         try {
-            String queryString ="select distinct t.jqYear from TJieqi t where t.jqId in (select l.jqId from TExpertLib l where l.isdeleted='N' and l.isAssigned='01')";
+            String queryString ="select distinct t.jqYear from TJieqi t where t.jqId in (select l.TJieqi.jqId from TExpertLib l where l.isdeleted='N' and l.isAssigned='01')";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             return query.list();
         } catch (RuntimeException e) {
@@ -144,6 +155,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
             throw e;
         }
     }
+
 
     public List findAllJieqis(String jqName, String jqYear, String jqQici, PageBean pageBean){
         log.debug("find all jieqis");
@@ -180,6 +192,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements edu.cqu.no1.da
             throw e;
         }
     }
+
 
     public int findAllJieqisCount(String jqName, String jqYear, String jqQici){
         log.debug("find all jieqis count");

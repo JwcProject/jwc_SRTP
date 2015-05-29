@@ -1,92 +1,89 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TCode entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_code", schema = "", catalog = "srtp")
-public class TCode {
-    private String encodeId;
-    private String encodeValue;
-    private String encodeDesc;
-    private String encodeRemark;
-    private String isdeleted;
+@Table(name = "t_code", catalog = "srtp")
+public class TCode implements java.io.Serializable {
 
-    @Id
-    @Column(name = "encode_id")
-    public String getEncodeId() {
-        return encodeId;
-    }
+	// Fields
 
-    public void setEncodeId(String encodeId) {
-        this.encodeId = encodeId;
-    }
+	private String encodeId;
+	private String encodeValue;
+	private String encodeDesc;
+	private String encodeRemark;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "encode_value")
-    public String getEncodeValue() {
-        return encodeValue;
-    }
+	// Constructors
 
-    public void setEncodeValue(String encodeValue) {
-        this.encodeValue = encodeValue;
-    }
+	/** default constructor */
+	public TCode() {
+	}
 
-    @Basic
-    @Column(name = "encode_desc")
-    public String getEncodeDesc() {
-        return encodeDesc;
-    }
+	/** full constructor */
+	public TCode(String encodeValue, String encodeDesc, String encodeRemark,
+			String isdeleted) {
+		this.encodeValue = encodeValue;
+		this.encodeDesc = encodeDesc;
+		this.encodeRemark = encodeRemark;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setEncodeDesc(String encodeDesc) {
-        this.encodeDesc = encodeDesc;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "encode_id", unique = true, nullable = false, length = 32)
+	public String getEncodeId() {
+		return this.encodeId;
+	}
 
-    @Basic
-    @Column(name = "encode_remark")
-    public String getEncodeRemark() {
-        return encodeRemark;
-    }
+	public void setEncodeId(String encodeId) {
+		this.encodeId = encodeId;
+	}
 
-    public void setEncodeRemark(String encodeRemark) {
-        this.encodeRemark = encodeRemark;
-    }
+	@Column(name = "encode_value", length = 2)
+	public String getEncodeValue() {
+		return this.encodeValue;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setEncodeValue(String encodeValue) {
+		this.encodeValue = encodeValue;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "encode_desc", length = 20)
+	public String getEncodeDesc() {
+		return this.encodeDesc;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setEncodeDesc(String encodeDesc) {
+		this.encodeDesc = encodeDesc;
+	}
 
-        TCode tCode = (TCode) o;
+	@Column(name = "encode_remark", length = 20)
+	public String getEncodeRemark() {
+		return this.encodeRemark;
+	}
 
-        if (encodeId != null ? !encodeId.equals(tCode.encodeId) : tCode.encodeId != null) return false;
-        if (encodeValue != null ? !encodeValue.equals(tCode.encodeValue) : tCode.encodeValue != null) return false;
-        if (encodeDesc != null ? !encodeDesc.equals(tCode.encodeDesc) : tCode.encodeDesc != null) return false;
-        if (encodeRemark != null ? !encodeRemark.equals(tCode.encodeRemark) : tCode.encodeRemark != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tCode.isdeleted) : tCode.isdeleted != null) return false;
+	public void setEncodeRemark(String encodeRemark) {
+		this.encodeRemark = encodeRemark;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = encodeId != null ? encodeId.hashCode() : 0;
-        result = 31 * result + (encodeValue != null ? encodeValue.hashCode() : 0);
-        result = 31 * result + (encodeDesc != null ? encodeDesc.hashCode() : 0);
-        result = 31 * result + (encodeRemark != null ? encodeRemark.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 }

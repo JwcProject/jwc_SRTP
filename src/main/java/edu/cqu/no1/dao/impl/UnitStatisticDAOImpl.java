@@ -1,15 +1,12 @@
 package edu.cqu.no1.dao.impl;
 
-import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.UnitStatisticDAO;
-import edu.cqu.no1.domain.ResultDistribut;
+import edu.cqu.no1.domain.TResultDistribut;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ZKQ on 2015/5/27.
@@ -20,17 +17,20 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
 
 
     //获取学院项目成绩分布统计
-    @Nullable
-    public List<Map> unitProjectScore(String unitId, String jqId) {
-        String hql = "select new Map(projectScore, projectScore) from TProject" +
-                " where unitId = :unitId and jqId = :jqId and projectScore is not null" +
-                " group by projectScore order by projectScore";
 
-        Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+    public List unitProjectScore(String unitId, String jqId) {
+        String sql =
+                "Select Distinct t.Project_Score As Labels, Count(t.Project_Score) As Data\n" +
+                        "  From t_Project t\n" +
+                        " where t.Unit_Id = :unitId and t.jq_id =:jqId\n" +
+                        "   and t.project_score is not null\n" +
+                        " Group By t.Project_Score\n" +
+                        " Order By t.project_score";
+
+        Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
         query.setString("unitId", unitId);
         query.setString("jqId", jqId);
-        @SuppressWarnings("unchecked")
-        List<Map> result = query.list();
+        List result = query.list();
 
         if (null != result && result.size() > 0) {
             return result;
@@ -40,23 +40,52 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
 
     }
 
-    @Nullable
-    public List<ResultDistribut> getUnitResultDistribut(String unitId, PageBean pageBean) {
-        try {
-            String hql = "select d.jqId, d.college, u.unitName," +
-                    " concat(j.jqYear, '年 第', j.qici, '期') as jqname, count(d) as decsum," +
-                    " count(p1) as prosum, count(p2) as bestsum, count(p3) as badsum, count(ep) as endsum" +
-                    " from TDeclaration d, TUnit u, TJieqi j, TProject  p1, TProject p2, TProject p3, TEndProject ep" +
-                    " where d.isdeleted = 'N'" +
-                    " and u.unitId = d.college" +
-                    " and j.jqId = d.jqId" +
-                    " and p1.jqId = d.jqId and p1.unitId = d.college" +
-                    " and p2.jqId = d.jqId and p2.unitId = d.college and p2.projectScore = '优秀'" +
-                    " and p3.jqId = d.jqId and p3.unitId = d.college and p3.projectScore = '不及格'" +
-                    " and ep.jqId = d.jqId and ep.unitId = d.college" +
-                    " and d.college = :unitId group by d.jqId";
 
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+
+    public List<TResultDistribut> getUnitResultDistribut(String unitId, PageBean pageBean) {
+        try {
+            String sql =
+
+                    "Select Rownum Id,\n" +
+                            "       Res.*,\n" +
+                            "       (Res.Prosum - Res.Endsum) Delaysum,\n" +
+                            "       Decode(Res.Decsum, 0, 0, Round((Res.Prosum / Res.Decsum), 3)) Prorate,\n" +
+                            "       Decode(Res.Prosum, 0, 0, Round((Res.Bestsum / Res.Prosum), 3)) Bestrate,\n" +
+                            "       Decode(Res.Prosum, 0, 0, Round((Res.Endsum / Res.Prosum), 3)) Endrate,\n" +
+                            "       Decode(Res.Prosum,\n" +
+                            "              0,\n" +
+                            "              0,\n" +
+                            "              Round(((Res.Prosum - Res.Endsum) / Res.Prosum), 3)) Delayrate\n" +
+                            "  From (Select d.Jq_Id,:unitId college,\n" +
+                            "               (Select u.Unit_Name From t_Unit u Where u.Unit_Id = :unitId) Collegename,\n" +
+                            "               (Select j.Jq_Year || '年 第' || j.Qici || '期'\n" +
+                            "                  From t_Jieqi j\n" +
+                            "                 Where j.Jq_Id = d.Jq_Id) Jqname,\n" +
+                            "               Count(d.Declar_Id) Decsum,\n" +
+                            "               (Select Count(p.Project_Id)\n" +
+                            "                  From t_Project p\n" +
+                            "                 Where p.Jq_Id = d.Jq_Id\n" +
+                            "                   And p.Unit_Id = :unitId) Prosum,\n" +
+                            "               (Select Count(p.Project_Id)\n" +
+                            "                  From t_Project p\n" +
+                            "                 Where p.Project_Score = '优秀'\n" +
+                            "                   And p.Jq_Id = d.Jq_Id\n" +
+                            "                   And p.Unit_Id = :unitId) Bestsum,\n" +
+                            "               (Select Count(p.Project_Id)\n" +
+                            "                  From t_Project p\n" +
+                            "                 Where p.Project_Score = '不及格'\n" +
+                            "                   And p.Jq_Id = d.Jq_Id\n" +
+                            "                   And p.Unit_Id = :unitId) Badsum,\n" +
+                            "               (Select Count(Ep.Endproject_Id)\n" +
+                            "                  From t_End_Project Ep\n" +
+                            "                 Where Ep.Jq_Id = d.Jq_Id\n" +
+                            "                   And Ep.Unit_Id = :unitId) Endsum\n" +
+                            "          From t_Declaration d\n" +
+                            "         Where d.Isdeleted = 'N' and d.college= :unitId\n" +
+                            "         Group By d.Jq_Id) Res";
+
+
+            Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(TResultDistribut.class);
             query.setString("unitId", unitId);
 
             if (pageBean != null) {
@@ -64,38 +93,7 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
                 query.setMaxResults(pageBean.getPageCapibility());
             }
 
-            List<Object[]> middleResult = query.list();
-            List<ResultDistribut> result = new ArrayList<ResultDistribut>();
-            for (int i = 0; i < middleResult.size(); ++i) {
-                Object[] objs = middleResult.get(i);
-                int decsum = (Integer)objs[4];
-                int prosum = (Integer)objs[5];
-                int bestsum = (Integer)objs[6];
-                int badsum = (Integer)objs[7];
-                int endsum = (Integer)objs[8];
-                double prorate = Math.round(prosum * 1.0 / decsum * 1000) / 1000;
-                double bestrate = Math.round(bestsum * 1.0 / prosum * 1000) / 1000;
-                double endrate = Math.round(endsum * 1.0 / prosum * 1000) / 1000;
-                double delayrate = Math.round((prosum - endsum) * 1.0 / prosum * 1000) / 1000;
-
-                ResultDistribut resultDistribut = new ResultDistribut();
-                resultDistribut.setId(String.valueOf(i));
-                resultDistribut.setJqId((String)objs[0]);
-                resultDistribut.setCollege((String)objs[1]);
-                resultDistribut.setCollegename((String)objs[2]);
-                resultDistribut.setJqname((String)objs[3]);
-                resultDistribut.setDecsum(decsum * 1.0);
-                resultDistribut.setProsum(prosum * 1.0);
-                resultDistribut.setBestsum(bestsum * 1.0);
-                resultDistribut.setBadsum(badsum * 1.0);
-                resultDistribut.setEndsum(endsum * 1.0);
-                resultDistribut.setProrate(prorate);
-                resultDistribut.setBestrate(bestrate);
-                resultDistribut.setEndrate(endrate);
-                resultDistribut.setDelayrate(delayrate);
-
-                result.add(resultDistribut);
-            }
+            List<TResultDistribut> result = query.list();
 
             if (null != result && result.size() > 0) {
                 return result;
@@ -109,11 +107,12 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
         }
     }
 
+
     public int getUnitResultDistributCount(String unitId) {
         try {
-            String hql = "select count(*) from TDeclaration where isdeleted = 'N' and college = :unitId group by jqId";
+            String queryStr = "select count(1) from (select t.jq_id from t_declaration t where t.isdeleted='N' and t.college=:unitId Group By t.Jq_Id) Res";
 
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
             query.setString("unitId", unitId);
 
             List list = query.list();
@@ -126,6 +125,7 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
         } catch (RuntimeException e) {
             e.printStackTrace();
             throw e;
+            // TODO: handle exception
         }
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements edu.cqu.no1.dao.TDeclCommentDAO {
+public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements TDeclCommentDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TDeclCommentDAO.class);
     // property constants
@@ -24,11 +24,12 @@ public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements ed
     public static final String ISDELETED = "isdeleted";
 
     //通过专家评审id得到网评对象
+
     public TDeclComment findByExpertReview(String exReviewId)
     {
         log.debug("get TDeclComment by expertReview");
         try {
-            String queryString = "from TDeclComment td where td.isdeleted = 'N' and td.exReviewId=:exReviewId";
+            String queryString = "from TDeclComment td where td.isdeleted = 'N' and td.TExpertReview.exReviewId=:exReviewId";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("exReviewId", exReviewId);
             TDeclComment tDeclComment = null;
@@ -39,18 +40,22 @@ public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements ed
             }
             return tDeclComment;
         } catch (RuntimeException e) {
+            // TODO: handle exception
             log.error("get TDeclComment by expertReview failed", e);
             throw e;
         }
     }
 
+
     public List findByDeclArgument(Object declArgument) {
         return findByProperty(DECL_ARGUMENT, declArgument);
     }
 
+
     public List findByCompEval(Object compEval) {
         return findByProperty(COMP_EVAL, compEval);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

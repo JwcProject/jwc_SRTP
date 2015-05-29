@@ -1,150 +1,162 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_user", schema = "", catalog = "srtp")
-public class TUser {
-    private String userId;
-    private String userName;
-    private String userPassword;
-    private String userState;
-    private String userIntroduction;
-    private String isdeleted;
-    private String userType;
-    private Collection<TAttachment> tAttachmentsByUserId;
-    private Collection<TJournal> tJournalsByUserId;
-    private Collection<TUserRole> tUserRolesByUserId;
+@Table(name = "t_user", catalog = "srtp")
+public class TUser implements java.io.Serializable {
 
-    @Id
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
+	// Fields
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	private String userId;
+	private String userName;
+	private String userPassword;
+	private String userState;
+	private String userIntroduction;
+	private String isdeleted;
+	private String userType;
+	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
+	private Set<TUserRole> TUserRoles = new HashSet<TUserRole>(0);
+	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
+	private Set<TAttachment> TAttachments = new HashSet<TAttachment>(0);
 
-    @Basic
-    @Column(name = "user_name")
-    public String getUserName() {
-        return userName;
-    }
+	// Constructors
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	/** default constructor */
+	public TUser() {
+	}
 
-    @Basic
-    @Column(name = "user_password")
-    public String getUserPassword() {
-        return userPassword;
-    }
+	/** full constructor */
+	public TUser(String userName, String userPassword, String userState,
+			String userIntroduction, String isdeleted, String userType,
+			Set<TJournal> TJournals, Set<TUserRole> TUserRoles,
+			Set<TStudent> TStudents, Set<TAttachment> TAttachments) {
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.userState = userState;
+		this.userIntroduction = userIntroduction;
+		this.isdeleted = isdeleted;
+		this.userType = userType;
+		this.TJournals = TJournals;
+		this.TUserRoles = TUserRoles;
+		this.TStudents = TStudents;
+		this.TAttachments = TAttachments;
+	}
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "user_id", unique = true, nullable = false, length = 32)
+	public String getUserId() {
+		return this.userId;
+	}
 
-    @Basic
-    @Column(name = "user_state")
-    public String getUserState() {
-        return userState;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public void setUserState(String userState) {
-        this.userState = userState;
-    }
+	@Column(name = "user_name", length = 50)
+	public String getUserName() {
+		return this.userName;
+	}
 
-    @Basic
-    @Column(name = "user_introduction")
-    public String getUserIntroduction() {
-        return userIntroduction;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public void setUserIntroduction(String userIntroduction) {
-        this.userIntroduction = userIntroduction;
-    }
+	@Column(name = "user_password", length = 50)
+	public String getUserPassword() {
+		return this.userPassword;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "user_state", length = 2)
+	public String getUserState() {
+		return this.userState;
+	}
 
-    @Basic
-    @Column(name = "user_type")
-    public String getUserType() {
-        return userType;
-    }
+	public void setUserState(String userState) {
+		this.userState = userState;
+	}
 
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
+	@Column(name = "user_introduction", length = 200)
+	public String getUserIntroduction() {
+		return this.userIntroduction;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setUserIntroduction(String userIntroduction) {
+		this.userIntroduction = userIntroduction;
+	}
 
-        TUser tUser = (TUser) o;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-        if (userId != null ? !userId.equals(tUser.userId) : tUser.userId != null) return false;
-        if (userName != null ? !userName.equals(tUser.userName) : tUser.userName != null) return false;
-        if (userPassword != null ? !userPassword.equals(tUser.userPassword) : tUser.userPassword != null) return false;
-        if (userState != null ? !userState.equals(tUser.userState) : tUser.userState != null) return false;
-        if (userIntroduction != null ? !userIntroduction.equals(tUser.userIntroduction) : tUser.userIntroduction != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(tUser.isdeleted) : tUser.isdeleted != null) return false;
-        if (userType != null ? !userType.equals(tUser.userType) : tUser.userType != null) return false;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-        return true;
-    }
+	@Column(name = "user_type", length = 2)
+	public String getUserType() {
+		return this.userType;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (userPassword != null ? userPassword.hashCode() : 0);
-        result = 31 * result + (userState != null ? userState.hashCode() : 0);
-        result = 31 * result + (userIntroduction != null ? userIntroduction.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (userType != null ? userType.hashCode() : 0);
-        return result;
-    }
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 
-    @OneToMany(mappedBy = "tUserByUploaderCode")
-    public Collection<TAttachment> gettAttachmentsByUserId() {
-        return tAttachmentsByUserId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
+	public Set<TJournal> getTJournals() {
+		return this.TJournals;
+	}
 
-    public void settAttachmentsByUserId(Collection<TAttachment> tAttachmentsByUserId) {
-        this.tAttachmentsByUserId = tAttachmentsByUserId;
-    }
+	public void setTJournals(Set<TJournal> TJournals) {
+		this.TJournals = TJournals;
+	}
 
-    @OneToMany(mappedBy = "tUserByUserId")
-    public Collection<TJournal> gettJournalsByUserId() {
-        return tJournalsByUserId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
+	public Set<TUserRole> getTUserRoles() {
+		return this.TUserRoles;
+	}
 
-    public void settJournalsByUserId(Collection<TJournal> tJournalsByUserId) {
-        this.tJournalsByUserId = tJournalsByUserId;
-    }
+	public void setTUserRoles(Set<TUserRole> TUserRoles) {
+		this.TUserRoles = TUserRoles;
+	}
 
-    @OneToMany(mappedBy = "tUserByUserId")
-    public Collection<TUserRole> gettUserRolesByUserId() {
-        return tUserRolesByUserId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
+	public Set<TStudent> getTStudents() {
+		return this.TStudents;
+	}
 
-    public void settUserRolesByUserId(Collection<TUserRole> tUserRolesByUserId) {
-        this.tUserRolesByUserId = tUserRolesByUserId;
-    }
+	public void setTStudents(Set<TStudent> TStudents) {
+		this.TStudents = TStudents;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
+	public Set<TAttachment> getTAttachments() {
+		return this.TAttachments;
+	}
+
+	public void setTAttachments(Set<TAttachment> TAttachments) {
+		this.TAttachments = TAttachments;
+	}
+
 }

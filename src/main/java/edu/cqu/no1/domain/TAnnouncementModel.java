@@ -1,228 +1,185 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TAnnouncementModel entity. @author MyEclipse Persistence Tools
  */
 @Entity
-public class TAnnouncementModel {
-    private String announId;
-    private String announTypeId;
-    private String announTitle;
-    private String announContent;
-    private String publisherCode;
-    private String publisherRole;
-    private Timestamp publishTime;
-    private String publishState;
-    private String checkerCode;
-    private Timestamp checkTime;
-    private String checkState;
-    private String isdeleted;
-    private String publishername;
-    private TAnnounType tAnnounTypeByAnnounTypeId;
+@Table(name = "t_announcement_model", catalog = "srtp")
+public class TAnnouncementModel implements java.io.Serializable {
 
-    public TAnnouncementModel() { /* null */ }
+	// Fields
 
-    public TAnnouncementModel(TAnnouncement tAnnouncement, String publishername) {
-        this.announId = tAnnouncement.getAnnounId();
-        this.announTitle = tAnnouncement.getAnnounTitle();
-        this.announContent = tAnnouncement.getAnnounContent();
-        this.publisherCode = tAnnouncement.getPublisherCode();
-        this.publisherRole = tAnnouncement.getPublisherRole();
-        this.publishTime = tAnnouncement.getPublishTime();
-        this.publishState = tAnnouncement.getPublishState();
-        this.checkerCode = tAnnouncement.getCheckerCode();
-        this.checkTime = tAnnouncement.getCheckTime();
-        this.checkState = tAnnouncement.getCheckState();
-        this.isdeleted = tAnnouncement.getIsdeleted();
-        this.publishername = publishername;
-    }
+	private String announId;
+	private TAnnounType TAnnounType;
+	private String announTitle;
+	private String announContent;
+	private String publisherCode;
+	private String publisherRole;
+	private Timestamp publishTime;
+	private String publishState;
+	private String checkerCode;
+	private Timestamp checkTime;
+	private String checkState;
+	private String isdeleted;
+	private String publishername;
 
-    @Id
-    @Column(name = "ANNOUN_ID")
-    public String getAnnounId() {
-        return announId;
-    }
+	// Constructors
 
-    public void setAnnounId(String announId) {
-        this.announId = announId;
-    }
+	/** default constructor */
+	public TAnnouncementModel() {
+	}
 
-    @Basic
-    @Column(name = "ANNOUN_TYPE_ID")
-    public String getAnnounTypeId() {
-        return announTypeId;
-    }
+	/** full constructor */
+	public TAnnouncementModel(TAnnounType TAnnounType, String announTitle,
+			String announContent, String publisherCode, String publisherRole,
+			Timestamp publishTime, String publishState, String checkerCode,
+			Timestamp checkTime, String checkState, String isdeleted,
+			String publishername) {
+		this.TAnnounType = TAnnounType;
+		this.announTitle = announTitle;
+		this.announContent = announContent;
+		this.publisherCode = publisherCode;
+		this.publisherRole = publisherRole;
+		this.publishTime = publishTime;
+		this.publishState = publishState;
+		this.checkerCode = checkerCode;
+		this.checkTime = checkTime;
+		this.checkState = checkState;
+		this.isdeleted = isdeleted;
+		this.publishername = publishername;
+	}
 
-    public void setAnnounTypeId(String announTypeId) {
-        this.announTypeId = announTypeId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "ANNOUN_ID", unique = true, nullable = false, length = 32)
+	public String getAnnounId() {
+		return this.announId;
+	}
 
-    @Basic
-    @Column(name = "ANNOUN_TITLE")
-    public String getAnnounTitle() {
-        return announTitle;
-    }
+	public void setAnnounId(String announId) {
+		this.announId = announId;
+	}
 
-    public void setAnnounTitle(String announTitle) {
-        this.announTitle = announTitle;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ANNOUN_TYPE_ID")
+	public TAnnounType getTAnnounType() {
+		return this.TAnnounType;
+	}
 
-    @Basic
-    @Column(name = "ANNOUN_CONTENT")
-    public String getAnnounContent() {
-        return announContent;
-    }
+	public void setTAnnounType(TAnnounType TAnnounType) {
+		this.TAnnounType = TAnnounType;
+	}
 
-    public void setAnnounContent(String announContent) {
-        this.announContent = announContent;
-    }
+	@Column(name = "ANNOUN_TITLE", length = 200)
+	public String getAnnounTitle() {
+		return this.announTitle;
+	}
 
-    @Basic
-    @Column(name = "PUBLISHER_CODE")
-    public String getPublisherCode() {
-        return publisherCode;
-    }
+	public void setAnnounTitle(String announTitle) {
+		this.announTitle = announTitle;
+	}
 
-    public void setPublisherCode(String publisherCode) {
-        this.publisherCode = publisherCode;
-    }
+	@Column(name = "ANNOUN_CONTENT", length = 4000)
+	public String getAnnounContent() {
+		return this.announContent;
+	}
 
-    @Basic
-    @Column(name = "PUBLISHER_ROLE")
-    public String getPublisherRole() {
-        return publisherRole;
-    }
+	public void setAnnounContent(String announContent) {
+		this.announContent = announContent;
+	}
 
-    public void setPublisherRole(String publisherRole) {
-        this.publisherRole = publisherRole;
-    }
+	@Column(name = "PUBLISHER_CODE", length = 32)
+	public String getPublisherCode() {
+		return this.publisherCode;
+	}
 
-    @Basic
-    @Column(name = "PUBLISH_TIME")
-    public Timestamp getPublishTime() {
-        return publishTime;
-    }
+	public void setPublisherCode(String publisherCode) {
+		this.publisherCode = publisherCode;
+	}
 
-    public void setPublishTime(Timestamp publishTime) {
-        this.publishTime = publishTime;
-    }
+	@Column(name = "PUBLISHER_ROLE", length = 32)
+	public String getPublisherRole() {
+		return this.publisherRole;
+	}
 
-    @Basic
-    @Column(name = "PUBLISH_STATE")
-    public String getPublishState() {
-        return publishState;
-    }
+	public void setPublisherRole(String publisherRole) {
+		this.publisherRole = publisherRole;
+	}
 
-    public void setPublishState(String publishState) {
-        this.publishState = publishState;
-    }
+	@Column(name = "PUBLISH_TIME", length = 19)
+	public Timestamp getPublishTime() {
+		return this.publishTime;
+	}
 
-    @Basic
-    @Column(name = "CHECKER_CODE")
-    public String getCheckerCode() {
-        return checkerCode;
-    }
+	public void setPublishTime(Timestamp publishTime) {
+		this.publishTime = publishTime;
+	}
 
-    public void setCheckerCode(String checkerCode) {
-        this.checkerCode = checkerCode;
-    }
+	@Column(name = "PUBLISH_STATE", length = 2)
+	public String getPublishState() {
+		return this.publishState;
+	}
 
-    @Basic
-    @Column(name = "CHECK_TIME")
-    public Timestamp getCheckTime() {
-        return checkTime;
-    }
+	public void setPublishState(String publishState) {
+		this.publishState = publishState;
+	}
 
-    public void setCheckTime(Timestamp checkTime) {
-        this.checkTime = checkTime;
-    }
+	@Column(name = "CHECKER_CODE", length = 32)
+	public String getCheckerCode() {
+		return this.checkerCode;
+	}
 
-    @Basic
-    @Column(name = "CHECK_STATE")
-    public String getCheckState() {
-        return checkState;
-    }
+	public void setCheckerCode(String checkerCode) {
+		this.checkerCode = checkerCode;
+	}
 
-    public void setCheckState(String checkState) {
-        this.checkState = checkState;
-    }
+	@Column(name = "CHECK_TIME", length = 19)
+	public Timestamp getCheckTime() {
+		return this.checkTime;
+	}
 
-    @Basic
-    @Column(name = "ISDELETED")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setCheckTime(Timestamp checkTime) {
+		this.checkTime = checkTime;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "CHECK_STATE", length = 2)
+	public String getCheckState() {
+		return this.checkState;
+	}
 
-    @Basic
-    @Column(name = "PUBLISHERNAME")
-    public String getPublishername() {
-        return publishername;
-    }
+	public void setCheckState(String checkState) {
+		this.checkState = checkState;
+	}
 
-    public void setPublishername(String publishername) {
-        this.publishername = publishername;
-    }
+	@Column(name = "ISDELETED", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-        TAnnouncementModel that = (TAnnouncementModel) o;
+	@Column(name = "PUBLISHERNAME", length = 50)
+	public String getPublishername() {
+		return this.publishername;
+	}
 
-        if (announId != null ? !announId.equals(that.announId) : that.announId != null) return false;
-        if (announTypeId != null ? !announTypeId.equals(that.announTypeId) : that.announTypeId != null) return false;
-        if (announTitle != null ? !announTitle.equals(that.announTitle) : that.announTitle != null) return false;
-        if (announContent != null ? !announContent.equals(that.announContent) : that.announContent != null)
-            return false;
-        if (publisherCode != null ? !publisherCode.equals(that.publisherCode) : that.publisherCode != null)
-            return false;
-        if (publisherRole != null ? !publisherRole.equals(that.publisherRole) : that.publisherRole != null)
-            return false;
-        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
-        if (publishState != null ? !publishState.equals(that.publishState) : that.publishState != null) return false;
-        if (checkerCode != null ? !checkerCode.equals(that.checkerCode) : that.checkerCode != null) return false;
-        if (checkTime != null ? !checkTime.equals(that.checkTime) : that.checkTime != null) return false;
-        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (publishername != null ? !publishername.equals(that.publishername) : that.publishername != null)
-            return false;
+	public void setPublishername(String publishername) {
+		this.publishername = publishername;
+	}
 
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = announId != null ? announId.hashCode() : 0;
-        result = 31 * result + (announTypeId != null ? announTypeId.hashCode() : 0);
-        result = 31 * result + (announTitle != null ? announTitle.hashCode() : 0);
-        result = 31 * result + (announContent != null ? announContent.hashCode() : 0);
-        result = 31 * result + (publisherCode != null ? publisherCode.hashCode() : 0);
-        result = 31 * result + (publisherRole != null ? publisherRole.hashCode() : 0);
-        result = 31 * result + (publishTime != null ? publishTime.hashCode() : 0);
-        result = 31 * result + (publishState != null ? publishState.hashCode() : 0);
-        result = 31 * result + (checkerCode != null ? checkerCode.hashCode() : 0);
-        result = 31 * result + (checkTime != null ? checkTime.hashCode() : 0);
-        result = 31 * result + (checkState != null ? checkState.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (publishername != null ? publishername.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ANNOUN_TYPE_ID", referencedColumnName = "announ_type_id")
-    public TAnnounType gettAnnounTypeByAnnounTypeId() {
-        return tAnnounTypeByAnnounTypeId;
-    }
-
-    public void settAnnounTypeByAnnounTypeId(TAnnounType tAnnounTypeByAnnounTypeId) {
-        this.tAnnounTypeByAnnounTypeId = tAnnounTypeByAnnounTypeId;
-    }
 }

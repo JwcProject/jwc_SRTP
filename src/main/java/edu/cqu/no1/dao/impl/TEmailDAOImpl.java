@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-public class TEmailDAOImpl extends BaseDaoImpl<TEmail> implements edu.cqu.no1.dao.TEmailDAO {
+public class TEmailDAOImpl extends BaseDaoImpl<TEmail> implements TEmailDAO {
 
     private static final Logger log = LoggerFactory.getLogger(TEmailDAO.class);
     // property constants
@@ -26,25 +26,31 @@ public class TEmailDAOImpl extends BaseDaoImpl<TEmail> implements edu.cqu.no1.da
     public static final String ISDELETED = "isdeleted";
 
 
+
     public List findByEmailTitle(Object emailTitle) {
         return findByProperty(EMAIL_TITLE, emailTitle);
     }
+
 
     public List findByEmailContent(Object emailContent) {
         return findByProperty(EMAIL_CONTENT, emailContent);
     }
 
+
     public List findBySender(Object sender) {
         return findByProperty(SENDER, sender);
     }
+
 
     public List findByEmailSecret(Object emailSecret) {
         return findByProperty(EMAIL_SECRET, emailSecret);
     }
 
+
     public List findBySendState(Object sendState) {
         return findByProperty(SEND_STATE, sendState);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

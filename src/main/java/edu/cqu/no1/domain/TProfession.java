@@ -1,145 +1,157 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TProfession entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_profession", schema = "", catalog = "srtp")
-public class TProfession {
-    private String professionId;
-    private String unitId;
-    private String professionName;
-    private String professionSession;
-    private String professionClass;
-    private String professionRemark;
-    private String professionIsdeleted;
-    private TUnit tUnitByUnitId;
-    private Collection<TTeacher> tTeachersByProfessionId;
+@Table(name = "t_profession", catalog = "srtp")
+public class TProfession implements java.io.Serializable {
 
-    @Id
-    @Column(name = "profession_id")
-    public String getProfessionId() {
-        return professionId;
-    }
+	// Fields
 
-    public void setProfessionId(String professionId) {
-        this.professionId = professionId;
-    }
+	private String professionId;
+	private TUnit TUnit;
+	private String professionName;
+	private String professionSession;
+	private String professionClass;
+	private String professionRemark;
+	private String professionIsdeleted;
+	private Set<TStudent> TStudentsForProProfessionId = new HashSet<TStudent>(0);
+	private Set<TStudent> TStudentsForProfessionId = new HashSet<TStudent>(0);
+	private Set<TTeacher> TTeachers = new HashSet<TTeacher>(0);
 
-    @Basic
-    @Column(name = "unit_id")
-    public String getUnitId() {
-        return unitId;
-    }
+	// Constructors
 
-    public void setUnitId(String unitId) {
-        this.unitId = unitId;
-    }
+	/** default constructor */
+	public TProfession() {
+	}
 
-    @Basic
-    @Column(name = "profession_name")
-    public String getProfessionName() {
-        return professionName;
-    }
+	/** full constructor */
+	public TProfession(TUnit TUnit, String professionName,
+			String professionSession, String professionClass,
+			String professionRemark, String professionIsdeleted,
+			Set<TStudent> TStudentsForProProfessionId,
+			Set<TStudent> TStudentsForProfessionId, Set<TTeacher> TTeachers) {
+		this.TUnit = TUnit;
+		this.professionName = professionName;
+		this.professionSession = professionSession;
+		this.professionClass = professionClass;
+		this.professionRemark = professionRemark;
+		this.professionIsdeleted = professionIsdeleted;
+		this.TStudentsForProProfessionId = TStudentsForProProfessionId;
+		this.TStudentsForProfessionId = TStudentsForProfessionId;
+		this.TTeachers = TTeachers;
+	}
 
-    public void setProfessionName(String professionName) {
-        this.professionName = professionName;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "profession_id", unique = true, nullable = false, length = 32)
+	public String getProfessionId() {
+		return this.professionId;
+	}
 
-    @Basic
-    @Column(name = "profession_session")
-    public String getProfessionSession() {
-        return professionSession;
-    }
+	public void setProfessionId(String professionId) {
+		this.professionId = professionId;
+	}
 
-    public void setProfessionSession(String professionSession) {
-        this.professionSession = professionSession;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "unit_id")
+	public TUnit getTUnit() {
+		return this.TUnit;
+	}
 
-    @Basic
-    @Column(name = "profession_class")
-    public String getProfessionClass() {
-        return professionClass;
-    }
+	public void setTUnit(TUnit TUnit) {
+		this.TUnit = TUnit;
+	}
 
-    public void setProfessionClass(String professionClass) {
-        this.professionClass = professionClass;
-    }
+	@Column(name = "profession_name", length = 64)
+	public String getProfessionName() {
+		return this.professionName;
+	}
 
-    @Basic
-    @Column(name = "profession_remark")
-    public String getProfessionRemark() {
-        return professionRemark;
-    }
+	public void setProfessionName(String professionName) {
+		this.professionName = professionName;
+	}
 
-    public void setProfessionRemark(String professionRemark) {
-        this.professionRemark = professionRemark;
-    }
+	@Column(name = "profession_session", length = 20)
+	public String getProfessionSession() {
+		return this.professionSession;
+	}
 
-    @Basic
-    @Column(name = "profession_isdeleted")
-    public String getProfessionIsdeleted() {
-        return professionIsdeleted;
-    }
+	public void setProfessionSession(String professionSession) {
+		this.professionSession = professionSession;
+	}
 
-    public void setProfessionIsdeleted(String professionIsdeleted) {
-        this.professionIsdeleted = professionIsdeleted;
-    }
+	@Column(name = "profession_class", length = 64)
+	public String getProfessionClass() {
+		return this.professionClass;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setProfessionClass(String professionClass) {
+		this.professionClass = professionClass;
+	}
 
-        TProfession that = (TProfession) o;
+	@Column(name = "profession_remark", length = 200)
+	public String getProfessionRemark() {
+		return this.professionRemark;
+	}
 
-        if (professionId != null ? !professionId.equals(that.professionId) : that.professionId != null) return false;
-        if (unitId != null ? !unitId.equals(that.unitId) : that.unitId != null) return false;
-        if (professionName != null ? !professionName.equals(that.professionName) : that.professionName != null)
-            return false;
-        if (professionSession != null ? !professionSession.equals(that.professionSession) : that.professionSession != null)
-            return false;
-        if (professionClass != null ? !professionClass.equals(that.professionClass) : that.professionClass != null)
-            return false;
-        if (professionRemark != null ? !professionRemark.equals(that.professionRemark) : that.professionRemark != null)
-            return false;
-        if (professionIsdeleted != null ? !professionIsdeleted.equals(that.professionIsdeleted) : that.professionIsdeleted != null)
-            return false;
+	public void setProfessionRemark(String professionRemark) {
+		this.professionRemark = professionRemark;
+	}
 
-        return true;
-    }
+	@Column(name = "profession_isdeleted", length = 1)
+	public String getProfessionIsdeleted() {
+		return this.professionIsdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = professionId != null ? professionId.hashCode() : 0;
-        result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
-        result = 31 * result + (professionName != null ? professionName.hashCode() : 0);
-        result = 31 * result + (professionSession != null ? professionSession.hashCode() : 0);
-        result = 31 * result + (professionClass != null ? professionClass.hashCode() : 0);
-        result = 31 * result + (professionRemark != null ? professionRemark.hashCode() : 0);
-        result = 31 * result + (professionIsdeleted != null ? professionIsdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setProfessionIsdeleted(String professionIsdeleted) {
+		this.professionIsdeleted = professionIsdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id", referencedColumnName = "unit_id")
-    public TUnit gettUnitByUnitId() {
-        return tUnitByUnitId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfessionByProProfessionId")
+	public Set<TStudent> getTStudentsForProProfessionId() {
+		return this.TStudentsForProProfessionId;
+	}
 
-    public void settUnitByUnitId(TUnit tUnitByUnitId) {
-        this.tUnitByUnitId = tUnitByUnitId;
-    }
+	public void setTStudentsForProProfessionId(
+			Set<TStudent> TStudentsForProProfessionId) {
+		this.TStudentsForProProfessionId = TStudentsForProProfessionId;
+	}
 
-    @OneToMany(mappedBy = "tProfessionByProfessionId")
-    public Collection<TTeacher> gettTeachersByProfessionId() {
-        return tTeachersByProfessionId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfessionByProfessionId")
+	public Set<TStudent> getTStudentsForProfessionId() {
+		return this.TStudentsForProfessionId;
+	}
 
-    public void settTeachersByProfessionId(Collection<TTeacher> tTeachersByProfessionId) {
-        this.tTeachersByProfessionId = tTeachersByProfessionId;
-    }
+	public void setTStudentsForProfessionId(
+			Set<TStudent> TStudentsForProfessionId) {
+		this.TStudentsForProfessionId = TStudentsForProfessionId;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfession")
+	public Set<TTeacher> getTTeachers() {
+		return this.TTeachers;
+	}
+
+	public void setTTeachers(Set<TTeacher> TTeachers) {
+		this.TTeachers = TTeachers;
+	}
+
 }

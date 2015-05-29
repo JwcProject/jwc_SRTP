@@ -32,7 +32,7 @@
           p:dataSource-ref="dataSource">
         <property name="annotatedClasses">
             <list>
-                <value>edu.cqu.no1.domain.ResultDistribut</value>
+                <value>edu.cqu.no1.domain.TResultDistribut</value>
                 <value>edu.cqu.no1.domain.TAchievemenType</value>
                 <value>edu.cqu.no1.domain.TAchievement</value>
                 <value>edu.cqu.no1.domain.TAnnounType</value>
@@ -50,7 +50,7 @@
                 <value>edu.cqu.no1.domain.TEndProject</value>
                 <value>edu.cqu.no1.domain.TEndProjectComment</value>
                 <value>edu.cqu.no1.domain.TEndProjectExport</value>
-                <value>edu.cqu.no1.domain.TEndprojectJob</value>
+                <value>edu.cqu.no1.domain.TEndProjectJob</value>
                 <value>edu.cqu.no1.domain.TExpertLib</value>
                 <value>edu.cqu.no1.domain.TExpertReview</value>
                 <value>edu.cqu.no1.domain.TExpertTeacher</value>
@@ -71,8 +71,6 @@
                 <value>edu.cqu.no1.domain.TUnit</value>
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TUserRole</value>
-                <value>edu.cqu.no1.domain.TAnnouncementModel</value>
-                <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
                 <value>edu.cqu.no1.domain.TAnnouncementModel</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
             </list>

@@ -1,160 +1,146 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TExpertTeacherModel entity. @author MyEclipse Persistence Tools
  */
 @Entity
-public class TExpertTeacherModel {
-    private String exTeaId;
-    private String libId;
-    private String teaId;
-    private Integer reDeclNum;
-    private String isdeleted;
-    private Integer jqYear;
-    private String qici;
-    private Collection<TEndProjectExport> tEndProjectExportsByExTeaId;
-    private Collection<TExpertReview> tExpertReviewsByExTeaId;
-    private TTeacher tTeacherByTeaId;
-    private TExpertLib tExpertLibByLibId;
+@Table(name = "t_expert_teacher_model", catalog = "srtp")
+public class TExpertTeacherModel implements java.io.Serializable {
 
-    @Id
-    @Column(name = "EX_TEA_ID")
-    public String getExTeaId() {
-        return exTeaId;
-    }
+	// Fields
 
-    public void setExTeaId(String exTeaId) {
-        this.exTeaId = exTeaId;
-    }
+	private String exTeaId;
+	private TExpertLib TExpertLib;
+	private TTeacher TTeacher;
+	private BigDecimal reDeclNum;
+	private String isdeleted;
+	private BigDecimal jqYear;
+	private String qici;
+	private Set<TEndProjectExport> TEndProjectExports = new HashSet<TEndProjectExport>(
+			0);
+	private Set<TExpertReview> TExpertReviews = new HashSet<TExpertReview>(0);
 
-    @Basic
-    @Column(name = "LIB_ID")
-    public String getLibId() {
-        return libId;
-    }
+	// Constructors
 
-    public void setLibId(String libId) {
-        this.libId = libId;
-    }
+	/** default constructor */
+	public TExpertTeacherModel() {
+	}
 
-    @Basic
-    @Column(name = "TEA_ID")
-    public String getTeaId() {
-        return teaId;
-    }
+	/** full constructor */
+	public TExpertTeacherModel(TExpertLib TExpertLib, TTeacher TTeacher,
+			BigDecimal reDeclNum, String isdeleted, BigDecimal jqYear,
+			String qici, Set<TEndProjectExport> TEndProjectExports,
+			Set<TExpertReview> TExpertReviews) {
+		this.TExpertLib = TExpertLib;
+		this.TTeacher = TTeacher;
+		this.reDeclNum = reDeclNum;
+		this.isdeleted = isdeleted;
+		this.jqYear = jqYear;
+		this.qici = qici;
+		this.TEndProjectExports = TEndProjectExports;
+		this.TExpertReviews = TExpertReviews;
+	}
 
-    public void setTeaId(String teaId) {
-        this.teaId = teaId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "EX_TEA_ID", unique = true, nullable = false, length = 32)
+	public String getExTeaId() {
+		return this.exTeaId;
+	}
 
-    @Basic
-    @Column(name = "RE_DECL_NUM")
-    public Integer getReDeclNum() {
-        return reDeclNum;
-    }
+	public void setExTeaId(String exTeaId) {
+		this.exTeaId = exTeaId;
+	}
 
-    public void setReDeclNum(Integer reDeclNum) {
-        this.reDeclNum = reDeclNum;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "LIB_ID")
+	public TExpertLib getTExpertLib() {
+		return this.TExpertLib;
+	}
 
-    @Basic
-    @Column(name = "ISDELETED")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setTExpertLib(TExpertLib TExpertLib) {
+		this.TExpertLib = TExpertLib;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TEA_ID")
+	public TTeacher getTTeacher() {
+		return this.TTeacher;
+	}
 
-    @Basic
-    @Column(name = "JQ_YEAR")
-    public Integer getJqYear() {
-        return jqYear;
-    }
+	public void setTTeacher(TTeacher TTeacher) {
+		this.TTeacher = TTeacher;
+	}
 
-    public void setJqYear(Integer jqYear) {
-        this.jqYear = jqYear;
-    }
+	@Column(name = "RE_DECL_NUM", precision = 22, scale = 0)
+	public BigDecimal getReDeclNum() {
+		return this.reDeclNum;
+	}
 
-    @Basic
-    @Column(name = "QICI")
-    public String getQici() {
-        return qici;
-    }
+	public void setReDeclNum(BigDecimal reDeclNum) {
+		this.reDeclNum = reDeclNum;
+	}
 
-    public void setQici(String qici) {
-        this.qici = qici;
-    }
+	@Column(name = "ISDELETED", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-        TExpertTeacherModel that = (TExpertTeacherModel) o;
+	@Column(name = "JQ_YEAR", precision = 22, scale = 0)
+	public BigDecimal getJqYear() {
+		return this.jqYear;
+	}
 
-        if (exTeaId != null ? !exTeaId.equals(that.exTeaId) : that.exTeaId != null) return false;
-        if (libId != null ? !libId.equals(that.libId) : that.libId != null) return false;
-        if (teaId != null ? !teaId.equals(that.teaId) : that.teaId != null) return false;
-        if (reDeclNum != null ? !reDeclNum.equals(that.reDeclNum) : that.reDeclNum != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (jqYear != null ? !jqYear.equals(that.jqYear) : that.jqYear != null) return false;
-        if (qici != null ? !qici.equals(that.qici) : that.qici != null) return false;
+	public void setJqYear(BigDecimal jqYear) {
+		this.jqYear = jqYear;
+	}
 
-        return true;
-    }
+	@Column(name = "QICI", length = 20)
+	public String getQici() {
+		return this.qici;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = exTeaId != null ? exTeaId.hashCode() : 0;
-        result = 31 * result + (libId != null ? libId.hashCode() : 0);
-        result = 31 * result + (teaId != null ? teaId.hashCode() : 0);
-        result = 31 * result + (reDeclNum != null ? reDeclNum.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (jqYear != null ? jqYear.hashCode() : 0);
-        result = 31 * result + (qici != null ? qici.hashCode() : 0);
-        return result;
-    }
+	public void setQici(String qici) {
+		this.qici = qici;
+	}
 
-    @OneToMany(mappedBy = "texpertteachermodelByExpertId")
-    public Collection<TEndProjectExport> gettEndProjectExportsByExTeaId() {
-        return tEndProjectExportsByExTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacherModel")
+	public Set<TEndProjectExport> getTEndProjectExports() {
+		return this.TEndProjectExports;
+	}
 
-    public void settEndProjectExportsByExTeaId(Collection<TEndProjectExport> tEndProjectExportsByExTeaId) {
-        this.tEndProjectExportsByExTeaId = tEndProjectExportsByExTeaId;
-    }
+	public void setTEndProjectExports(Set<TEndProjectExport> TEndProjectExports) {
+		this.TEndProjectExports = TEndProjectExports;
+	}
 
-    @OneToMany(mappedBy = "texpertteachermodelByExTeaId")
-    public Collection<TExpertReview> gettExpertReviewsByExTeaId() {
-        return tExpertReviewsByExTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacherModel")
+	public Set<TExpertReview> getTExpertReviews() {
+		return this.TExpertReviews;
+	}
 
-    public void settExpertReviewsByExTeaId(Collection<TExpertReview> tExpertReviewsByExTeaId) {
-        this.tExpertReviewsByExTeaId = tExpertReviewsByExTeaId;
-    }
+	public void setTExpertReviews(Set<TExpertReview> TExpertReviews) {
+		this.TExpertReviews = TExpertReviews;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "TEA_ID", referencedColumnName = "tea_id")
-    public TTeacher gettTeacherByTeaId() {
-        return tTeacherByTeaId;
-    }
-
-    public void settTeacherByTeaId(TTeacher tTeacherByTeaId) {
-        this.tTeacherByTeaId = tTeacherByTeaId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "LIB_ID", referencedColumnName = "lib_id")
-    public TExpertLib gettExpertLibByLibId() {
-        return tExpertLibByLibId;
-    }
-
-    public void settExpertLibByLibId(TExpertLib tExpertLibByLibId) {
-        this.tExpertLibByLibId = tExpertLibByLibId;
-    }
 }

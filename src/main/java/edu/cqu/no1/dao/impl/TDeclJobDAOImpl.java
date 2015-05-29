@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class TDeclJobDAOImpl extends BaseDaoImpl<TDeclJob> implements edu.cqu.no1.dao.TDeclJobDAO{
+public class TDeclJobDAOImpl extends BaseDaoImpl<TDeclJob> implements TDeclJobDAO{
 
     private static final Logger log = LoggerFactory
             .getLogger(TDeclJobDAO.class);
@@ -24,23 +24,27 @@ public class TDeclJobDAOImpl extends BaseDaoImpl<TDeclJob> implements edu.cqu.no
     public static final String ISDELETED = "isdeleted";
 
 
+
     public List findByJobContent(Object jobContent) {
         return findByProperty(JOB_CONTENT, jobContent);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
+
     public static TDeclJobDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TDeclJobDAO) ctx.getBean("TDeclJobDAO");
     }
+
 
     public List<TDeclJob> findByDeclarId(String declarId){
         log.debug("finding all TDeclJob instances");
         try {
             String queryStr = "from TDeclJob as a where a.isdeleted = 'N' " +
-                    "and a.declarId=:code ";
+                    "and a.TDeclaration.declarId=:code ";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", declarId);

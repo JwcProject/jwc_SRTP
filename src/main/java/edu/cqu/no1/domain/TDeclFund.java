@@ -1,106 +1,104 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TDeclFund entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_fund", schema = "", catalog = "srtp")
-public class TDeclFund {
-    private String declFundId;
-    private String declarId;
-    private String serialNum;
-    private String fundContent;
-    private Float amount;
-    private String isdeleted;
+@Table(name = "t_decl_fund", catalog = "srtp")
+public class TDeclFund implements java.io.Serializable {
 
-    @Id
-    @Column(name = "decl_fund_id")
-    public String getDeclFundId() {
-        return declFundId;
-    }
+	// Fields
 
-    public void setDeclFundId(String declFundId) {
-        this.declFundId = declFundId;
-    }
+	private String declFundId;
+	private TDeclaration TDeclaration;
+	private String serialNum;
+	private String fundContent;
+	private Float amount;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "declar_id")
-    public String getDeclarId() {
-        return declarId;
-    }
+	// Constructors
 
-    public void setDeclarId(String declarId) {
-        this.declarId = declarId;
-    }
+	/** default constructor */
+	public TDeclFund() {
+	}
 
-    @Basic
-    @Column(name = "serial_num")
-    public String getSerialNum() {
-        return serialNum;
-    }
+	/** full constructor */
+	public TDeclFund(TDeclaration TDeclaration, String serialNum,
+			String fundContent, Float amount, String isdeleted) {
+		this.TDeclaration = TDeclaration;
+		this.serialNum = serialNum;
+		this.fundContent = fundContent;
+		this.amount = amount;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "decl_fund_id", unique = true, nullable = false, length = 32)
+	public String getDeclFundId() {
+		return this.declFundId;
+	}
 
-    @Basic
-    @Column(name = "fund_content")
-    public String getFundContent() {
-        return fundContent;
-    }
+	public void setDeclFundId(String declFundId) {
+		this.declFundId = declFundId;
+	}
 
-    public void setFundContent(String fundContent) {
-        this.fundContent = fundContent;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "declar_id")
+	public TDeclaration getTDeclaration() {
+		return this.TDeclaration;
+	}
 
-    @Basic
-    @Column(name = "amount")
-    public Float getAmount() {
-        return amount;
-    }
+	public void setTDeclaration(TDeclaration TDeclaration) {
+		this.TDeclaration = TDeclaration;
+	}
 
-    public void setAmount(Float amount) {
-        this.amount = amount;
-    }
+	@Column(name = "serial_num", length = 2)
+	public String getSerialNum() {
+		return this.serialNum;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setSerialNum(String serialNum) {
+		this.serialNum = serialNum;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "fund_content", length = 200)
+	public String getFundContent() {
+		return this.fundContent;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setFundContent(String fundContent) {
+		this.fundContent = fundContent;
+	}
 
-        TDeclFund tDeclFund = (TDeclFund) o;
+	@Column(name = "amount", precision = 12, scale = 0)
+	public Float getAmount() {
+		return this.amount;
+	}
 
-        if (declFundId != null ? !declFundId.equals(tDeclFund.declFundId) : tDeclFund.declFundId != null) return false;
-        if (declarId != null ? !declarId.equals(tDeclFund.declarId) : tDeclFund.declarId != null) return false;
-        if (serialNum != null ? !serialNum.equals(tDeclFund.serialNum) : tDeclFund.serialNum != null) return false;
-        if (fundContent != null ? !fundContent.equals(tDeclFund.fundContent) : tDeclFund.fundContent != null)
-            return false;
-        if (amount != null ? !amount.equals(tDeclFund.amount) : tDeclFund.amount != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tDeclFund.isdeleted) : tDeclFund.isdeleted != null) return false;
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = declFundId != null ? declFundId.hashCode() : 0;
-        result = 31 * result + (declarId != null ? declarId.hashCode() : 0);
-        result = 31 * result + (serialNum != null ? serialNum.hashCode() : 0);
-        result = 31 * result + (fundContent != null ? fundContent.hashCode() : 0);
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 }

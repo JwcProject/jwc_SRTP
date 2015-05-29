@@ -26,27 +26,35 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     public static final String ISDELETED = "isdeleted";
 
 
+
+
     public List findByRoleName(Object roleName) {
         return findByProperty(ROLE_NAME, roleName);
     }
+
 
     public List findByRoleState(Object roleState) {
         return findByProperty(ROLE_STATE, roleState);
     }
 
+
     public List findByRoleIntroduction(Object roleIntroduction) {
         return findByProperty(ROLE_INTRODUCTION, roleIntroduction);
     }
 
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
+
+
 
     public static TRoleDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TRoleDAO) ctx.getBean("TRoleDAO");
     }
 
     //获取Role数量
+
     @SuppressWarnings("rawtypes")
     public int getAllTRoleCount()
     {
@@ -70,6 +78,7 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
         }
     }
 
+
     @SuppressWarnings("rawtypes")
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TRole instances");
@@ -86,6 +95,7 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             throw re;
         }
     }
+
 
     @SuppressWarnings("rawtypes")
     public List findByKeyword(String keyword, PageBean pageBean) {
@@ -110,6 +120,7 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             throw re;
         }
     }
+
 
     @SuppressWarnings("rawtypes")
     public int getRoleByKeywordCount(String keyword) {
@@ -139,12 +150,12 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     }
 
     //通过用户id查询到该用户的角色名称
+
     public String findRoleNameByUserId(String userId){
         log.debug("find roleName by userId");
         try {
-            String queryString = "Select r.roleName From TRole r Where r.roleId In(Select ur.tRoleByRoleId.roleId From TUserRole ur Where ur.tUserByUserId.userId =:userId)";
+            String queryString = "Select r.roleName From TRole r Where r.roleId In(Select ur.TRole.roleId From TUserRole ur Where ur.TUser.userId =:userId) And Rownum = 1";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
-            query.setMaxResults(1);
             query.setString("userId", userId);
             String roleName = "";
             List tmpList = query.list();
@@ -154,6 +165,7 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             }
             return roleName;
         } catch (RuntimeException re) {
+            // TODO: handle exception
             log.error("find roleName by userId failed", re);
             throw re;
         }

@@ -2,7 +2,6 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.TUnitDAO;
 import edu.cqu.no1.domain.TUnit;
 import org.hibernate.Query;
@@ -28,25 +27,31 @@ public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
     public static final String ISDELETED = "isdeleted";
 
 
+
     public List findByUnitName(Object unitName) {
         return findByProperty(UNIT_NAME, unitName);
     }
+
 
     public List findByUnitType(Object unitType) {
         return findByProperty(UNIT_TYPE, unitType);
     }
 
+
     public List findByUnitFatherid(Object unitFatherid) {
         return findByProperty(UNIT_FATHERID, unitFatherid);
     }
+
 
     public List findByUnitCode(Object unitCode) {
         return findByProperty(UNIT_CODE, unitCode);
     }
 
+
     public List findByUnitRemark(Object unitRemark) {
         return findByProperty(UNIT_REMARK, unitRemark);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
@@ -61,12 +66,12 @@ public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
     /**
      * 根据教师ID查询单位
      */
-    @Nullable
+
     public TUnit getUnitByTeacherId(String teaId){
         log.debug("getUnitByUserId");
         try {
-            String hql = "from TUnit where unitId = (select unitId from TTeacher where teaCode = ?)";
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            String sql = "select t.TUnit from TTeacher as t where t.teaCode=?";
+            Query query = getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString(0, teaId);
             List list = query.list();
             if (list != null && list.size() > 0) {
@@ -80,6 +85,7 @@ public class TUnitDAOImpl extends BaseDaoImpl<TUnit> implements TUnitDAO {
             throw re;
         }
     }
+
     public List getAllColleges(){
         log.debug("getAllColleges");
         try {

@@ -1,102 +1,83 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TRolePermission entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_role_permission", schema = "", catalog = "srtp")
-public class TRolePermission {
-    private String rolePermissionId;
-    private String roleId;
-    private String permissionId;
-    private String isdeleted;
-    private TPermission tPermissionByPermissionId;
-    private TRole tRoleByRoleId;
+@Table(name = "t_role_permission", catalog = "srtp")
+public class TRolePermission implements java.io.Serializable {
 
-    @Id
-    @Column(name = "rolePermission_id")
-    public String getRolePermissionId() {
-        return rolePermissionId;
-    }
+	// Fields
 
-    public void setRolePermissionId(String rolePermissionId) {
-        this.rolePermissionId = rolePermissionId;
-    }
+	private String rolePermissionId;
+	private TRole TRole;
+	private TPermission TPermission;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "role_id")
-    public String getRoleId() {
-        return roleId;
-    }
+	// Constructors
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
+	/** default constructor */
+	public TRolePermission() {
+	}
 
-    @Basic
-    @Column(name = "permission_id")
-    public String getPermissionId() {
-        return permissionId;
-    }
+	/** full constructor */
+	public TRolePermission(TRole TRole, TPermission TPermission,
+			String isdeleted) {
+		this.TRole = TRole;
+		this.TPermission = TPermission;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setPermissionId(String permissionId) {
-        this.permissionId = permissionId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "rolePermission_id", unique = true, nullable = false, length = 32)
+	public String getRolePermissionId() {
+		return this.rolePermissionId;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setRolePermissionId(String rolePermissionId) {
+		this.rolePermissionId = rolePermissionId;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id")
+	public TRole getTRole() {
+		return this.TRole;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTRole(TRole TRole) {
+		this.TRole = TRole;
+	}
 
-        TRolePermission that = (TRolePermission) o;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "permission_id")
+	public TPermission getTPermission() {
+		return this.TPermission;
+	}
 
-        if (rolePermissionId != null ? !rolePermissionId.equals(that.rolePermissionId) : that.rolePermissionId != null)
-            return false;
-        if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) return false;
-        if (permissionId != null ? !permissionId.equals(that.permissionId) : that.permissionId != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setTPermission(TPermission TPermission) {
+		this.TPermission = TPermission;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = rolePermissionId != null ? rolePermissionId.hashCode() : 0;
-        result = 31 * result + (roleId != null ? roleId.hashCode() : 0);
-        result = 31 * result + (permissionId != null ? permissionId.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "permission_id", referencedColumnName = "permission_id")
-    public TPermission gettPermissionByPermissionId() {
-        return tPermissionByPermissionId;
-    }
-
-    public void settPermissionByPermissionId(TPermission tPermissionByPermissionId) {
-        this.tPermissionByPermissionId = tPermissionByPermissionId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    public TRole gettRoleByRoleId() {
-        return tRoleByRoleId;
-    }
-
-    public void settRoleByRoleId(TRole tRoleByRoleId) {
-        this.tRoleByRoleId = tRoleByRoleId;
-    }
 }

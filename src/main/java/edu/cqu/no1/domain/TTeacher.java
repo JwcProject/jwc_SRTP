@@ -1,273 +1,302 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TTeacher entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_teacher", schema = "", catalog = "srtp")
-public class TTeacher {
-    private String teaId;
-    private String professionId;
-    private String teaName;
-    private String teaCode;
-    private Integer teaAge;
-    private String teaSex;
-    private String teaTitle;
-    private String teaTele;
-    private String teaEmail;
-    private String teaState;
-    private String teaIntro;
-    private String teaRemark;
-    private String isdeleted;
-    private String unitId;
-    private Collection<TEmail> tEmailsByTeaId;
-    private Collection<TExpertLib> tExpertLibsByTeaId;
-    private Collection<TExpertTeacher> tExpertTeachersByTeaId;
-    private TUnit tUnitByUnitId;
-    private TProfession tProfessionByProfessionId;
-    private Collection<TExpertTeacherModel> texpertteachermodelsByTeaId;
+@Table(name = "t_teacher", catalog = "srtp")
+public class TTeacher implements java.io.Serializable {
 
-    @Id
-    @Column(name = "tea_id")
-    public String getTeaId() {
-        return teaId;
-    }
+	// Fields
 
-    public void setTeaId(String teaId) {
-        this.teaId = teaId;
-    }
+	private String teaId;
+	private TProfession TProfession;
+	private TUnit TUnit;
+	private String teaName;
+	private String teaCode;
+	private Integer teaAge;
+	private String teaSex;
+	private String teaTitle;
+	private String teaTele;
+	private String teaEmail;
+	private String teaState;
+	private String teaIntro;
+	private String teaRemark;
+	private String isdeleted;
+	private Set<TExpertTeacher> TExpertTeachers = new HashSet<TExpertTeacher>(0);
+	private Set<TDeclaration> TDeclarationsForTeacher2Code = new HashSet<TDeclaration>(
+			0);
+	private Set<TExpertTeacherModel> TExpertTeacherModels = new HashSet<TExpertTeacherModel>(
+			0);
+	private Set<TEmail> TEmails = new HashSet<TEmail>(0);
+	private Set<TExpertLib> TExpertLibs = new HashSet<TExpertLib>(0);
+	private Set<TProject> TProjectsForProjectTeacher2 = new HashSet<TProject>(0);
+	private Set<TProject> TProjectsForProjectTeacher1 = new HashSet<TProject>(0);
+	private Set<TDeclaration> TDeclarationsForTeacher1Code = new HashSet<TDeclaration>(
+			0);
 
-    @Basic
-    @Column(name = "profession_id")
-    public String getProfessionId() {
-        return professionId;
-    }
+	// Constructors
 
-    public void setProfessionId(String professionId) {
-        this.professionId = professionId;
-    }
+	/** default constructor */
+	public TTeacher() {
+	}
 
-    @Basic
-    @Column(name = "tea_name")
-    public String getTeaName() {
-        return teaName;
-    }
+	/** full constructor */
+	public TTeacher(TProfession TProfession, TUnit TUnit, String teaName,
+			String teaCode, Integer teaAge, String teaSex, String teaTitle,
+			String teaTele, String teaEmail, String teaState, String teaIntro,
+			String teaRemark, String isdeleted,
+			Set<TExpertTeacher> TExpertTeachers,
+			Set<TDeclaration> TDeclarationsForTeacher2Code,
+			Set<TExpertTeacherModel> TExpertTeacherModels, Set<TEmail> TEmails,
+			Set<TExpertLib> TExpertLibs,
+			Set<TProject> TProjectsForProjectTeacher2,
+			Set<TProject> TProjectsForProjectTeacher1,
+			Set<TDeclaration> TDeclarationsForTeacher1Code) {
+		this.TProfession = TProfession;
+		this.TUnit = TUnit;
+		this.teaName = teaName;
+		this.teaCode = teaCode;
+		this.teaAge = teaAge;
+		this.teaSex = teaSex;
+		this.teaTitle = teaTitle;
+		this.teaTele = teaTele;
+		this.teaEmail = teaEmail;
+		this.teaState = teaState;
+		this.teaIntro = teaIntro;
+		this.teaRemark = teaRemark;
+		this.isdeleted = isdeleted;
+		this.TExpertTeachers = TExpertTeachers;
+		this.TDeclarationsForTeacher2Code = TDeclarationsForTeacher2Code;
+		this.TExpertTeacherModels = TExpertTeacherModels;
+		this.TEmails = TEmails;
+		this.TExpertLibs = TExpertLibs;
+		this.TProjectsForProjectTeacher2 = TProjectsForProjectTeacher2;
+		this.TProjectsForProjectTeacher1 = TProjectsForProjectTeacher1;
+		this.TDeclarationsForTeacher1Code = TDeclarationsForTeacher1Code;
+	}
 
-    public void setTeaName(String teaName) {
-        this.teaName = teaName;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "tea_id", unique = true, nullable = false, length = 32)
+	public String getTeaId() {
+		return this.teaId;
+	}
 
-    @Basic
-    @Column(name = "tea_code")
-    public String getTeaCode() {
-        return teaCode;
-    }
+	public void setTeaId(String teaId) {
+		this.teaId = teaId;
+	}
 
-    public void setTeaCode(String teaCode) {
-        this.teaCode = teaCode;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profession_id")
+	public TProfession getTProfession() {
+		return this.TProfession;
+	}
 
-    @Basic
-    @Column(name = "tea_age")
-    public Integer getTeaAge() {
-        return teaAge;
-    }
+	public void setTProfession(TProfession TProfession) {
+		this.TProfession = TProfession;
+	}
 
-    public void setTeaAge(Integer teaAge) {
-        this.teaAge = teaAge;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UNIT_ID")
+	public TUnit getTUnit() {
+		return this.TUnit;
+	}
 
-    @Basic
-    @Column(name = "tea_sex")
-    public String getTeaSex() {
-        return teaSex;
-    }
+	public void setTUnit(TUnit TUnit) {
+		this.TUnit = TUnit;
+	}
 
-    public void setTeaSex(String teaSex) {
-        this.teaSex = teaSex;
-    }
+	@Column(name = "tea_name", length = 50)
+	public String getTeaName() {
+		return this.teaName;
+	}
 
-    @Basic
-    @Column(name = "tea_title")
-    public String getTeaTitle() {
-        return teaTitle;
-    }
+	public void setTeaName(String teaName) {
+		this.teaName = teaName;
+	}
 
-    public void setTeaTitle(String teaTitle) {
-        this.teaTitle = teaTitle;
-    }
+	@Column(name = "tea_code", length = 20)
+	public String getTeaCode() {
+		return this.teaCode;
+	}
 
-    @Basic
-    @Column(name = "tea_tele")
-    public String getTeaTele() {
-        return teaTele;
-    }
+	public void setTeaCode(String teaCode) {
+		this.teaCode = teaCode;
+	}
 
-    public void setTeaTele(String teaTele) {
-        this.teaTele = teaTele;
-    }
+	@Column(name = "tea_age")
+	public Integer getTeaAge() {
+		return this.teaAge;
+	}
 
-    @Basic
-    @Column(name = "tea_email")
-    public String getTeaEmail() {
-        return teaEmail;
-    }
+	public void setTeaAge(Integer teaAge) {
+		this.teaAge = teaAge;
+	}
 
-    public void setTeaEmail(String teaEmail) {
-        this.teaEmail = teaEmail;
-    }
+	@Column(name = "tea_sex", length = 2)
+	public String getTeaSex() {
+		return this.teaSex;
+	}
 
-    @Basic
-    @Column(name = "tea_state")
-    public String getTeaState() {
-        return teaState;
-    }
+	public void setTeaSex(String teaSex) {
+		this.teaSex = teaSex;
+	}
 
-    public void setTeaState(String teaState) {
-        this.teaState = teaState;
-    }
+	@Column(name = "tea_title", length = 50)
+	public String getTeaTitle() {
+		return this.teaTitle;
+	}
 
-    @Basic
-    @Column(name = "tea_intro")
-    public String getTeaIntro() {
-        return teaIntro;
-    }
+	public void setTeaTitle(String teaTitle) {
+		this.teaTitle = teaTitle;
+	}
 
-    public void setTeaIntro(String teaIntro) {
-        this.teaIntro = teaIntro;
-    }
+	@Column(name = "tea_tele", length = 20)
+	public String getTeaTele() {
+		return this.teaTele;
+	}
 
-    @Basic
-    @Column(name = "tea_remark")
-    public String getTeaRemark() {
-        return teaRemark;
-    }
+	public void setTeaTele(String teaTele) {
+		this.teaTele = teaTele;
+	}
 
-    public void setTeaRemark(String teaRemark) {
-        this.teaRemark = teaRemark;
-    }
+	@Column(name = "tea_email", length = 50)
+	public String getTeaEmail() {
+		return this.teaEmail;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setTeaEmail(String teaEmail) {
+		this.teaEmail = teaEmail;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "tea_state", length = 2)
+	public String getTeaState() {
+		return this.teaState;
+	}
 
-    @Basic
-    @Column(name = "UNIT_ID")
-    public String getUnitId() {
-        return unitId;
-    }
+	public void setTeaState(String teaState) {
+		this.teaState = teaState;
+	}
 
-    public void setUnitId(String unitId) {
-        this.unitId = unitId;
-    }
+	@Column(name = "tea_intro", length = 1000)
+	public String getTeaIntro() {
+		return this.teaIntro;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTeaIntro(String teaIntro) {
+		this.teaIntro = teaIntro;
+	}
 
-        TTeacher tTeacher = (TTeacher) o;
+	@Column(name = "tea_remark", length = 1000)
+	public String getTeaRemark() {
+		return this.teaRemark;
+	}
 
-        if (teaId != null ? !teaId.equals(tTeacher.teaId) : tTeacher.teaId != null) return false;
-        if (professionId != null ? !professionId.equals(tTeacher.professionId) : tTeacher.professionId != null)
-            return false;
-        if (teaName != null ? !teaName.equals(tTeacher.teaName) : tTeacher.teaName != null) return false;
-        if (teaCode != null ? !teaCode.equals(tTeacher.teaCode) : tTeacher.teaCode != null) return false;
-        if (teaAge != null ? !teaAge.equals(tTeacher.teaAge) : tTeacher.teaAge != null) return false;
-        if (teaSex != null ? !teaSex.equals(tTeacher.teaSex) : tTeacher.teaSex != null) return false;
-        if (teaTitle != null ? !teaTitle.equals(tTeacher.teaTitle) : tTeacher.teaTitle != null) return false;
-        if (teaTele != null ? !teaTele.equals(tTeacher.teaTele) : tTeacher.teaTele != null) return false;
-        if (teaEmail != null ? !teaEmail.equals(tTeacher.teaEmail) : tTeacher.teaEmail != null) return false;
-        if (teaState != null ? !teaState.equals(tTeacher.teaState) : tTeacher.teaState != null) return false;
-        if (teaIntro != null ? !teaIntro.equals(tTeacher.teaIntro) : tTeacher.teaIntro != null) return false;
-        if (teaRemark != null ? !teaRemark.equals(tTeacher.teaRemark) : tTeacher.teaRemark != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tTeacher.isdeleted) : tTeacher.isdeleted != null) return false;
-        if (unitId != null ? !unitId.equals(tTeacher.unitId) : tTeacher.unitId != null) return false;
+	public void setTeaRemark(String teaRemark) {
+		this.teaRemark = teaRemark;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = teaId != null ? teaId.hashCode() : 0;
-        result = 31 * result + (professionId != null ? professionId.hashCode() : 0);
-        result = 31 * result + (teaName != null ? teaName.hashCode() : 0);
-        result = 31 * result + (teaCode != null ? teaCode.hashCode() : 0);
-        result = 31 * result + (teaAge != null ? teaAge.hashCode() : 0);
-        result = 31 * result + (teaSex != null ? teaSex.hashCode() : 0);
-        result = 31 * result + (teaTitle != null ? teaTitle.hashCode() : 0);
-        result = 31 * result + (teaTele != null ? teaTele.hashCode() : 0);
-        result = 31 * result + (teaEmail != null ? teaEmail.hashCode() : 0);
-        result = 31 * result + (teaState != null ? teaState.hashCode() : 0);
-        result = 31 * result + (teaIntro != null ? teaIntro.hashCode() : 0);
-        result = 31 * result + (teaRemark != null ? teaRemark.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tTeacherByTeaId")
-    public Collection<TEmail> gettEmailsByTeaId() {
-        return tEmailsByTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacher")
+	public Set<TExpertTeacher> getTExpertTeachers() {
+		return this.TExpertTeachers;
+	}
 
-    public void settEmailsByTeaId(Collection<TEmail> tEmailsByTeaId) {
-        this.tEmailsByTeaId = tEmailsByTeaId;
-    }
+	public void setTExpertTeachers(Set<TExpertTeacher> TExpertTeachers) {
+		this.TExpertTeachers = TExpertTeachers;
+	}
 
-    @OneToMany(mappedBy = "tTeacherByTeaId")
-    public Collection<TExpertLib> gettExpertLibsByTeaId() {
-        return tExpertLibsByTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacherByTeacher2Code")
+	public Set<TDeclaration> getTDeclarationsForTeacher2Code() {
+		return this.TDeclarationsForTeacher2Code;
+	}
 
-    public void settExpertLibsByTeaId(Collection<TExpertLib> tExpertLibsByTeaId) {
-        this.tExpertLibsByTeaId = tExpertLibsByTeaId;
-    }
+	public void setTDeclarationsForTeacher2Code(
+			Set<TDeclaration> TDeclarationsForTeacher2Code) {
+		this.TDeclarationsForTeacher2Code = TDeclarationsForTeacher2Code;
+	}
 
-    @OneToMany(mappedBy = "tTeacherByTeaId")
-    public Collection<TExpertTeacher> gettExpertTeachersByTeaId() {
-        return tExpertTeachersByTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacher")
+	public Set<TExpertTeacherModel> getTExpertTeacherModels() {
+		return this.TExpertTeacherModels;
+	}
 
-    public void settExpertTeachersByTeaId(Collection<TExpertTeacher> tExpertTeachersByTeaId) {
-        this.tExpertTeachersByTeaId = tExpertTeachersByTeaId;
-    }
+	public void setTExpertTeacherModels(
+			Set<TExpertTeacherModel> TExpertTeacherModels) {
+		this.TExpertTeacherModels = TExpertTeacherModels;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "UNIT_ID", referencedColumnName = "unit_id")
-    public TUnit gettUnitByUnitId() {
-        return tUnitByUnitId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacher")
+	public Set<TEmail> getTEmails() {
+		return this.TEmails;
+	}
 
-    public void settUnitByUnitId(TUnit tUnitByUnitId) {
-        this.tUnitByUnitId = tUnitByUnitId;
-    }
+	public void setTEmails(Set<TEmail> TEmails) {
+		this.TEmails = TEmails;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "profession_id", referencedColumnName = "profession_id")
-    public TProfession gettProfessionByProfessionId() {
-        return tProfessionByProfessionId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacher")
+	public Set<TExpertLib> getTExpertLibs() {
+		return this.TExpertLibs;
+	}
 
-    public void settProfessionByProfessionId(TProfession tProfessionByProfessionId) {
-        this.tProfessionByProfessionId = tProfessionByProfessionId;
-    }
+	public void setTExpertLibs(Set<TExpertLib> TExpertLibs) {
+		this.TExpertLibs = TExpertLibs;
+	}
 
-    @OneToMany(mappedBy = "tTeacherByTeaId")
-    public Collection<TExpertTeacherModel> getTexpertteachermodelsByTeaId() {
-        return texpertteachermodelsByTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacherByProjectTeacher2")
+	public Set<TProject> getTProjectsForProjectTeacher2() {
+		return this.TProjectsForProjectTeacher2;
+	}
 
-    public void setTexpertteachermodelsByTeaId(Collection<TExpertTeacherModel> texpertteachermodelsByTeaId) {
-        this.texpertteachermodelsByTeaId = texpertteachermodelsByTeaId;
-    }
+	public void setTProjectsForProjectTeacher2(
+			Set<TProject> TProjectsForProjectTeacher2) {
+		this.TProjectsForProjectTeacher2 = TProjectsForProjectTeacher2;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacherByProjectTeacher1")
+	public Set<TProject> getTProjectsForProjectTeacher1() {
+		return this.TProjectsForProjectTeacher1;
+	}
+
+	public void setTProjectsForProjectTeacher1(
+			Set<TProject> TProjectsForProjectTeacher1) {
+		this.TProjectsForProjectTeacher1 = TProjectsForProjectTeacher1;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TTeacherByTeacher1Code")
+	public Set<TDeclaration> getTDeclarationsForTeacher1Code() {
+		return this.TDeclarationsForTeacher1Code;
+	}
+
+	public void setTDeclarationsForTeacher1Code(
+			Set<TDeclaration> TDeclarationsForTeacher1Code) {
+		this.TDeclarationsForTeacher1Code = TDeclarationsForTeacher1Code;
+	}
+
 }

@@ -1,205 +1,178 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TEmail entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_email", schema = "", catalog = "srtp")
-public class TEmail {
-    private String emailId;
-    private String jqId;
-    private String teaId;
-    private String emailTitle;
-    private String emailContent;
-    private String sender;
-    private String emailSecret;
-    private Timestamp creatOn;
-    private String sendState;
-    private Timestamp sendOn;
-    private String isdeleted;
-    private TJieqi tJieqiByJqId;
-    private TTeacher tTeacherByTeaId;
-    private Collection<TEmailReceiver> tEmailReceiversByEmailId;
+@Table(name = "t_email", catalog = "srtp")
+public class TEmail implements java.io.Serializable {
 
-    @Id
-    @Column(name = "email_id")
-    public String getEmailId() {
-        return emailId;
-    }
+	// Fields
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
+	private String emailId;
+	private TJieqi TJieqi;
+	private TTeacher TTeacher;
+	private String emailTitle;
+	private String emailContent;
+	private String sender;
+	private String emailSecret;
+	private Timestamp creatOn;
+	private String sendState;
+	private Timestamp sendOn;
+	private String isdeleted;
+	private Set<TEmailReceiver> TEmailReceivers = new HashSet<TEmailReceiver>(0);
 
-    @Basic
-    @Column(name = "jq_id")
-    public String getJqId() {
-        return jqId;
-    }
+	// Constructors
 
-    public void setJqId(String jqId) {
-        this.jqId = jqId;
-    }
+	/** default constructor */
+	public TEmail() {
+	}
 
-    @Basic
-    @Column(name = "tea_id")
-    public String getTeaId() {
-        return teaId;
-    }
+	/** full constructor */
+	public TEmail(TJieqi TJieqi, TTeacher TTeacher, String emailTitle,
+			String emailContent, String sender, String emailSecret,
+			Timestamp creatOn, String sendState, Timestamp sendOn,
+			String isdeleted, Set<TEmailReceiver> TEmailReceivers) {
+		this.TJieqi = TJieqi;
+		this.TTeacher = TTeacher;
+		this.emailTitle = emailTitle;
+		this.emailContent = emailContent;
+		this.sender = sender;
+		this.emailSecret = emailSecret;
+		this.creatOn = creatOn;
+		this.sendState = sendState;
+		this.sendOn = sendOn;
+		this.isdeleted = isdeleted;
+		this.TEmailReceivers = TEmailReceivers;
+	}
 
-    public void setTeaId(String teaId) {
-        this.teaId = teaId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "email_id", unique = true, nullable = false, length = 32)
+	public String getEmailId() {
+		return this.emailId;
+	}
 
-    @Basic
-    @Column(name = "email_title")
-    public String getEmailTitle() {
-        return emailTitle;
-    }
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 
-    public void setEmailTitle(String emailTitle) {
-        this.emailTitle = emailTitle;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "jq_id")
+	public TJieqi getTJieqi() {
+		return this.TJieqi;
+	}
 
-    @Basic
-    @Column(name = "email_content")
-    public String getEmailContent() {
-        return emailContent;
-    }
+	public void setTJieqi(TJieqi TJieqi) {
+		this.TJieqi = TJieqi;
+	}
 
-    public void setEmailContent(String emailContent) {
-        this.emailContent = emailContent;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tea_id")
+	public TTeacher getTTeacher() {
+		return this.TTeacher;
+	}
 
-    @Basic
-    @Column(name = "sender")
-    public String getSender() {
-        return sender;
-    }
+	public void setTTeacher(TTeacher TTeacher) {
+		this.TTeacher = TTeacher;
+	}
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
+	@Column(name = "email_title", length = 200)
+	public String getEmailTitle() {
+		return this.emailTitle;
+	}
 
-    @Basic
-    @Column(name = "email_secret")
-    public String getEmailSecret() {
-        return emailSecret;
-    }
+	public void setEmailTitle(String emailTitle) {
+		this.emailTitle = emailTitle;
+	}
 
-    public void setEmailSecret(String emailSecret) {
-        this.emailSecret = emailSecret;
-    }
+	@Column(name = "email_content", length = 1000)
+	public String getEmailContent() {
+		return this.emailContent;
+	}
 
-    @Basic
-    @Column(name = "creat_on")
-    public Timestamp getCreatOn() {
-        return creatOn;
-    }
+	public void setEmailContent(String emailContent) {
+		this.emailContent = emailContent;
+	}
 
-    public void setCreatOn(Timestamp creatOn) {
-        this.creatOn = creatOn;
-    }
+	@Column(name = "sender", length = 100)
+	public String getSender() {
+		return this.sender;
+	}
 
-    @Basic
-    @Column(name = "send_state")
-    public String getSendState() {
-        return sendState;
-    }
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
 
-    public void setSendState(String sendState) {
-        this.sendState = sendState;
-    }
+	@Column(name = "email_secret", length = 20)
+	public String getEmailSecret() {
+		return this.emailSecret;
+	}
 
-    @Basic
-    @Column(name = "send_on")
-    public Timestamp getSendOn() {
-        return sendOn;
-    }
+	public void setEmailSecret(String emailSecret) {
+		this.emailSecret = emailSecret;
+	}
 
-    public void setSendOn(Timestamp sendOn) {
-        this.sendOn = sendOn;
-    }
+	@Column(name = "creat_on", length = 19)
+	public Timestamp getCreatOn() {
+		return this.creatOn;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setCreatOn(Timestamp creatOn) {
+		this.creatOn = creatOn;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "send_state", length = 2)
+	public String getSendState() {
+		return this.sendState;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setSendState(String sendState) {
+		this.sendState = sendState;
+	}
 
-        TEmail tEmail = (TEmail) o;
+	@Column(name = "send_on", length = 19)
+	public Timestamp getSendOn() {
+		return this.sendOn;
+	}
 
-        if (emailId != null ? !emailId.equals(tEmail.emailId) : tEmail.emailId != null) return false;
-        if (jqId != null ? !jqId.equals(tEmail.jqId) : tEmail.jqId != null) return false;
-        if (teaId != null ? !teaId.equals(tEmail.teaId) : tEmail.teaId != null) return false;
-        if (emailTitle != null ? !emailTitle.equals(tEmail.emailTitle) : tEmail.emailTitle != null) return false;
-        if (emailContent != null ? !emailContent.equals(tEmail.emailContent) : tEmail.emailContent != null)
-            return false;
-        if (sender != null ? !sender.equals(tEmail.sender) : tEmail.sender != null) return false;
-        if (emailSecret != null ? !emailSecret.equals(tEmail.emailSecret) : tEmail.emailSecret != null) return false;
-        if (creatOn != null ? !creatOn.equals(tEmail.creatOn) : tEmail.creatOn != null) return false;
-        if (sendState != null ? !sendState.equals(tEmail.sendState) : tEmail.sendState != null) return false;
-        if (sendOn != null ? !sendOn.equals(tEmail.sendOn) : tEmail.sendOn != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tEmail.isdeleted) : tEmail.isdeleted != null) return false;
+	public void setSendOn(Timestamp sendOn) {
+		this.sendOn = sendOn;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = emailId != null ? emailId.hashCode() : 0;
-        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
-        result = 31 * result + (teaId != null ? teaId.hashCode() : 0);
-        result = 31 * result + (emailTitle != null ? emailTitle.hashCode() : 0);
-        result = 31 * result + (emailContent != null ? emailContent.hashCode() : 0);
-        result = 31 * result + (sender != null ? sender.hashCode() : 0);
-        result = 31 * result + (emailSecret != null ? emailSecret.hashCode() : 0);
-        result = 31 * result + (creatOn != null ? creatOn.hashCode() : 0);
-        result = 31 * result + (sendState != null ? sendState.hashCode() : 0);
-        result = 31 * result + (sendOn != null ? sendOn.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "jq_id", referencedColumnName = "jq_id")
-    public TJieqi gettJieqiByJqId() {
-        return tJieqiByJqId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TEmail")
+	public Set<TEmailReceiver> getTEmailReceivers() {
+		return this.TEmailReceivers;
+	}
 
-    public void settJieqiByJqId(TJieqi tJieqiByJqId) {
-        this.tJieqiByJqId = tJieqiByJqId;
-    }
+	public void setTEmailReceivers(Set<TEmailReceiver> TEmailReceivers) {
+		this.TEmailReceivers = TEmailReceivers;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "tea_id", referencedColumnName = "tea_id")
-    public TTeacher gettTeacherByTeaId() {
-        return tTeacherByTeaId;
-    }
-
-    public void settTeacherByTeaId(TTeacher tTeacherByTeaId) {
-        this.tTeacherByTeaId = tTeacherByTeaId;
-    }
-
-    @OneToMany(mappedBy = "tEmailByEmailId")
-    public Collection<TEmailReceiver> gettEmailReceiversByEmailId() {
-        return tEmailReceiversByEmailId;
-    }
-
-    public void settEmailReceiversByEmailId(Collection<TEmailReceiver> tEmailReceiversByEmailId) {
-        this.tEmailReceiversByEmailId = tEmailReceiversByEmailId;
-    }
 }

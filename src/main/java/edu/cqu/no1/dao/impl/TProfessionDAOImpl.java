@@ -28,11 +28,12 @@ public class TProfessionDAOImpl extends BaseDaoImpl<TProfession> implements TPro
 
 
     //根据学院主管教师的工号获取该学院所有专业列表
+
     public List findProfessionsByTeaCode(String teaCode){
         log.debug("finding all professions by teacher code ");
         try {
-            String queryStr = "from TProfession as p where p.professionIsdeleted = 'N' and p.unitId=" +
-                    "(select a.unitId from TTeacher as a where a.teaCode=:code)";
+            String queryStr = "from TProfession as p where p.professionIsdeleted = 'N' and p.TUnit.unitId=" +
+                    "(select a.TUnit.unitId from TTeacher as a where a.teaCode=:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", teaCode);
 
@@ -42,12 +43,13 @@ public class TProfessionDAOImpl extends BaseDaoImpl<TProfession> implements TPro
             throw e;
         }
     }
+
     @SuppressWarnings("unchecked")
     public List<TProfession> getProfessionsByTeacherId(String teacherId) {
         log.debug("getProfessionsByTeacherId");
         try {
-            String queryStr = "from TProfession as p where p.professionIsdeleted = 'N' and p.unitId=" +
-                    "(select a.unitId from TTeacher as a where a.teaId=:teacherId)";
+            String queryStr = "from TProfession as p where p.professionIsdeleted = 'N' and p.TUnit.unitId=" +
+                    "(select a.TUnit.unitId from TTeacher as a where a.teaId=:teacherId)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("teacherId", teacherId);
             return query.list();
@@ -56,21 +58,26 @@ public class TProfessionDAOImpl extends BaseDaoImpl<TProfession> implements TPro
             throw e;
         }
     }
+
     public List findByProfessionName(Object professionName) {
         return findByProperty(PROFESSION_NAME, professionName);
     }
+
 
     public List findByProfessionSession(Object professionSession) {
         return findByProperty(PROFESSION_SESSION, professionSession);
     }
 
+
     public List findByProfessionClass(Object professionClass) {
         return findByProperty(PROFESSION_CLASS, professionClass);
     }
 
+
     public List findByProfessionRemark(Object professionRemark) {
         return findByProperty(PROFESSION_REMARK, professionRemark);
     }
+
 
     public List findByProfessionIsdeleted(Object professionIsdeleted) {
         return findByProperty(PROFESSION_ISDELETED, professionIsdeleted);

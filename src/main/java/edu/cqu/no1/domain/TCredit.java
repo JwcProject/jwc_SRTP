@@ -1,93 +1,93 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TCredit entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_credit", schema = "", catalog = "srtp")
-public class TCredit {
-    private String projectId;
-    private String creditId;
-    private Integer creditContribution;
-    private Float creditScore;
-    private String isdeleted;
+@Table(name = "t_credit", catalog = "srtp")
+public class TCredit implements java.io.Serializable {
 
-    @Basic
-    @Column(name = "project_id")
-    public String getProjectId() {
-        return projectId;
-    }
+	// Fields
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
+	private String creditId;
+	private TProject TProject;
+	private Integer creditContribution;
+	private Float creditScore;
+	private String isdeleted;
 
-    @Id
-    @Column(name = "credit_id")
-    public String getCreditId() {
-        return creditId;
-    }
+	// Constructors
 
-    public void setCreditId(String creditId) {
-        this.creditId = creditId;
-    }
+	/** default constructor */
+	public TCredit() {
+	}
 
-    @Basic
-    @Column(name = "credit_contribution")
-    public Integer getCreditContribution() {
-        return creditContribution;
-    }
+	/** full constructor */
+	public TCredit(TProject TProject, Integer creditContribution,
+			Float creditScore, String isdeleted) {
+		this.TProject = TProject;
+		this.creditContribution = creditContribution;
+		this.creditScore = creditScore;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setCreditContribution(Integer creditContribution) {
-        this.creditContribution = creditContribution;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "credit_id", unique = true, nullable = false, length = 20)
+	public String getCreditId() {
+		return this.creditId;
+	}
 
-    @Basic
-    @Column(name = "credit_score")
-    public Float getCreditScore() {
-        return creditScore;
-    }
+	public void setCreditId(String creditId) {
+		this.creditId = creditId;
+	}
 
-    public void setCreditScore(Float creditScore) {
-        this.creditScore = creditScore;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
+	public TProject getTProject() {
+		return this.TProject;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setTProject(TProject TProject) {
+		this.TProject = TProject;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "credit_contribution")
+	public Integer getCreditContribution() {
+		return this.creditContribution;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setCreditContribution(Integer creditContribution) {
+		this.creditContribution = creditContribution;
+	}
 
-        TCredit tCredit = (TCredit) o;
+	@Column(name = "credit_score", precision = 12, scale = 0)
+	public Float getCreditScore() {
+		return this.creditScore;
+	}
 
-        if (projectId != null ? !projectId.equals(tCredit.projectId) : tCredit.projectId != null) return false;
-        if (creditId != null ? !creditId.equals(tCredit.creditId) : tCredit.creditId != null) return false;
-        if (creditContribution != null ? !creditContribution.equals(tCredit.creditContribution) : tCredit.creditContribution != null)
-            return false;
-        if (creditScore != null ? !creditScore.equals(tCredit.creditScore) : tCredit.creditScore != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tCredit.isdeleted) : tCredit.isdeleted != null) return false;
+	public void setCreditScore(Float creditScore) {
+		this.creditScore = creditScore;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = projectId != null ? projectId.hashCode() : 0;
-        result = 31 * result + (creditId != null ? creditId.hashCode() : 0);
-        result = 31 * result + (creditContribution != null ? creditContribution.hashCode() : 0);
-        result = 31 * result + (creditScore != null ? creditScore.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 }

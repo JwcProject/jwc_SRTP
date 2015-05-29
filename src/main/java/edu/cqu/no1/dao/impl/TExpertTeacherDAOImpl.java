@@ -2,7 +2,6 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TExpertLib;
 import edu.cqu.no1.domain.TExpertTeacher;
@@ -19,12 +18,13 @@ import java.util.List;
  */
 
 @Repository
-public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implements edu.cqu.no1.dao.TExpertTeacherDAO {
+public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implements TExpertTeacherDAO {
 
     private static final Logger log = LoggerFactory
             .getLogger(TExpertTeacherDAO.class);
     // property constants
     public static final String ISDELETED = "isdeleted";
+
 
 
 
@@ -40,6 +40,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //根据届期id，专家库类型，获取专家库
+
     public List<TExpertLib> findExpertLibByJqid(String jqId, String type)
     {
         log.debug("get expert lib by jqid");
@@ -79,6 +80,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //根据届期id，专家库类型，登陆教师ID，获取本学院专家库
+
     public List<TExpertLib> findUnitExpertLibByJqid(String jqId, String type, String teacherCode)
     {
         log.debug("get expert lib by jqid");
@@ -86,9 +88,15 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
         {
             if(null != jqId && !"".equals(jqId.trim()) && null != type && null != teacherCode && !"".equals(teacherCode.trim()) && ("01".equals(type.trim()) || "02".equals(type.trim())))
             {
-                String hql = "from TExpertLib where unitId in (select unitId from TTeacher where teaCode = :teacherCode)" +
-                        " and isdeleted = 'N' and jqId = :jqId and type = :type";
-                Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+                String sql =
+                        "Select *\n" +
+                                "  From t_Expert_Lib l\n" +
+                                " Where l.Unit_Id In\n" +
+                                "       (Select t.Unit_Id From t_Teacher t Where t.Tea_Code = :teacherCode)\n" +
+                                "   And l.Isdeleted = 'N'\n" +
+                                "   And l.Jq_Id = :jqId \n" +
+                                "   And l.Type = :type ";
+                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(TExpertLib.class);
 
                 query.setString("teacherCode", teacherCode);
                 query.setString("jqId", jqId);
@@ -120,23 +128,31 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过单个老师的id找到最近的专家教师对象
-    @Nullable
+
     public TExpertTeacher getExpertTeachersByTeaId(String teaId, String type){
         log.debug("get expertTeachers by teacher id");
         try {
-            String hql = "select et from TExpertTeacher et, TExpertLib eb where eb.libId in (select" +
-                    " libId from TExpertTeacher where isdeleted = 'N' and teaId = :teaId) and eb.type = :type" +
-                    " and et.isdeleted = 'N' and et.teaId = :teaId and et.libId = eb.libId" +
-                    " order by eb.creatOn desc";
+            String queryStr =
+                    "select t.*\n" +
+                            "  from t_expert_teacher t , (select l.lib_id\n" +
+                            "  from t_expert_lib l\n" +
+                            " where l.lib_id in\n" +
+                            "       (select tt.lib_id\n" +
+                            "          from t_expert_teacher tt\n" +
+                            "         where tt.isdeleted = 'N'\n" +
+                            "           and tt.tea_id =:teaId)\n" +
+                            "            and l.type =:type And Rownum = 1\n" +
+                            " order by l.creat_on Desc ) tmp\n" +
+                            " where t.isdeleted = 'N'\n" +
+                            "   and t.tea_id =:teaId\n" +
+                            "   and t.lib_id = tmp.lib_id ";
+            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
+            sqlQuery.setString("teaId", teaId);
+            sqlQuery.setString("type", type);
+            List list = sqlQuery.list();
 
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-            query.setMaxResults(1);
-            query.setString("teaId", teaId);
-            query.setString("type", type);
-            List list = query.list();
-
-            if (null!= list && list.size()>0) {
-                return (TExpertTeacher)list.get(0);
+            if (null!= sqlQuery.list() && sqlQuery.list().size()>0) {
+                return (TExpertTeacher)sqlQuery.addEntity(TExpertTeacher.class).list().get(0);
             } else {
                 return null;
             }
@@ -148,10 +164,11 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过届期找到对应的专家教师
+
     public List findExpertTeachersByJQid(String jqId){
         log.debug("get expertTeachers by jieqi id");
         try {
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.libId in (select l.libId from TExpertLib l where l.jqId=:jqId)";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId in (select l.libId from TExpertLib l where l.TJieqi.jqId=:jqId)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jqId);
             return query.list();
@@ -162,11 +179,12 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //获取本届期已经分配的专家教师
+
     public List findAssignedExpertTeachers(String jqId, String type, String teaCode){
         log.debug("get Assigned expertTeachers");
         try {
 
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.libId in (select l.libId from TExpertLib l where l.isdeleted='N' and l.jqId=:jqId and l.type=:type) and e.teaId in(select t.teaId from TTeacher t where t.isdeleted='N' and t.unitId=(select tt.unitId from TTeacher tt where tt.isdeleted='N' and tt.teaCode=:teaCode))";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId in (select l.libId from TExpertLib l where l.isdeleted='N' and l.TJieqi.jqId=:jqId and l.type=:type) and e.TTeacher.teaId in(select t.teaId from TTeacher t where t.isdeleted='N' and t.TUnit.unitId=(select tt.TUnit.unitId from TTeacher tt where tt.isdeleted='N' and tt.teaCode=:teaCode))";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jqId);
@@ -182,12 +200,13 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过专家库id得到专家教师
+
     public List getExpetTeachersByExpertLib(String libId)
     {
         log.debug("get expertTeachers by expertLib");
         try {
 
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.libId=:libId";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId=:libId)";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("libId", libId);
@@ -202,15 +221,16 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *根据专家库ID获取某一期的专家教师（分页）
+     *TODO 根据专家库ID获取某一期的专家教师（分页）
      *authoy lzh
      *@param expLibId
      *@return
      */
+
     public List findExpTeaByExpLibId(String expLibId, PageBean pageBean){
         log.debug("get expertTeachers by expertLib id");
         try {
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.libId =:expLibId";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("expLibId", expLibId);
             query.setFirstResult(pageBean.getBeginIndex());
@@ -222,10 +242,11 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
         }
     }
 
+
     public int findExpTeaCountByExpLibId(String expLibId){
         log.debug("get expertTeachers count by expertLib id");
         try {
-            String queryStr = "select count(*) From TExpertTeacher e where e.isdeleted='N' and e.libId =:expLibId";
+            String queryStr = "select count(*) From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("expLibId", expLibId);
             List list =  query.list();
@@ -242,15 +263,16 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *根据专家库ID获取某一期的专家教师（不分页）
+     *TODO 根据专家库ID获取某一期的专家教师（不分页）
      *authoy lzh
      *@param expLibId
      *@return
      */
+
     public List findExpTeaByExpLibId(String expLibId){
         log.debug("get expertTeachers by expertLib id");
         try {
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.libId =:expLibId";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("expLibId", expLibId);
             return query.list();
@@ -261,16 +283,24 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //修改评审教师的用户类型
+
     public void changeReviewUserType(String libId)
     {
         log.debug("change review teacher user type");
         try {
-            String hql = "update TUser set userType = '04'" +
-                    " where userId in (select teaCode from TTeacher" +
-                    " where teaId in (select teaId from TExpertTeacher where libId =: libId))";
-            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-            query.setString("libId", libId);
-            query.executeUpdate();
+            String querString =
+                    "Update T_User u\n" +
+                            "   Set U.User_Type = '04'\n" +
+                            " Where U.User_Id In\n" +
+                            "       (Select t.tea_code\n" +
+                            "          From t_teacher t\n" +
+                            "         Where t.tea_id In\n" +
+                            "               (Select et.tea_id\n" +
+                            "                  From t_expert_teacher et\n" +
+                            "                 Where et.lib_id =:libId))";
+            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(querString);
+            sqlQuery.setString("libId", libId);
+            sqlQuery.executeUpdate();
 
         } catch (RuntimeException re) {
             log.error("change review teacher user type failed", re);
@@ -282,16 +312,16 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *根据教职工号获取专家教师对象
+     *TODO 根据教职工号获取专家教师对象
      *authoy lzh
      *@param teaCode
      *@return
      */
+
     public TExpertTeacher findExpTeaByCode(String teaCode){
         log.debug("get expertTeachers by teaCode");
         try {
-            String queryStr = "from TExpertTeacher e where e.isdeleted='N' and" +
-                    " e.teaId = (select teaId from TTeacher where teaCode = :code)";
+            String queryStr = "from TExpertTeacher e where e.isdeleted='N' and e.TTeacher.teaCode=:code";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", teaCode);
             List list =  query.list();
@@ -309,8 +339,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     public int getExpTeaCountByQici(String jieqiId, String type){
         log.debug("getExpTeaCountByQici");
         try {
-            String queryStr = "select count(*) from TExpertTeacher e where e.isdeleted='N' and" +
-                    " e.libId = (select libId from TExpertLib where jqId = :jqId and type = :type)";
+            String queryStr = "select count(*) from TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.TJieqi.jqId=:jqId and e.TExpertLib.type=:type";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jieqiId);
             query.setString("type", type);
@@ -330,7 +359,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
                                         String type, PageBean pageBean){
         log.debug("getExpertTeachersByQici");
         try {
-            String queryStr = "from TExpertTeacher e where e.isdeleted='N' and e.libId = (select libId from TExpertLib where jqId = :jqId and type = :type)";
+            String queryStr = "from TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.TJieqi.jqId=:jqId and e.TExpertLib.type=:type";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("jqId", jieqiId);
             query.setString("type", type);

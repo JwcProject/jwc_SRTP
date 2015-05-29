@@ -1,149 +1,197 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TUnit entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_unit", schema = "", catalog = "srtp")
-public class TUnit {
-    private String unitId;
-    private String unitName;
-    private String unitType;
-    private String unitFatherid;
-    private String unitCode;
-    private String unitRemark;
-    private String isdeleted;
-    private Collection<TExpertLib> tExpertLibsByUnitId;
-    private Collection<TProfession> tProfessionsByUnitId;
-    private Collection<TTeacher> tTeachersByUnitId;
+@Table(name = "t_unit", catalog = "srtp")
+public class TUnit implements java.io.Serializable {
 
-    @Id
-    @Column(name = "unit_id")
-    public String getUnitId() {
-        return unitId;
-    }
+	// Fields
 
-    public void setUnitId(String unitId) {
-        this.unitId = unitId;
-    }
+	private String unitId;
+	private String unitName;
+	private String unitType;
+	private String unitFatherid;
+	private String unitCode;
+	private String unitRemark;
+	private String isdeleted;
+	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
+	private Set<TEndProject> TEndProjects = new HashSet<TEndProject>(0);
+	private Set<TProject> TProjects = new HashSet<TProject>(0);
+	private Set<TProfession> TProfessions = new HashSet<TProfession>(0);
+	private Set<TDeclaration> TDeclarations = new HashSet<TDeclaration>(0);
+	private Set<TTeacher> TTeachers = new HashSet<TTeacher>(0);
+	private Set<TExpertLib> TExpertLibs = new HashSet<TExpertLib>(0);
 
-    @Basic
-    @Column(name = "unit_name")
-    public String getUnitName() {
-        return unitName;
-    }
+	// Constructors
 
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
-    }
+	/** default constructor */
+	public TUnit() {
+	}
 
-    @Basic
-    @Column(name = "unit_type")
-    public String getUnitType() {
-        return unitType;
-    }
+	/** full constructor */
+	public TUnit(String unitName, String unitType, String unitFatherid,
+			String unitCode, String unitRemark, String isdeleted,
+			Set<TStudent> TStudents, Set<TEndProject> TEndProjects,
+			Set<TProject> TProjects, Set<TProfession> TProfessions,
+			Set<TDeclaration> TDeclarations, Set<TTeacher> TTeachers,
+			Set<TExpertLib> TExpertLibs) {
+		this.unitName = unitName;
+		this.unitType = unitType;
+		this.unitFatherid = unitFatherid;
+		this.unitCode = unitCode;
+		this.unitRemark = unitRemark;
+		this.isdeleted = isdeleted;
+		this.TStudents = TStudents;
+		this.TEndProjects = TEndProjects;
+		this.TProjects = TProjects;
+		this.TProfessions = TProfessions;
+		this.TDeclarations = TDeclarations;
+		this.TTeachers = TTeachers;
+		this.TExpertLibs = TExpertLibs;
+	}
 
-    public void setUnitType(String unitType) {
-        this.unitType = unitType;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "unit_id", unique = true, nullable = false, length = 32)
+	public String getUnitId() {
+		return this.unitId;
+	}
 
-    @Basic
-    @Column(name = "unit_fatherid")
-    public String getUnitFatherid() {
-        return unitFatherid;
-    }
+	public void setUnitId(String unitId) {
+		this.unitId = unitId;
+	}
 
-    public void setUnitFatherid(String unitFatherid) {
-        this.unitFatherid = unitFatherid;
-    }
+	@Column(name = "unit_name", length = 100)
+	public String getUnitName() {
+		return this.unitName;
+	}
 
-    @Basic
-    @Column(name = "unit_code")
-    public String getUnitCode() {
-        return unitCode;
-    }
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
 
-    public void setUnitCode(String unitCode) {
-        this.unitCode = unitCode;
-    }
+	@Column(name = "unit_type", length = 2)
+	public String getUnitType() {
+		return this.unitType;
+	}
 
-    @Basic
-    @Column(name = "unit_remark")
-    public String getUnitRemark() {
-        return unitRemark;
-    }
+	public void setUnitType(String unitType) {
+		this.unitType = unitType;
+	}
 
-    public void setUnitRemark(String unitRemark) {
-        this.unitRemark = unitRemark;
-    }
+	@Column(name = "unit_fatherid", length = 32)
+	public String getUnitFatherid() {
+		return this.unitFatherid;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setUnitFatherid(String unitFatherid) {
+		this.unitFatherid = unitFatherid;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "unit_code", length = 100)
+	public String getUnitCode() {
+		return this.unitCode;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setUnitCode(String unitCode) {
+		this.unitCode = unitCode;
+	}
 
-        TUnit tUnit = (TUnit) o;
+	@Column(name = "unit_remark", length = 200)
+	public String getUnitRemark() {
+		return this.unitRemark;
+	}
 
-        if (unitId != null ? !unitId.equals(tUnit.unitId) : tUnit.unitId != null) return false;
-        if (unitName != null ? !unitName.equals(tUnit.unitName) : tUnit.unitName != null) return false;
-        if (unitType != null ? !unitType.equals(tUnit.unitType) : tUnit.unitType != null) return false;
-        if (unitFatherid != null ? !unitFatherid.equals(tUnit.unitFatherid) : tUnit.unitFatherid != null) return false;
-        if (unitCode != null ? !unitCode.equals(tUnit.unitCode) : tUnit.unitCode != null) return false;
-        if (unitRemark != null ? !unitRemark.equals(tUnit.unitRemark) : tUnit.unitRemark != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tUnit.isdeleted) : tUnit.isdeleted != null) return false;
+	public void setUnitRemark(String unitRemark) {
+		this.unitRemark = unitRemark;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = unitId != null ? unitId.hashCode() : 0;
-        result = 31 * result + (unitName != null ? unitName.hashCode() : 0);
-        result = 31 * result + (unitType != null ? unitType.hashCode() : 0);
-        result = 31 * result + (unitFatherid != null ? unitFatherid.hashCode() : 0);
-        result = 31 * result + (unitCode != null ? unitCode.hashCode() : 0);
-        result = 31 * result + (unitRemark != null ? unitRemark.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tUnitByUnitId")
-    public Collection<TExpertLib> gettExpertLibsByUnitId() {
-        return tExpertLibsByUnitId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TStudent> getTStudents() {
+		return this.TStudents;
+	}
 
-    public void settExpertLibsByUnitId(Collection<TExpertLib> tExpertLibsByUnitId) {
-        this.tExpertLibsByUnitId = tExpertLibsByUnitId;
-    }
+	public void setTStudents(Set<TStudent> TStudents) {
+		this.TStudents = TStudents;
+	}
 
-    @OneToMany(mappedBy = "tUnitByUnitId")
-    public Collection<TProfession> gettProfessionsByUnitId() {
-        return tProfessionsByUnitId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TEndProject> getTEndProjects() {
+		return this.TEndProjects;
+	}
 
-    public void settProfessionsByUnitId(Collection<TProfession> tProfessionsByUnitId) {
-        this.tProfessionsByUnitId = tProfessionsByUnitId;
-    }
+	public void setTEndProjects(Set<TEndProject> TEndProjects) {
+		this.TEndProjects = TEndProjects;
+	}
 
-    @OneToMany(mappedBy = "tUnitByUnitId")
-    public Collection<TTeacher> gettTeachersByUnitId() {
-        return tTeachersByUnitId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TProject> getTProjects() {
+		return this.TProjects;
+	}
 
-    public void settTeachersByUnitId(Collection<TTeacher> tTeachersByUnitId) {
-        this.tTeachersByUnitId = tTeachersByUnitId;
-    }
+	public void setTProjects(Set<TProject> TProjects) {
+		this.TProjects = TProjects;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TProfession> getTProfessions() {
+		return this.TProfessions;
+	}
+
+	public void setTProfessions(Set<TProfession> TProfessions) {
+		this.TProfessions = TProfessions;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TDeclaration> getTDeclarations() {
+		return this.TDeclarations;
+	}
+
+	public void setTDeclarations(Set<TDeclaration> TDeclarations) {
+		this.TDeclarations = TDeclarations;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TTeacher> getTTeachers() {
+		return this.TTeachers;
+	}
+
+	public void setTTeachers(Set<TTeacher> TTeachers) {
+		this.TTeachers = TTeachers;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TExpertLib> getTExpertLibs() {
+		return this.TExpertLibs;
+	}
+
+	public void setTExpertLibs(Set<TExpertLib> TExpertLibs) {
+		this.TExpertLibs = TExpertLibs;
+	}
+
 }

@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.cqu.no1.dao.TAttachmentDAO {
+public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements TAttachmentDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TAttachmentDAO.class);
     // property constants
@@ -30,11 +30,12 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.
 
     /**
      *
-     *根据结题ID 获取附件
+     *TODO 根据结题ID 获取附件
      *authoy lzh
      *@param endproId
      *@return
      */
+
     public List findAttachsByEndProId(String endproId){
         log.debug("find attachments by endproject id");
         try {
@@ -48,29 +49,36 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements edu.
         }
     }
 
+
     public List findByFileName(Object fileName) {
         return findByProperty(FILE_NAME, fileName);
     }
+
 
     public List findByFileFormat(Object fileFormat) {
         return findByProperty(FILE_FORMAT, fileFormat);
     }
 
+
     public List findByFileUrl(Object fileUrl) {
         return findByProperty(FILE_URL, fileUrl);
     }
+
 
     public List findByUploaderCode(Object uploaderCode) {
         return findByProperty(UPLOADER_CODE, uploaderCode);
     }
 
+
     public List findByUploaderRole(Object uploaderRole) {
         return findByProperty(UPLOADER_ROLE, uploaderRole);
     }
 
+
     public List findByObjectCode(Object objectCode) {
         return findByProperty(OBJECT_CODE, objectCode);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

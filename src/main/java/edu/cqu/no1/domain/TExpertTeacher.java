@@ -1,135 +1,123 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TExpertTeacher entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_expert_teacher", schema = "", catalog = "srtp")
-public class TExpertTeacher {
-    private String exTeaId;
-    private String teaId;
-    private String libId;
-    private Integer reDeclNum;
-    private String isdeleted;
-    private Collection<TEndProjectExport> tEndProjectExportsByExTeaId;
-    private Collection<TExpertReview> tExpertReviewsByExTeaId;
-    private TExpertLib tExpertLibByLibId;
-    private TTeacher tTeacherByTeaId;
+@Table(name = "t_expert_teacher", catalog = "srtp")
+public class TExpertTeacher implements java.io.Serializable {
 
-    @Id
-    @Column(name = "ex_tea_id")
-    public String getExTeaId() {
-        return exTeaId;
-    }
+	// Fields
 
-    public void setExTeaId(String exTeaId) {
-        this.exTeaId = exTeaId;
-    }
+	private String exTeaId;
+	private TExpertLib TExpertLib;
+	private TTeacher TTeacher;
+	private Integer reDeclNum;
+	private String isdeleted;
+	private Set<TEndProjectExport> TEndProjectExports = new HashSet<TEndProjectExport>(
+			0);
+	private Set<TExpertReview> TExpertReviews = new HashSet<TExpertReview>(0);
 
-    @Basic
-    @Column(name = "tea_id")
-    public String getTeaId() {
-        return teaId;
-    }
+	// Constructors
 
-    public void setTeaId(String teaId) {
-        this.teaId = teaId;
-    }
+	/** default constructor */
+	public TExpertTeacher() {
+	}
 
-    @Basic
-    @Column(name = "lib_id")
-    public String getLibId() {
-        return libId;
-    }
+	/** full constructor */
+	public TExpertTeacher(TExpertLib TExpertLib, TTeacher TTeacher,
+			Integer reDeclNum, String isdeleted,
+			Set<TEndProjectExport> TEndProjectExports,
+			Set<TExpertReview> TExpertReviews) {
+		this.TExpertLib = TExpertLib;
+		this.TTeacher = TTeacher;
+		this.reDeclNum = reDeclNum;
+		this.isdeleted = isdeleted;
+		this.TEndProjectExports = TEndProjectExports;
+		this.TExpertReviews = TExpertReviews;
+	}
 
-    public void setLibId(String libId) {
-        this.libId = libId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "ex_tea_id", unique = true, nullable = false, length = 32)
+	public String getExTeaId() {
+		return this.exTeaId;
+	}
 
-    @Basic
-    @Column(name = "re_decl_num")
-    public Integer getReDeclNum() {
-        return reDeclNum;
-    }
+	public void setExTeaId(String exTeaId) {
+		this.exTeaId = exTeaId;
+	}
 
-    public void setReDeclNum(Integer reDeclNum) {
-        this.reDeclNum = reDeclNum;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "lib_id")
+	public TExpertLib getTExpertLib() {
+		return this.TExpertLib;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setTExpertLib(TExpertLib TExpertLib) {
+		this.TExpertLib = TExpertLib;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tea_id")
+	public TTeacher getTTeacher() {
+		return this.TTeacher;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTTeacher(TTeacher TTeacher) {
+		this.TTeacher = TTeacher;
+	}
 
-        TExpertTeacher that = (TExpertTeacher) o;
+	@Column(name = "re_decl_num")
+	public Integer getReDeclNum() {
+		return this.reDeclNum;
+	}
 
-        if (exTeaId != null ? !exTeaId.equals(that.exTeaId) : that.exTeaId != null) return false;
-        if (teaId != null ? !teaId.equals(that.teaId) : that.teaId != null) return false;
-        if (libId != null ? !libId.equals(that.libId) : that.libId != null) return false;
-        if (reDeclNum != null ? !reDeclNum.equals(that.reDeclNum) : that.reDeclNum != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setReDeclNum(Integer reDeclNum) {
+		this.reDeclNum = reDeclNum;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = exTeaId != null ? exTeaId.hashCode() : 0;
-        result = 31 * result + (teaId != null ? teaId.hashCode() : 0);
-        result = 31 * result + (libId != null ? libId.hashCode() : 0);
-        result = 31 * result + (reDeclNum != null ? reDeclNum.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tExpertTeacherByExpertId")
-    public Collection<TEndProjectExport> gettEndProjectExportsByExTeaId() {
-        return tEndProjectExportsByExTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacherModel")
+	public Set<TEndProjectExport> getTEndProjectExports() {
+		return this.TEndProjectExports;
+	}
 
-    public void settEndProjectExportsByExTeaId(Collection<TEndProjectExport> tEndProjectExportsByExTeaId) {
-        this.tEndProjectExportsByExTeaId = tEndProjectExportsByExTeaId;
-    }
+	public void setTEndProjectExports(Set<TEndProjectExport> TEndProjectExports) {
+		this.TEndProjectExports = TEndProjectExports;
+	}
 
-    @OneToMany(mappedBy = "tExpertTeacherByExTeaId")
-    public Collection<TExpertReview> gettExpertReviewsByExTeaId() {
-        return tExpertReviewsByExTeaId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacherModel")
+	public Set<TExpertReview> getTExpertReviews() {
+		return this.TExpertReviews;
+	}
 
-    public void settExpertReviewsByExTeaId(Collection<TExpertReview> tExpertReviewsByExTeaId) {
-        this.tExpertReviewsByExTeaId = tExpertReviewsByExTeaId;
-    }
+	public void setTExpertReviews(Set<TExpertReview> TExpertReviews) {
+		this.TExpertReviews = TExpertReviews;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "lib_id", referencedColumnName = "lib_id")
-    public TExpertLib gettExpertLibByLibId() {
-        return tExpertLibByLibId;
-    }
-
-    public void settExpertLibByLibId(TExpertLib tExpertLibByLibId) {
-        this.tExpertLibByLibId = tExpertLibByLibId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "tea_id", referencedColumnName = "tea_id")
-    public TTeacher gettTeacherByTeaId() {
-        return tTeacherByTeaId;
-    }
-
-    public void settTeacherByTeaId(TTeacher tTeacherByTeaId) {
-        this.tTeacherByTeaId = tTeacherByTeaId;
-    }
 }

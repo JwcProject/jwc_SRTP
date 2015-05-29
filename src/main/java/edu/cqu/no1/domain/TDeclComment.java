@@ -1,130 +1,117 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TDeclComment entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_comment", schema = "", catalog = "srtp")
-public class TDeclComment {
-    private String declComId;
-    private String exReviewId;
-    private String declArgument;
-    private String compEval;
-    private Integer declScore;
-    private Timestamp reviewTime;
-    private String isdeleted;
-    private TExpertReview tExpertReviewByExReviewId;
+@Table(name = "t_decl_comment", catalog = "srtp")
+public class TDeclComment implements java.io.Serializable {
 
-    @Id
-    @Column(name = "decl_com_id")
-    public String getDeclComId() {
-        return declComId;
-    }
+	// Fields
 
-    public void setDeclComId(String declComId) {
-        this.declComId = declComId;
-    }
+	private String declComId;
+	private TExpertReview TExpertReview;
+	private String declArgument;
+	private String compEval;
+	private Integer declScore;
+	private Timestamp reviewTime;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "ex_review_id")
-    public String getExReviewId() {
-        return exReviewId;
-    }
+	// Constructors
 
-    public void setExReviewId(String exReviewId) {
-        this.exReviewId = exReviewId;
-    }
+	/** default constructor */
+	public TDeclComment() {
+	}
 
-    @Basic
-    @Column(name = "decl_argument")
-    public String getDeclArgument() {
-        return declArgument;
-    }
+	/** full constructor */
+	public TDeclComment(TExpertReview TExpertReview, String declArgument,
+			String compEval, Integer declScore, Timestamp reviewTime,
+			String isdeleted) {
+		this.TExpertReview = TExpertReview;
+		this.declArgument = declArgument;
+		this.compEval = compEval;
+		this.declScore = declScore;
+		this.reviewTime = reviewTime;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setDeclArgument(String declArgument) {
-        this.declArgument = declArgument;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "decl_com_id", unique = true, nullable = false, length = 32)
+	public String getDeclComId() {
+		return this.declComId;
+	}
 
-    @Basic
-    @Column(name = "comp_eval")
-    public String getCompEval() {
-        return compEval;
-    }
+	public void setDeclComId(String declComId) {
+		this.declComId = declComId;
+	}
 
-    public void setCompEval(String compEval) {
-        this.compEval = compEval;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ex_review_id")
+	public TExpertReview getTExpertReview() {
+		return this.TExpertReview;
+	}
 
-    @Basic
-    @Column(name = "decl_score")
-    public Integer getDeclScore() {
-        return declScore;
-    }
+	public void setTExpertReview(TExpertReview TExpertReview) {
+		this.TExpertReview = TExpertReview;
+	}
 
-    public void setDeclScore(Integer declScore) {
-        this.declScore = declScore;
-    }
+	@Column(name = "decl_argument", length = 500)
+	public String getDeclArgument() {
+		return this.declArgument;
+	}
 
-    @Basic
-    @Column(name = "review_time")
-    public Timestamp getReviewTime() {
-        return reviewTime;
-    }
+	public void setDeclArgument(String declArgument) {
+		this.declArgument = declArgument;
+	}
 
-    public void setReviewTime(Timestamp reviewTime) {
-        this.reviewTime = reviewTime;
-    }
+	@Column(name = "comp_eval", length = 5)
+	public String getCompEval() {
+		return this.compEval;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setCompEval(String compEval) {
+		this.compEval = compEval;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "decl_score")
+	public Integer getDeclScore() {
+		return this.declScore;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setDeclScore(Integer declScore) {
+		this.declScore = declScore;
+	}
 
-        TDeclComment that = (TDeclComment) o;
+	@Column(name = "review_time", length = 19)
+	public Timestamp getReviewTime() {
+		return this.reviewTime;
+	}
 
-        if (declComId != null ? !declComId.equals(that.declComId) : that.declComId != null) return false;
-        if (exReviewId != null ? !exReviewId.equals(that.exReviewId) : that.exReviewId != null) return false;
-        if (declArgument != null ? !declArgument.equals(that.declArgument) : that.declArgument != null) return false;
-        if (compEval != null ? !compEval.equals(that.compEval) : that.compEval != null) return false;
-        if (declScore != null ? !declScore.equals(that.declScore) : that.declScore != null) return false;
-        if (reviewTime != null ? !reviewTime.equals(that.reviewTime) : that.reviewTime != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
+	public void setReviewTime(Timestamp reviewTime) {
+		this.reviewTime = reviewTime;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = declComId != null ? declComId.hashCode() : 0;
-        result = 31 * result + (exReviewId != null ? exReviewId.hashCode() : 0);
-        result = 31 * result + (declArgument != null ? declArgument.hashCode() : 0);
-        result = 31 * result + (compEval != null ? compEval.hashCode() : 0);
-        result = 31 * result + (declScore != null ? declScore.hashCode() : 0);
-        result = 31 * result + (reviewTime != null ? reviewTime.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "ex_review_id", referencedColumnName = "ex_review_id")
-    public TExpertReview gettExpertReviewByExReviewId() {
-        return tExpertReviewByExReviewId;
-    }
-
-    public void settExpertReviewByExReviewId(TExpertReview tExpertReviewByExReviewId) {
-        this.tExpertReviewByExReviewId = tExpertReviewByExReviewId;
-    }
 }

@@ -1,464 +1,445 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TDeclaration entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@javax.persistence.Table(name = "t_declaration", schema = "", catalog = "srtp")
-public class TDeclaration {
-    private String declarId;
-
-    @Id
-    @javax.persistence.Column(name = "declar_id")
-    public String getDeclarId() {
-        return declarId;
-    }
-
-    public void setDeclarId(String declarId) {
-        this.declarId = declarId;
-    }
-
-    private String jqId;
-
-    @Basic
-    @javax.persistence.Column(name = "jq_id")
-    public String getJqId() {
-        return jqId;
-    }
-
-    public void setJqId(String jqId) {
-        this.jqId = jqId;
-    }
-
-    private String proSerial;
-
-    @Basic
-    @javax.persistence.Column(name = "pro_serial")
-    public String getProSerial() {
-        return proSerial;
-    }
-
-    public void setProSerial(String proSerial) {
-        this.proSerial = proSerial;
-    }
-
-    private String proName;
-
-    @Basic
-    @javax.persistence.Column(name = "pro_name")
-    public String getProName() {
-        return proName;
-    }
-
-    public void setProName(String proName) {
-        this.proName = proName;
-    }
-
-    private String labLevel;
-
-    @Basic
-    @javax.persistence.Column(name = "lab_level")
-    public String getLabLevel() {
-        return labLevel;
-    }
-
-    public void setLabLevel(String labLevel) {
-        this.labLevel = labLevel;
-    }
-
-    private String labName;
-
-    @Basic
-    @javax.persistence.Column(name = "lab_name")
-    public String getLabName() {
-        return labName;
-    }
-
-    public void setLabName(String labName) {
-        this.labName = labName;
-    }
-
-    private Integer memberAmount;
-
-    @Basic
-    @javax.persistence.Column(name = "member_amount")
-    public Integer getMemberAmount() {
-        return memberAmount;
-    }
-
-    public void setMemberAmount(Integer memberAmount) {
-        this.memberAmount = memberAmount;
-    }
-
-    private Timestamp startOn;
-
-    @Basic
-    @javax.persistence.Column(name = "start_on")
-    public Timestamp getStartOn() {
-        return startOn;
-    }
-
-    public void setStartOn(Timestamp startOn) {
-        this.startOn = startOn;
-    }
-
-    private Timestamp endOn;
-
-    @Basic
-    @javax.persistence.Column(name = "end_on")
-    public Timestamp getEndOn() {
-        return endOn;
-    }
-
-    public void setEndOn(Timestamp endOn) {
-        this.endOn = endOn;
-    }
-
-    private String leaderCode;
-
-    @Basic
-    @javax.persistence.Column(name = "leader_code")
-    public String getLeaderCode() {
-        return leaderCode;
-    }
-
-    public void setLeaderCode(String leaderCode) {
-        this.leaderCode = leaderCode;
-    }
-
-    private String member1Code;
-
-    @Basic
-    @javax.persistence.Column(name = "member1_code")
-    public String getMember1Code() {
-        return member1Code;
-    }
-
-    public void setMember1Code(String member1Code) {
-        this.member1Code = member1Code;
-    }
-
-    private String member2Code;
-
-    @Basic
-    @javax.persistence.Column(name = "member2_code")
-    public String getMember2Code() {
-        return member2Code;
-    }
-
-    public void setMember2Code(String member2Code) {
-        this.member2Code = member2Code;
-    }
-
-    private String teacher1Code;
-
-    @Basic
-    @javax.persistence.Column(name = "teacher1_code")
-    public String getTeacher1Code() {
-        return teacher1Code;
-    }
-
-    public void setTeacher1Code(String teacher1Code) {
-        this.teacher1Code = teacher1Code;
-    }
-
-    private String teacher2Code;
-
-    @Basic
-    @javax.persistence.Column(name = "teacher2_code")
-    public String getTeacher2Code() {
-        return teacher2Code;
-    }
-
-    public void setTeacher2Code(String teacher2Code) {
-        this.teacher2Code = teacher2Code;
-    }
-
-    private String college;
-
-    @Basic
-    @javax.persistence.Column(name = "college")
-    public String getCollege() {
-        return college;
-    }
-
-    public void setCollege(String college) {
-        this.college = college;
-    }
-
-    private Timestamp declTime;
-
-    @Basic
-    @javax.persistence.Column(name = "decl_time")
-    public Timestamp getDeclTime() {
-        return declTime;
-    }
-
-    public void setDeclTime(Timestamp declTime) {
-        this.declTime = declTime;
-    }
-
-    private String checkState;
-
-    @Basic
-    @javax.persistence.Column(name = "check_state")
-    public String getCheckState() {
-        return checkState;
-    }
-
-    public void setCheckState(String checkState) {
-        this.checkState = checkState;
-    }
-
-    private String proIntro;
-
-    @Basic
-    @javax.persistence.Column(name = "pro_intro")
-    public String getProIntro() {
-        return proIntro;
-    }
-
-    public void setProIntro(String proIntro) {
-        this.proIntro = proIntro;
-    }
-
-    private String resContent;
-
-    @Basic
-    @javax.persistence.Column(name = "res_content")
-    public String getResContent() {
-        return resContent;
-    }
-
-    public void setResContent(String resContent) {
-        this.resContent = resContent;
-    }
-
-    private String proAdv;
-
-    @Basic
-    @javax.persistence.Column(name = "pro_adv")
-    public String getProAdv() {
-        return proAdv;
-    }
-
-    public void setProAdv(String proAdv) {
-        this.proAdv = proAdv;
-    }
-
-    private String resProgram;
-
-    @Basic
-    @javax.persistence.Column(name = "res_program")
-    public String getResProgram() {
-        return resProgram;
-    }
-
-    public void setResProgram(String resProgram) {
-        this.resProgram = resProgram;
-    }
-
-    private String innoPoint;
-
-    @Basic
-    @javax.persistence.Column(name = "inno_point")
-    public String getInnoPoint() {
-        return innoPoint;
-    }
-
-    public void setInnoPoint(String innoPoint) {
-        this.innoPoint = innoPoint;
-    }
-
-    private String resCondition;
-
-    @Basic
-    @javax.persistence.Column(name = "res_condition")
-    public String getResCondition() {
-        return resCondition;
-    }
-
-    public void setResCondition(String resCondition) {
-        this.resCondition = resCondition;
-    }
-
-    private String proPlan;
-
-    @Basic
-    @javax.persistence.Column(name = "pro_plan")
-    public String getProPlan() {
-        return proPlan;
-    }
-
-    public void setProPlan(String proPlan) {
-        this.proPlan = proPlan;
-    }
-
-    private String expResult;
-
-    @Basic
-    @javax.persistence.Column(name = "exp_result")
-    public String getExpResult() {
-        return expResult;
-    }
-
-    public void setExpResult(String expResult) {
-        this.expResult = expResult;
-    }
-
-    private String expTarget;
-
-    @Basic
-    @javax.persistence.Column(name = "exp_target")
-    public String getExpTarget() {
-        return expTarget;
-    }
-
-    public void setExpTarget(String expTarget) {
-        this.expTarget = expTarget;
-    }
-
-    private String isdeleted;
-
-    @Basic
-    @javax.persistence.Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
-
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
-
-    private String reviewOpinion;
-
-    @Basic
-    @javax.persistence.Column(name = "REVIEW_OPINION")
-    public String getReviewOpinion() {
-        return reviewOpinion;
-    }
-
-    public void setReviewOpinion(String reviewOpinion) {
-        this.reviewOpinion = reviewOpinion;
-    }
-
-    private String reviewResult;
-
-    @Basic
-    @javax.persistence.Column(name = "REVIEW_RESULT")
-    public String getReviewResult() {
-        return reviewResult;
-    }
-
-    public void setReviewResult(String reviewResult) {
-        this.reviewResult = reviewResult;
-    }
-
-    private String proType;
-
-    @Basic
-    @javax.persistence.Column(name = "PRO_TYPE")
-    public String getProType() {
-        return proType;
-    }
-
-    public void setProType(String proType) {
-        this.proType = proType;
-    }
-
-    private Double proFund;
-
-    @Basic
-    @javax.persistence.Column(name = "PRO_FUND")
-    public Double getProFund() {
-        return proFund;
-    }
-
-    public void setProFund(Double proFund) {
-        this.proFund = proFund;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TDeclaration that = (TDeclaration) o;
-
-        if (declarId != null ? !declarId.equals(that.declarId) : that.declarId != null) return false;
-        if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
-        if (proSerial != null ? !proSerial.equals(that.proSerial) : that.proSerial != null) return false;
-        if (proName != null ? !proName.equals(that.proName) : that.proName != null) return false;
-        if (labLevel != null ? !labLevel.equals(that.labLevel) : that.labLevel != null) return false;
-        if (labName != null ? !labName.equals(that.labName) : that.labName != null) return false;
-        if (memberAmount != null ? !memberAmount.equals(that.memberAmount) : that.memberAmount != null) return false;
-        if (startOn != null ? !startOn.equals(that.startOn) : that.startOn != null) return false;
-        if (endOn != null ? !endOn.equals(that.endOn) : that.endOn != null) return false;
-        if (leaderCode != null ? !leaderCode.equals(that.leaderCode) : that.leaderCode != null) return false;
-        if (member1Code != null ? !member1Code.equals(that.member1Code) : that.member1Code != null) return false;
-        if (member2Code != null ? !member2Code.equals(that.member2Code) : that.member2Code != null) return false;
-        if (teacher1Code != null ? !teacher1Code.equals(that.teacher1Code) : that.teacher1Code != null) return false;
-        if (teacher2Code != null ? !teacher2Code.equals(that.teacher2Code) : that.teacher2Code != null) return false;
-        if (college != null ? !college.equals(that.college) : that.college != null) return false;
-        if (declTime != null ? !declTime.equals(that.declTime) : that.declTime != null) return false;
-        if (checkState != null ? !checkState.equals(that.checkState) : that.checkState != null) return false;
-        if (proIntro != null ? !proIntro.equals(that.proIntro) : that.proIntro != null) return false;
-        if (resContent != null ? !resContent.equals(that.resContent) : that.resContent != null) return false;
-        if (proAdv != null ? !proAdv.equals(that.proAdv) : that.proAdv != null) return false;
-        if (resProgram != null ? !resProgram.equals(that.resProgram) : that.resProgram != null) return false;
-        if (innoPoint != null ? !innoPoint.equals(that.innoPoint) : that.innoPoint != null) return false;
-        if (resCondition != null ? !resCondition.equals(that.resCondition) : that.resCondition != null) return false;
-        if (proPlan != null ? !proPlan.equals(that.proPlan) : that.proPlan != null) return false;
-        if (expResult != null ? !expResult.equals(that.expResult) : that.expResult != null) return false;
-        if (expTarget != null ? !expTarget.equals(that.expTarget) : that.expTarget != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (reviewOpinion != null ? !reviewOpinion.equals(that.reviewOpinion) : that.reviewOpinion != null)
-            return false;
-        if (reviewResult != null ? !reviewResult.equals(that.reviewResult) : that.reviewResult != null) return false;
-        if (proType != null ? !proType.equals(that.proType) : that.proType != null) return false;
-        if (proFund != null ? !proFund.equals(that.proFund) : that.proFund != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = declarId != null ? declarId.hashCode() : 0;
-        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
-        result = 31 * result + (proSerial != null ? proSerial.hashCode() : 0);
-        result = 31 * result + (proName != null ? proName.hashCode() : 0);
-        result = 31 * result + (labLevel != null ? labLevel.hashCode() : 0);
-        result = 31 * result + (labName != null ? labName.hashCode() : 0);
-        result = 31 * result + (memberAmount != null ? memberAmount.hashCode() : 0);
-        result = 31 * result + (startOn != null ? startOn.hashCode() : 0);
-        result = 31 * result + (endOn != null ? endOn.hashCode() : 0);
-        result = 31 * result + (leaderCode != null ? leaderCode.hashCode() : 0);
-        result = 31 * result + (member1Code != null ? member1Code.hashCode() : 0);
-        result = 31 * result + (member2Code != null ? member2Code.hashCode() : 0);
-        result = 31 * result + (teacher1Code != null ? teacher1Code.hashCode() : 0);
-        result = 31 * result + (teacher2Code != null ? teacher2Code.hashCode() : 0);
-        result = 31 * result + (college != null ? college.hashCode() : 0);
-        result = 31 * result + (declTime != null ? declTime.hashCode() : 0);
-        result = 31 * result + (checkState != null ? checkState.hashCode() : 0);
-        result = 31 * result + (proIntro != null ? proIntro.hashCode() : 0);
-        result = 31 * result + (resContent != null ? resContent.hashCode() : 0);
-        result = 31 * result + (proAdv != null ? proAdv.hashCode() : 0);
-        result = 31 * result + (resProgram != null ? resProgram.hashCode() : 0);
-        result = 31 * result + (innoPoint != null ? innoPoint.hashCode() : 0);
-        result = 31 * result + (resCondition != null ? resCondition.hashCode() : 0);
-        result = 31 * result + (proPlan != null ? proPlan.hashCode() : 0);
-        result = 31 * result + (expResult != null ? expResult.hashCode() : 0);
-        result = 31 * result + (expTarget != null ? expTarget.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (reviewOpinion != null ? reviewOpinion.hashCode() : 0);
-        result = 31 * result + (reviewResult != null ? reviewResult.hashCode() : 0);
-        result = 31 * result + (proType != null ? proType.hashCode() : 0);
-        result = 31 * result + (proFund != null ? proFund.hashCode() : 0);
-        return result;
-    }
+@Table(name = "t_declaration", catalog = "srtp")
+public class TDeclaration implements java.io.Serializable {
+
+	// Fields
+
+	private String declarId;
+	private TJieqi TJieqi;
+	private TTeacher TTeacherByTeacher2Code;
+	private TTeacher TTeacherByTeacher1Code;
+	private TStudent TStudentByMember2Code;
+	private TStudent TStudentByMember1Code;
+	private TUnit TUnit;
+	private TStudent TStudentByLeaderCode;
+	private String proSerial;
+	private String proName;
+	private String labLevel;
+	private String labName;
+	private Integer memberAmount;
+	private Timestamp startOn;
+	private Timestamp endOn;
+	private Timestamp declTime;
+	private String checkState;
+	private String proIntro;
+	private String resContent;
+	private String proAdv;
+	private String resProgram;
+	private String innoPoint;
+	private String resCondition;
+	private String proPlan;
+	private String expResult;
+	private String expTarget;
+	private String isdeleted;
+	private String reviewOpinion;
+	private String reviewResult;
+	private String proType;
+	private Double proFund;
+	private Set<TProject> TProjects = new HashSet<TProject>(0);
+	private Set<TDeclJob> TDeclJobs = new HashSet<TDeclJob>(0);
+	private Set<TDeclFund> TDeclFunds = new HashSet<TDeclFund>(0);
+	private Set<TExpertReview> TExpertReviews = new HashSet<TExpertReview>(0);
+
+	// Constructors
+
+	/** default constructor */
+	public TDeclaration() {
+	}
+
+	/** full constructor */
+	public TDeclaration(TJieqi TJieqi, TTeacher TTeacherByTeacher2Code,
+			TTeacher TTeacherByTeacher1Code, TStudent TStudentByMember2Code,
+			TStudent TStudentByMember1Code, TUnit TUnit,
+			TStudent TStudentByLeaderCode, String proSerial, String proName,
+			String labLevel, String labName, Integer memberAmount,
+			Timestamp startOn, Timestamp endOn, Timestamp declTime,
+			String checkState, String proIntro, String resContent,
+			String proAdv, String resProgram, String innoPoint,
+			String resCondition, String proPlan, String expResult,
+			String expTarget, String isdeleted, String reviewOpinion,
+			String reviewResult, String proType, Double proFund,
+			Set<TProject> TProjects, Set<TDeclJob> TDeclJobs,
+			Set<TDeclFund> TDeclFunds, Set<TExpertReview> TExpertReviews) {
+		this.TJieqi = TJieqi;
+		this.TTeacherByTeacher2Code = TTeacherByTeacher2Code;
+		this.TTeacherByTeacher1Code = TTeacherByTeacher1Code;
+		this.TStudentByMember2Code = TStudentByMember2Code;
+		this.TStudentByMember1Code = TStudentByMember1Code;
+		this.TUnit = TUnit;
+		this.TStudentByLeaderCode = TStudentByLeaderCode;
+		this.proSerial = proSerial;
+		this.proName = proName;
+		this.labLevel = labLevel;
+		this.labName = labName;
+		this.memberAmount = memberAmount;
+		this.startOn = startOn;
+		this.endOn = endOn;
+		this.declTime = declTime;
+		this.checkState = checkState;
+		this.proIntro = proIntro;
+		this.resContent = resContent;
+		this.proAdv = proAdv;
+		this.resProgram = resProgram;
+		this.innoPoint = innoPoint;
+		this.resCondition = resCondition;
+		this.proPlan = proPlan;
+		this.expResult = expResult;
+		this.expTarget = expTarget;
+		this.isdeleted = isdeleted;
+		this.reviewOpinion = reviewOpinion;
+		this.reviewResult = reviewResult;
+		this.proType = proType;
+		this.proFund = proFund;
+		this.TProjects = TProjects;
+		this.TDeclJobs = TDeclJobs;
+		this.TDeclFunds = TDeclFunds;
+		this.TExpertReviews = TExpertReviews;
+	}
+
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "declar_id", unique = true, nullable = false, length = 32)
+	public String getDeclarId() {
+		return this.declarId;
+	}
+
+	public void setDeclarId(String declarId) {
+		this.declarId = declarId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "jq_id")
+	public TJieqi getTJieqi() {
+		return this.TJieqi;
+	}
+
+	public void setTJieqi(TJieqi TJieqi) {
+		this.TJieqi = TJieqi;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "teacher2_code")
+	public TTeacher getTTeacherByTeacher2Code() {
+		return this.TTeacherByTeacher2Code;
+	}
+
+	public void setTTeacherByTeacher2Code(TTeacher TTeacherByTeacher2Code) {
+		this.TTeacherByTeacher2Code = TTeacherByTeacher2Code;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "teacher1_code")
+	public TTeacher getTTeacherByTeacher1Code() {
+		return this.TTeacherByTeacher1Code;
+	}
+
+	public void setTTeacherByTeacher1Code(TTeacher TTeacherByTeacher1Code) {
+		this.TTeacherByTeacher1Code = TTeacherByTeacher1Code;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member2_code")
+	public TStudent getTStudentByMember2Code() {
+		return this.TStudentByMember2Code;
+	}
+
+	public void setTStudentByMember2Code(TStudent TStudentByMember2Code) {
+		this.TStudentByMember2Code = TStudentByMember2Code;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member1_code")
+	public TStudent getTStudentByMember1Code() {
+		return this.TStudentByMember1Code;
+	}
+
+	public void setTStudentByMember1Code(TStudent TStudentByMember1Code) {
+		this.TStudentByMember1Code = TStudentByMember1Code;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "college")
+	public TUnit getTUnit() {
+		return this.TUnit;
+	}
+
+	public void setTUnit(TUnit TUnit) {
+		this.TUnit = TUnit;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "leader_code")
+	public TStudent getTStudentByLeaderCode() {
+		return this.TStudentByLeaderCode;
+	}
+
+	public void setTStudentByLeaderCode(TStudent TStudentByLeaderCode) {
+		this.TStudentByLeaderCode = TStudentByLeaderCode;
+	}
+
+	@Column(name = "pro_serial", length = 30)
+	public String getProSerial() {
+		return this.proSerial;
+	}
+
+	public void setProSerial(String proSerial) {
+		this.proSerial = proSerial;
+	}
+
+	@Column(name = "pro_name", length = 50)
+	public String getProName() {
+		return this.proName;
+	}
+
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+
+	@Column(name = "lab_level", length = 20)
+	public String getLabLevel() {
+		return this.labLevel;
+	}
+
+	public void setLabLevel(String labLevel) {
+		this.labLevel = labLevel;
+	}
+
+	@Column(name = "lab_name", length = 50)
+	public String getLabName() {
+		return this.labName;
+	}
+
+	public void setLabName(String labName) {
+		this.labName = labName;
+	}
+
+	@Column(name = "member_amount")
+	public Integer getMemberAmount() {
+		return this.memberAmount;
+	}
+
+	public void setMemberAmount(Integer memberAmount) {
+		this.memberAmount = memberAmount;
+	}
+
+	@Column(name = "start_on", length = 19)
+	public Timestamp getStartOn() {
+		return this.startOn;
+	}
+
+	public void setStartOn(Timestamp startOn) {
+		this.startOn = startOn;
+	}
+
+	@Column(name = "end_on", length = 19)
+	public Timestamp getEndOn() {
+		return this.endOn;
+	}
+
+	public void setEndOn(Timestamp endOn) {
+		this.endOn = endOn;
+	}
+
+	@Column(name = "decl_time", length = 19)
+	public Timestamp getDeclTime() {
+		return this.declTime;
+	}
+
+	public void setDeclTime(Timestamp declTime) {
+		this.declTime = declTime;
+	}
+
+	@Column(name = "check_state", length = 2)
+	public String getCheckState() {
+		return this.checkState;
+	}
+
+	public void setCheckState(String checkState) {
+		this.checkState = checkState;
+	}
+
+	@Column(name = "pro_intro", length = 500)
+	public String getProIntro() {
+		return this.proIntro;
+	}
+
+	public void setProIntro(String proIntro) {
+		this.proIntro = proIntro;
+	}
+
+	@Column(name = "res_content", length = 1000)
+	public String getResContent() {
+		return this.resContent;
+	}
+
+	public void setResContent(String resContent) {
+		this.resContent = resContent;
+	}
+
+	@Column(name = "pro_adv", length = 1000)
+	public String getProAdv() {
+		return this.proAdv;
+	}
+
+	public void setProAdv(String proAdv) {
+		this.proAdv = proAdv;
+	}
+
+	@Column(name = "res_program", length = 1000)
+	public String getResProgram() {
+		return this.resProgram;
+	}
+
+	public void setResProgram(String resProgram) {
+		this.resProgram = resProgram;
+	}
+
+	@Column(name = "inno_point", length = 1000)
+	public String getInnoPoint() {
+		return this.innoPoint;
+	}
+
+	public void setInnoPoint(String innoPoint) {
+		this.innoPoint = innoPoint;
+	}
+
+	@Column(name = "res_condition", length = 1000)
+	public String getResCondition() {
+		return this.resCondition;
+	}
+
+	public void setResCondition(String resCondition) {
+		this.resCondition = resCondition;
+	}
+
+	@Column(name = "pro_plan", length = 1000)
+	public String getProPlan() {
+		return this.proPlan;
+	}
+
+	public void setProPlan(String proPlan) {
+		this.proPlan = proPlan;
+	}
+
+	@Column(name = "exp_result", length = 500)
+	public String getExpResult() {
+		return this.expResult;
+	}
+
+	public void setExpResult(String expResult) {
+		this.expResult = expResult;
+	}
+
+	@Column(name = "exp_target", length = 500)
+	public String getExpTarget() {
+		return this.expTarget;
+	}
+
+	public void setExpTarget(String expTarget) {
+		this.expTarget = expTarget;
+	}
+
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
+
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "REVIEW_OPINION", length = 500)
+	public String getReviewOpinion() {
+		return this.reviewOpinion;
+	}
+
+	public void setReviewOpinion(String reviewOpinion) {
+		this.reviewOpinion = reviewOpinion;
+	}
+
+	@Column(name = "REVIEW_RESULT", length = 2)
+	public String getReviewResult() {
+		return this.reviewResult;
+	}
+
+	public void setReviewResult(String reviewResult) {
+		this.reviewResult = reviewResult;
+	}
+
+	@Column(name = "PRO_TYPE", length = 2)
+	public String getProType() {
+		return this.proType;
+	}
+
+	public void setProType(String proType) {
+		this.proType = proType;
+	}
+
+	@Column(name = "PRO_FUND", precision = 22, scale = 0)
+	public Double getProFund() {
+		return this.proFund;
+	}
+
+	public void setProFund(Double proFund) {
+		this.proFund = proFund;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TDeclaration")
+	public Set<TProject> getTProjects() {
+		return this.TProjects;
+	}
+
+	public void setTProjects(Set<TProject> TProjects) {
+		this.TProjects = TProjects;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TDeclaration")
+	public Set<TDeclJob> getTDeclJobs() {
+		return this.TDeclJobs;
+	}
+
+	public void setTDeclJobs(Set<TDeclJob> TDeclJobs) {
+		this.TDeclJobs = TDeclJobs;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TDeclaration")
+	public Set<TDeclFund> getTDeclFunds() {
+		return this.TDeclFunds;
+	}
+
+	public void setTDeclFunds(Set<TDeclFund> TDeclFunds) {
+		this.TDeclFunds = TDeclFunds;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TDeclaration")
+	public Set<TExpertReview> getTExpertReviews() {
+		return this.TExpertReviews;
+	}
+
+	public void setTExpertReviews(Set<TExpertReview> TExpertReviews) {
+		this.TExpertReviews = TExpertReviews;
+	}
+
 }

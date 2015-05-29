@@ -22,9 +22,11 @@ public class TRolePermissionDAOImpl extends BaseDaoImpl<TRolePermission> impleme
     public static final String ISDELETED = "isdeleted";
 
 
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
+
 
 
 

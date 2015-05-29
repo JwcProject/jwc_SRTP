@@ -1,131 +1,122 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TTempEmailReciver entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_temp_email_reciver", schema = "", catalog = "srtp")
-public class TTempEmailReciver {
-    private String id;
-    private String departId;
-    private String jqId;
-    private String code;
-    private String name;
-    private String email;
-    private String isdeleted;
-    private String type;
+@Table(name = "t_temp_email_reciver", catalog = "srtp")
+public class TTempEmailReciver implements java.io.Serializable {
 
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
+	// Fields
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	private String id;
+	private String departId;
+	private String jqId;
+	private String code;
+	private String name;
+	private String email;
+	private String isdeleted;
+	private String type;
 
-    @Basic
-    @Column(name = "depart_id")
-    public String getDepartId() {
-        return departId;
-    }
+	// Constructors
 
-    public void setDepartId(String departId) {
-        this.departId = departId;
-    }
+	/** default constructor */
+	public TTempEmailReciver() {
+	}
 
-    @Basic
-    @Column(name = "jq_id")
-    public String getJqId() {
-        return jqId;
-    }
+	/** full constructor */
+	public TTempEmailReciver(String departId, String jqId, String code,
+			String name, String email, String isdeleted, String type) {
+		this.departId = departId;
+		this.jqId = jqId;
+		this.code = code;
+		this.name = name;
+		this.email = email;
+		this.isdeleted = isdeleted;
+		this.type = type;
+	}
 
-    public void setJqId(String jqId) {
-        this.jqId = jqId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "id", unique = true, nullable = false, length = 32)
+	public String getId() {
+		return this.id;
+	}
 
-    @Basic
-    @Column(name = "code")
-    public String getCode() {
-        return code;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	@Column(name = "depart_id", length = 32)
+	public String getDepartId() {
+		return this.departId;
+	}
 
-    @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
+	public void setDepartId(String departId) {
+		this.departId = departId;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@Column(name = "jq_id", length = 32)
+	public String getJqId() {
+		return this.jqId;
+	}
 
-    @Basic
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
+	public void setJqId(String jqId) {
+		this.jqId = jqId;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@Column(name = "code", length = 32)
+	public String getCode() {
+		return this.code;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "name", length = 50)
+	public String getName() {
+		return this.name;
+	}
 
-    @Basic
-    @Column(name = "type")
-    public String getType() {
-        return type;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	@Column(name = "email", length = 100)
+	public String getEmail() {
+		return this.email;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-        TTempEmailReciver that = (TTempEmailReciver) o;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (departId != null ? !departId.equals(that.departId) : that.departId != null) return false;
-        if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(that.isdeleted) : that.isdeleted != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-        return true;
-    }
+	@Column(name = "type", length = 2)
+	public String getType() {
+		return this.type;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (departId != null ? departId.hashCode() : 0);
-        result = 31 * result + (jqId != null ? jqId.hashCode() : 0);
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

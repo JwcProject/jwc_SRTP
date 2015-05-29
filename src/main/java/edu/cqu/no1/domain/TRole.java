@@ -1,114 +1,118 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TRole entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_role", schema = "", catalog = "srtp")
-public class TRole {
-    private String roleId;
-    private String roleName;
-    private String roleState;
-    private String roleIntroduction;
-    private String isdeleted;
-    private Collection<TRolePermission> tRolePermissionsByRoleId;
-    private Collection<TUserRole> tUserRolesByRoleId;
+@Table(name = "t_role", catalog = "srtp")
+public class TRole implements java.io.Serializable {
 
-    @Id
-    @Column(name = "role_id")
-    public String getRoleId() {
-        return roleId;
-    }
+	// Fields
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
+	private String roleId;
+	private String roleName;
+	private String roleState;
+	private String roleIntroduction;
+	private String isdeleted;
+	private Set<TRolePermission> TRolePermissions = new HashSet<TRolePermission>(
+			0);
+	private Set<TUserRole> TUserRoles = new HashSet<TUserRole>(0);
 
-    @Basic
-    @Column(name = "role_name")
-    public String getRoleName() {
-        return roleName;
-    }
+	// Constructors
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+	/** default constructor */
+	public TRole() {
+	}
 
-    @Basic
-    @Column(name = "role_state")
-    public String getRoleState() {
-        return roleState;
-    }
+	/** full constructor */
+	public TRole(String roleName, String roleState, String roleIntroduction,
+			String isdeleted, Set<TRolePermission> TRolePermissions,
+			Set<TUserRole> TUserRoles) {
+		this.roleName = roleName;
+		this.roleState = roleState;
+		this.roleIntroduction = roleIntroduction;
+		this.isdeleted = isdeleted;
+		this.TRolePermissions = TRolePermissions;
+		this.TUserRoles = TUserRoles;
+	}
 
-    public void setRoleState(String roleState) {
-        this.roleState = roleState;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "role_id", unique = true, nullable = false, length = 32)
+	public String getRoleId() {
+		return this.roleId;
+	}
 
-    @Basic
-    @Column(name = "role_introduction")
-    public String getRoleIntroduction() {
-        return roleIntroduction;
-    }
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 
-    public void setRoleIntroduction(String roleIntroduction) {
-        this.roleIntroduction = roleIntroduction;
-    }
+	@Column(name = "role_name", length = 20)
+	public String getRoleName() {
+		return this.roleName;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "role_state", length = 2)
+	public String getRoleState() {
+		return this.roleState;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setRoleState(String roleState) {
+		this.roleState = roleState;
+	}
 
-        TRole tRole = (TRole) o;
+	@Column(name = "role_introduction", length = 50)
+	public String getRoleIntroduction() {
+		return this.roleIntroduction;
+	}
 
-        if (roleId != null ? !roleId.equals(tRole.roleId) : tRole.roleId != null) return false;
-        if (roleName != null ? !roleName.equals(tRole.roleName) : tRole.roleName != null) return false;
-        if (roleState != null ? !roleState.equals(tRole.roleState) : tRole.roleState != null) return false;
-        if (roleIntroduction != null ? !roleIntroduction.equals(tRole.roleIntroduction) : tRole.roleIntroduction != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(tRole.isdeleted) : tRole.isdeleted != null) return false;
+	public void setRoleIntroduction(String roleIntroduction) {
+		this.roleIntroduction = roleIntroduction;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = roleId != null ? roleId.hashCode() : 0;
-        result = 31 * result + (roleName != null ? roleName.hashCode() : 0);
-        result = 31 * result + (roleState != null ? roleState.hashCode() : 0);
-        result = 31 * result + (roleIntroduction != null ? roleIntroduction.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @OneToMany(mappedBy = "tRoleByRoleId")
-    public Collection<TRolePermission> gettRolePermissionsByRoleId() {
-        return tRolePermissionsByRoleId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TRole")
+	public Set<TRolePermission> getTRolePermissions() {
+		return this.TRolePermissions;
+	}
 
-    public void settRolePermissionsByRoleId(Collection<TRolePermission> tRolePermissionsByRoleId) {
-        this.tRolePermissionsByRoleId = tRolePermissionsByRoleId;
-    }
+	public void setTRolePermissions(Set<TRolePermission> TRolePermissions) {
+		this.TRolePermissions = TRolePermissions;
+	}
 
-    @OneToMany(mappedBy = "tRoleByRoleId")
-    public Collection<TUserRole> gettUserRolesByRoleId() {
-        return tUserRolesByRoleId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TRole")
+	public Set<TUserRole> getTUserRoles() {
+		return this.TUserRoles;
+	}
 
-    public void settUserRolesByRoleId(Collection<TUserRole> tUserRolesByRoleId) {
-        this.tUserRolesByRoleId = tUserRolesByRoleId;
-    }
+	public void setTUserRoles(Set<TUserRole> TUserRoles) {
+		this.TUserRoles = TUserRoles;
+	}
+
 }

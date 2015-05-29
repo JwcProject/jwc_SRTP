@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Repository
-public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.cqu.no1.dao.TJournalActDAO {
+public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements TJournalActDAO {
 
     private static final Logger log = LoggerFactory
             .getLogger(TJournalActDAO.class);
@@ -28,6 +28,7 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     public static final String JOURNALACT_REMARK = "journalactRemark";
     public static final String ISDELETED = "isdeleted";
     public static final String USER_ID = "userId";
+
 
 
     public int getAllTJournalActCount()
@@ -53,6 +54,7 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     }
 
 
+
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TJournalAct instances");
         try {
@@ -72,6 +74,7 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     }
 
     //多条件查询获取查询列表
+
     public List findByMultiCondition(String userId, String journalactType, String journalactIntroduction, Date time, final PageBean pageBean) {
         log.debug("finding all SelectedTJournalAct instances");
         try {
@@ -142,6 +145,7 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
     }
 
     //多条件查询获取查询列表长度
+
     public int findByMultiConditionCount(String userId, String journalactType, String journalactIntroduction, Date time) {
         log.debug("finding all SelectedTJournalAct counts");
         try {
@@ -217,21 +221,26 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements edu.
         }
     }
 
+
     public List findByJournalactType(Object journalactType) {
         return findByProperty(JOURNALACT_TYPE, journalactType);
     }
+
 
     public List findByJournalactIntroduction(Object journalactIntroduction) {
         return findByProperty(JOURNALACT_INTRODUCTION, journalactIntroduction);
     }
 
+
     public List findByJournalactRemark(Object journalactRemark) {
         return findByProperty(JOURNALACT_REMARK, journalactRemark);
     }
 
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
+
 
     public List findByUserId(Object userId) {
         return findByProperty(USER_ID, userId);

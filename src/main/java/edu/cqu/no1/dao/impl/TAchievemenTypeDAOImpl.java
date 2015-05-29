@@ -23,9 +23,11 @@ public class TAchievemenTypeDAOImpl extends BaseDaoImpl<TAchievemenType> impleme
     public static final String ACHIEVEMENTYPE_INTRODUCTION = "achievementypeIntroduction";
     public static final String ISDELETED = "isdeleted";
 
+
     public List findByAchievementypeName(Object achievementypeName) {
         return findByProperty(ACHIEVEMENTYPE_NAME, achievementypeName);
     }
+
 
     public List findByAchievementypeIntroduction(
             Object achievementypeIntroduction) {
@@ -33,9 +35,11 @@ public class TAchievemenTypeDAOImpl extends BaseDaoImpl<TAchievemenType> impleme
                 achievementypeIntroduction);
     }
 
+
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
+
 
     public static TAchievemenTypeDAOImpl getFromApplicationContext(
             ApplicationContext ctx) {

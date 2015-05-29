@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.no1.dao.TDeclFundDAO {
+public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements TDeclFundDAO {
 
     private static final Logger log = LoggerFactory
             .getLogger(TDeclFundDAO.class);
@@ -25,17 +25,21 @@ public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.
     public static final String AMOUNT = "amount";
     public static final String ISDELETED = "isdeleted";
 
+
     public List findBySerialNum(Object serialNum) {
         return findByProperty(SERIAL_NUM, serialNum);
     }
+
 
     public List findByFundContent(Object fundContent) {
         return findByProperty(FUND_CONTENT, fundContent);
     }
 
+
     public List findByAmount(Object amount) {
         return findByProperty(AMOUNT, amount);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
@@ -46,11 +50,12 @@ public class TDeclFundDAOImpl extends BaseDaoImpl<TDeclFund> implements edu.cqu.
         return (TDeclFundDAO) ctx.getBean("TDeclFundDAO");
     }
 
+
     public List<TDeclFund> findByDeclarId(String declarId){
         log.debug("finding all TDeclFund instances");
         try {
             String queryStr = "from TDeclFund as a where a.isdeleted = 'N' " +
-                    "and a.declarId=:code ";
+                    "and a.TDeclaration.declarId=:code ";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", declarId);

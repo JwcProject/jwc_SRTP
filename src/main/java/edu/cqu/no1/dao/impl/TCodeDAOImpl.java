@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-public class TCodeDAOImpl extends BaseDaoImpl<TCode> implements edu.cqu.no1.dao.TCodeDAO {
+public class TCodeDAOImpl extends BaseDaoImpl<TCode> implements TCodeDAO {
     private static final Logger log = LoggerFactory.getLogger(TCodeDAO.class);
     // property constants
     public static final String ENCODE_VALUE = "encodeValue";
@@ -22,17 +22,22 @@ public class TCodeDAOImpl extends BaseDaoImpl<TCode> implements edu.cqu.no1.dao.
     public static final String ENCODE_REMARK = "encodeRemark";
     public static final String ISDELETED = "isdeleted";
 
+
+
     public List findByEncodeValue(Object encodeValue) {
         return findByProperty(ENCODE_VALUE, encodeValue);
     }
+
 
     public List findByEncodeDesc(Object encodeDesc) {
         return findByProperty(ENCODE_DESC, encodeDesc);
     }
 
+
     public List findByEncodeRemark(Object encodeRemark) {
         return findByProperty(ENCODE_REMARK, encodeRemark);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

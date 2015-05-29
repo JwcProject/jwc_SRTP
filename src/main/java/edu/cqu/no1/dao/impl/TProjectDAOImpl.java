@@ -44,10 +44,10 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public static final String ISDELETED = "isdeleted";
 
 
+
     public void createProject(String jqId) {
         log.debug("add TProject");
         try {
-            // TODO
             String queryString = "Insert Into T_Project\n"
                     + "  (\n"
                     + "\n"
@@ -126,7 +126,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
                 sqlQuery.setString("jqId", jqId);
                 sqlQuery.executeUpdate();
 
-                queryString = "update t_declaration d set d.check_state='09' where d.jq_id =: jqId and exists (select * from t_project p where d.declar_id=p.declar_id)";
+                queryString = "update t_declaration d set d.check_state='09' where d.jq_id=:jqId and exists (select * from t_project p where d.declar_id=p.declar_id)";
                 SQLQuery sqlQuery2 = session.createSQLQuery(queryString);
                 sqlQuery2.setString("jqId", jqId);
                 sqlQuery2.executeUpdate();
@@ -179,10 +179,11 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //根据当前教师工号得到所在学院项目列表
+
     public List getProjectByTeaCode(String unitTeaCode, PageBean pageBean) {
         log.debug("finding unit all TProject instances by pageBean");
         try {
-            String queryStr = "From TProject p Where p.isdeleted='N' and p.unitId = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryStr = "From TProject p Where p.isdeleted='N' and p.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
 
@@ -195,11 +196,12 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
         }
     }
 
+
     public int getProjectCount(String unitTeaCode) {
         log.debug("finding all person TDeclaration count");
         try {
 
-            String queryStr = "select count(*) From TProject p Where p.isdeleted='N' and p.unitId = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryStr = "select count(*) From TProject p Where p.isdeleted='N' and p.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             Query query =  getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
 
@@ -217,11 +219,12 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //多条件查询学院项目
+
     public int findProjectByTeaCodeCount(String teacherCode, String jqYear, String jqId, String professionName, String studentNums, String projectNumber, String projectName)
     {
         log.debug("find unit project count ");
         try {
-            String queryString = "Select count(*) From TProject D Where D.isdeleted='N' and D.unitId = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryString = "Select count(*) From TProject D Where D.isdeleted='N' and D.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             if (null != jqId && !jqId.trim().equals("")) {
                 queryString += " and D.TJieqi.jqId =:jqId";
             }
@@ -296,11 +299,12 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
         }
     }
 
+
     public List findProjectByTeaCode(String teacherCode, String jqYear, String jqId, String professionName, String studentNums, String projectNumber, String projectName, PageBean pageBean)
     {
         log.debug("find unit project ");
         try {
-            String queryString = "From TProject D Where D.isdeleted='N' and D.unitId = (select T.unitId From TTeacher T where T.teaCode =:code)";
+            String queryString = "From TProject D Where D.isdeleted='N' and D.TUnit.unitId = (select T.TUnit.unitId From TTeacher T where T.teaCode =:code)";
             if (null != jqId && !jqId.trim().equals("")) {
                 queryString += " and D.TJieqi.jqId =:jqId";
             }
@@ -372,6 +376,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //获取学校所有项目
+
     public List listSchoolProject(PageBean pageBean){
         log.debug("finding school all TProject instances by pageBean");
         try {
@@ -387,6 +392,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
         }
     }
 
+
     public int listSchoolProjectCount(){
         log.debug("finding school all TProject count instances by pageBean");
         try {
@@ -401,6 +407,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return count;
 
         } catch (RuntimeException e) {
+            // TODO: handle exception
             log.error("finding school all TProject count failed", e);
             throw e;
         }
@@ -408,6 +415,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
 
 
     //多条件查询学校项目
+
     public List findSchoolProject(String jqYear, String jqId, String unitName, String studentNums, String projectName, PageBean pageBean)
     {
         log.debug("find unit project ");
@@ -468,6 +476,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             throw e;
         }
     }
+
 
     public int findSchoolProjectCount(String jqYear, String jqId, String unitName, String studentNums, String projectName)
     {
@@ -535,16 +544,11 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //获取学生个人项目列表
+
     public List getStuProject(String stuCode){
         log.debug("find student project ");
         try {
-            String queryString = "From TProject T Where T.isdeleted='N' and" +
-                    " T.projectLeader=(select S.studentId from TStudent S" +
-                    " where S.isdeleted='N' and S.studentNumber=:number) OR" +
-                    " T.projectUser2=(select S.studentId from TStudent S" +
-                    " where S.isdeleted='N' and S.studentNumber=:number) OR" +
-                    " T.projectUser1=(select S.studentId from TStudent S" +
-                    " where S.isdeleted='N' and S.studentNumber=:number)";
+            String queryString = "From TProject T Where T.isdeleted='N' and (T.TStudentByProjectLeader.studentId=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number) OR T.TStudentByProjectUser2.studentId=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number) OR T.TStudentByProjectUser1.studentId=(select S.studentId from TStudent S where S.isdeleted='N' and S.studentNumber=:number))";
             Query query =  getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("number", stuCode);
 
@@ -556,20 +560,18 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return list;
 
         } catch (RuntimeException e) {
+            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
     }
 
     //获取教师个人项目列表
+
     public List getTeaProject(String teaCode, PageBean pageBean){
         log.debug("find student project ");
         try {
-            String queryString = "From TProject T Where T.isdeleted='N' and" +
-                    " T.projectTeacher2=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number) OR" +
-                    " T.projectTeacher1=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number)";
+            String queryString = "From TProject T Where T.isdeleted='N' and (T.TTeacherByProjectTeacher2.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.TTeacherByProjectTeacher1.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
             Query query =  getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("number", teaCode);
 
@@ -584,19 +586,17 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return list;
 
         } catch (RuntimeException e) {
+            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
     }
 
+
     public int getTeaProjectCount(String teaCode){
         log.debug("find student project ");
         try {
-            String queryString = "select count(*) From TProject T Where T.isdeleted='N' and" +
-                    " T.projectTeacher2=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number) OR" +
-                    " T.projectTeacher1=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number)";
+            String queryString = "select count(*) From TProject T Where T.isdeleted='N' and (T.TTeacherByProjectTeacher2.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR T.TTeacherByProjectTeacher1.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
             Query query =  getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("number", teaCode);
 
@@ -609,20 +609,18 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return count;
 
         } catch (RuntimeException e) {
+            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
     }
 
     //多条件查询教师个人项目
+
     public List findTeaProject(String teaCode, String projectName, String stuCode, PageBean pageBean){
         log.debug("find teacher project ");
         try{
-            String queryString = "From TProject D Where D.isdeleted='N' and" +
-                    " D.projectTeacher2=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number) OR" +
-                    " D.projectTeacher1=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number)";
+            String queryString = "From TProject D Where D.isdeleted='N' and (D.TTeacherByProjectTeacher2.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR D.TTeacherByProjectTeacher1.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
 
             if (null != projectName && !projectName.trim().equals("")){
                 queryString += " and D.projectName like :projectName";
@@ -652,15 +650,12 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
         }
     }
 
+
     public int findTeaProjectCount(String teaCode, String projectName, String stuCode)
     {
         log.debug("find teacher project count");
         try{
-            String queryString = "select count(*) From TProject D Where D.isdeleted='N' and" +
-                    " D.projectTeacher2=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number) OR" +
-                    " D.projectTeacher1=(select S.teaId from TTeacher S" +
-                    " where S.isdeleted='N' and S.teaCode=:number)";
+            String queryString = "select count(*) From TProject D Where D.isdeleted='N' and (D.TTeacherByProjectTeacher2.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number) OR D.TTeacherByProjectTeacher1.teaId=(select S.teaId from TTeacher S where S.isdeleted='N' and S.teaCode=:number))";
 
             if (null != projectName && !projectName.trim().equals("")){
                 queryString += " and D.projectName like :projectName";
@@ -697,17 +692,16 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
 
     /**
      *
-     *根据项目组长的学号获取未申请结题的项目信息项目信息
+     *TODO 根据项目组长的学号获取未申请结题的项目信息项目信息
      *authoy lzh
      *@param leaderCode 项目组长的学号
      *@return
      */
+
     public TProject findByLeaderCode(String leaderCode){
         try {
             log.debug("find project by leader code");
-            String sql ="From TProject T where T.projectLeader=:leaderCode" +
-                    " and T.isdeleted='N' and T.projectId not in (select TE.projectId" +
-                    " from TEndProject TE where TE.isdeleted='N' and TE.endProjectState > '01')";
+            String sql ="From TProject T where T.TStudentByProjectLeader.studentNumber=:leaderCode and T.isdeleted='N' and T.projectId not in (select TE.TProject.projectId from TEndProject TE where TE.isdeleted='N' and TE.endprojectState > 01)";
             Query query =  getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString("leaderCode", leaderCode);
             List<TProject> list = query.list();
@@ -722,77 +716,96 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
         }
     }
 
+
     public List findByProjectLine(Object projectLine) {
         return findByProperty(PROJECT_LINE, projectLine);
     }
+
 
     public List findByProjectState(Object projectState) {
         return findByProperty(PROJECT_STATE, projectState);
     }
 
+
     public List findByProjectNumber(Object projectNumber) {
         return findByProperty(PROJECT_NUMBER, projectNumber);
     }
+
 
     public List findByProjectSense(Object projectSense) {
         return findByProperty(PROJECT_SENSE, projectSense);
     }
 
+
     public List findByProjectContent(Object projectContent) {
         return findByProperty(PROJECT_CONTENT, projectContent);
     }
+
 
     public List findByProjectLabtype(Object projectLabtype) {
         return findByProperty(PROJECT_LABTYPE, projectLabtype);
     }
 
+
     public List findByProjectLabname(Object projectLabname) {
         return findByProperty(PROJECT_LABNAME, projectLabname);
     }
+
 
     public List findByProjectName(Object projectName) {
         return findByProperty(PROJECT_NAME, projectName);
     }
 
+
     public List findByProjectIntroduction(Object projectIntroduction) {
         return findByProperty(PROJECT_INTRODUCTION, projectIntroduction);
     }
+
 
     public List findByProjectFund(Object projectFund) {
         return findByProperty(PROJECT_FUND, projectFund);
     }
 
+
     public List findByProjectInnovate(Object projectInnovate) {
         return findByProperty(PROJECT_INNOVATE, projectInnovate);
     }
+
 
     public List findByProjectCondition(Object projectCondition) {
         return findByProperty(PROJECT_CONDITION, projectCondition);
     }
 
+
     public List findByProjectProgress(Object projectProgress) {
         return findByProperty(PROJECT_PROGRESS, projectProgress);
     }
+
 
     public List findByProjectGoal(Object projectGoal) {
         return findByProperty(PROJECT_GOAL, projectGoal);
     }
 
+
     public List findByProjectAchievement(Object projectAchievement) {
         return findByProperty(PROJECT_ACHIEVEMENT, projectAchievement);
     }
+
 
     public List findByProjectWork(Object projectWork) {
         return findByProperty(PROJECT_WORK, projectWork);
     }
 
+
     public List findByRedmineProjectid(Object redmineProjectid) {
         return findByProperty(REDMINE_PROJECTID, redmineProjectid);
     }
 
+
     public List findByProjectScore(Object projectScore) {
         return findByProperty(PROJECT_SCORE, projectScore);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

@@ -14,16 +14,18 @@ import java.util.List;
  */
 
 @Repository
-public class TAttchmentTypeDAOImpl extends BaseDaoImpl<TAttchmentType> implements edu.cqu.no1.dao.TAttchmentTypeDAO {
+public class TAttchmentTypeDAOImpl extends BaseDaoImpl<TAttchmentType> implements TAttchmentTypeDAO {
     private static final Logger log = LoggerFactory
             .getLogger(TAttchmentTypeDAO.class);
     // property constants
     public static final String ATTA_TYPE_NAME = "attaTypeName";
     public static final String ISDELETED = "isdeleted";
 
+
     public List findByAttaTypeName(Object attaTypeName) {
         return findByProperty(ATTA_TYPE_NAME, attaTypeName);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

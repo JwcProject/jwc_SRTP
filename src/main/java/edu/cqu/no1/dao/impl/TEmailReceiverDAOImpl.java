@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-public class TEmailReceiverDAOImpl extends BaseDaoImpl<TEmailReceiver> implements edu.cqu.no1.dao.TEmailReceiverDAO {
+public class TEmailReceiverDAOImpl extends BaseDaoImpl<TEmailReceiver> implements TEmailReceiverDAO {
 
     private static final Logger log = LoggerFactory
             .getLogger(TEmailReceiverDAO.class);
@@ -25,21 +25,26 @@ public class TEmailReceiverDAOImpl extends BaseDaoImpl<TEmailReceiver> implement
     public static final String IS_RECEIVED = "isReceived";
     public static final String ISDELETED = "isdeleted";
 
+
     public List findByReceiverCode(Object receiverCode) {
         return findByProperty(RECEIVER_CODE, receiverCode);
     }
+
 
     public List findByReceiverRole(Object receiverRole) {
         return findByProperty(RECEIVER_ROLE, receiverRole);
     }
 
+
     public List findByEmailAddress(Object emailAddress) {
         return findByProperty(EMAIL_ADDRESS, emailAddress);
     }
 
+
     public List findByIsReceived(Object isReceived) {
         return findByProperty(IS_RECEIVED, isReceived);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

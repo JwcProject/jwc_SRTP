@@ -1,145 +1,138 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TFunds entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_funds", schema = "", catalog = "srtp")
-public class TFunds {
-    private String id;
-    private String projectId;
-    private String fundsId;
-    private String fundsName;
-    private String fundsIsReimburse;
-    private Float fundsMoney;
-    private String fundsDetail;
-    private String fundsUse;
-    private String isdeleted;
+@Table(name = "t_funds", catalog = "srtp")
+public class TFunds implements java.io.Serializable {
 
-    @Id
-    @Column(name = "ID")
-    public String getId() {
-        return id;
-    }
+	// Fields
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	private String id;
+	private TProject TProject;
+	private String fundsId;
+	private String fundsName;
+	private String fundsIsReimburse;
+	private Float fundsMoney;
+	private String fundsDetail;
+	private String fundsUse;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "project_id")
-    public String getProjectId() {
-        return projectId;
-    }
+	// Constructors
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
+	/** default constructor */
+	public TFunds() {
+	}
 
-    @Basic
-    @Column(name = "funds_id")
-    public String getFundsId() {
-        return fundsId;
-    }
+	/** full constructor */
+	public TFunds(TProject TProject, String fundsId, String fundsName,
+			String fundsIsReimburse, Float fundsMoney, String fundsDetail,
+			String fundsUse, String isdeleted) {
+		this.TProject = TProject;
+		this.fundsId = fundsId;
+		this.fundsName = fundsName;
+		this.fundsIsReimburse = fundsIsReimburse;
+		this.fundsMoney = fundsMoney;
+		this.fundsDetail = fundsDetail;
+		this.fundsUse = fundsUse;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setFundsId(String fundsId) {
-        this.fundsId = fundsId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "ID", unique = true, nullable = false, length = 32)
+	public String getId() {
+		return this.id;
+	}
 
-    @Basic
-    @Column(name = "funds_name")
-    public String getFundsName() {
-        return fundsName;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setFundsName(String fundsName) {
-        this.fundsName = fundsName;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
+	public TProject getTProject() {
+		return this.TProject;
+	}
 
-    @Basic
-    @Column(name = "funds_isReimburse")
-    public String getFundsIsReimburse() {
-        return fundsIsReimburse;
-    }
+	public void setTProject(TProject TProject) {
+		this.TProject = TProject;
+	}
 
-    public void setFundsIsReimburse(String fundsIsReimburse) {
-        this.fundsIsReimburse = fundsIsReimburse;
-    }
+	@Column(name = "funds_id", length = 32)
+	public String getFundsId() {
+		return this.fundsId;
+	}
 
-    @Basic
-    @Column(name = "funds_money")
-    public Float getFundsMoney() {
-        return fundsMoney;
-    }
+	public void setFundsId(String fundsId) {
+		this.fundsId = fundsId;
+	}
 
-    public void setFundsMoney(Float fundsMoney) {
-        this.fundsMoney = fundsMoney;
-    }
+	@Column(name = "funds_name", length = 50)
+	public String getFundsName() {
+		return this.fundsName;
+	}
 
-    @Basic
-    @Column(name = "funds_detail")
-    public String getFundsDetail() {
-        return fundsDetail;
-    }
+	public void setFundsName(String fundsName) {
+		this.fundsName = fundsName;
+	}
 
-    public void setFundsDetail(String fundsDetail) {
-        this.fundsDetail = fundsDetail;
-    }
+	@Column(name = "funds_isReimburse", length = 2)
+	public String getFundsIsReimburse() {
+		return this.fundsIsReimburse;
+	}
 
-    @Basic
-    @Column(name = "funds_use")
-    public String getFundsUse() {
-        return fundsUse;
-    }
+	public void setFundsIsReimburse(String fundsIsReimburse) {
+		this.fundsIsReimburse = fundsIsReimburse;
+	}
 
-    public void setFundsUse(String fundsUse) {
-        this.fundsUse = fundsUse;
-    }
+	@Column(name = "funds_money", precision = 12, scale = 0)
+	public Float getFundsMoney() {
+		return this.fundsMoney;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setFundsMoney(Float fundsMoney) {
+		this.fundsMoney = fundsMoney;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "funds_detail", length = 200)
+	public String getFundsDetail() {
+		return this.fundsDetail;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setFundsDetail(String fundsDetail) {
+		this.fundsDetail = fundsDetail;
+	}
 
-        TFunds tFunds = (TFunds) o;
+	@Column(name = "funds_use", length = 200)
+	public String getFundsUse() {
+		return this.fundsUse;
+	}
 
-        if (id != null ? !id.equals(tFunds.id) : tFunds.id != null) return false;
-        if (projectId != null ? !projectId.equals(tFunds.projectId) : tFunds.projectId != null) return false;
-        if (fundsId != null ? !fundsId.equals(tFunds.fundsId) : tFunds.fundsId != null) return false;
-        if (fundsName != null ? !fundsName.equals(tFunds.fundsName) : tFunds.fundsName != null) return false;
-        if (fundsIsReimburse != null ? !fundsIsReimburse.equals(tFunds.fundsIsReimburse) : tFunds.fundsIsReimburse != null)
-            return false;
-        if (fundsMoney != null ? !fundsMoney.equals(tFunds.fundsMoney) : tFunds.fundsMoney != null) return false;
-        if (fundsDetail != null ? !fundsDetail.equals(tFunds.fundsDetail) : tFunds.fundsDetail != null) return false;
-        if (fundsUse != null ? !fundsUse.equals(tFunds.fundsUse) : tFunds.fundsUse != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tFunds.isdeleted) : tFunds.isdeleted != null) return false;
+	public void setFundsUse(String fundsUse) {
+		this.fundsUse = fundsUse;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
-        result = 31 * result + (fundsId != null ? fundsId.hashCode() : 0);
-        result = 31 * result + (fundsName != null ? fundsName.hashCode() : 0);
-        result = 31 * result + (fundsIsReimburse != null ? fundsIsReimburse.hashCode() : 0);
-        result = 31 * result + (fundsMoney != null ? fundsMoney.hashCode() : 0);
-        result = 31 * result + (fundsDetail != null ? fundsDetail.hashCode() : 0);
-        result = 31 * result + (fundsUse != null ? fundsUse.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 }

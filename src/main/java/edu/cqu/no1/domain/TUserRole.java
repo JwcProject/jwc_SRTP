@@ -1,101 +1,82 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TUserRole entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_user_role", schema = "", catalog = "srtp")
-public class TUserRole {
-    private String userRoleId;
-    private String userId;
-    private String roleId;
-    private String isdeleted;
-    private TRole tRoleByRoleId;
-    private TUser tUserByUserId;
+@Table(name = "t_user_role", catalog = "srtp")
+public class TUserRole implements java.io.Serializable {
 
-    @Id
-    @Column(name = "userRole_id")
-    public String getUserRoleId() {
-        return userRoleId;
-    }
+	// Fields
 
-    public void setUserRoleId(String userRoleId) {
-        this.userRoleId = userRoleId;
-    }
+	private String userRoleId;
+	private TUser TUser;
+	private TRole TRole;
+	private String isdeleted;
 
-    @Basic
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
+	// Constructors
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	/** default constructor */
+	public TUserRole() {
+	}
 
-    @Basic
-    @Column(name = "role_id")
-    public String getRoleId() {
-        return roleId;
-    }
+	/** full constructor */
+	public TUserRole(TUser TUser, TRole TRole, String isdeleted) {
+		this.TUser = TUser;
+		this.TRole = TRole;
+		this.isdeleted = isdeleted;
+	}
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "userRole_id", unique = true, nullable = false, length = 32)
+	public String getUserRoleId() {
+		return this.userRoleId;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setUserRoleId(String userRoleId) {
+		this.userRoleId = userRoleId;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public TUser getTUser() {
+		return this.TUser;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTUser(TUser TUser) {
+		this.TUser = TUser;
+	}
 
-        TUserRole tUserRole = (TUserRole) o;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id")
+	public TRole getTRole() {
+		return this.TRole;
+	}
 
-        if (userRoleId != null ? !userRoleId.equals(tUserRole.userRoleId) : tUserRole.userRoleId != null) return false;
-        if (userId != null ? !userId.equals(tUserRole.userId) : tUserRole.userId != null) return false;
-        if (roleId != null ? !roleId.equals(tUserRole.roleId) : tUserRole.roleId != null) return false;
-        if (isdeleted != null ? !isdeleted.equals(tUserRole.isdeleted) : tUserRole.isdeleted != null) return false;
+	public void setTRole(TRole TRole) {
+		this.TRole = TRole;
+	}
 
-        return true;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = userRoleId != null ? userRoleId.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (roleId != null ? roleId.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        return result;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    public TRole gettRoleByRoleId() {
-        return tRoleByRoleId;
-    }
-
-    public void settRoleByRoleId(TRole tRoleByRoleId) {
-        this.tRoleByRoleId = tRoleByRoleId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    public TUser gettUserByUserId() {
-        return tUserByUserId;
-    }
-
-    public void settUserByUserId(TUser tUserByUserId) {
-        this.tUserByUserId = tUserByUserId;
-    }
 }

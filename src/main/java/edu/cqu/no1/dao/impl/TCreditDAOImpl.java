@@ -14,15 +14,17 @@ import java.util.List;
  */
 
 @Repository
-public class TCreditDAOImpl extends BaseDaoImpl<TCredit> implements edu.cqu.no1.dao.TCreditDAO {
+public class TCreditDAOImpl extends BaseDaoImpl<TCredit> implements TCreditDAO {
     private static final Logger log = LoggerFactory.getLogger(TCreditDAO.class);
     // property constants
     public static final String CREDIT_SCORE = "creditScore";
     public static final String ISDELETED = "isdeleted";
 
+
     public List findByCreditScore(Object creditScore) {
         return findByProperty(CREDIT_SCORE, creditScore);
     }
+
 
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);

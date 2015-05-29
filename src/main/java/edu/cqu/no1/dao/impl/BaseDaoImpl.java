@@ -3,7 +3,6 @@ package edu.cqu.no1.dao.impl;
 import edu.cqu.no1.dao.BaseDao;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -26,11 +25,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     public SessionFactory getSessionFactory() {
         return this.sessionFactory;
-    }
-
-    public BaseDaoImpl() {
-        Configuration cfg = new Configuration();
-
     }
 
     // 根据ID加载实体

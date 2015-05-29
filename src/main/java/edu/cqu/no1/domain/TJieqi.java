@@ -1,248 +1,266 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TJieqi entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_jieqi", schema = "", catalog = "srtp")
-public class TJieqi {
-    private String jqId;
-    private String jqName;
-    private Integer jqYear;
-    private String qici;
-    private Timestamp startOn;
-    private Timestamp endOn;
-    private Timestamp zjStartOn;
-    private Timestamp zjEndOn;
-    private Timestamp jtStartOn;
-    private Timestamp jtEndOn;
-    private String secondaryAssessment;
-    private String secondaryRespondent;
-    private String isdeleted;
-    private String declarationState;
-    private String endprojectState;
-    private Collection<TEmail> tEmailsByJqId;
-    private Collection<TExpertLib> tExpertLibsByJqId;
+@Table(name = "t_jieqi", catalog = "srtp")
+public class TJieqi implements java.io.Serializable {
 
-    @Id
-    @Column(name = "jq_id")
-    public String getJqId() {
-        return jqId;
-    }
+	// Fields
 
-    public void setJqId(String jqId) {
-        this.jqId = jqId;
-    }
+	private String jqId;
+	private String jqName;
+	private Integer jqYear;
+	private String qici;
+	private Timestamp startOn;
+	private Timestamp endOn;
+	private Timestamp zjStartOn;
+	private Timestamp zjEndOn;
+	private Timestamp jtStartOn;
+	private Timestamp jtEndOn;
+	private String secondaryAssessment;
+	private String secondaryRespondent;
+	private String isdeleted;
+	private String declarationState;
+	private String endprojectState;
+	private Set<TExpertLib> TExpertLibs = new HashSet<TExpertLib>(0);
+	private Set<TProject> TProjects = new HashSet<TProject>(0);
+	private Set<TEmail> TEmails = new HashSet<TEmail>(0);
+	private Set<TEndProject> TEndProjects = new HashSet<TEndProject>(0);
+	private Set<TDeclaration> TDeclarations = new HashSet<TDeclaration>(0);
 
-    @Basic
-    @Column(name = "jq_name")
-    public String getJqName() {
-        return jqName;
-    }
+	// Constructors
 
-    public void setJqName(String jqName) {
-        this.jqName = jqName;
-    }
+	/** default constructor */
+	public TJieqi() {
+	}
 
-    @Basic
-    @Column(name = "jq_year")
-    public Integer getJqYear() {
-        return jqYear;
-    }
+	/** full constructor */
+	public TJieqi(String jqName, Integer jqYear, String qici,
+			Timestamp startOn, Timestamp endOn, Timestamp zjStartOn,
+			Timestamp zjEndOn, Timestamp jtStartOn, Timestamp jtEndOn,
+			String secondaryAssessment, String secondaryRespondent,
+			String isdeleted, String declarationState, String endprojectState,
+			Set<TExpertLib> TExpertLibs, Set<TProject> TProjects,
+			Set<TEmail> TEmails, Set<TEndProject> TEndProjects,
+			Set<TDeclaration> TDeclarations) {
+		this.jqName = jqName;
+		this.jqYear = jqYear;
+		this.qici = qici;
+		this.startOn = startOn;
+		this.endOn = endOn;
+		this.zjStartOn = zjStartOn;
+		this.zjEndOn = zjEndOn;
+		this.jtStartOn = jtStartOn;
+		this.jtEndOn = jtEndOn;
+		this.secondaryAssessment = secondaryAssessment;
+		this.secondaryRespondent = secondaryRespondent;
+		this.isdeleted = isdeleted;
+		this.declarationState = declarationState;
+		this.endprojectState = endprojectState;
+		this.TExpertLibs = TExpertLibs;
+		this.TProjects = TProjects;
+		this.TEmails = TEmails;
+		this.TEndProjects = TEndProjects;
+		this.TDeclarations = TDeclarations;
+	}
 
-    public void setJqYear(Integer jqYear) {
-        this.jqYear = jqYear;
-    }
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "jq_id", unique = true, nullable = false, length = 32)
+	public String getJqId() {
+		return this.jqId;
+	}
 
-    @Basic
-    @Column(name = "qici")
-    public String getQici() {
-        return qici;
-    }
+	public void setJqId(String jqId) {
+		this.jqId = jqId;
+	}
 
-    public void setQici(String qici) {
-        this.qici = qici;
-    }
+	@Column(name = "jq_name", length = 50)
+	public String getJqName() {
+		return this.jqName;
+	}
 
-    @Basic
-    @Column(name = "start_on")
-    public Timestamp getStartOn() {
-        return startOn;
-    }
+	public void setJqName(String jqName) {
+		this.jqName = jqName;
+	}
 
-    public void setStartOn(Timestamp startOn) {
-        this.startOn = startOn;
-    }
+	@Column(name = "jq_year")
+	public Integer getJqYear() {
+		return this.jqYear;
+	}
 
-    @Basic
-    @Column(name = "end_on")
-    public Timestamp getEndOn() {
-        return endOn;
-    }
+	public void setJqYear(Integer jqYear) {
+		this.jqYear = jqYear;
+	}
 
-    public void setEndOn(Timestamp endOn) {
-        this.endOn = endOn;
-    }
+	@Column(name = "qici", length = 20)
+	public String getQici() {
+		return this.qici;
+	}
 
-    @Basic
-    @Column(name = "zj_start_on")
-    public Timestamp getZjStartOn() {
-        return zjStartOn;
-    }
+	public void setQici(String qici) {
+		this.qici = qici;
+	}
 
-    public void setZjStartOn(Timestamp zjStartOn) {
-        this.zjStartOn = zjStartOn;
-    }
+	@Column(name = "start_on", length = 19)
+	public Timestamp getStartOn() {
+		return this.startOn;
+	}
 
-    @Basic
-    @Column(name = "zj_end_on")
-    public Timestamp getZjEndOn() {
-        return zjEndOn;
-    }
+	public void setStartOn(Timestamp startOn) {
+		this.startOn = startOn;
+	}
 
-    public void setZjEndOn(Timestamp zjEndOn) {
-        this.zjEndOn = zjEndOn;
-    }
+	@Column(name = "end_on", length = 19)
+	public Timestamp getEndOn() {
+		return this.endOn;
+	}
 
-    @Basic
-    @Column(name = "jt_start_on")
-    public Timestamp getJtStartOn() {
-        return jtStartOn;
-    }
+	public void setEndOn(Timestamp endOn) {
+		this.endOn = endOn;
+	}
 
-    public void setJtStartOn(Timestamp jtStartOn) {
-        this.jtStartOn = jtStartOn;
-    }
+	@Column(name = "zj_start_on", length = 19)
+	public Timestamp getZjStartOn() {
+		return this.zjStartOn;
+	}
 
-    @Basic
-    @Column(name = "jt_end_on")
-    public Timestamp getJtEndOn() {
-        return jtEndOn;
-    }
+	public void setZjStartOn(Timestamp zjStartOn) {
+		this.zjStartOn = zjStartOn;
+	}
 
-    public void setJtEndOn(Timestamp jtEndOn) {
-        this.jtEndOn = jtEndOn;
-    }
+	@Column(name = "zj_end_on", length = 19)
+	public Timestamp getZjEndOn() {
+		return this.zjEndOn;
+	}
 
-    @Basic
-    @Column(name = "secondary_Assessment")
-    public String getSecondaryAssessment() {
-        return secondaryAssessment;
-    }
+	public void setZjEndOn(Timestamp zjEndOn) {
+		this.zjEndOn = zjEndOn;
+	}
 
-    public void setSecondaryAssessment(String secondaryAssessment) {
-        this.secondaryAssessment = secondaryAssessment;
-    }
+	@Column(name = "jt_start_on", length = 19)
+	public Timestamp getJtStartOn() {
+		return this.jtStartOn;
+	}
 
-    @Basic
-    @Column(name = "secondary_Respondent")
-    public String getSecondaryRespondent() {
-        return secondaryRespondent;
-    }
+	public void setJtStartOn(Timestamp jtStartOn) {
+		this.jtStartOn = jtStartOn;
+	}
 
-    public void setSecondaryRespondent(String secondaryRespondent) {
-        this.secondaryRespondent = secondaryRespondent;
-    }
+	@Column(name = "jt_end_on", length = 19)
+	public Timestamp getJtEndOn() {
+		return this.jtEndOn;
+	}
 
-    @Basic
-    @Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	public void setJtEndOn(Timestamp jtEndOn) {
+		this.jtEndOn = jtEndOn;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	@Column(name = "secondary_Assessment", length = 1)
+	public String getSecondaryAssessment() {
+		return this.secondaryAssessment;
+	}
 
-    @Basic
-    @Column(name = "DECLARATION_STATE")
-    public String getDeclarationState() {
-        return declarationState;
-    }
+	public void setSecondaryAssessment(String secondaryAssessment) {
+		this.secondaryAssessment = secondaryAssessment;
+	}
 
-    public void setDeclarationState(String declarationState) {
-        this.declarationState = declarationState;
-    }
+	@Column(name = "secondary_Respondent", length = 1)
+	public String getSecondaryRespondent() {
+		return this.secondaryRespondent;
+	}
 
-    @Basic
-    @Column(name = "ENDPROJECT_STATE")
-    public String getEndprojectState() {
-        return endprojectState;
-    }
+	public void setSecondaryRespondent(String secondaryRespondent) {
+		this.secondaryRespondent = secondaryRespondent;
+	}
 
-    public void setEndprojectState(String endprojectState) {
-        this.endprojectState = endprojectState;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-        TJieqi tJieqi = (TJieqi) o;
+	@Column(name = "DECLARATION_STATE", length = 2)
+	public String getDeclarationState() {
+		return this.declarationState;
+	}
 
-        if (jqId != null ? !jqId.equals(tJieqi.jqId) : tJieqi.jqId != null) return false;
-        if (jqName != null ? !jqName.equals(tJieqi.jqName) : tJieqi.jqName != null) return false;
-        if (jqYear != null ? !jqYear.equals(tJieqi.jqYear) : tJieqi.jqYear != null) return false;
-        if (qici != null ? !qici.equals(tJieqi.qici) : tJieqi.qici != null) return false;
-        if (startOn != null ? !startOn.equals(tJieqi.startOn) : tJieqi.startOn != null) return false;
-        if (endOn != null ? !endOn.equals(tJieqi.endOn) : tJieqi.endOn != null) return false;
-        if (zjStartOn != null ? !zjStartOn.equals(tJieqi.zjStartOn) : tJieqi.zjStartOn != null) return false;
-        if (zjEndOn != null ? !zjEndOn.equals(tJieqi.zjEndOn) : tJieqi.zjEndOn != null) return false;
-        if (jtStartOn != null ? !jtStartOn.equals(tJieqi.jtStartOn) : tJieqi.jtStartOn != null) return false;
-        if (jtEndOn != null ? !jtEndOn.equals(tJieqi.jtEndOn) : tJieqi.jtEndOn != null) return false;
-        if (secondaryAssessment != null ? !secondaryAssessment.equals(tJieqi.secondaryAssessment) : tJieqi.secondaryAssessment != null)
-            return false;
-        if (secondaryRespondent != null ? !secondaryRespondent.equals(tJieqi.secondaryRespondent) : tJieqi.secondaryRespondent != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(tJieqi.isdeleted) : tJieqi.isdeleted != null) return false;
-        if (declarationState != null ? !declarationState.equals(tJieqi.declarationState) : tJieqi.declarationState != null)
-            return false;
-        if (endprojectState != null ? !endprojectState.equals(tJieqi.endprojectState) : tJieqi.endprojectState != null)
-            return false;
+	public void setDeclarationState(String declarationState) {
+		this.declarationState = declarationState;
+	}
 
-        return true;
-    }
+	@Column(name = "ENDPROJECT_STATE", length = 2)
+	public String getEndprojectState() {
+		return this.endprojectState;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = jqId != null ? jqId.hashCode() : 0;
-        result = 31 * result + (jqName != null ? jqName.hashCode() : 0);
-        result = 31 * result + (jqYear != null ? jqYear.hashCode() : 0);
-        result = 31 * result + (qici != null ? qici.hashCode() : 0);
-        result = 31 * result + (startOn != null ? startOn.hashCode() : 0);
-        result = 31 * result + (endOn != null ? endOn.hashCode() : 0);
-        result = 31 * result + (zjStartOn != null ? zjStartOn.hashCode() : 0);
-        result = 31 * result + (zjEndOn != null ? zjEndOn.hashCode() : 0);
-        result = 31 * result + (jtStartOn != null ? jtStartOn.hashCode() : 0);
-        result = 31 * result + (jtEndOn != null ? jtEndOn.hashCode() : 0);
-        result = 31 * result + (secondaryAssessment != null ? secondaryAssessment.hashCode() : 0);
-        result = 31 * result + (secondaryRespondent != null ? secondaryRespondent.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (declarationState != null ? declarationState.hashCode() : 0);
-        result = 31 * result + (endprojectState != null ? endprojectState.hashCode() : 0);
-        return result;
-    }
+	public void setEndprojectState(String endprojectState) {
+		this.endprojectState = endprojectState;
+	}
 
-    @OneToMany(mappedBy = "tJieqiByJqId")
-    public Collection<TEmail> gettEmailsByJqId() {
-        return tEmailsByJqId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJieqi")
+	public Set<TExpertLib> getTExpertLibs() {
+		return this.TExpertLibs;
+	}
 
-    public void settEmailsByJqId(Collection<TEmail> tEmailsByJqId) {
-        this.tEmailsByJqId = tEmailsByJqId;
-    }
+	public void setTExpertLibs(Set<TExpertLib> TExpertLibs) {
+		this.TExpertLibs = TExpertLibs;
+	}
 
-    @OneToMany(mappedBy = "tJieqiByJqId")
-    public Collection<TExpertLib> gettExpertLibsByJqId() {
-        return tExpertLibsByJqId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJieqi")
+	public Set<TProject> getTProjects() {
+		return this.TProjects;
+	}
 
-    public void settExpertLibsByJqId(Collection<TExpertLib> tExpertLibsByJqId) {
-        this.tExpertLibsByJqId = tExpertLibsByJqId;
-    }
+	public void setTProjects(Set<TProject> TProjects) {
+		this.TProjects = TProjects;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJieqi")
+	public Set<TEmail> getTEmails() {
+		return this.TEmails;
+	}
+
+	public void setTEmails(Set<TEmail> TEmails) {
+		this.TEmails = TEmails;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJieqi")
+	public Set<TEndProject> getTEndProjects() {
+		return this.TEndProjects;
+	}
+
+	public void setTEndProjects(Set<TEndProject> TEndProjects) {
+		this.TEndProjects = TEndProjects;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJieqi")
+	public Set<TDeclaration> getTDeclarations() {
+		return this.TDeclarations;
+	}
+
+	public void setTDeclarations(Set<TDeclaration> TDeclarations) {
+		this.TDeclarations = TDeclarations;
+	}
+
 }

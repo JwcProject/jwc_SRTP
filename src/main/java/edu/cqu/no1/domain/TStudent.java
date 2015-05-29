@@ -1,248 +1,321 @@
-package edu.cqu.no1.domain;
+package edu.cqu.no1.domain;// default package
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * Created by Huxley on 5/29/15.
+ * TStudent entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@javax.persistence.Table(name = "t_student", schema = "", catalog = "srtp")
-public class TStudent {
-    private String studentId;
+@Table(name = "t_student", catalog = "srtp")
+public class TStudent implements java.io.Serializable {
 
-    @Id
-    @javax.persistence.Column(name = "student_id")
-    public String getStudentId() {
-        return studentId;
-    }
+	// Fields
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
+	private String studentId;
+	private TUser TUser;
+	private TProfession TProfessionByProProfessionId;
+	private TProfession TProfessionByProfessionId;
+	private TUnit TUnit;
+	private String studentNumber;
+	private Timestamp studentBirthday;
+	private String studentSex;
+	private String studentName;
+	private String studentAge;
+	private String studentEmail;
+	private String studentTelphone;
+	private String studentDegree;
+	private String studentRemark;
+	private String isdeleted;
+	private Set<TDeclaration> TDeclarationsForMember1Code = new HashSet<TDeclaration>(
+			0);
+	private Set<TDeclJob> TDeclJobs = new HashSet<TDeclJob>(0);
+	private Set<TDeclaration> TDeclarationsForLeaderCode = new HashSet<TDeclaration>(
+			0);
+	private Set<TProject> TProjectsForProjectLeader = new HashSet<TProject>(0);
+	private Set<TEndProjectJob> TEndProjectJobs = new HashSet<TEndProjectJob>(0);
+	private Set<TDeclaration> TDeclarationsForMember2Code = new HashSet<TDeclaration>(
+			0);
+	private Set<TProject> TProjectsForProjectUser2 = new HashSet<TProject>(0);
+	private Set<TProject> TProjectsForProjectUser1 = new HashSet<TProject>(0);
 
-    private String userId;
+	// Constructors
 
-    @Basic
-    @javax.persistence.Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
+	/** default constructor */
+	public TStudent() {
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	/** full constructor */
+	public TStudent(TUser TUser, TProfession TProfessionByProProfessionId,
+			TProfession TProfessionByProfessionId, TUnit TUnit,
+			String studentNumber, Timestamp studentBirthday, String studentSex,
+			String studentName, String studentAge, String studentEmail,
+			String studentTelphone, String studentDegree, String studentRemark,
+			String isdeleted, Set<TDeclaration> TDeclarationsForMember1Code,
+			Set<TDeclJob> TDeclJobs,
+			Set<TDeclaration> TDeclarationsForLeaderCode,
+			Set<TProject> TProjectsForProjectLeader,
+			Set<TEndProjectJob> TEndProjectJobs,
+			Set<TDeclaration> TDeclarationsForMember2Code,
+			Set<TProject> TProjectsForProjectUser2,
+			Set<TProject> TProjectsForProjectUser1) {
+		this.TUser = TUser;
+		this.TProfessionByProProfessionId = TProfessionByProProfessionId;
+		this.TProfessionByProfessionId = TProfessionByProfessionId;
+		this.TUnit = TUnit;
+		this.studentNumber = studentNumber;
+		this.studentBirthday = studentBirthday;
+		this.studentSex = studentSex;
+		this.studentName = studentName;
+		this.studentAge = studentAge;
+		this.studentEmail = studentEmail;
+		this.studentTelphone = studentTelphone;
+		this.studentDegree = studentDegree;
+		this.studentRemark = studentRemark;
+		this.isdeleted = isdeleted;
+		this.TDeclarationsForMember1Code = TDeclarationsForMember1Code;
+		this.TDeclJobs = TDeclJobs;
+		this.TDeclarationsForLeaderCode = TDeclarationsForLeaderCode;
+		this.TProjectsForProjectLeader = TProjectsForProjectLeader;
+		this.TEndProjectJobs = TEndProjectJobs;
+		this.TDeclarationsForMember2Code = TDeclarationsForMember2Code;
+		this.TProjectsForProjectUser2 = TProjectsForProjectUser2;
+		this.TProjectsForProjectUser1 = TProjectsForProjectUser1;
+	}
 
-    private String proProfessionId;
+	// Property accessors
+	@GenericGenerator(name = "generator", strategy = "guid")
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "student_id", unique = true, nullable = false, length = 32)
+	public String getStudentId() {
+		return this.studentId;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "pro_profession_id")
-    public String getProProfessionId() {
-        return proProfessionId;
-    }
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
 
-    public void setProProfessionId(String proProfessionId) {
-        this.proProfessionId = proProfessionId;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public TUser getTUser() {
+		return this.TUser;
+	}
 
-    private String studentNumber;
+	public void setTUser(TUser TUser) {
+		this.TUser = TUser;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_number")
-    public String getStudentNumber() {
-        return studentNumber;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pro_profession_id")
+	public TProfession getTProfessionByProProfessionId() {
+		return this.TProfessionByProProfessionId;
+	}
 
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
-    }
+	public void setTProfessionByProProfessionId(
+			TProfession TProfessionByProProfessionId) {
+		this.TProfessionByProProfessionId = TProfessionByProProfessionId;
+	}
 
-    private Timestamp studentBirthday;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profession_id")
+	public TProfession getTProfessionByProfessionId() {
+		return this.TProfessionByProfessionId;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_birthday")
-    public Timestamp getStudentBirthday() {
-        return studentBirthday;
-    }
+	public void setTProfessionByProfessionId(
+			TProfession TProfessionByProfessionId) {
+		this.TProfessionByProfessionId = TProfessionByProfessionId;
+	}
 
-    public void setStudentBirthday(Timestamp studentBirthday) {
-        this.studentBirthday = studentBirthday;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UNIT_ID")
+	public TUnit getTUnit() {
+		return this.TUnit;
+	}
 
-    private String studentSex;
+	public void setTUnit(TUnit TUnit) {
+		this.TUnit = TUnit;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_sex")
-    public String getStudentSex() {
-        return studentSex;
-    }
+	@Column(name = "student_number", length = 20)
+	public String getStudentNumber() {
+		return this.studentNumber;
+	}
 
-    public void setStudentSex(String studentSex) {
-        this.studentSex = studentSex;
-    }
+	public void setStudentNumber(String studentNumber) {
+		this.studentNumber = studentNumber;
+	}
 
-    private String studentName;
+	@Column(name = "student_birthday", length = 19)
+	public Timestamp getStudentBirthday() {
+		return this.studentBirthday;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_name")
-    public String getStudentName() {
-        return studentName;
-    }
+	public void setStudentBirthday(Timestamp studentBirthday) {
+		this.studentBirthday = studentBirthday;
+	}
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
+	@Column(name = "student_sex", length = 2)
+	public String getStudentSex() {
+		return this.studentSex;
+	}
 
-    private String studentAge;
+	public void setStudentSex(String studentSex) {
+		this.studentSex = studentSex;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_age")
-    public String getStudentAge() {
-        return studentAge;
-    }
+	@Column(name = "student_name", length = 50)
+	public String getStudentName() {
+		return this.studentName;
+	}
 
-    public void setStudentAge(String studentAge) {
-        this.studentAge = studentAge;
-    }
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 
-    private String studentEmail;
+	@Column(name = "student_age", length = 2)
+	public String getStudentAge() {
+		return this.studentAge;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_email")
-    public String getStudentEmail() {
-        return studentEmail;
-    }
+	public void setStudentAge(String studentAge) {
+		this.studentAge = studentAge;
+	}
 
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
-    }
+	@Column(name = "student_email", length = 100)
+	public String getStudentEmail() {
+		return this.studentEmail;
+	}
 
-    private String studentTelphone;
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_telphone")
-    public String getStudentTelphone() {
-        return studentTelphone;
-    }
+	@Column(name = "student_telphone", length = 15)
+	public String getStudentTelphone() {
+		return this.studentTelphone;
+	}
 
-    public void setStudentTelphone(String studentTelphone) {
-        this.studentTelphone = studentTelphone;
-    }
+	public void setStudentTelphone(String studentTelphone) {
+		this.studentTelphone = studentTelphone;
+	}
 
-    private String studentDegree;
+	@Column(name = "student_degree", length = 5)
+	public String getStudentDegree() {
+		return this.studentDegree;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_degree")
-    public String getStudentDegree() {
-        return studentDegree;
-    }
+	public void setStudentDegree(String studentDegree) {
+		this.studentDegree = studentDegree;
+	}
 
-    public void setStudentDegree(String studentDegree) {
-        this.studentDegree = studentDegree;
-    }
+	@Column(name = "student_remark", length = 200)
+	public String getStudentRemark() {
+		return this.studentRemark;
+	}
 
-    private String studentRemark;
+	public void setStudentRemark(String studentRemark) {
+		this.studentRemark = studentRemark;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "student_remark")
-    public String getStudentRemark() {
-        return studentRemark;
-    }
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
 
-    public void setStudentRemark(String studentRemark) {
-        this.studentRemark = studentRemark;
-    }
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 
-    private String professionId;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByMember1Code")
+	public Set<TDeclaration> getTDeclarationsForMember1Code() {
+		return this.TDeclarationsForMember1Code;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "profession_id")
-    public String getProfessionId() {
-        return professionId;
-    }
+	public void setTDeclarationsForMember1Code(
+			Set<TDeclaration> TDeclarationsForMember1Code) {
+		this.TDeclarationsForMember1Code = TDeclarationsForMember1Code;
+	}
 
-    public void setProfessionId(String professionId) {
-        this.professionId = professionId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudent")
+	public Set<TDeclJob> getTDeclJobs() {
+		return this.TDeclJobs;
+	}
 
-    private String isdeleted;
+	public void setTDeclJobs(Set<TDeclJob> TDeclJobs) {
+		this.TDeclJobs = TDeclJobs;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "isdeleted")
-    public String getIsdeleted() {
-        return isdeleted;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByLeaderCode")
+	public Set<TDeclaration> getTDeclarationsForLeaderCode() {
+		return this.TDeclarationsForLeaderCode;
+	}
 
-    public void setIsdeleted(String isdeleted) {
-        this.isdeleted = isdeleted;
-    }
+	public void setTDeclarationsForLeaderCode(
+			Set<TDeclaration> TDeclarationsForLeaderCode) {
+		this.TDeclarationsForLeaderCode = TDeclarationsForLeaderCode;
+	}
 
-    private String unitId;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectLeader")
+	public Set<TProject> getTProjectsForProjectLeader() {
+		return this.TProjectsForProjectLeader;
+	}
 
-    @Basic
-    @javax.persistence.Column(name = "UNIT_ID")
-    public String getUnitId() {
-        return unitId;
-    }
+	public void setTProjectsForProjectLeader(
+			Set<TProject> TProjectsForProjectLeader) {
+		this.TProjectsForProjectLeader = TProjectsForProjectLeader;
+	}
 
-    public void setUnitId(String unitId) {
-        this.unitId = unitId;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudent")
+	public Set<TEndProjectJob> getTEndProjectJobs() {
+		return this.TEndProjectJobs;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setTEndProjectJobs(Set<TEndProjectJob> TEndProjectJobs) {
+		this.TEndProjectJobs = TEndProjectJobs;
+	}
 
-        TStudent tStudent = (TStudent) o;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByMember2Code")
+	public Set<TDeclaration> getTDeclarationsForMember2Code() {
+		return this.TDeclarationsForMember2Code;
+	}
 
-        if (studentId != null ? !studentId.equals(tStudent.studentId) : tStudent.studentId != null) return false;
-        if (userId != null ? !userId.equals(tStudent.userId) : tStudent.userId != null) return false;
-        if (proProfessionId != null ? !proProfessionId.equals(tStudent.proProfessionId) : tStudent.proProfessionId != null)
-            return false;
-        if (studentNumber != null ? !studentNumber.equals(tStudent.studentNumber) : tStudent.studentNumber != null)
-            return false;
-        if (studentBirthday != null ? !studentBirthday.equals(tStudent.studentBirthday) : tStudent.studentBirthday != null)
-            return false;
-        if (studentSex != null ? !studentSex.equals(tStudent.studentSex) : tStudent.studentSex != null) return false;
-        if (studentName != null ? !studentName.equals(tStudent.studentName) : tStudent.studentName != null)
-            return false;
-        if (studentAge != null ? !studentAge.equals(tStudent.studentAge) : tStudent.studentAge != null) return false;
-        if (studentEmail != null ? !studentEmail.equals(tStudent.studentEmail) : tStudent.studentEmail != null)
-            return false;
-        if (studentTelphone != null ? !studentTelphone.equals(tStudent.studentTelphone) : tStudent.studentTelphone != null)
-            return false;
-        if (studentDegree != null ? !studentDegree.equals(tStudent.studentDegree) : tStudent.studentDegree != null)
-            return false;
-        if (studentRemark != null ? !studentRemark.equals(tStudent.studentRemark) : tStudent.studentRemark != null)
-            return false;
-        if (professionId != null ? !professionId.equals(tStudent.professionId) : tStudent.professionId != null)
-            return false;
-        if (isdeleted != null ? !isdeleted.equals(tStudent.isdeleted) : tStudent.isdeleted != null) return false;
-        if (unitId != null ? !unitId.equals(tStudent.unitId) : tStudent.unitId != null) return false;
+	public void setTDeclarationsForMember2Code(
+			Set<TDeclaration> TDeclarationsForMember2Code) {
+		this.TDeclarationsForMember2Code = TDeclarationsForMember2Code;
+	}
 
-        return true;
-    }
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectUser2")
+	public Set<TProject> getTProjectsForProjectUser2() {
+		return this.TProjectsForProjectUser2;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = studentId != null ? studentId.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (proProfessionId != null ? proProfessionId.hashCode() : 0);
-        result = 31 * result + (studentNumber != null ? studentNumber.hashCode() : 0);
-        result = 31 * result + (studentBirthday != null ? studentBirthday.hashCode() : 0);
-        result = 31 * result + (studentSex != null ? studentSex.hashCode() : 0);
-        result = 31 * result + (studentName != null ? studentName.hashCode() : 0);
-        result = 31 * result + (studentAge != null ? studentAge.hashCode() : 0);
-        result = 31 * result + (studentEmail != null ? studentEmail.hashCode() : 0);
-        result = 31 * result + (studentTelphone != null ? studentTelphone.hashCode() : 0);
-        result = 31 * result + (studentDegree != null ? studentDegree.hashCode() : 0);
-        result = 31 * result + (studentRemark != null ? studentRemark.hashCode() : 0);
-        result = 31 * result + (professionId != null ? professionId.hashCode() : 0);
-        result = 31 * result + (isdeleted != null ? isdeleted.hashCode() : 0);
-        result = 31 * result + (unitId != null ? unitId.hashCode() : 0);
-        return result;
-    }
+	public void setTProjectsForProjectUser2(
+			Set<TProject> TProjectsForProjectUser2) {
+		this.TProjectsForProjectUser2 = TProjectsForProjectUser2;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectUser1")
+	public Set<TProject> getTProjectsForProjectUser1() {
+		return this.TProjectsForProjectUser1;
+	}
+
+	public void setTProjectsForProjectUser1(
+			Set<TProject> TProjectsForProjectUser1) {
+		this.TProjectsForProjectUser1 = TProjectsForProjectUser1;
+	}
+
 }
