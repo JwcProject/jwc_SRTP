@@ -74,6 +74,8 @@
                 <value>edu.cqu.no1.domain.TAnnouncementModel</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
                 <value>edu.cqu.no1.domain.TAnnouncementModel</value>
+                <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
+                <value>edu.cqu.no1.domain.Resultdistribut</value>
             </list>
         </property>
         <property name="hibernateProperties">
