@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by Huxley on 5/29/15.
  */
 @Entity
-public class Resultdistribut {
+public class ResultDistribut {
     private String id;
     private String jqId;
     private String college;
@@ -181,7 +181,7 @@ public class Resultdistribut {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Resultdistribut that = (Resultdistribut) o;
+        ResultDistribut that = (ResultDistribut) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (jqId != null ? !jqId.equals(that.jqId) : that.jqId != null) return false;
