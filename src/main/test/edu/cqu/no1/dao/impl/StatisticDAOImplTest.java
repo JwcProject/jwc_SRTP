@@ -22,8 +22,8 @@ public class StatisticDAOImplTest extends AbstractTransactionalJUnit4SpringConte
 
     @Test
     public void testSchooleProjectScore() throws Exception {
-        List list = dao.SchooleProjectScore("jqQici");
-        assertEquals(null, list);
+        List list = dao.SchooleProjectScore("AA");
+        assertEquals(1, list.size());
     }
 
     @Test

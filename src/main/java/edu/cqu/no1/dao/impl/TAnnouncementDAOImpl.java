@@ -797,7 +797,6 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
 
     }
 
-
     public static TAnnouncementDAO getFromApplicationContext(
             ApplicationContext ctx) {
         return (TAnnouncementDAO) ctx.getBean("TAnnouncementDAO");

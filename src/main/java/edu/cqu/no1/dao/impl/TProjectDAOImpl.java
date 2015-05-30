@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.NotNull;
 import edu.cqu.no1.dao.TProjectDAO;
 import edu.cqu.no1.domain.TProject;
 import edu.cqu.no1.util.PageBean;
@@ -46,7 +47,8 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public void createProject(String jqId) {
         log.debug("add TProject");
         try {
-            // TODO
+            // TODO: Convert `queryString` to HQL.
+            // TODO: The following code using a SQL native variable.
             String queryString = "Insert Into T_Project\n"
                     + "  (\n"
                     + "\n"
@@ -100,7 +102,9 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
                     + "    From T_Declaration d\n"
                     + "   Where D.Jq_Id =:jqId\n"
                     + "     And D.Check_State = '08'";
-            String queryString1 = "Select Count(1) From t_project p Where p.declar_id In(Select d.declar_id From t_declaration d Where d.jq_id =:jqId And d.check_state='09')";
+            // String hql = "from TDeclaration d join d.TUnit tu where d.TJieqi.jqId = :jqId and d.checkState = '08'";
+            String hql1 = "select count(*) from TProject p join p.TDeclaration d" +
+                    " where d.TJieqi.jqId = :jqId and d.checkState = '09'";
             Session session =  this.getSessionFactory().getCurrentSession();
 
             Transaction transaction = session.getTransaction();
@@ -108,56 +112,40 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
 
                 transaction.begin();
 
-                SQLQuery sqlQuery1 = session.createSQLQuery(queryString1);
-                sqlQuery1.setString("jqId", jqId);
-                List list = sqlQuery1.list();
+                Query query1 = session.createQuery(hql1);
+                query1.setString("jqId", jqId);
+                List list = query1.list();
                 int count = 0;
                 if (list.size() > 0) {
                     count = new Integer("" + list.get(0));
                 }
-                if(count==0)
-                {
+                if(count==0) {
+                    // TODO: Here we notice a SQL native function `Projectid_Reset()`
                     SQLQuery query = session.createSQLQuery("{Call Projectid_Reset()}");
                     query.executeUpdate();
                 }
 
-                SQLQuery sqlQuery = session.createSQLQuery(queryString);
-                sqlQuery.setString("jqId", jqId);
-                sqlQuery.executeUpdate();
+                Query query = session.createQuery(queryString);
+                query.setString("jqId", jqId);
+                query.executeUpdate();
 
-                queryString = "update t_declaration d set d.check_state='09' where d.jq_id=:jqId and exists (select * from t_project p where d.declar_id=p.declar_id)";
-                SQLQuery sqlQuery2 = session.createSQLQuery(queryString);
+                queryString = "update TDeclaration set checkState = '09' where TJieqi.jqId = :jqId and TProjects.size > 0";
+                Query sqlQuery2 = session.createQuery(queryString);
                 sqlQuery2.setString("jqId", jqId);
                 sqlQuery2.executeUpdate();
 
                 //修改申报成员的用户类型
-                String qString1 =
-                        "Update T_User u\n" +
-                                "   Set U.User_Type = '08'\n" +
-                                " Where U.User_Id In\n" +
-                                "       (Select s.user_id\n" +
-                                "          From T_Student s\n" +
-                                "         Where S.Student_Id In (Select D.Leader_Code\n" +
-                                "                                  From T_Declaration d\n" +
-                                "                                 Where D.Jq_Id =:jqId\n" +
-                                "                                   and d.check_state = '09'))";
+                String hql_update1 = "update TUser u set u.userType = '08' where u.userId in (select userId from TStudent" +
+                        " where studentId in (select TStudentByLeaderCode.studentNumber from TDeclaration where" +
+                        " TJieqi.jqId = :jqId and checkState = '09'))";
 
-                String qString2 =
-                        "Update T_User u Set U.User_Type = '07'\n" +
-                                " Where U.User_Id In (Select s.user_id\n" +
-                                "                       From T_Student s\n" +
-                                "                      Where S.Student_Id In\n" +
-                                "                            (Select D.MEMBER1_CODE\n" +
-                                "                                From T_Declaration d\n" +
-                                "                               Where D.Jq_Id =:jqId\n" +
-                                "                                 and d.check_state = '09') or S.Student_Id In\n" +
-                                "                             (Select D.Member2_Code\n" +
-                                "                                From T_Declaration d\n" +
-                                "                               Where D.Jq_Id =:jqId\n" +
-                                "                                 and d.check_state = '09'))";
+                String hql_update2 = "update TUser u set u.userType = '07' where u.userId in (select userId from TStudent" +
+                        " where studentId in (select TStudentByMember1Code.studentNumber from TDeclaration where" +
+                        " TJieqi.jqId = :jqId and checkState = '09') or studentId in (select TStudentByMember2Code from" +
+                        " TDeclaration where TJieqi.jqId = :jqId and checkState = '09'))";
 
-                SQLQuery sQuery1 = session.createSQLQuery(qString1);
-                SQLQuery sQuery2 = session.createSQLQuery(qString2);
+                Query sQuery1 = session.createQuery(hql_update1);
+                Query sQuery2 = session.createQuery(hql_update2);
                 sQuery1.setString("jqId", jqId);
                 sQuery2.setString("jqId", jqId);
                 sQuery1.executeUpdate();
@@ -169,8 +157,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
                 e1.printStackTrace();
                 transaction.rollback();
             }
-
-
         } catch (RuntimeException e2) {
             log.debug("add TProject failed");
             throw e2;
@@ -178,7 +164,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //根据当前教师工号得到所在学院项目列表
-
+    @NotNull
     public List getProjectByTeaCode(String unitTeaCode, PageBean pageBean) {
         log.debug("finding unit all TProject instances by pageBean");
         try {

@@ -36,14 +36,14 @@ public class TAnnouncementDAOImplTest extends AbstractTransactionalJUnit4SpringC
 
     @Test
     public void testFindAnnounByType() throws Exception {
-        List list = dao.findAnnounByType("typeName", null);
-        assertEquals(0, list.size());
+        List list = dao.findAnnounByType("BQ", null);
+        assertEquals(1, list.size());
     }
 
     @Test
     public void testGetSchoolAnnounctment() throws Exception {
         List list = dao.getSchoolAnnounctment(null);
-        assertEquals(0, list.size());
+        assertNotEquals(0, list.size());
     }
 
     @Test

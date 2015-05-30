@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TExpertLib;
@@ -105,28 +106,16 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     public TExpertTeacher getExpertTeachersByTeaId(String teaId, String type){
         log.debug("get expertTeachers by teacher id");
         try {
-            // TODO
-            String queryStr =
-                    "select t.*\n" +
-                            "  from t_expert_teacher t , (select l.lib_id\n" +
-                            "  from t_expert_lib l\n" +
-                            " where l.lib_id in\n" +
-                            "       (select tt.lib_id\n" +
-                            "          from t_expert_teacher tt\n" +
-                            "         where tt.isdeleted = 'N'\n" +
-                            "           and tt.tea_id =:teaId)\n" +
-                            "            and l.type =:type And Rownum = 1\n" +
-                            " order by l.creat_on Desc ) tmp\n" +
-                            " where t.isdeleted = 'N'\n" +
-                            "   and t.tea_id =:teaId\n" +
-                            "   and t.lib_id = tmp.lib_id ";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setString("teaId", teaId);
-            sqlQuery.setString("type", type);
-            List list = sqlQuery.list();
+            String hql = "from TExpertTeacher where isdeleted = 'N' and TTeacher.teaId = :teaId" +
+                    " and TExpertLib.type = :type order by TExpertLib.creatOn desc";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setMaxResults(1);
+            query.setString("teaId", teaId);
+            query.setString("type", type);
+            List list = query.list();
 
-            if (null!= sqlQuery.list() && sqlQuery.list().size()>0) {
-                return (TExpertTeacher)sqlQuery.addEntity(TExpertTeacher.class).list().get(0);
+            if (null!= query.list() && query.list().size()>0) {
+                return (TExpertTeacher)query.list().get(0);
             } else {
                 return null;
             }
@@ -138,7 +127,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过届期找到对应的专家教师
-
+    @NotNull
     public List findExpertTeachersByJQid(String jqId){
         log.debug("get expertTeachers by jieqi id");
         try {

@@ -19,6 +19,7 @@ public class TRolePermissionDAOImpl extends BaseDaoImpl<TRolePermission> impleme
     private static final Logger log = LoggerFactory
             .getLogger(TRolePermissionDAO.class);
     // property constants
+    public static final String ROLEID = "roleid";
     public static final String ISDELETED = "isdeleted";
 
     public List findByIsdeleted(Object isdeleted) {
@@ -26,7 +27,6 @@ public class TRolePermissionDAOImpl extends BaseDaoImpl<TRolePermission> impleme
     }
 
     public List findByRoleId(String roleId) {
-        // TODO: !!!Implement it!!!
         return null;
     }
 

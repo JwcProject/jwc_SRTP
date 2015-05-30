@@ -1,6 +1,8 @@
 package edu.cqu.no1.dao.impl;
 
 import edu.cqu.no1.dao.TExpertTeacherDAO;
+import edu.cqu.no1.domain.TExpertTeacher;
+import edu.cqu.no1.domain.TTeacher;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,8 +34,14 @@ public class TExpertTeacherDAOImplTest extends AbstractTransactionalJUnit4Spring
     }
 
     @Test
+    public void testGetExpertTeachersByTeaId() throws Exception {
+        TExpertTeacher val = dao.getExpertTeachersByTeaId("AA", "DF");
+        assertNotEquals(null, val);
+    }
+
+    @Test
     public void testFindExpertTeachersByJQid() throws Exception {
         List list = dao.findExpertTeachersByJQid("jqId");
-        assertEquals(null, list);
+        assertNotEquals(null, list);
     }
 }
