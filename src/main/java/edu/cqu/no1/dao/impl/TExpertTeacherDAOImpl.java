@@ -19,7 +19,6 @@ import java.util.List;
  */
 
 @Repository
-// TODO
 public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implements TExpertTeacherDAO {
 
     private static final Logger log = LoggerFactory
