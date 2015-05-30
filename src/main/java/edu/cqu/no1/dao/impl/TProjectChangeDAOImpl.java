@@ -25,32 +25,25 @@ public class TProjectChangeDAOImpl extends BaseDaoImpl<TProjectChange> implement
     public static final String PROJECTCHANGE_REASON = "projectchangeReason";
     public static final String ISDELETED = "isdeleted";
 
-
-
     public List findByProjectchangeState(Object projectchangeState) {
         return findByProperty(PROJECTCHANGE_STATE, projectchangeState);
     }
-
 
     public List findByProjectchangeAtid(Object projectchangeAtid) {
         return findByProperty(PROJECTCHANGE_ATID, projectchangeAtid);
     }
 
-
     public List findByProjectchangeCtid(Object projectchangeCtid) {
         return findByProperty(PROJECTCHANGE_CTID, projectchangeCtid);
     }
-
 
     public List findByProjectchangeReason(Object projectchangeReason) {
         return findByProperty(PROJECTCHANGE_REASON, projectchangeReason);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public static TProjectChangeDAO getFromApplicationContext(
             ApplicationContext ctx) {

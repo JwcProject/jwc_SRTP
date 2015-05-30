@@ -21,25 +21,12 @@ public class TRolePermissionDAOImpl extends BaseDaoImpl<TRolePermission> impleme
     // property constants
     public static final String ISDELETED = "isdeleted";
 
-
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-
-
-
     public List findByRoleId(String roleId) {
- /*       log.debug("finding all TRolePermission instances by role id");
-        try {
-            String queryString = "from TRolePermission as model where model.TRole.roleId= ?";
-            return this.getHibernateTemplate().find(queryString, roleId);
-        } catch (RuntimeException re) {
-            log.error("find all by role failed", re);
-            throw re;
-        }*/
-
+        // TODO: !!!Implement it!!!
         return null;
     }
 

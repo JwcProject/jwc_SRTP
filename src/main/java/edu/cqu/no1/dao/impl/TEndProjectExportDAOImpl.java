@@ -24,7 +24,7 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
 
     /**
      *
-     *TODO 获取一个专家教师可以进行网评的结题列表
+     *获取一个专家教师可以进行网评的结题列表
      *authoy lzh
      *@param teaCode
      *@param jieqiId
@@ -49,7 +49,7 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
 
     /**
      *
-     *TODO 根据结题ID和教职工号获取结题评审专家对象
+     *根据结题ID和教职工号获取结题评审专家对象
      *authoy lzh
      *@param teaCode
      *@param endProId
@@ -59,7 +59,7 @@ public class TEndProjectExportDAOImpl extends BaseDaoImpl<TEndProjectExport> imp
     public TEndProjectExport findEndProExp(String teaCode, String endProId){
         log.debug("find TEndProjectExport by teaCode and endprojectId");
         try {
-            String queryString="From TEndProjectExport T where T.isdeleted='N' and T.TEndProject.endprojectId=:id and T.TExpertTeacher.TTeacher.teaCode=:code";
+            String queryString="From TEndProjectExport T where T.isdeleted='N' and T.TEndProject.endProjectId=:id and T.TExpertTeacher.TTeacher.teaCode=:code";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("id", endProId);
             query.setString("code", teaCode);

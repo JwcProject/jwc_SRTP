@@ -60,6 +60,22 @@ public class TAnnouncementModel implements java.io.Serializable {
 		this.publishername = publishername;
 	}
 
+	public TAnnouncementModel(TAnnouncement tAnnouncement, String publishername) {
+		this.announId = tAnnouncement.getAnnounId();
+		this.TAnnounType = tAnnouncement.getTAnnounType();
+		this.announTitle = tAnnouncement.getAnnounTitle();
+		this.announContent = tAnnouncement.getAnnounContent();
+		this.publisherCode = tAnnouncement.getPublisherCode();
+		this.publisherRole = tAnnouncement.getPublisherRole();
+		this.publishTime = tAnnouncement.getPublishTime();
+		this.publishState = tAnnouncement.getPublishState();
+		this.checkerCode = tAnnouncement.getCheckerCode();
+		this.checkTime = tAnnouncement.getCheckTime();
+		this.checkState = tAnnouncement.getCheckState();
+		this.isdeleted = tAnnouncement.getIsdeleted();
+		this.publishername = publishername;
+	}
+
 	// Property accessors
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id

@@ -28,8 +28,6 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
     public static final String ISDELETED = "isdeleted";
     public static final String TYPE="type";
 
-
-
     public List findTempEmailReciverByJQid(String jqId) {
         log.debug("find tempEmailReciver by JQ id");
         try {
@@ -46,7 +44,7 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
 
     /**
      *
-     *TODO 通过届期ID和学院主管教师教职工号获取临时邮件接收人
+     *通过届期ID和学院主管教师教职工号获取临时邮件接收人
      *authoy lzh
      *@param jqId
      *@param teaCode
@@ -71,7 +69,6 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
     }
 
     // 通过届期ID和主管教师教职工号查找临时邮件接收人的邮箱
-
     public List findEmailByJQid(String jqId, String teaCode, String type) {
         log.debug("find tempEmailReciver by JQ id and teaCode");
         try {
@@ -88,7 +85,6 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
     }
 
     // 通过届期和教师工号得到临时邮件收信人
-
     public TTempEmailReciver findTempEmailReciver(String jqId, String teaCode) {
         log.debug("find tempEmailReciver ");
         try {
@@ -108,36 +104,29 @@ public class TTempEmailReciverDAOImpl extends BaseDaoImpl<TTempEmailReciver> imp
         }
     }
 
-
     public List findByDepartId(Object departId) {
         return findByProperty(DEPART_ID, departId);
     }
-
 
     public List findByJqId(Object jqId) {
         return findByProperty(JQ_ID, jqId);
     }
 
-
     public List findByCode(Object code) {
         return findByProperty(CODE, code);
     }
-
 
     public List findByName(Object name) {
         return findByProperty(NAME, name);
     }
 
-
     public List findByEmail(Object email) {
         return findByProperty(EMAIL, email);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public static TTempEmailReciverDAO getFromApplicationContext(
             ApplicationContext ctx) {

@@ -44,7 +44,7 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements TExper
 
     /**
      *
-     *TODO 获取一个学院所有的专家团队
+     *获取一个学院所有的专家团队
      *authoy lzh
      *@param teaCode 学院主管教师教职工号
      *@param pageBean
@@ -91,7 +91,7 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements TExper
 
     /**
      *
-     *TODO 获取当前届期对应的专家库对象
+     *获取当前届期对应的专家库对象
      *authoy lzh
      *@param type 专家库的类型（01为申报的，02为结题的）
      *@return
@@ -100,7 +100,7 @@ public class TExpertLibDAOImpl extends BaseDaoImpl<TExpertLib> implements TExper
     public TExpertLib findNowJieQiExpLib(String type){
         log.debug("get ExpertLib Now");
         try {
-            String queryString = "from TExpertLib as model where SYSDATE() between model.TJieqi.startOn and model.TJieqi.endOn and model.isdeleted='N' and model.type=:type";
+            String queryString = "from TExpertLib as model where current_date() between model.TJieqi.startOn and model.TJieqi.endOn and model.isdeleted='N' and model.type=:type";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.setString("type", type);
             List list = query.list();

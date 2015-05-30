@@ -184,7 +184,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     /**
      *
-     * TODO 多条件查询结题 authoy lzh
+     * 多条件查询结题 authoy lzh
      *
      * @param teaCode
      * @param year
@@ -336,7 +336,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     /**
      *
-     * TODO 根据学院主管教师教职工号获取学院的结题列表 authoy lzh
+     * 根据学院主管教师教职工号获取学院的结题列表 authoy lzh
      *
      * @param unitTeaCode
      * @param checkState
@@ -347,7 +347,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
                                        PageBean pageBean) {
         log.debug("finding unit all TEndproject instances by pageBean");
         try {
-            String queryStr = "From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01' and T.endprojectState =:checkState and T.TProject.TUnit.unitId = (select TE.TUnit.unitId From TTeacher TE where TE.teaCode =:code) order by T.TProject.projectBegintime desc";
+            String queryStr = "From TEndProject T Where T.isdeleted='N' and T.endProjectPassApply='01' and T.endProjectState =:checkState and T.TProject.TUnit.unitId = (select TE.TUnit.unitId From TTeacher TE where TE.teaCode =:code) order by T.TProject.projectBegintime desc";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
             query.setString("checkState", checkState);
@@ -363,7 +363,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
     public int getUnitEndProCount(String unitTeaCode, String checkState) {
         log.debug("get unit TEndproject count");
         try {
-            String queryStr = "select count(*) From TEndProject T Where T.isdeleted='N' and T.endprojectPassapply='01' and T.endprojectState =:checkState and T.TProject.TUnit.unitId = (select TE.TUnit.unitId From TTeacher TE where TE.teaCode =:code)";
+            String queryStr = "select count(*) From TEndProject T Where T.isdeleted='N' and T.endProjectPassApply='01' and T.endProjectState =:checkState and T.TProject.TUnit.unitId = (select TE.TUnit.unitId From TTeacher TE where TE.teaCode =:code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("code", unitTeaCode);
             query.setString("checkState", checkState);
@@ -383,7 +383,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     /**
      *
-     * TODO 根据组长学号获取结题 authoy lzh
+     * 根据组长学号获取结题 authoy lzh
      *
      * @param studentNum
      * @return

@@ -30,7 +30,7 @@ public class TExpertReviewDAOImpl extends BaseDaoImpl<TExpertReview> implements 
 
     /**
      *
-     *TODO 根据届期ID,教师教职工号，申报ID，专家库类别
+     *根据届期ID,教师教职工号，申报ID，专家库类别
      *     获取对应的专家评审
      *authoy lzh
      *@param jqId

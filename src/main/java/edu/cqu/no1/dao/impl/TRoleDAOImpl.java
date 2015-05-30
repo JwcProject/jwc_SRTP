@@ -25,29 +25,21 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     public static final String ROLE_INTRODUCTION = "roleIntroduction";
     public static final String ISDELETED = "isdeleted";
 
-
-
-
     public List findByRoleName(Object roleName) {
         return findByProperty(ROLE_NAME, roleName);
     }
-
 
     public List findByRoleState(Object roleState) {
         return findByProperty(ROLE_STATE, roleState);
     }
 
-
     public List findByRoleIntroduction(Object roleIntroduction) {
         return findByProperty(ROLE_INTRODUCTION, roleIntroduction);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
-
 
     public static TRoleDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TRoleDAO) ctx.getBean("TRoleDAO");
@@ -56,18 +48,15 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     //获取Role数量
 
     @SuppressWarnings("rawtypes")
-    public int getAllTRoleCount()
-    {
+    public int getAllTRoleCount() {
         log.debug("finding all TRole counts");
         try {
-
             String queryStr = "select count(*) from TRole as a where a.isdeleted='N'";
             List tmpList = getSessionFactory().getCurrentSession().createQuery(queryStr).list();
 
             int count = 0;
 
-            if(tmpList.size()>0)
-            {
+            if(tmpList.size()>0) {
                 count = new Integer(""+tmpList.get(0));
             }
 
@@ -77,7 +66,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             throw re;
         }
     }
-
 
     @SuppressWarnings("rawtypes")
     public List findAll(final PageBean pageBean) {
@@ -95,7 +83,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             throw re;
         }
     }
-
 
     @SuppressWarnings("rawtypes")
     public List findByKeyword(String keyword, PageBean pageBean) {
@@ -120,7 +107,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             throw re;
         }
     }
-
 
     @SuppressWarnings("rawtypes")
     public int getRoleByKeywordCount(String keyword) {
@@ -150,7 +136,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
     }
 
     //通过用户id查询到该用户的角色名称
-
     public String findRoleNameByUserId(String userId){
         log.debug("find roleName by userId");
         try {
@@ -165,7 +150,6 @@ public class TRoleDAOImpl extends BaseDaoImpl<TRole> implements TRoleDAO {
             }
             return roleName;
         } catch (RuntimeException re) {
-            // TODO: handle exception
             log.error("find roleName by userId failed", re);
             throw re;
         }

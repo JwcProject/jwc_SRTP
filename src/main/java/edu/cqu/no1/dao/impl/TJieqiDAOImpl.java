@@ -27,33 +27,25 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     public static final String SECONDARY_RESPONDENT = "secondaryRespondent";
     public static final String ISDELETED = "isdeleted";
 
-
-
     public List findByJqName(Object jqName) {
         return findByProperty(JQ_NAME, jqName);
     }
-
 
     public List findByQici(Object qici) {
         return findByProperty(QICI, qici);
     }
 
-
     public List findBySecondaryAssessment(Object secondaryAssessment) {
         return findByProperty(SECONDARY_ASSESSMENT, secondaryAssessment);
     }
-
 
     public List findBySecondaryRespondent(Object secondaryRespondent) {
         return findByProperty(SECONDARY_RESPONDENT, secondaryRespondent);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
-
 
     public static TJieqiDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TJieqiDAO) ctx.getBean("TJieqiDAO");
@@ -61,8 +53,6 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     /**
      * lsp 根据当前时间获取届期（当前申报的）
      */
-
-
     public TJieqi getJieqiNow(){
         log.debug("getJieqiNow");
         try {
@@ -110,7 +100,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
 
     /**
      *
-     *TODO 根据年份获取届期
+     *根据年份获取届期
      *authoy lzh
      *@param year
      *@return

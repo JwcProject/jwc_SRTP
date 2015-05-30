@@ -25,13 +25,10 @@ public class TProjectChangeContentDAOImpl extends BaseDaoImpl<TProjectChangeCont
     public static final String ISDELETED = "isdeleted";
 
 
-
-
     public List findByProjectchangecontentField(Object projectchangecontentField) {
         return findByProperty(PROJECTCHANGECONTENT_FIELD,
                 projectchangecontentField);
     }
-
 
     public List findByProjectchangecontentFieldname(
             Object projectchangecontentFieldname) {
@@ -39,13 +36,11 @@ public class TProjectChangeContentDAOImpl extends BaseDaoImpl<TProjectChangeCont
                 projectchangecontentFieldname);
     }
 
-
     public List findByProjectchangecontentOvalue(
             Object projectchangecontentOvalue) {
         return findByProperty(PROJECTCHANGECONTENT_OVALUE,
                 projectchangecontentOvalue);
     }
-
 
     public List findByProjectchangecontentNvalue(
             Object projectchangecontentNvalue) {
@@ -53,12 +48,9 @@ public class TProjectChangeContentDAOImpl extends BaseDaoImpl<TProjectChangeCont
                 projectchangecontentNvalue);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
-
 
     public static TProjectChangeContentDAO getFromApplicationContext(
             ApplicationContext ctx) {

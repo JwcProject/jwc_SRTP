@@ -26,9 +26,7 @@ public class TProfessionDAOImpl extends BaseDaoImpl<TProfession> implements TPro
     public static final String PROFESSION_REMARK = "professionRemark";
     public static final String PROFESSION_ISDELETED = "professionIsdeleted";
 
-
     //根据学院主管教师的工号获取该学院所有专业列表
-
     public List findProfessionsByTeaCode(String teaCode){
         log.debug("finding all professions by teacher code ");
         try {
@@ -63,26 +61,21 @@ public class TProfessionDAOImpl extends BaseDaoImpl<TProfession> implements TPro
         return findByProperty(PROFESSION_NAME, professionName);
     }
 
-
     public List findByProfessionSession(Object professionSession) {
         return findByProperty(PROFESSION_SESSION, professionSession);
     }
-
 
     public List findByProfessionClass(Object professionClass) {
         return findByProperty(PROFESSION_CLASS, professionClass);
     }
 
-
     public List findByProfessionRemark(Object professionRemark) {
         return findByProperty(PROFESSION_REMARK, professionRemark);
     }
 
-
     public List findByProfessionIsdeleted(Object professionIsdeleted) {
         return findByProperty(PROFESSION_ISDELETED, professionIsdeleted);
     }
-
 
     public static TProfessionDAO getFromApplicationContext(
             ApplicationContext ctx) {

@@ -29,8 +29,6 @@ public class TJournalActDAOImpl extends BaseDaoImpl<TJournalAct> implements TJou
     public static final String ISDELETED = "isdeleted";
     public static final String USER_ID = "userId";
 
-
-
     public int getAllTJournalActCount()
     {
         log.debug("finding all TJournalAct counts");

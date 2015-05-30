@@ -2,12 +2,15 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TAnnouncement;
 import edu.cqu.no1.domain.TAnnouncementModel;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.hibernate.annotations.NotFound;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 
@@ -75,35 +78,33 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
 
 
     /**
-     * TODO 根据公告ID获取公告的信息，包括发布者名称
+     * 根据公告ID获取公告的信息，包括发布者名称
      *
      * @param announId
      * @return
      */
-
+    @Nullable
     public TAnnouncementModel getAnnounById(String announId) {
         log.debug("get a announcement with publisherName by announId");
         try {
-            String queryString = "select t.*,s.USER_NAME as PUBLISHERNAME from T_ANNOUNCEMENT t,T_USER s where t.ANNOUN_ID=:aID and t.PUBLISHER_CODE=s.USER_ID";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-            sqlQuery.setString("aID", announId);
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu where" +
+                    " ta.announId = :aID and ta.publisherCode = tu.userId";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("aID", announId);
             @SuppressWarnings("unchecked")
-            List<TAnnouncementModel> list = sqlQuery.addEntity(
-                    TAnnouncementModel.class).list();
+            List<TAnnouncementModel> list = query.list();
             if (list.size() > 0) {
                 return list.get(0);
             }
             return null;
         } catch (RuntimeException e) {
-            log.error(
-                    "get a announcement with publisherName by announId failed ",
-                    e);
+            log.error("get a announcement with publisherName by announId failed ", e);
             throw e;
         }
     }
 
     /**
-     * TODO 学生或老师查询本人的公告
+     * 学生或老师查询本人的公告
      *
      * @param number     学号或教职工号
      * @param announName
@@ -111,29 +112,33 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-
+    @NotNull
     public List findStuTeatAnnoun(String number, String announName,
                                   Date announDate, PageBean pageBean) {
         log.debug("finding Student TAnnouncement instances");
         try {
-            String queryStr = "select t.*,s.USER_NAME as PUBLISHERNAME from T_ANNOUNCEMENT t,T_USER s where t.ISDELETED = 'N' and t.PUBLISHER_CODE=s.USER_ID and t.PUBLISHER_CODE=:code";
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu where" +
+                    " ta.isdeleted = 'N' and ta.publisherCode = tu.userId and ta.publisherCode = :code";
+
             if (null != announName && !announName.trim().equals("")) {
-                queryStr += " and t.ANNOUN_TITLE like :aName";
+                hql += " and ta.announTitle like :aName";
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                queryStr += " and t.PUBLISH_TIME >= :aDate and t.PUBLISH_TIME <= :aDate+1";
+                hql += " and ta.publishTime between :aDate and :aDate + 1";
             }
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setString("code", number);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("code", number);
             if (null != announName && !announName.trim().equals("")) {
-                sqlQuery.setString("aName", "%" + announName + "%");
+                query.setString("aName", "%" + announName + "%");
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                sqlQuery.setDate("aDate", announDate);
+                query.setDate("aDate", announDate);
             }
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
+            return query.list();
         } catch (RuntimeException re) {
             log.error("find Student failed", re);
             throw re;
@@ -141,27 +146,27 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
 
     }
 
-
     public int findStuTeaAnnounCount(String number, String announName,
                                      Date announDate) {
         log.debug("finding StuTea count TAnnouncement instances");
         try {
-            String queryStr = "select count(*) from T_ANNOUNCEMENT t where t.ISDELETED = 'N' and t.PUBLISHER_CODE=:code";
+            String hql = "select count(*) from TAnnouncement where isdeleted = 'N' and publisherCode = :code";
+
             if (null != announName && !announName.trim().equals("")) {
-                queryStr += " and t.ANNOUN_TITLE like :aName";
+                hql += " and announTitle like :aName";
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                queryStr += " and t.PUBLISH_TIME >= :aDate and t.PUBLISH_TIME <= :aDate+1";
+                hql += " and publishTime between :aDate and :aDate + 1";
             }
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setString("code", number);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("code", number);
             if (null != announName && !announName.trim().equals("")) {
-                sqlQuery.setString("aName", "%" + announName + "%");
+                query.setString("aName", "%" + announName + "%");
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                sqlQuery.setDate("aDate", announDate);
+                query.setDate("aDate", announDate);
             }
-            List list = sqlQuery.list();
+            List list = query.list();
             int count = 0;
             if (list.size() > 0) {
                 count = new Integer("" + list.get(0));
@@ -174,7 +179,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     /**
-     * TODO 学院主管教师查询本学院的公告
+     * 学院主管教师查询本学院的公告
      *
      * @param teaCode    主管教室教职工号
      * @param announName
@@ -182,35 +187,37 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-
+    @NotNull
     public List findUnitAnnoun(String teaCode, String announName,
                                Date announDate, PageBean pageBean) {
         log.debug("finding unit TAnnouncement");
         try {
-            String queryString = "Select A.*,Uu.User_Name as PUBLISHERNAME From T_Announcement A, T_User Uu Where A.Isdeleted='N'";
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu" +
+                    " where ta.isdeleted = 'N'";
+
             if (null != announName && !announName.trim().equals("")) {
-                queryString += " and A.ANNOUN_TITLE like :aName";
+                hql += " and ta.announTitle like :aName";
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                queryString += " and A.PUBLISH_TIME >= :aDate and A.PUBLISH_TIME <= :aDate+1";
+                hql += " and ta.publishTime between :aDate and :aDate + 1";
             }
-            queryString += " and A.Publisher_Code = Uu.User_Id And (A.Publisher_Code In "
-                    + "(Select T.Tea_Code From T_Teacher t Where T.Unit_Id = "
-                    + "(Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code)) "
-                    + "Or A.Publisher_Code In (Select S.Student_Number From T_Student s Where s.Unit_Id = "
-                    + "(Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code)))";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-            sqlQuery.setString("code", teaCode);
+            hql += " and ta.publisherCode = tu.userId and ta.publisherCode in (select" +
+                    " teaCode from TTeacher where teaCode = :code or ta.publisherCode in (select" +
+                    " studentNumber from TStudent where TUnit = (select TUnit from TTeacher where teaCode = :code)))";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+             query.setString("code", teaCode);
             if (null != announName && !announName.trim().equals("")) {
-                sqlQuery.setString("aName", "%" + announName + "%");
+                 query.setString("aName", "%" + announName + "%");
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                sqlQuery.setDate("aDate", announDate);
+                 query.setDate("aDate", announDate);
             }
-            System.out.println("unit-->" + queryString);
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
+            System.out.println("unit-->" + hql);
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
+            return  query.list();
         } catch (RuntimeException e) {
             log.error("query unit TAnnouncement failed: " + e);
             throw e;
@@ -222,27 +229,25 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
                                    Date announDate) {
         log.debug("finding unit TAnnouncement");
         try {
-            String queryString = "select count(*) from T_Announcement A where A.Isdeleted='N'";
+            String hql = "select count(*) from TAnnouncement ta where ta.isdeleted = 'N'";
             if (null != announName && !announName.trim().equals("")) {
-                queryString += " and A.ANNOUN_TITLE like :aName";
+                hql += " and ta.announTitle like :aName";
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                queryString += " and A.PUBLISH_TIME >= :aDate and A.PUBLISH_TIME <= :aDate+1";
+                hql += " and ta.publishTime between :aDate and :aDate + 1";
             }
-            queryString += " and (A.Publisher_code in "
-                    + " (select T.Tea_Code From T_Teacher t Where T.Unit_Id = "
-                    + " (Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code))"
-                    + " Or A.Publisher_Code In (Select S.Student_Number From T_Student s Where s.Unit_Id = "
-                    + " (Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code)))";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-            sqlQuery.setString("code", teaCode);
+            hql += " and ta.publisherCode = tu.userId and ta.publisherCode in (select" +
+                    " teaCode from TTeacher where teaCode = :code or ta.publisherCode in (select" +
+                    " studentNumber from TStudent where TUnit = (select TUnit from TTeacher where teaCode = :code)))";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+             query.setString("code", teaCode);
             if (null != announName && !announName.trim().equals("")) {
-                sqlQuery.setString("aName", "%" + announName + "%");
+                 query.setString("aName", "%" + announName + "%");
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                sqlQuery.setDate("aDate", announDate);
+                 query.setDate("aDate", announDate);
             }
-            List list = sqlQuery.list();
+            List list =  query.list();
             int count = 0;
             if (list.size() > 0) {
                 count = new Integer("" + list.get(0));
@@ -266,53 +271,55 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-
+    @NotNull
     public List findSchoolAnnoun(String announName, String checkState,
                                  Date announDate, String publisherName, String typeName,
                                  PageBean pageBean) {
         log.debug("find school TAnnouncements ");
         try {
-            String queryString = "Select A.*,Uu.User_Name as PUBLISHERNAME From T_Announcement A,"
-                    + "T_User Uu Where A.Isdeleted='N' and A.Publisher_Code = Uu.User_Id";
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu where" +
+                    " ta.isdeleted = 'N' and ta.publisherCode = tu.userId";
             if (null != announName && !announName.trim().equals("")) {
-                queryString += " and A.ANNOUN_TITLE like :aName";
+                hql += " and ta.announTitle like :aName";
             }
             if (null != checkState && !checkState.trim().equals("") && !checkState.trim().equals("ALL")) {
-                queryString += " and A.CHECK_STATE =:aState";
+                hql += " and ta.checkState =:aState";
             }
             if (null != checkState && checkState.trim().equals("ALL")) {
-                queryString += " and A.CHECK_STATE in (select t.CHECK_STATE from t_announcement t where t.check_state is not null)";
+                hql += " and ta.checkState is not null";
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                queryString += " and A.PUBLISH_TIME >= :aDate and A.PUBLISH_TIME <= :aDate+1";
+                hql += " and ta.publishTime between :aDate and :aDate + 1";
             }
             if (null != publisherName && !publisherName.trim().equals("")) {
-                queryString += " and A.PUBLISHER_CODE in (select Uu.USER_ID from T_User Uu where Uu.USER_NAME like :uName)";
+                hql += " and ta.publisherCode in (select userId from TUser where userName like :uName)";
             }
             if (null != typeName && !typeName.trim().equals("00")) {
-                queryString += " and A.ANNOUN_TYPE_ID = (select Ta.Announ_Type_Id from t_announ_type Ta where Ta.Announ_Type_Name like :tName)";
+                hql += " and ta.TAnnounType.announTypeName like :tName";
             }
-            queryString += " order by PUBLISH_TIME desc";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+            hql += " order by ta.publishTime desc";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
             if (null != announName && !announName.trim().equals("")) {
-                sqlQuery.setString("aName", "%" + announName + "%");
+                 query.setString("aName", "%" + announName + "%");
             }
             if (null != checkState && !checkState.trim().equals("") && !checkState.trim().equals("ALL")) {
-                sqlQuery.setString("aState", checkState);
+                 query.setString("aState", checkState);
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                sqlQuery.setDate("aDate", announDate);
+                 query.setDate("aDate", announDate);
             }
             if (null != publisherName && !publisherName.trim().equals("")) {
-                sqlQuery.setString("uName", "%" + publisherName + "%");
+                 query.setString("uName", "%" + publisherName + "%");
             }
             if (null != typeName && !typeName.trim().equals("00")) {
-                sqlQuery.setString("tName", "%" + typeName + "%");
+                 query.setString("tName", "%" + typeName + "%");
             }
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
+            return  query.list();
         } catch (RuntimeException e) {
             log.error("find school TAnnouncement " + e);
             throw e;
@@ -325,43 +332,43 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
                                      Date announDate, String publisherName, String typeName) {
         log.debug("find school count TAnnouncements ");
         try {
-            String queryString = "Select count(*) From T_Announcement A Where A.Isdeleted='N'";
+            String hql = "select count(*) from TAnnouncement ta where ta.isdeleted = 'N'";
 
             if (null != announName && !announName.trim().equals("")) {
-                queryString += " and A.ANNOUN_TITLE like :aName";
+                hql += " and ta.announTitle like :aName";
             }
             if (null != checkState && !checkState.trim().equals("") && !checkState.trim().equals("ALL")) {
-                queryString += " and A.CHECK_STATE =:aState";
+                hql += " and A.CHECK_STATE =:aState";
             }
-            if (null != checkState && checkState.equals("ALL")) {
-                queryString += " and A.CHECK_STATE in (select t.CHECK_STATE from t_announcement t where t.check_state is not null)";
+            if (null != checkState && checkState.trim().equals("ALL")) {
+                hql += " and ta.checkState is not null";
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                queryString += " and A.PUBLISH_TIME >= :aDate and A.PUBLISH_TIME <= :aDate+1";
+                hql += " and ta.publishTime between :aDate and :aDate + 1";
             }
             if (null != publisherName && !publisherName.trim().equals("")) {
-                queryString += " and A.PUBLISHER_CODE in (select Uu.USER_ID from T_User Uu where Uu.USER_NAME like :uName)";
+                hql += " and ta.publisherCode in (select userId from TUser where userName like :uName)";
             }
             if (null != typeName && !typeName.trim().equals("00")) {
-                queryString += " and A.ANNOUN_TYPE_ID = (select Ta.Announ_Type_Id from t_announ_type Ta where Ta.Announ_Type_Name like :tName)";
+                hql += " and ta.TAnnounType.announTypeName like :tName";
             }
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             if (null != announName && !announName.trim().equals("")) {
-                sqlQuery.setString("aName", "%" + announName + "%");
+                 query.setString("aName", "%" + announName + "%");
             }
             if (null != checkState && !checkState.trim().equals("") && !checkState.trim().equals("ALL")) {
-                sqlQuery.setString("aState", checkState);
+                 query.setString("aState", checkState);
             }
             if (null != announDate && !announDate.toString().trim().equals("")) {
-                sqlQuery.setDate("aDate", announDate);
+                 query.setDate("aDate", announDate);
             }
             if (null != publisherName && !publisherName.trim().equals("")) {
-                sqlQuery.setString("uName", "%" + publisherName + "%");
+                 query.setString("uName", "%" + publisherName + "%");
             }
             if (null != typeName && !typeName.trim().equals("00")) {
-                sqlQuery.setString("tName", "%" + typeName + "%");
+                 query.setString("tName", "%" + typeName + "%");
             }
-            List list = sqlQuery.list();
+            List list =  query.list();
             int count = 0;
             if (list.size() > 0) {
                 count = new Integer("" + list.get(0));
@@ -375,7 +382,6 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     /**
-     * TODO
      *
      * @param code     学生学号/指导老师教职工号
      * @param pageBean return List
@@ -384,12 +390,15 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     public List getStuTeaAnnounctment(String code, PageBean pageBean) {
         log.debug("finding all person TAnnouncement instances by pageBeanun");
         try {// as publisherName
-            String queryStr = "select t.*,s.USER_NAME as PUBLISHERNAME from T_ANNOUNCEMENT t,T_USER s where t.ISDELETED = 'N' and t.PUBLISHER_CODE=s.USER_ID and t.PUBLISHER_CODE=:code";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setString("code", code);
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu where" +
+                    " ta.isdeleted = 'N' and ta.publisherCode = tu.userId and ta.publisherCode = :code";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("code", code);
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
+            return  query.list();
         } catch (RuntimeException e) {
             log.error("find all failed", e);
             throw e;
@@ -417,55 +426,24 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     /**
-     * TODO 学员主管教师获取属于一个学院的公告
+     * 学员主管教师获取属于一个学院的公告
      *
      * @param unitTeaCode 学院主管老师的教职工号
      * @param pageBean    return List
      */
-
+    @NotNull
     public List getUnitAnnounctment(String unitTeaCode, PageBean pageBean) {
         log.debug("finding unit all TAnnouncement instances by pageBeanun");
-        try {
-            String queryStr = "Select A.*,Uu.User_Name as PUBLISHERNAME From T_Announcement A, T_User Uu Where A.Isdeleted='N' and A.Publisher_Code = Uu.User_Id And (A.Publisher_Code In (Select T.Tea_Code From T_Teacher t Where T.Unit_Id = (Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code)) Or A.Publisher_Code In (Select S.Student_Number From T_Student s Where s.Unit_Id = (Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code)))";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setString("code", unitTeaCode);
-            //sqlQuery.setFetchSize(pageBean.getBeginIndex());
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            List aList = sqlQuery.list();
-            //aList = sqlQuery.addEntity(TAnnouncementModel.class).list();
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
-        } catch (RuntimeException e) {
-            log.error("find unit all TAnnouncement failed", e);
-            throw e;
-        }
+        return findUnitAnnoun(unitTeaCode, null, null, pageBean);
     }
-
 
     public int getUnitAnnounctmentCount(String unitTeaCode) {
         log.debug("finding unit all TAnnouncement instances by pageBeanun");
-        try {
-            String queryStr = "select count(*) from T_Announcement A where A.Isdeleted='N' and (A.Publisher_code in "
-                    + "(select T.Tea_Code From T_Teacher t Where T.Unit_Id = "
-                    + "(Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code))"
-                    + " Or A.Publisher_Code In (Select S.Student_Number From T_Student s Where s.Unit_Id = "
-                    + "(Select Tt.Unit_Id From T_Teacher Tt Where Tt.Tea_Code =:code)))";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setString("code", unitTeaCode);
-            List tmpList = sqlQuery.list();
-            int count = 0;
-            if (tmpList.size() > 0) {
-                count = new Integer("" + tmpList.get(0));
-            }
-            return count;
-        } catch (RuntimeException e) {
-            log.error("find unit all TAnnouncement failed", e);
-            throw e;
-        }
+        return findUnitAnnounCount(unitTeaCode, null, null);
     }
 
     //通过当前学生所在学院获取学院公告
-
+    @NotNull
     public List getUnitAnnounctmentByStuCode(String unitStuCode, PageBean pageBean) {
         log.debug("getting unit all TAnnouncement instances by pageBeanun");
         try {
@@ -689,19 +667,23 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     /**
-     * TODO 教务处主管老师获取所有未删除的公告
+     * 教务处主管老师获取所有未删除的公告
      *
      * @param pageBean return List
      */
-
+    @NotNull
     public List getSchoolAnnounctment(PageBean pageBean) {
         log.debug("finding all School TAnnouncement instances by pageBeanun");
         try {
-            String queryStr = "Select A.*,Uu.User_Name as PUBLISHERNAME From T_Announcement A, T_User Uu Where A.Isdeleted='N' and A.Publisher_Code = Uu.User_Id and A.CHECK_STATE in (select t.CHECK_STATE from t_announcement t where t.check_state is not null)  order by PUBLISH_TIME desc";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu" +
+                    " where ta.isdeleted = 'N' and ta.publisherCode = tu.userId and ta.checkState is not null" +
+                    " order by ta.publishTime desc";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
+            return query.list();
         } catch (RuntimeException e) {
             log.error("find all School failed", e);
             throw e;
@@ -712,9 +694,10 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     public int getSchoolAnnounctmentCount() {
         log.debug("finding all School TAnnouncement count");
         try {
-            String queryStr = "select count(*) from T_Announcement A where A.isdeleted = 'N'  and A.CHECK_STATE in (select t.CHECK_STATE from t_announcement t where t.check_state is not null)";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            List tmpList = sqlQuery.list();
+            String hql = "select count(*) from TAnnouncement ta where ta.isdeleted = 'N'" +
+                    " and ta.checkState is not null";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            List tmpList =  query.list();
             int count = 0;
             if (tmpList.size() > 0) {
                 count = new Integer("" + tmpList.get(0));
@@ -732,73 +715,48 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param typeName 公告类别名称
      * @return
      */
-
+    @NotNull
     public List findAnnounByType(String typeName, PageBean pageBean) {
         log.debug("find TAnnouncement by type");
-        try {
-            String queryString = "select t.*,Uu.User_Name as PUBLISHERNAME from T_Announcement t,T_announ_type Ta,T_User Uu "
-                    + "where t.ISDELETED='N' and t.PUBLISH_STATE = 'Y' and t.Publisher_Code = Uu.User_Id and t.ANNOUN_TYPE_ID=Ta.Announ_Type_Id and Ta.Announ_Type_Name like :tName";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-            sqlQuery.setString("tName", "%" + typeName + "%");
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
-        } catch (RuntimeException e) {
-            log.error("find announcement by type failed " + e);
-            throw e;
-        }
-
+        return findIndexSchoolAnnoument(null, null, typeName, pageBean);
     }
-
 
     public int findAnnounByTypeCount(String typeName) {
         log.debug("find TAnnouncement count by type");
-        try {
-            String queryString = "select count(*) from T_Announcement t,T_announ_type Ta "
-                    + "where t.ISDELETED='N' and t.PUBLISH_STATE = 'Y' and t.ANNOUN_TYPE_ID=Ta.Announ_Type_Id and Ta.Announ_Type_Name like :tName";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-            sqlQuery.setString("tName", "%" + typeName + "%");
-            List list = sqlQuery.list();
-            int count = 0;
-            if (list.size() > 0) {
-                count = new Integer("" + list.get(0));
-            }
-            return count;
-        } catch (RuntimeException e) {
-            log.error("find announcement count by type failed " + e);
-            throw e;
-        }
-
+        return findIndexSchoolAnnoumentCount(null, null, typeName);
     }
 
     //查询主页学校公告
-
+    @NotNull
     public List findIndexSchoolAnnoument(String announTitle, Date publishTime, String typeName, PageBean pageBean) {
         log.debug("find TAnnouncement by type");
         try {
-            String queryString = "select t.*,Uu.User_Name as PUBLISHERNAME from T_Announcement t,T_announ_type Ta,T_User Uu "
-                    + "where t.ISDELETED='N' and t.PUBLISH_STATE = 'Y' and t.Publisher_Code = Uu.User_Id and t.ANNOUN_TYPE_ID=Ta.Announ_Type_Id and Ta.Announ_Type_Name like :tName";
+            String hql = "select new TAnnouncementModel(ta, tu.userName) from TAnnouncement ta, TUser tu where" +
+                    " ta.isdeleted = 'N' and ta.publishState = 'Y' and ta.publisherCode = tu.userId and" +
+                    " ta.TAnnounType.announTypeName like :tName";
             if (null != announTitle && !announTitle.trim().equals("")) {
-                queryString += " and t.ANNOUN_TITLE like :announTitle";
+                hql += " and ta.announTitle like :announTitle";
             }
             if (null != publishTime && !publishTime.toString().trim().equals("")) {
-                queryString += " and t.PUBLISH_TIME >= :publishTime and t.PUBLISH_TIME <= :publishTime+1";
+                hql += " and ta.publishTime between :publishTime and :publishTime + 1";
             }
 
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
             if (null != announTitle && !announTitle.trim().equals("")) {
-                sqlQuery.setString("announTitle", "%" + announTitle + "%");
+                 query.setString("announTitle", "%" + announTitle + "%");
             }
 
             if (null != publishTime && !publishTime.toString().trim().equals("")) {
-                sqlQuery.setDate("publishTime", publishTime);
+                 query.setDate("publishTime", publishTime);
             }
 
-            sqlQuery.setString("tName", "%" + typeName + "%");
-            sqlQuery.setFirstResult(pageBean.getBeginIndex());
-            sqlQuery.setMaxResults(pageBean.getPageCapibility());
-            return sqlQuery.addEntity(TAnnouncementModel.class).list();
+             query.setString("tName", "%" + typeName + "%");
+             if (null != pageBean) {
+                 query.setFirstResult(pageBean.getBeginIndex());
+                 query.setMaxResults(pageBean.getPageCapibility());
+             }
+            return  query.list();
         } catch (RuntimeException e) {
             log.error("find announcement by type failed " + e);
             throw e;
@@ -809,24 +767,24 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     public int findIndexSchoolAnnoumentCount(String announTitle, Date publishTime, String typeName) {
         log.debug("find TAnnouncement count by type");
         try {
-            String queryString = "select count(*) from T_Announcement t,T_announ_type Ta "
-                    + "where t.ISDELETED='N' and t.PUBLISH_STATE = 'Y' and t.ANNOUN_TYPE_ID=Ta.Announ_Type_Id and Ta.Announ_Type_Name like :tName";
+            String hql = "select count(*) from TAnnouncement where isdeleted = 'N'" +
+                    " and publishState = 'Y' and TAnnounType.announTypeName like :tName";
             if (null != announTitle && !announTitle.trim().equals("")) {
-                queryString += " and t.ANNOUN_TITLE like :announTitle";
+                hql += " and ta.announTitle like :announTitle";
             }
             if (null != publishTime && !publishTime.toString().trim().equals("")) {
-                queryString += " and t.PUBLISH_TIME >= :publishTime and t.PUBLISH_TIME <= :publishTime+1";
+                hql += " and ta.publishTime between :publishTime and :publishTime + 1";
             }
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             if (null != announTitle && !announTitle.trim().equals("")) {
-                sqlQuery.setString("announTitle", "%" + announTitle + "%");
+                 query.setString("announTitle", "%" + announTitle + "%");
             }
 
             if (null != publishTime && !publishTime.toString().trim().equals("")) {
-                sqlQuery.setDate("publishTime", publishTime);
+                 query.setDate("publishTime", publishTime);
             }
-            sqlQuery.setString("tName", "%" + typeName + "%");
-            List list = sqlQuery.list();
+            query.setString("tName", "%" + typeName + "%");
+            List list =  query.list();
             int count = 0;
             if (list.size() > 0) {
                 count = new Integer("" + list.get(0));

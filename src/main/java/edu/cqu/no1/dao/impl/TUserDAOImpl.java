@@ -28,56 +28,39 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     public static final String ISDELETED = "isdeleted";
     public static final String USER_TYPE = "userType";
 
-
     public List<TUser> findByUserName(Object userName) {
         return findByProperty(USER_NAME, userName);
     }
-
 
     public List<TUser> findByUserPassword(Object userPassword) {
         return findByProperty(USER_PASSWORD, userPassword);
     }
 
-
     public List<TUser> findByUserState(Object userState) {
         return findByProperty(USER_STATE, userState);
     }
-
 
     public List<TUser> findByUserIntroduction(Object userIntroduction) {
         return findByProperty(USER_INTRODUCTION, userIntroduction);
     }
 
-
     public List<TUser> findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public List<TUser> findByUserType(Object userType) {
         return findByProperty(USER_TYPE, userType);
     }
 
-
-    public int getAllTUserCount()
-    {
+    public int getAllTUserCount() {
         log.debug("finding all TUser counts");
         try {
-
-			/*String queryString = "select count(*) from TUser as where s.isdeleted = '0'";
-			List tmpList = getSessionFactory().getCurrentSession().createQuery(queryString).list();*/
-
-
-			/*String queryString = "select count(1) from T_User where isdeleted = '0'";
-			List tmpList = getSessionFactory().getCurrentSession().createSQLQuery(queryString).list();*/
-
             String queryStr = "select count(*) from TUser as a where a.isdeleted='N'";
             List tmpList = getSessionFactory().getCurrentSession().createQuery(queryStr).list();
 
             int count = 0;
 
-            if(tmpList.size()>0)
-            {
+            if(tmpList.size()>0) {
                 count = new Integer(""+tmpList.get(0));
             }
 
@@ -87,7 +70,6 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             throw re;
         }
     }
-
 
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TUser instances");
@@ -100,22 +82,6 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             query.setMaxResults(pageBean.getPageCapibility());
 
             return query.list();
-
-			/*final String str =  "select * from T_User a where a.isdeleted = '0'";
-
-			return this.getHibernateTemplate().executeFind(new HibernateCallback()
-						{
-							public Object doInHibernate(Session session)throws HibernateException, SQLException
-							{
-								Query query = session.createSQLQuery(str).addEntity(TUser.class);
-
-								query.setFirstResult(pageBean.getBeginIndex());
-								query.setMaxResults(pageBean.getPageCapibility());
-
-								return query.list();
-							}
-						});*/
-
         } catch (RuntimeException re) {
             log.error("find all failed", re);
             throw re;
@@ -130,28 +96,24 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             String queryStr = new String("select count(*) from TUser as model where model.isdeleted='N'");
 
-            if(null != userId && !userId.trim().equals(""))
-            {
+            if(null != userId && !userId.trim().equals("")) {
 
                 queryStr += " and model.userId like :userId";
 
             }
 
-            if(null != userName && !userName.trim().equals(""))
-            {
+            if(null != userName && !userName.trim().equals("")) {
 
                 queryStr += " and model.userName like :userName";
 
             }
 
-            if(null != userType && !userType.equals("ALL"))
-            {
+            if(null != userType && !userType.equals("ALL")) {
                 queryStr += " and model.userType = :userType";
 
             }
 
-            if(null != userState && !userState.equals("00"))
-            {
+            if(null != userState && !userState.equals("00")) {
                 queryStr += " and model.userState = :userState";
 
             }
@@ -159,25 +121,21 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             Session session = getSessionFactory().getCurrentSession();
             Query query = session.createQuery(queryStr);
 
-            if(null != userId && !userId.trim().equals(""))
-            {
+            if(null != userId && !userId.trim().equals("")) {
                 query.setString("userId", "%"+userId+"%");
 
             }
 
-            if(null != userName && !userName.trim().equals(""))
-            {
+            if(null != userName && !userName.trim().equals("")) {
                 query.setString("userName", "%"+userName+"%");
 
             }
 
-            if(null != userType && !userType.equals("ALL"))
-            {
+            if(null != userType && !userType.equals("ALL")) {
                 query.setString("userType", userType);
             }
 
-            if(null != userState && !userState.equals("00"))
-            {
+            if(null != userState && !userState.equals("00")) {
                 query.setString("userState", userState);
             }
 
@@ -185,8 +143,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             int count = 0;
 
-            if(tmpList.size()>0)
-            {
+            if(tmpList.size()>0) {
                 count = new Integer(""+tmpList.get(0));
             }
 
@@ -197,38 +154,28 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         }
     }
 
-
-    public List getTUserByMutiProperty(String userId, String userName, String userType, String userState, final PageBean pageBean)
-    {
+    public List getTUserByMutiProperty(String userId, String userName, String userType, String userState, final PageBean pageBean) {
         log.debug("finding all getTUserCountByMutiProperty");
         try {
 
             String queryStr = new String("from TUser as model where model.isdeleted = 'N'");
 
-            if(null != userId && !userId.trim().equals(""))
-            {
-
+            if(null != userId && !userId.trim().equals("")) {
                 queryStr += " and model.userId like :userId";
 
             }
 
-            if(null != userName && !userName.trim().equals(""))
-            {
-
+            if(null != userName && !userName.trim().equals("")) {
                 queryStr += " and model.userName like :userName";
 
             }
 
-            if(null != userType && !userType.equals("ALL"))
-            {
+            if(null != userType && !userType.equals("ALL")) {
                 queryStr += " and model.userType = :userType";
-
             }
 
-            if(null != userState && !userState.equals("00"))
-            {
+            if(null != userState && !userState.equals("00")) {
                 queryStr += " and model.userState = :userState";
-
             }
 
             Session session = getSessionFactory().getCurrentSession();
@@ -236,25 +183,19 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             query.setFirstResult(pageBean.getBeginIndex());
             query.setMaxResults(pageBean.getPageCapibility());
 
-            if(null != userId && !userId.trim().equals(""))
-            {
+            if(null != userId && !userId.trim().equals("")) {
                 query.setString("userId", "%"+userId+"%");
-
             }
 
-            if(null != userName && !userName.trim().equals(""))
-            {
+            if(null != userName && !userName.trim().equals("")) {
                 query.setString("userName", "%"+userName+"%");
-
             }
 
-            if(null != userType && !userType.equals("ALL"))
-            {
+            if(null != userType && !userType.equals("ALL")) {
                 query.setString("userType", userType);
             }
 
-            if(null != userState && !userState.equals("00"))
-            {
+            if(null != userState && !userState.equals("00")) {
                 query.setString("userState", userState);
             }
 
@@ -264,7 +205,6 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             throw re;
         }
     }
-
 
     public static TUserDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TUserDAO) ctx.getBean("TUserDAO");

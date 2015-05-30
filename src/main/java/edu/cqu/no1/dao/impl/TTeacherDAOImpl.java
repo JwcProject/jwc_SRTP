@@ -51,7 +51,6 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
      * 得到不是专家教师的教师
      * type 为类别，01 为申报的专家教师，02为结题的专家教师
      */
-
     public List getCommonTeachers(String code, String type) {
         log.debug("get all common Teacher ");
         try {
@@ -68,21 +67,18 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
     }
 
     //多条件查询当前主管教师所在学院的所有教师
-
     public List findTeachers(String teaCode, String teaName, String teaTitle) {
         log.debug("find all Teacher ");
         try {
             String queryStr = "from TTeacher t where t.isdeleted = 'N' and t.TUnit.unitId=(select a.TUnit.unitId from TTeacher a where a.teaCode=:code)";
 
-            if(null != teaName && !teaName.trim().equals(""))
-            {
+            if(null != teaName && !teaName.trim().equals("")) {
 
                 queryStr += " and t.teaName like :teaName";
 
             }
 
-            if(null != teaTitle && !teaTitle.trim().equals("00"))
-            {
+            if(null != teaTitle && !teaTitle.trim().equals("00")) {
 
                 queryStr += " and t.teaTitle =:teaTitle";
 
@@ -91,12 +87,10 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
 
             query.setString("code", teaCode);
 
-            if(null != teaName && !teaName.equals(""))
-            {
+            if(null != teaName && !teaName.equals("")) {
                 query.setString("teaName", "%"+teaName+"%");
             }
-            if(null != teaTitle && !teaTitle.equals("00"))
-            {
+            if(null != teaTitle && !teaTitle.equals("00")) {
                 query.setString("teaTitle", teaTitle);
             }
             return query.list();
@@ -105,7 +99,6 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
             throw e;
         }
     }
-
 
     public List findTeacherByCode(String code) {
         log.debug("find teacher by teacher code");
@@ -120,56 +113,45 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
         }
     }
 
-
     public List findByTeaName(Object teaName) {
         return findByProperty(TEA_NAME, teaName);
     }
-
 
     public List findByTeaCode(Object teaCode) {
         return findByProperty(TEA_CODE, teaCode);
     }
 
-
     public List findByTeaSex(Object teaSex) {
         return findByProperty(TEA_SEX, teaSex);
     }
-
 
     public List findByTeaTitle(Object teaTitle) {
         return findByProperty(TEA_TITLE, teaTitle);
     }
 
-
     public List findByTeaTele(Object teaTele) {
         return findByProperty(TEA_TELE, teaTele);
     }
-
 
     public List findByTeaEmail(Object teaEmail) {
         return findByProperty(TEA_EMAIL, teaEmail);
     }
 
-
     public List findByTeaState(Object teaState) {
         return findByProperty(TEA_STATE, teaState);
     }
-
 
     public List findByTeaIntro(Object teaIntro) {
         return findByProperty(TEA_INTRO, teaIntro);
     }
 
-
     public List findByTeaRemark(Object teaRemark) {
         return findByProperty(TEA_REMARK, teaRemark);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public static TTeacherDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TTeacherDAO) ctx.getBean("TTeacherDAO");
@@ -177,7 +159,6 @@ public class TTeacherDAOImpl extends BaseDaoImpl<TTeacher> implements TTeacherDA
     /**
      * lsp
      */
-
     public List findTeachersByName(String name){
         log.debug("findTeachersByName");
         try {

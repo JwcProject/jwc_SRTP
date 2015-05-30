@@ -28,22 +28,17 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements TJournalDA
     public static final String ISDELETED = "isdeleted";
     public static final String JOURNAL_LOGINIP = "journalLoginip";
 
-
-
     public List findByUserName(Object userName) {
         return findByProperty(USER_NAME, userName);
     }
-
 
     public List findByJournalRemark(Object journalRemark) {
         return findByProperty(JOURNAL_REMARK, journalRemark);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
 
     public List findByJournalLoginip(Object journalLoginip) {
         return findByProperty(JOURNAL_LOGINIP, journalLoginip);
@@ -56,7 +51,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements TJournalDA
      * comments:
      * **********************************
      */
-
 
     public List findByQueryString(String queryString) {
         //return getHibernateTemplate().find(queryString);
@@ -137,7 +131,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements TJournalDA
     }
 
     //多条件查询获取查询列表长度
-
     public int findByMultiConditionCount(String userId, String userName, String journalLoginip, Date journalLogintime, Date journalQuitime) {
         log.debug("finding all SelectedTJournal counts");
         try {
@@ -212,7 +205,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements TJournalDA
         }
     }
 
-
     public int getAllTJournalCount() {
         log.debug("finding all TJournal counts");
         try {
@@ -232,8 +224,6 @@ public class TJournalDAOImpl extends BaseDaoImpl<TJournal> implements TJournalDA
             throw re;
         }
     }
-
-
 
     public List findAll(final PageBean pageBean) {
         log.debug("finding all TJournal instances");

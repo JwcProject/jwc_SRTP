@@ -40,7 +40,6 @@ public class TDeclCommentDAOImpl extends BaseDaoImpl<TDeclComment> implements TD
             }
             return tDeclComment;
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("get TDeclComment by expertReview failed", e);
             throw e;
         }

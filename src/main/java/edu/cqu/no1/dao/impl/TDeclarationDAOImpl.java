@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.NotNull;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TDeclaration;
 import edu.cqu.no1.util.PageBean;
@@ -48,7 +49,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
 
     /**
      *
-     *TODO 判断一个学生是否参与了申报
+     *判断一个学生是否参与了申报
      *authoy lzh
      *@param stuNumber
      *@return
@@ -511,8 +512,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
             }
 
             else  {
-                if(null != jqYear && !jqYear.trim().equals(""))
-                {
+                if(null != jqYear && !jqYear.trim().equals("")) {
                     queryString += " and D.TJieqi.jqId in (select J.jqId from TJieqi J where J.jqYear=:jqYear)";
                 }
             }
@@ -541,8 +541,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
                 query.setString("jqId", jqId);
             }
             else {
-                if(null != jqYear && !jqYear.trim().equals(""))
-                {
+                if(null != jqYear && !jqYear.trim().equals("")) {
                     query.setString("jqYear", jqYear);
                 }
             }
@@ -577,8 +576,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
         log.debug("find review teacher declaration");
         try {
 
-
-
             String queryString = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
                     "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" +
                     "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=" +
@@ -588,8 +585,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
             }
 
             else  {
-                if(null != jqYear && !jqYear.trim().equals(""))
-                {
+                if(null != jqYear && !jqYear.trim().equals("")) {
                     queryString += " and dc.TExpertReview.TDeclaration.TJieqi.jqId in (select J.jqId from TJieqi J where J.jqYear=:jqYear)";
                 }
             }
@@ -605,8 +601,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
                         "(select P.professionId from TProfession P where P.professionName=:professionName))";
             }
 
-
-
             if (null != compEval && !compEval.trim().equals("")){
                 queryString += " and dc.compEval=:compEval";
             }
@@ -619,8 +613,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
                 query.setString("jqId", jqId);
             }
             else {
-                if(null != jqYear && !jqYear.trim().equals(""))
-                {
+                if(null != jqYear && !jqYear.trim().equals("")) {
                     query.setString("jqYear", jqYear);
                 }
             }
@@ -629,11 +622,9 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
                 query.setString("leaderCode", "%" + leaderCode + "%");
             }
 
-            if(null != professionName && !professionName.trim().equals(""))
-            {
+            if(null != professionName && !professionName.trim().equals("")) {
                 query.setString("professionName",professionName);
             }
-
 
 
             if (null != compEval && !compEval.trim().equals("")&& !compEval.trim().equals("ALL")) {
@@ -653,11 +644,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
     public int findReviewTeaDeclarationCount(String teaCode, String jqYear, String jqId, String professionName, String leaderCode, String compEval) {
         log.debug("find review teacher declaration count ");
         try {
-			/*
-			 * String queryStr = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
-					"(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" + 
-			        "(select et.exTeaId from TExpertTeacher et where et.isdeleted = 'N' and et.TTeacher.teaId=(select tt.teaId from TTeacher tt where tt.teaCode=:teaCode)))";
-			 * */
 
             String queryString = " select count(*) from TDeclComment dc where dc.isdeleted = 'N' and dc.TExpertReview.exReviewId in" +
                     "(select er.exReviewId from TExpertReview er where er.isdeleted = 'N' and er.TExpertTeacher.exTeaId in" +
@@ -669,8 +655,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
             }
 
             else  {
-                if(null != jqYear && !jqYear.trim().equals(""))
-                {
+                if(null != jqYear && !jqYear.trim().equals("")) {
                     queryString += " and dc.TExpertReview.TDeclaration.TJieqi.jqId in (select J.jqId from TJieqi J where J.jqYear=:jqYear)";
                 }
             }
@@ -687,8 +672,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
             }
 
 
-
-
             if (null != compEval && !compEval.trim().equals("")){
                 queryString += " and dc.compEval=:compEval";
             }
@@ -701,8 +684,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
                 query.setString("jqId", jqId);
             }
             else {
-                if(null != jqYear && !jqYear.trim().equals(""))
-                {
+                if(null != jqYear && !jqYear.trim().equals("")) {
                     query.setString("jqYear", jqYear);
                 }
             }
@@ -711,8 +693,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
                 query.setString("leaderCode", "%" + leaderCode + "%");
             }
 
-            if(null != professionName && !professionName.trim().equals(""))
-            {
+            if(null != professionName && !professionName.trim().equals("")) {
                 query.setString("professionName",professionName);
             }
 
@@ -739,7 +720,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
 
     /**
      *
-     *TODO 根据申报状态查询学院申报
+     *根据申报状态查询学院申报
      *authoy lzh
      *@param teaCode 学院主管老师的教职工号
      *@param state  申报状态
@@ -749,8 +730,8 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
     public List findUnitDecByState(String teaCode, String state, PageBean pageBean){
         try {
             log.error("find unit declaration by state");
-            String sqlquery ="From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.TUnit.unitId =(select T.TUnit.unitId from TTeacher T where T.teaCode=:code)";
-            Query query = getSessionFactory().getCurrentSession().createQuery(sqlquery);
+            String hql ="From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.TUnit.unitId =(select T.TUnit.unitId from TTeacher T where T.teaCode=:code)";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("state", state);
             query.setString("code", teaCode);
 
@@ -770,8 +751,8 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
     public int findUnitDecByStateCount(String teaCode, String state){
         try {
             log.error("find unit declaration count by state");
-            String sqlquery ="select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.TUnit.unitId =(select T.TUnit.unitId from TTeacher T where T.teaCode=:code)";
-            Query query = getSessionFactory().getCurrentSession().createQuery(sqlquery);
+            String hql ="select count(*) From TDeclaration D Where D.isdeleted='N' and D.checkState=:state and D.TUnit.unitId =(select T.TUnit.unitId from TTeacher T where T.teaCode=:code)";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("state", state);
             query.setString("code", teaCode);
             List list = query.list();
@@ -809,7 +790,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
         } catch (RuntimeException e) {
             log.error("find unit declaration count by state" + e);
             throw e;
-            // TODO: handle exception
         }
     }
 
@@ -830,7 +810,6 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
             return count;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -1031,34 +1010,21 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
         return (TDeclarationDAO) ctx.getBean("TDeclarationDAO");
     }
 
-
-    public List findAll(final PageBean pageBean, String studentId) {
+    @NotNull
+    public List findAll(String studentId, PageBean pageBean) {
         log.debug("finding all TDeclaration instances");
         try {
+            String hql = "from TDeclaration where isdeleted = 'N' and" +
+                    " TStudentByMember1Code.studentNumber = :code" +
+                    " or TStudentByLeaderCode.studentNumber = :code" +
+                    " or TStudentByMember2Code.studentNumber = :code";
 
-            String queryStr =
-                    "Select *\n" +
-                            "  From T_Declaration d\n" +
-                            " Where D.Isdeleted = 'N'\n" +
-                            "   And ((D.Member1_Code In\n" +
-                            "       (Select S.Student_Id\n" +
-                            "            From T_Student s\n" +
-                            "           Where S.Student_Number = :code)) Or\n" +
-                            "       (D.Leader_Code In\n" +
-                            "       (Select S.Student_Id\n" +
-                            "            From T_Student s\n" +
-                            "           Where S.Student_Number = :code))\n" +
-                            "           Or (d.member2_code In (Select S.Student_Id\n" +
-                            "            From T_Student s\n" +
-                            "           Where S.Student_Number = :code)))";
-
-			
-			/*Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);*/
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr).addEntity(TDeclaration.class);
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", studentId);
-            query.setFirstResult(pageBean.getBeginIndex());
-            query.setMaxResults(pageBean.getPageCapibility());
-
+            if (null != pageBean) {
+                query.setFirstResult(pageBean.getBeginIndex());
+                query.setMaxResults(pageBean.getPageCapibility());
+            }
             return query.list();
         } catch (RuntimeException re) {
             log.error("find all failed", re);
@@ -1066,39 +1032,20 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
         }
     }
 
-    public int getAllTDeclarationCount(String studentId)
-    {
+    public int getAllTDeclarationCount(String studentId) {
         log.debug("finding all TDeclaration counts");
         try {
-			
-			
-			/*String queryStr = "select count(*) from TDeclaration as a where a.isdeleted='N' " +
-					"and (a.TStudentByLeaderCode.studentId=:code or a.TStudentByMember1Code.studentId=:code " +
-					"or a.TStudentByMember2Code.studentId=:code)";*/
-
-            String queryStr =
-                    "Select count(1)\n" +
-                            "  From T_Declaration d\n" +
-                            " Where D.Isdeleted = 'N'\n" +
-                            "   And ((D.Member1_Code In\n" +
-                            "       (Select S.Student_Id\n" +
-                            "            From T_Student s\n" +
-                            "           Where S.Student_Number = :code)) Or\n" +
-                            "       (D.Leader_Code In\n" +
-                            "       (Select S.Student_Id\n" +
-                            "            From T_Student s\n" +
-                            "           Where S.Student_Number = :code))\n" +
-                            "           Or (d.member2_code In (Select S.Student_Id\n" +
-                            "            From T_Student s\n" +
-                            "           Where S.Student_Number = :code)))";
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
+            String hql = "select count(*) from TDeclaration where isdeleted = 'N' and" +
+                    " TStudentByMember1Code.studentNumber = :code" +
+                    " or TStudentByLeaderCode.studentNumber = :code" +
+                    " or TStudentByMember2Code.studentNumber = :code";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", studentId);
             List tmpList = query.list();
 
             int count = 0;
 
-            if(tmpList.size()>0)
-            {
+            if(tmpList.size()>0) {
                 count = new Integer(""+tmpList.get(0));
             }
 
@@ -1109,17 +1056,22 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
         }
     }
 
-    public String getDeclarationSerial(String unitId){
+    public String getDeclarationSerial(String unitId) {
         log.debug("getDeclarationSerial");
         try {
-            String queryStr = "Select Extract(Year From Sysdate) || '-' || Decode(U.Unit_Code, Null, 'cqu', U.Unit_Code) || '-' || (Count(D.Declar_Id)+1000) As Serial From T_Unit u, T_Declaration d Where D.College = U.Unit_Id Group By U.Unit_Id,u.unit_code Having U.Unit_Id=:unitid";
-            Query query = getSessionFactory().getCurrentSession().createSQLQuery(queryStr);
-            query.setString("unitid", unitId);
-            List tmpList = query.list();
+            String hql = "select year(current_date()) || '-', TUnit.unitCode, '-' || count(declarId) + 1000" +
+                    " from TDeclaration group by TUnit, TUnit.unitCode having TUnit.unitId = :unitId";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("unitId", unitId);
+            List<Object[]> tmpList = query.list();
             String serial = "";
-            if(tmpList.size()>0)
-            {
-                serial = ""+tmpList.get(0);
+            if(tmpList.size()>0) {
+               Object[] objs = tmpList.get(0);
+                assert 3 == objs.length;
+                for (int i = 0; i < 3; ++i) {
+                    if (1 == i && null == objs[1]) objs[1] = "cqu";
+                    serial += (String)objs[i];
+                }
             }
             return serial;
         } catch (RuntimeException re) {

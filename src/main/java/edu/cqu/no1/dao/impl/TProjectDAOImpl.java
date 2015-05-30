@@ -43,11 +43,10 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public static final String PROJECT_SCORE = "projectScore";
     public static final String ISDELETED = "isdeleted";
 
-
-
     public void createProject(String jqId) {
         log.debug("add TProject");
         try {
+            // TODO
             String queryString = "Insert Into T_Project\n"
                     + "  (\n"
                     + "\n"
@@ -196,7 +195,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
         }
     }
 
-
     public int getProjectCount(String unitTeaCode) {
         log.debug("finding all person TDeclaration count");
         try {
@@ -219,7 +217,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //多条件查询学院项目
-
     public int findProjectByTeaCodeCount(String teacherCode, String jqYear, String jqId, String professionName, String studentNums, String projectNumber, String projectName)
     {
         log.debug("find unit project count ");
@@ -407,7 +404,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return count;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("finding school all TProject count failed", e);
             throw e;
         }
@@ -544,7 +540,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //获取学生个人项目列表
-
     public List getStuProject(String stuCode){
         log.debug("find student project ");
         try {
@@ -560,7 +555,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return list;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -586,7 +580,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return list;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -609,7 +602,6 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
             return count;
 
         } catch (RuntimeException e) {
-            // TODO: handle exception
             log.error("find student project " + e);
             throw e;
         }
@@ -692,7 +684,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
 
     /**
      *
-     *TODO 根据项目组长的学号获取未申请结题的项目信息项目信息
+     *根据项目组长的学号获取未申请结题的项目信息项目信息
      *authoy lzh
      *@param leaderCode 项目组长的学号
      *@return
@@ -701,7 +693,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public TProject findByLeaderCode(String leaderCode){
         try {
             log.debug("find project by leader code");
-            String sql ="From TProject T where T.TStudentByProjectLeader.studentNumber=:leaderCode and T.isdeleted='N' and T.projectId not in (select TE.TProject.projectId from TEndProject TE where TE.isdeleted='N' and TE.endprojectState > 01)";
+            String sql ="From TProject T where T.TStudentByProjectLeader.studentNumber=:leaderCode and T.isdeleted='N' and T.projectId not in (select TE.TProject.projectId from TEndProject TE where TE.isdeleted='N' and TE.endProjectState > '01')";
             Query query =  getSessionFactory().getCurrentSession().createQuery(sql);
             query.setString("leaderCode", leaderCode);
             List<TProject> list = query.list();

@@ -30,8 +30,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements TPer
     public static final String PERMISSION_INTRODUCTION = "permissionIntroduction";
     public static final String ISDELETED = "isdeleted";
 
-
-
     public List findByPermissionName(Object permissionName) {
         return findByProperty(PERMISSION_NAME, permissionName);
     }
@@ -41,44 +39,29 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements TPer
         return findByProperty(PERMISSION_STATE, permissionState);
     }
 
-
     public List findByPermissionUrl(Object permissionUrl) {
         return findByProperty(PERMISSION_URL, permissionUrl);
     }
-
 
     public List findByPermissionLevel(Object permissionLevel) {
         return findByProperty(PERMISSION_LEVEL, permissionLevel);
     }
 
-
     public List findByPermissionFatherid(Object permissionFatherid) {
         return findByProperty(PERMISSION_FATHERID, permissionFatherid);
     }
-
 
     public List findByPermissionIntroduction(Object permissionIntroduction) {
         return findByProperty(PERMISSION_INTRODUCTION, permissionIntroduction);
     }
 
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
-
-    public int getAllTPermissionCount()
-    {
+    public int getAllTPermissionCount() {
         log.debug("finding all TPermission counts");
         try {
-
-			/*String queryString = "select count(*) from TUser as where s.isdeleted = '0'";
-			List tmpList = this.getSession().createQuery(queryString).list();*/
-
-
-			/*String queryString = "select count(1) from T_User where isdeleted = '0'";
-			List tmpList = this.getSession().createSQLQuery(queryString).list();*/
-
             String queryStr = "select count(*) from TPermission as a where a.isdeleted='N'";
             List tmpList = getSessionFactory().getCurrentSession().createQuery(queryStr).list();
 
@@ -95,8 +78,6 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements TPer
             throw re;
         }
     }
-
-
 
     public List findAll(PageBean pageBean) {
         log.debug("finding all TPermission instances");
@@ -195,6 +176,7 @@ public class TPermissionDAOImpl extends BaseDaoImpl<TPermission> implements TPer
         }
         return sql;
     }
+
     private Query getQueryBySql(String sql,TPermission instance){
         Query query = getSessionFactory().getCurrentSession().createQuery(sql);
         if(!"".equals(instance.getPermissionName())){

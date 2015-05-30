@@ -2,6 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TExpertLib;
 import edu.cqu.no1.domain.TExpertTeacher;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 
 @Repository
+// TODO
 public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implements TExpertTeacherDAO {
 
     private static final Logger log = LoggerFactory
@@ -25,14 +27,9 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     // property constants
     public static final String ISDELETED = "isdeleted";
 
-
-
-
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
-
-
 
     public static TExpertTeacherDAO getFromApplicationContext(
             ApplicationContext ctx) {
@@ -40,16 +37,13 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //根据届期id，专家库类型，获取专家库
-
-    public List<TExpertLib> findExpertLibByJqid(String jqId, String type)
-    {
+    @Nullable
+    public List<TExpertLib> findExpertLibByJqid(String jqId, String type) {
         log.debug("get expert lib by jqid");
-        try
-        {
-            if(null != jqId && !"".equals(jqId.trim()) && null != type && ("01".equals(type.trim()) || "02".equals(type.trim())))
-            {
-                String sql = "Select * From t_expert_lib l Where l.isdeleted='N' and l.jq_id = :jqId And l.type= :type";
-                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(TExpertLib.class);
+        try {
+            if(null != jqId && !"".equals(jqId.trim()) && null != type && ("01".equals(type.trim()) || "02".equals(type.trim()))) {
+                String hql = "from TExpertLib where isdeleted = 'N' and TJieqi.jqId = :jqId and type = :type";
+                Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
                 query.setString("jqId", jqId);
                 query.setString("type", type);
@@ -57,46 +51,32 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
                 @SuppressWarnings("unchecked")
                 List<TExpertLib> tmpList = query.list();
 
-                if(null != tmpList && tmpList.size() > 0)
-                {
+                if(null != tmpList && tmpList.size() > 0) {
                     return tmpList;
                 }
-                else
-                {
+                else {
                     return null;
                 }
             }
-            else
-            {
+            else {
                 log.error("parameter is null");
                 return null;
             }
-        }
-        catch(RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             log.error(e.toString());
             throw e;
         }
     }
 
     //根据届期id，专家库类型，登陆教师ID，获取本学院专家库
-
-    public List<TExpertLib> findUnitExpertLibByJqid(String jqId, String type, String teacherCode)
-    {
+    @Nullable
+    public List<TExpertLib> findUnitExpertLibByJqid(String jqId, String type, String teacherCode) {
         log.debug("get expert lib by jqid");
-        try
-        {
-            if(null != jqId && !"".equals(jqId.trim()) && null != type && null != teacherCode && !"".equals(teacherCode.trim()) && ("01".equals(type.trim()) || "02".equals(type.trim())))
-            {
-                String sql =
-                        "Select *\n" +
-                                "  From t_Expert_Lib l\n" +
-                                " Where l.Unit_Id In\n" +
-                                "       (Select t.Unit_Id From t_Teacher t Where t.Tea_Code = :teacherCode)\n" +
-                                "   And l.Isdeleted = 'N'\n" +
-                                "   And l.Jq_Id = :jqId \n" +
-                                "   And l.Type = :type ";
-                Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql).addEntity(TExpertLib.class);
+        try {
+            if(null != jqId && !"".equals(jqId.trim()) && null != type && null != teacherCode && !"".equals(teacherCode.trim()) && ("01".equals(type.trim()) || "02".equals(type.trim()))) {
+                String hql = "from TExpertLib where TUnit in (select TUnit from TTeacher where teaCode = :teacherCode)" +
+                        " and isdeleted = 'N' and TJieqi.jqId = :jqId and type = :type";
+                Query query = getSessionFactory().getCurrentSession().createQuery(hql);
 
                 query.setString("teacherCode", teacherCode);
                 query.setString("jqId", jqId);
@@ -105,33 +85,28 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
                 @SuppressWarnings("unchecked")
                 List<TExpertLib> tmpList = query.list();
 
-                if(null != tmpList && tmpList.size() > 0)
-                {
+                if(null != tmpList && tmpList.size() > 0) {
                     return tmpList;
                 }
-                else
-                {
+                else {
                     return null;
                 }
-            }
-            else
-            {
+            } else {
                 log.error("parameter is null");
                 return null;
             }
-        }
-        catch(RuntimeException e)
-        {
+        } catch(RuntimeException e) {
             log.error(e.toString());
             throw e;
         }
     }
 
     //通过单个老师的id找到最近的专家教师对象
-
+    @Nullable
     public TExpertTeacher getExpertTeachersByTeaId(String teaId, String type){
         log.debug("get expertTeachers by teacher id");
         try {
+            // TODO
             String queryStr =
                     "select t.*\n" +
                             "  from t_expert_teacher t , (select l.lib_id\n" +
@@ -201,12 +176,11 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     //通过专家库id得到专家教师
 
-    public List getExpetTeachersByExpertLib(String libId)
-    {
+    public List getExpetTeachersByExpertLib(String libId) {
         log.debug("get expertTeachers by expertLib");
         try {
 
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId=:libId)";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId=:libId";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("libId", libId);
@@ -221,7 +195,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *TODO 根据专家库ID获取某一期的专家教师（分页）
+     *根据专家库ID获取某一期的专家教师（分页）
      *authoy lzh
      *@param expLibId
      *@return
@@ -246,7 +220,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     public int findExpTeaCountByExpLibId(String expLibId){
         log.debug("get expertTeachers count by expertLib id");
         try {
-            String queryStr = "select count(*) From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId)";
+            String queryStr = "select count(*) From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("expLibId", expLibId);
             List list =  query.list();
@@ -263,7 +237,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     /**
      *
-     *TODO 根据专家库ID获取某一期的专家教师（不分页）
+     *根据专家库ID获取某一期的专家教师（不分页）
      *authoy lzh
      *@param expLibId
      *@return
@@ -272,7 +246,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     public List findExpTeaByExpLibId(String expLibId){
         log.debug("get expertTeachers by expertLib id");
         try {
-            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId)";
+            String queryStr = "From TExpertTeacher e where e.isdeleted='N' and e.TExpertLib.libId =:expLibId";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("expLibId", expLibId);
             return query.list();
@@ -284,35 +258,23 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
 
     //修改评审教师的用户类型
 
-    public void changeReviewUserType(String libId)
-    {
+    public void changeReviewUserType(String libId) {
         log.debug("change review teacher user type");
         try {
-            String querString =
-                    "Update T_User u\n" +
-                            "   Set U.User_Type = '04'\n" +
-                            " Where U.User_Id In\n" +
-                            "       (Select t.tea_code\n" +
-                            "          From t_teacher t\n" +
-                            "         Where t.tea_id In\n" +
-                            "               (Select et.tea_id\n" +
-                            "                  From t_expert_teacher et\n" +
-                            "                 Where et.lib_id =:libId))";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(querString);
-            sqlQuery.setString("libId", libId);
-            sqlQuery.executeUpdate();
-
+            String hql = "update TUser set userType = '04' where userId in" +
+                    " (select teaCode from TTeacher where TExpertTeacher.TExpertLib.libId = :libId)";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("libId", libId);
+            query.executeUpdate();
         } catch (RuntimeException re) {
             log.error("change review teacher user type failed", re);
             throw re;
         }
     }
 
-
-
     /**
      *
-     *TODO 根据教职工号获取专家教师对象
+     *根据教职工号获取专家教师对象
      *authoy lzh
      *@param teaCode
      *@return
