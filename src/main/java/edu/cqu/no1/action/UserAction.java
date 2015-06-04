@@ -58,7 +58,7 @@ public class UserAction extends ActionSupport {
     @Action(value = "list", results = {
             @Result(name = SUCCESS, type = "json")})
     public String list() {
-        users = userServer.getAllUser();
+//        users = userServer.getAllUser();
         return SUCCESS;
     }
 

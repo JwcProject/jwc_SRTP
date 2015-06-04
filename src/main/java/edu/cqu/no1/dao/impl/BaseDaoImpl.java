@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -77,7 +78,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
 
-
     // 根据HQL语句查询实体
     @SuppressWarnings("unchecked")
     protected List<T> find(String hql) {
@@ -144,6 +144,17 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
                 .list();
     }
 
+
+    public T findById(String id) {
+        try {
+            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            T instance = (T) getSessionFactory().getCurrentSession().get(entityClass, 1);
+
+            return instance;
+        } catch (RuntimeException re) {
+            throw re;
+        }
+    }
 
     public List findByExample(T instance) {
         return null;

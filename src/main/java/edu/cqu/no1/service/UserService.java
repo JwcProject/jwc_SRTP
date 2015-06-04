@@ -1,23 +1,43 @@
 package edu.cqu.no1.service;
 
+import edu.cqu.no1.domain.TStudent;
+import edu.cqu.no1.domain.TTeacher;
+import edu.cqu.no1.domain.TUnit;
 import edu.cqu.no1.domain.TUser;
+import edu.cqu.no1.util.PageBean;
 
 import java.util.List;
 
 /**
- * Created by ZKQ on 2015/5/26.
+ * Created by ZKQ on 2015/6/4.
  */
+
 public interface UserService {
-    int SUCCESS=0;
-    int PASSWORD_WORRY=1;
-    int No_THIS_USER=2;
-    int MULTI_USER =3;
+    public void addTUser(TUser user);
 
-    int checkUser(String username, String password);
-    int addUser(String username, String password);
-    int checkUser(Integer uid,String password);
-    int changePassword(String username,String newPassword);
-    int changePassword(Integer uId,String newPassword);
+    public void updateTUser(TUser user);
 
-    List<TUser> getAllUser();
+    public void deleteTUser(String id);
+
+    public TUser getTUser(String id);
+
+    public List<TUser> getAllTUser(final PageBean pageBean);
+
+    public int getAllTUserCount();
+
+    public List<TUser> getTUserByMutiProperty(String userId, String userName, String userType, String userState, final PageBean pageBean);
+
+    public int getTUserCountByMutiProperty(String userId, String userName, String userType, String userState);
+
+    public TUser userLogin(String userId, String password);
+
+    public TUnit getUnitByUserId(String userId, String userType);
+
+    TStudent getStudentByUserId(String userId);
+
+    TTeacher getTeacherByUserId(String userId);
+
+    TUser changePassword(String userId, String password);
+
+    TUser changeLoginState(String userId, String state);
 }

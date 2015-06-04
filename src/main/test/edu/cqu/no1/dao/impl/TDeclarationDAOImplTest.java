@@ -27,7 +27,7 @@ public class TDeclarationDAOImplTest extends AbstractTransactionalJUnit4SpringCo
 
     @Test
     public void testFindAll() throws Exception {
-        List list = dao.findAll("studentId", null);
+        List list = dao.findAll(null, "studentId");
         assertEquals(0, list.size());
     }
 }

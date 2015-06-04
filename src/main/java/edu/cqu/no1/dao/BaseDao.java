@@ -1,5 +1,6 @@
 package edu.cqu.no1.dao;
 
+import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -11,6 +12,11 @@ import java.util.List;
 @Transactional
 public interface BaseDao<T>
 {
+
+    SessionFactory getSessionFactory();
+
+
+
     // 根据ID加载实体
     T get(Class<T> entityClazz , Serializable id);
     // 保存实体
@@ -26,6 +32,8 @@ public interface BaseDao<T>
     // 获取实体总数
     long findCount(Class<T> entityClazz);
 
+
+    T findById(String id);
 
     List findByExample(T instance);
 

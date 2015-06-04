@@ -1,6 +1,7 @@
 package edu.cqu.no1.domain;// default package
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;

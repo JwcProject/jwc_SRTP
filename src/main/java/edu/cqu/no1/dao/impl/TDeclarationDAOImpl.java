@@ -1011,7 +1011,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
     }
 
     @NotNull
-    public List findAll(String studentId, PageBean pageBean) {
+    public List findAll(PageBean pageBean, String studentId) {
         log.debug("finding all TDeclaration instances");
         try {
             String hql = "from TDeclaration where isdeleted = 'N' and" +

@@ -88,7 +88,7 @@ public class TDeclFund implements java.io.Serializable {
 		return this.amount;
 	}
 
-	public void setAmount(Float amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 

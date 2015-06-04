@@ -111,7 +111,7 @@ public interface TDeclarationDAO extends BaseDao<TDeclaration> {
 
     List findByProFund(Object proFund);
 
-    List findAll(String studentId, PageBean pageBean);
+    List findAll(PageBean pageBean, String studentId);
 
     int getAllTDeclarationCount(String studentId);
 
