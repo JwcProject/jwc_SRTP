@@ -19,32 +19,27 @@ import java.util.List;
  */
 
 @Controller
-@Namespace("/user")
+@Namespace("/")
 @Scope("prototype")
 @ParentPackage("base")
 public class UserAction extends ActionSupport {
     @Resource
-    private UserService userServer;
+    private UserService userService;
 
     private TUser user;
-    public static final String WORRY = "worry";
+    public static final String WRONG = "wrong";
     private List<TUser> users;
 
     @Action(value = "login", results = {
             @Result(name = SUCCESS, location = "/loginResult.jsp"),
             @Result(name = NONE, location = "/noThisUser.jsp"),
-            @Result(name = WORRY, location = "/passwordWrong.jsp")})
+            @Result(name = WRONG, location = "/passwordWrong.jsp")})
     public String login() {
-/*        switch (userServer.checkUser(user.getUsername(), user.getPassword())) {
-            case UserService.SUCCESS:
-                return SUCCESS;
-            case UserService.MULTI_USER:
-                return ERROR;
-            case UserService.No_THIS_USER:
-                return NONE;
-            case UserService.PASSWORD_WORRY:
-                return WORRY;
-        }*/
+//        TUser tmp = userService.getTUser(user.getUserName());
+//        if(tmp != null && tmp.getUserPassword().equals(user.getUserPassword())){
+//            return SUCCESS;
+//        }
+
         return ERROR;
     }
 
@@ -58,12 +53,12 @@ public class UserAction extends ActionSupport {
     @Action(value = "list", results = {
             @Result(name = SUCCESS, type = "json")})
     public String list() {
-//        users = userServer.getAllUser();
+        users = userService.getAllTUser(null);
         return SUCCESS;
     }
 
     public void setUserServer(UserService userService) {
-        this.userServer = userService;
+        this.userService = userService;
     }
 
     @JSON(serialize = false)

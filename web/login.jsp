@@ -20,19 +20,12 @@
 </head>
 <body>
 
-<jsp:include page="head.jsp">
-    <jsp:param name="type" value="1"/>
-</jsp:include>
-
 <div class="container">
     <div class="row">
-        <s:form action="login" namespace="/user" method="POST">
-            <s:textfield name="user.username"></s:textfield>
-            <s:password name="user.password"></s:password>
+        <s:form action="login" namespace="/" method="POST">
+            <s:textfield name="user.userName"></s:textfield>
+            <s:password name="user.userPassword"></s:password>
             <s:submit></s:submit>
         </s:form>
     </div>
 </div>
-
-
-<jsp:include page="foot.jsp"></jsp:include>
