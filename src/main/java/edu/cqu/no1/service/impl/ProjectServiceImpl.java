@@ -6,6 +6,7 @@ import edu.cqu.no1.service.ProjectService;
 import edu.cqu.no1.util.PageBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
+    @Resource
     private TProjectDAO tProjectDAO;
 
     @Override

@@ -7,13 +7,19 @@ import edu.cqu.no1.domain.TEmail;
 import edu.cqu.no1.service.EmailService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by ZKQ on 2015/6/4.
  */
 
 @Service
 public class EmailServiceImpl implements EmailService {
+
+    @Resource
     TEmailDAO tEmailDAO;
+
+    @Resource
     TEmailReceiverDAO tEmailReceiverDAO;
 
 

@@ -9,13 +9,13 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/26.
  */
+
+
 @Transactional
 public interface BaseDao<T>
 {
 
     SessionFactory getSessionFactory();
-
-
 
     // 根据ID加载实体
     T get(Class<T> entityClazz , Serializable id);

@@ -1,5 +1,6 @@
 package edu.cqu.no1.domain;// default package
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class TAttachment implements java.io.Serializable {
 	private TAttchmentType TAttchmentType;
 	private TUser TUser;
 	private String fileName;
-	private Integer fileSize;
+	private BigDecimal fileSize;
 	private String fileFormat;
 	private String fileUrl;
 	private String uploaderRole;
@@ -40,7 +41,7 @@ public class TAttachment implements java.io.Serializable {
 
 	/** full constructor */
 	public TAttachment(TAttchmentType TAttchmentType, TUser TUser,
-			String fileName, Integer fileSize, String fileFormat,
+			String fileName, BigDecimal fileSize, String fileFormat,
 			String fileUrl, String uploaderRole, Timestamp uploadTime,
 			String objectCode, String isdeleted) {
 		this.TAttchmentType = TAttchmentType;
@@ -98,11 +99,11 @@ public class TAttachment implements java.io.Serializable {
 	}
 
 	@Column(name = "file_size")
-	public Integer getFileSize() {
+	public BigDecimal getFileSize() {
 		return this.fileSize;
 	}
 
-	public void setFileSize(Integer fileSize) {
+	public void setFileSize(BigDecimal fileSize) {
 		this.fileSize = fileSize;
 	}
 

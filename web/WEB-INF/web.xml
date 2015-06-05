@@ -48,4 +48,28 @@
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
+    <!-- 验证码集成 -->
+    <servlet>
+        <servlet-name>ValidateCodeServlet</servlet-name>
+        <servlet-class>edu.cqu.no1.util.ValidateCodeServlet</servlet-class>
+        <init-param>
+            <param-name>width</param-name>
+            <param-value>200</param-value>
+        </init-param>
+        <init-param>
+            <param-name>height</param-name>
+            <param-value>80</param-value>
+        </init-param>
+        <init-param>
+            <param-name>codeCount</param-name>
+            <param-value>5</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ValidateCodeServlet</servlet-name>
+        <url-pattern>/validateCode.img</url-pattern>
+    </servlet-mapping>
+    <!-- 验证码结束 -->
+
 </web-app>

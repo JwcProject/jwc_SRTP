@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,7 +21,9 @@ import java.util.List;
 @Service
 public class ExpertReviewServiceImpl implements ExpertReviewService {
 
+    @Resource
     TExpertReviewDAO tExpertReviewDAO;
+    @Resource
     TDeclCommentDAO tDeclCommentDAO;
 
     @Override

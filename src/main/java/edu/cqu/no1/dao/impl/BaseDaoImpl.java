@@ -1,9 +1,11 @@
 package edu.cqu.no1.dao.impl;
 
 import edu.cqu.no1.dao.BaseDao;
+import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
@@ -13,7 +15,10 @@ import java.util.List;
 /**
  * Created by ZKQ on 2015/5/26.
  */
+
+
 @Repository
+@Transactional
 public class BaseDaoImpl<T> implements BaseDao<T> {
     // DAO组件进行持久化操作底层依赖的SessionFactory组件
     @Resource
@@ -148,7 +153,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public T findById(String id) {
         try {
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-            T instance = (T) getSessionFactory().getCurrentSession().get(entityClass, 1);
+            T instance = (T) getSessionFactory().getCurrentSession().get(entityClass, id);
 
             return instance;
         } catch (RuntimeException re) {
@@ -157,22 +162,34 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     public List findByExample(T instance) {
+        String className = instance.getClass().getSimpleName();
+
         return null;
+
     }
 
     public List findByProperty(String propertyName, Object value) {
-        return null;
+        String className = getClass().getSimpleName();
+
+        String queryString = "from " + className + " as model where model."
+                + propertyName + "= ?";
+        Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
+        query.setParameter(0, value);
+        return query.list();
     }
 
     public T merge(T detachedInstance) {
-        return null;
+
+        T result = (T) getSessionFactory().getCurrentSession().merge(detachedInstance);
+
+        return result;
     }
 
     public void attachDirty(T instance) {
-
+        getSessionFactory().getCurrentSession().saveOrUpdate(instance);
     }
 
     public void attachClean(T instance) {
-
+        getSessionFactory().getCurrentSession().lock(instance, LockMode.NONE);
     }
 }

@@ -1,0 +1,17 @@
+﻿
+#left-con { }
+	#task { width: 49%; float: left; }
+	#news { width: 49%; float: right; }
+		#task ul.tabs,#news ul.tabs { border-bottom: none; }
+				
+	/* 图片链接 */
+	#picnav { background: transparent url('images/back-v.jpg') repeat-x scroll left -650px; height: 42px; overflow: hidden; }
+		#picnav table { width: 100%; margin: 0px; padding: 0px; border-spacing: 0px; height: 42px; }
+			#picnav table td.pn-l { width: 10px; background: transparent url('images/back-v.jpg') no-repeat scroll left -550px; }
+			#picnav table td.pn-r { width: 10px; background: transparent url('images/back-v.jpg') no-repeat scroll right -700px; }
+			#picnav table td.pn-s { width: 10px; background: transparent url('images/back-v.jpg') no-repeat scroll left -600px; }
+			
+			#picnav table td { vertical-align: middle; text-align: center; }
+				#picnav table a { }
+
+#right-con { width: 180px; }

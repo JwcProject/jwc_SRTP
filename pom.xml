@@ -12,10 +12,12 @@
 
     <properties>
         <org.springframework.version>4.1.6.RELEASE</org.springframework.version>
-        <org.apache.struts.version>2.3.16</org.apache.struts.version>
+        <org.apache.struts.version>2.3.24</org.apache.struts.version>
+        <org.hibernate.version>4.3.10.Final</org.hibernate.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -99,7 +101,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.9.Final</version>
+            <version>${org.hibernate.version}</version>
         </dependency>
 
         <!-- add struts2 libiary -->
@@ -160,18 +162,6 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.5</version>
         </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>log4j</groupId>-->
-        <!--<artifactId>log4j</artifactId>-->
-        <!--<version>${log4j_rel}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.tomcat</groupId>-->
-        <!--<artifactId>servlet-api</artifactId>-->
-        <!--<version>${servlet-api_rel}</version>-->
-        <!--<scope>provided</scope>-->
-        <!--</dependency>-->
 
     </dependencies>
 

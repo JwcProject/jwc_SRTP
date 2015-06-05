@@ -1,5 +1,6 @@
 package edu.cqu.no1.domain;// default package
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class TTeacher implements java.io.Serializable {
 	private TUnit TUnit;
 	private String teaName;
 	private String teaCode;
-	private Integer teaAge;
+	private BigDecimal teaAge;
 	private String teaSex;
 	private String teaTitle;
 	private String teaTele;
@@ -57,7 +58,7 @@ public class TTeacher implements java.io.Serializable {
 
 	/** full constructor */
 	public TTeacher(TProfession TProfession, TUnit TUnit, String teaName,
-			String teaCode, Integer teaAge, String teaSex, String teaTitle,
+			String teaCode, BigDecimal teaAge, String teaSex, String teaTitle,
 			String teaTele, String teaEmail, String teaState, String teaIntro,
 			String teaRemark, String isdeleted,
 			Set<TExpertTeacher> TExpertTeachers,
@@ -142,11 +143,11 @@ public class TTeacher implements java.io.Serializable {
 	}
 
 	@Column(name = "tea_age")
-	public Integer getTeaAge() {
+	public BigDecimal getTeaAge() {
 		return this.teaAge;
 	}
 
-	public void setTeaAge(Integer teaAge) {
+	public void setTeaAge(BigDecimal teaAge) {
 		this.teaAge = teaAge;
 	}
 

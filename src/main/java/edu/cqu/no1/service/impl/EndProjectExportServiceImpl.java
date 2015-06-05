@@ -14,6 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 
 /**
  * Created by ZKQ on 2015/6/4.
@@ -22,7 +24,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EndProjectExportServiceImpl implements EndProjectExportService {
 
+    @Resource
     private TEndProjectExportDAO endProjectExportDAO;
+    @Resource
     private TEndProjectCommentDAO endProjectCommentDAO;
 
     @Override

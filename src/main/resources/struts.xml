@@ -11,11 +11,11 @@
     <package name="base" extends="json-default,struts-default">
         <!-- 全局的返回值映射关系等 -->
         <global-results>
-            <result name="error">/error.jsp</result>
+            <result name="db_error">/db_err.jsp</result>
         </global-results>
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="/error.jsp"></exception-mapping>
-        </global-exception-mappings>
+        <!--<global-exception-mappings>-->
+            <!--<exception-mapping exception="java.lang.Exception" result="/db_err.jsp"></exception-mapping>-->
+        <!--</global-exception-mappings>-->
     </package>
 
 

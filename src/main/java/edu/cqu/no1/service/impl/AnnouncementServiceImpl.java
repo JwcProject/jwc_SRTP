@@ -15,6 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 
 /**
  * Created by ZKQ on 2015/6/4.
@@ -23,9 +25,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
 
+    @Resource
     private TAnnouncementDAO tAnnouncementDAO;
+    @Resource
     private TAttachmentDAO attachmentDAO;
+    @Resource
     private TAttchmentTypeDAO tAttchmentTypeDAO;
+    @Resource
     private TAnnounTypeDAO tAnnounTypeDAO;
 
 

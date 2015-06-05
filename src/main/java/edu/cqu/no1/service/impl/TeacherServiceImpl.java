@@ -7,6 +7,7 @@ import edu.cqu.no1.domain.TUser;
 import edu.cqu.no1.service.TeacherService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,7 +17,9 @@ import java.util.List;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
+    @Resource
     private TTeacherDAO tTeacherDAO;
+    @Resource
     private TUserDAO tUserDAO;
 
     public TTeacherDAO gettTeacherDAO() {

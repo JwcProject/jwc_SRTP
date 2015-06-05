@@ -7,6 +7,7 @@ import edu.cqu.no1.service.StatisticService;
 import edu.cqu.no1.util.PageBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class StatisticServiceImpl implements StatisticService {
 
+    @Resource
     private StatisticDAO statisticDAO;
 
     // 全校项目成绩分布统计

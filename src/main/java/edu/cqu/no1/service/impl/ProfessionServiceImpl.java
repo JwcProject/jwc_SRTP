@@ -5,6 +5,7 @@ import edu.cqu.no1.domain.TProfession;
 import edu.cqu.no1.service.ProfessionService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class ProfessionServiceImpl implements ProfessionService {
 
+    @Resource
     private TProfessionDAO tProfessionDAO;
 
     @Override

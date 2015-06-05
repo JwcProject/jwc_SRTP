@@ -16,6 +16,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 
 /**
  * Created by ZKQ on 2015/6/4.
@@ -23,17 +25,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DeclarationServiceImpl implements DeclarationService {
+    @Resource
     private TStudentDAO tStudentDAO;
+    @Resource
     private TTeacherDAO teacherDAO;
+    @Resource
     private TUnitDAO tUnitDAO;
+    @Resource
     private TProfessionDAO tProfessionDAO;
+    @Resource
     private TJieqiDAO tJieqiDAO;
+    @Resource
     private TDeclarationDAO tDeclarationDAO;
+    @Resource
     private TDeclJobDAO tDeclJobDAO;
+    @Resource
     private TDeclFundDAO tDeclFundDAO;
+    @Resource
     private TAttachmentDAO tAttachmentDAO;
+    @Resource
     private TAttchmentTypeDAO tAttchmentTypeDAO;
+    @Resource
     private TTempEmailReciverDAO tempEmailReciverDAO;
+
+
     private List<TTempEmailReciver> tempEmailRecivers;
 
 

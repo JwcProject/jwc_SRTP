@@ -6,6 +6,7 @@ import edu.cqu.no1.service.JournalActService;
 import edu.cqu.no1.util.PageBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Service
 public class JournalActServiceImpl implements JournalActService {
 
+    @Resource
     private TJournalActDAO tJournalActDAO;
 
     public TJournalActDAO gettJournalActDAO() {

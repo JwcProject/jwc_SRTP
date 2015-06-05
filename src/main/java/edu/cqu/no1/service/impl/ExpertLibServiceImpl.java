@@ -17,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by ZKQ on 2015/6/4.
  */
@@ -24,8 +26,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExpertLibServiceImpl implements ExpertLibService {
 
+    @Resource
     private TExpertLibDAO tExpertLibDAO;
+    @Resource
     private TExpertTeacherDAO tExpertTeacherDAO;
+    @Resource
     private TTempEmailReciverDAO tTempEmailReciverDAO;
 
     public TExpertLib getById(String libId) {

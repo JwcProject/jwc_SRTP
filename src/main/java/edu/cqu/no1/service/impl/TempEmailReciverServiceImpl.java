@@ -5,6 +5,7 @@ import edu.cqu.no1.domain.TTempEmailReciver;
 import edu.cqu.no1.service.TempEmailReciverService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class TempEmailReciverServiceImpl implements TempEmailReciverService {
 
+    @Resource
     TTempEmailReciverDAO tempEmailReciverDAO;
 
     @Override

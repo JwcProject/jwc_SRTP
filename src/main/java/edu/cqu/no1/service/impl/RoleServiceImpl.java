@@ -8,6 +8,7 @@ import edu.cqu.no1.service.RoleService;
 import edu.cqu.no1.util.PageBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +18,9 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+    @Resource
     private TRoleDAO tRoleDao;
+    @Resource
     private TRolePermissionDAO tRolePermissionDao;
 
     public TRoleDAO gettRoleDao() {

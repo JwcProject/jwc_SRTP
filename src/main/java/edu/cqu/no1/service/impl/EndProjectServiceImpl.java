@@ -15,6 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by ZKQ on 2015/6/4.
  */
@@ -23,19 +25,33 @@ import org.springframework.stereotype.Service;
 public class EndProjectServiceImpl implements EndProjectService {
 
 
+    @Resource
     public TEndProjectDAO endProjectDAO;
+    @Resource
     public TAttachmentDAO attachmentDAO;
+    @Resource
     public TAttchmentTypeDAO attchmentTypeDAO;
+    @Resource
     public TEndprojectJobDAO endprojectJobDAO;
+    @Resource
     public TTempEmailReciverDAO tempEmailReciverDAO;
+    @Resource
     public TEndProjectCommentDAO endProjectCommentDAO;
 
+
+    @Resource
     private TUnitDAO unitDAO;
+    @Resource
     private TJieqiDAO jieqiDAO;
+    @Resource
     private TProfessionDAO professionDAO;
+    @Resource
     private TExpertTeacherDAO expertTeacherDAO;
+    @Resource
     private TTeacherDAO teacherDAO;
+    @Resource
     private TExpertLibDAO expertLibDAO;
+    @Resource
     private TEndProjectExportDAO endProjectExportDAO;
 
     @Override

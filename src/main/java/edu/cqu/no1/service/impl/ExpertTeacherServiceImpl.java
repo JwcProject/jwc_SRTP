@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,11 @@ import java.util.List;
 @Service
 public class ExpertTeacherServiceImpl implements ExpertTeacherService {
 
+    @Resource
     TExpertTeacherDAO tExpertTeacherDAO;
+    @Resource
     TTeacherDAO teacherDAO;
+    @Resource
     TDeclCommentDAO declCommentDAO;
 
     /* (non-Javadoc)

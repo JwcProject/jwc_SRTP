@@ -11,6 +11,7 @@ import edu.cqu.no1.service.UserService;
 import edu.cqu.no1.util.PageBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,8 +21,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Resource
     private TUserDAO tUserDAO;
+    @Resource
     private TTeacherDAO tTeacherDAO;
+    @Resource
     private TStudentDAO tStudentDAO;
 
     @Override
