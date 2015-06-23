@@ -45,6 +45,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     // 保存实体
     public Serializable save(T entity) {
+        removeAllDeleted(); // Delete all entities that `isdeleted = 'Y'` on every `save`. May cause performance problem.
         return getSessionFactory().getCurrentSession()
                 .save(entity);
     }
@@ -85,8 +86,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return 0;
     }
 
-    @Override
-    public boolean removeALLDeleted() {
+    public boolean removeAllDeleted() {
         try {
             String className = getClass().getSimpleName();
 

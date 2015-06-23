@@ -33,7 +33,7 @@ public interface BaseDao<T>
     long findCount(Class<T> entityClazz);
 
 
-    boolean removeALLDeleted();
+    boolean removeAllDeleted();
 
 
     T findById(String id);
