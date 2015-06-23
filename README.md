@@ -6,3 +6,7 @@
 2. modify the `username` and `password` to your mysql specification
 3. modify the `project structure` or build artifact if needed
 4. configure the tomcat run/debug configuration
+
+### Attentino:
+
+You **must** keep your database clean before running the server.
