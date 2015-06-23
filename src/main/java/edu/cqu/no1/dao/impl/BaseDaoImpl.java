@@ -3,7 +3,10 @@ package edu.cqu.no1.dao.impl;
 import edu.cqu.no1.dao.BaseDao;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,6 +83,23 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             return (Long) l.get(0);
         }
         return 0;
+    }
+
+    @Override
+    public boolean removeALLDeleted() {
+        try {
+            String className = getClass().getSimpleName();
+
+            String queryString = "delete from " + className + " as model where model.isdeleted = 'Y'";
+            Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
+            query.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 
@@ -161,10 +181,12 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         }
     }
 
-    public List findByExample(T instance) {
-        String className = instance.getClass().getSimpleName();
+    public List<T> findByExample(T instance) {
 
-        return null;
+        Session session = getSessionFactory().getCurrentSession();
+        List<T> results = session.createCriteria(getClass()).add(Example.create(instance)).list();
+
+        return results;
 
     }
 
