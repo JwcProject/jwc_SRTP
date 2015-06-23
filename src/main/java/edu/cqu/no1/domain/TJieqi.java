@@ -194,7 +194,7 @@ public class TJieqi implements java.io.Serializable {
 		this.secondaryRespondent = secondaryRespondent;
 	}
 
-	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
+	@Column(name = "isdeleted", columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

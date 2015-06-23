@@ -104,7 +104,7 @@ public class TTempEmailReciver implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
+	@Column(name = "isdeleted", columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}
