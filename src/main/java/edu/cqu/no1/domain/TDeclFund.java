@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TDeclFund entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_decl_fund", catalog = "srtp")
 public class TDeclFund implements java.io.Serializable {
 
@@ -43,7 +46,7 @@ public class TDeclFund implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "decl_fund_id", unique = true, nullable = false, length = 32)
@@ -92,7 +95,7 @@ public class TDeclFund implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	@Column(name = "isdeleted", length = 1)
+	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

@@ -53,7 +53,7 @@ ThreeDScatterGroup g1 = c.addScatterGroup(Chart.CTime(dataX), dataY1, dataZ1,
 g1.setDropLine(c.dashLineColor(Chart.SameAsMainColor, Chart.DotLine));
 
 // Set x-axis tick density to 50 pixels. ChartDirector auto-scaling will use this as
-// the guideline when putting ticks on the x-axis.
+// the uuideline when putting ticks on the x-axis.
 c.xAxis().setTickDensity(50);
 
 // Set the y-axis labels

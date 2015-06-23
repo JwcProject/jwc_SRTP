@@ -23,8 +23,8 @@
  */
 var T,
     baidu = T = baidu || {version: "1.5.0"};
-baidu.guid = "$BAIDU$";
-baidu.$$ = window[baidu.guid] = window[baidu.guid] || {global:{}};
+baidu.uuid = "$BAIDU$";
+baidu.$$ = window[baidu.uuid] = window[baidu.uuid] || {global:{}};
 
 /**
  * 使用flash资源封装的一些功能

@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TEndProjectJob entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_end_project_job", catalog = "srtp")
 public class TEndProjectJob implements java.io.Serializable {
 
@@ -43,7 +46,7 @@ public class TEndProjectJob implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "job_id", unique = true, nullable = false, length = 32)
@@ -93,7 +96,7 @@ public class TEndProjectJob implements java.io.Serializable {
 		this.finished = finished;
 	}
 
-	@Column(name = "isdeleted", length = 1)
+	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

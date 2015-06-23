@@ -36,7 +36,7 @@ c.setData(Chart.CTime(dataX), null, new ArrayMath(lowData).insert(mediumData).in
 c.yAxis().setLabels(dataY);
 
 // Set x-axis tick density to 75 pixels. ChartDirector auto-scaling will use this as
-// the guideline when putting ticks on the x-axis.
+// the uuideline when putting ticks on the x-axis.
 c.xAxis().setTickDensity(75);
 
 // Spline interpolate data to a 80 x 40 grid for a smooth surface

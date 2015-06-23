@@ -46,7 +46,7 @@ c.yAxis().setLabels(labels);
 c.yAxis().setLabelStyle("Arial Bold", 8);
 
 // Set x-axis major and minor tick density to 50 and 5 pixels. ChartDirector
-// auto-scaling will use this as the guideline when putting ticks on the x-axis.
+// auto-scaling will use this as the uuideline when putting ticks on the x-axis.
 c.xAxis().setTickDensity(50, 5);
 
 // Use "<*font=Arial Bold*>{value|mmm dd}" for the first label of an hour, and

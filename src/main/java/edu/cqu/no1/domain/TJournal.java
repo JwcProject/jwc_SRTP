@@ -13,17 +13,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TJournal entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_journal", catalog = "srtp")
 public class TJournal implements java.io.Serializable {
 
 	// Fields
-
 	private String journalId;
 	private TUser TUser;
 	private String userName;
@@ -55,7 +57,7 @@ public class TJournal implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "journal_id", unique = true, nullable = false, length = 32)
@@ -113,7 +115,7 @@ public class TJournal implements java.io.Serializable {
 		this.journalRemark = journalRemark;
 	}
 
-	@Column(name = "isdeleted", length = 1)
+	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

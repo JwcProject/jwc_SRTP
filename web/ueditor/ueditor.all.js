@@ -2375,7 +2375,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');///import editor.js
  * @desc Range范围实现类，本类是UEditor底层核心类，统一w3cRange和ieRange之间的差异，包括接口和属性
  */
 (function () {
-    var guid = 0,
+    var uuid = 0,
         fillChar = domUtils.fillChar,
         fillData;
 
@@ -3014,11 +3014,11 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');///import editor.js
                 startNode = this.document.createElement('span');
             startNode.style.cssText = 'display:none;line-height:0px;';
             startNode.appendChild(this.document.createTextNode('\u200D'));
-            startNode.id = '_baidu_bookmark_start_' + (same ? '' : guid++);
+            startNode.id = '_baidu_bookmark_start_' + (same ? '' : uuid++);
 
             if (!this.collapsed) {
                 endNode = startNode.cloneNode(true);
-                endNode.id = '_baidu_bookmark_end_' + (same ? '' : guid++);
+                endNode.id = '_baidu_bookmark_end_' + (same ? '' : uuid++);
             }
             this.insertNode(startNode);
             if (endNode) {

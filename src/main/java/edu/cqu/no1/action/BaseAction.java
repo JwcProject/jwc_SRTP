@@ -55,8 +55,7 @@ public class BaseAction extends ActionSupport {
 	    }
 	}
 	
-	public TUnit getSessionUnit() throws IOException 
-	{
+	public TUnit getSessionUnit() throws IOException {
 		tunit = (TUnit)ActionContext.getContext().getSession().get("unit");
 		
 		if(null != tunit)
@@ -69,8 +68,7 @@ public class BaseAction extends ActionSupport {
 		}
 	}
 
-	 public void toLogin() throws IOException
-	 {
+	 public void toLogin() throws IOException {
 		HttpServletResponse response = (HttpServletResponse)ActionContext.getContext().get(ServletActionContext.HTTP_RESPONSE);
 		HttpServletRequest request=(HttpServletRequest) (ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST));
 		String path = request.getContextPath();

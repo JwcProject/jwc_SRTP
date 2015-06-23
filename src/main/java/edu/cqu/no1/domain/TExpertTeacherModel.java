@@ -13,12 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TExpertTeacherModel entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_expert_teacher_model", catalog = "srtp")
 public class TExpertTeacherModel implements java.io.Serializable {
 
@@ -57,7 +60,7 @@ public class TExpertTeacherModel implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "EX_TEA_ID", unique = true, nullable = false, length = 32)

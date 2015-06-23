@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TResultDistribut entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_result_distribut", catalog = "srtp")
 public class TResultDistribut implements java.io.Serializable {
 
@@ -60,7 +63,7 @@ public class TResultDistribut implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, length = 32)

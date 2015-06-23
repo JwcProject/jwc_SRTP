@@ -42,7 +42,7 @@ c.xAxis().setLabels(labels);
 c.syncYAxis();
 
 // Set y-axis tick density to 30 pixels. ChartDirector auto-scaling will use this as
-// the guideline when putting ticks on the y-axis.
+// the uuideline when putting ticks on the y-axis.
 c.yAxis().setTickDensity(30);
 
 // Set all axes to transparent

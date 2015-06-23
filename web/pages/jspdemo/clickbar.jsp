@@ -30,7 +30,7 @@ c.xAxis().setLabels(labels);
 // Draw the ticks between label positions (instead of at label positions)
 c.xAxis().setTickOffset(0.5);
 
-// When auto-scaling, use tick spacing of 40 pixels as a guideline
+// When auto-scaling, use tick spacing of 40 pixels as a uuideline
 c.yAxis().setTickDensity(40);
 
 // Add a title to the y axis with 12pts Times Bold Italic font

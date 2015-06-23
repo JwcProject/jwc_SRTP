@@ -10,12 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TRole entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_role", catalog = "srtp")
 public class TRole implements java.io.Serializable {
 
@@ -49,7 +52,7 @@ public class TRole implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "role_id", unique = true, nullable = false, length = 32)
@@ -88,7 +91,7 @@ public class TRole implements java.io.Serializable {
 		this.roleIntroduction = roleIntroduction;
 	}
 
-	@Column(name = "isdeleted", length = 1)
+	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

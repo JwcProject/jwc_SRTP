@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * TDeclJob entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
 @Table(name = "t_decl_job", catalog = "srtp")
 public class TDeclJob implements java.io.Serializable {
 
@@ -41,7 +44,7 @@ public class TDeclJob implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "job_id", unique = true, nullable = false, length = 32)
@@ -82,7 +85,7 @@ public class TDeclJob implements java.io.Serializable {
 		this.jobContent = jobContent;
 	}
 
-	@Column(name = "isdeleted", length = 1)
+	@Column(name = "isdeleted", nullable = false, columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

@@ -50,7 +50,7 @@ legendBox.setAlignment(Chart.TopCenter);
 legendBox.setBackground(Chart.Transparent, Chart.Transparent);
 
 // Set x-axis tick density to 75 pixels and y-axis tick density to 30 pixels.
-// ChartDirector auto-scaling will use this as the guidelines when putting ticks on
+// ChartDirector auto-scaling will use this as the uuidelines when putting ticks on
 // the x-axis and y-axis.
 c.yAxis().setTickDensity(30);
 c.xAxis().setTickDensity(75);

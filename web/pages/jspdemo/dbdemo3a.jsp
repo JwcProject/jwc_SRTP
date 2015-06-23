@@ -72,7 +72,7 @@ String[] labels = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept
 c.xAxis().setLabels(labels);
 
 // Set y-axis tick density to 30 pixels. ChartDirector auto-scaling will use this as
-// the guideline when putting ticks on the y-axis.
+// the uuideline when putting ticks on the y-axis.
 c.yAxis().setTickDensity(30);
 
 // Synchronize the left and right y-axes

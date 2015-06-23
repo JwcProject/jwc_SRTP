@@ -1,4 +1,4 @@
-<%@page import="com.isse.model.TUser"%>
+<%@ page import="edu.cqu.no1.domain.TUser"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 

@@ -38,7 +38,7 @@ c.yAxis().setTitle("Lattice Y Direction (nm)", "Arial Bold Italic", 12);
 c.xAxis().setLabelStyle("Arial Bold");
 c.yAxis().setLabelStyle("Arial Bold");
 
-// When auto-scaling, use tick spacing of 40 pixels as a guideline
+// When auto-scaling, use tick spacing of 40 pixels as a uuideline
 c.yAxis().setTickDensity(40);
 c.xAxis().setTickDensity(40);
 

@@ -65,7 +65,7 @@ public class TUnit implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "unit_id", unique = true, nullable = false, length = 32)
@@ -122,7 +122,7 @@ public class TUnit implements java.io.Serializable {
 		this.unitRemark = unitRemark;
 	}
 
-	@Column(name = "isdeleted", length = 1)
+	@Column(name = "isdeleted", nullable = true, columnDefinition = "varchar(1) default 'N'")
 	public String getIsdeleted() {
 		return this.isdeleted;
 	}

@@ -1193,7 +1193,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     /**
      * Generates a unique element ID.
      */
-    function guid(prefix)
+    function uuid(prefix)
     {
         return (prefix || '') + Math.round(Math.random() * 1000000).toString();
     };
@@ -2322,7 +2322,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
          */
         init: function(params)
         {
-            this.id = guid();
+            this.id = uuid();
 
             // register this instance in the highlighters list
             storeHighlighter(this);

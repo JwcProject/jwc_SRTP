@@ -46,7 +46,7 @@ String[] labels = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept
     "Oct", "Nov", "Dec"};
 c.xAxis().setLabels(labels);
 
-// When auto-scaling, use tick spacing of 40 pixels as a guideline
+// When auto-scaling, use tick spacing of 40 pixels as a uuideline
 c.yAxis().setTickDensity(40);
 
 // Add a title to the x axis to reflect the selected year
