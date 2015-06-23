@@ -33,6 +33,9 @@ public interface BaseDao<T>
     long findCount(Class<T> entityClazz);
 
 
+    boolean removeALLDeleted();
+
+
     T findById(String id);
 
     List findByExample(T instance);
