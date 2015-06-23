@@ -19,9 +19,9 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
           p:driverClass="com.mysql.jdbc.Driver"
-          p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/srtp"
+          p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/srtp?characterEncoding=utf8"
           p:user="root"
-          p:password="123456"
+          p:password="Hyouka21"
           p:maxPoolSize="40"
           p:minPoolSize="2"
           p:initialPoolSize="2"

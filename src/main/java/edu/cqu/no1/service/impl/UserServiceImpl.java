@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private TStudentDAO tStudentDAO;
 
-    @Override
+    
     public TUser changeLoginState(String userId, String state) {
         TUser user = this.tUserDAO.findById(userId);
         user.setUserState(state);
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
+    
     public TUser changePassword(String userId, String password) {
         TUser user = this.tUserDAO.findById(userId);
         user.setUserPassword(password);
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
+    
     public TStudent getStudentByUserId(String userId) {
         List list = this.tStudentDAO.findByStudentNumber(userId);
         if (list != null && list.size() > 0) {
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
+    
     public TTeacher getTeacherByUserId(String userId) {
         List list = this.tTeacherDAO.findByTeaCode(userId);
         if (list != null && list.size() > 0) {
@@ -86,19 +86,19 @@ public class UserServiceImpl implements UserService {
         this.tStudentDAO = tStudentDAO;
     }
 
-    @Override
+    
     public void addTUser(TUser user) {
         // TODO Auto-generated method stub
         this.tUserDAO.save(user);
     }
 
-    @Override
+    
     public void updateTUser(TUser user) {
         // TODO Auto-generated method stub
         this.tUserDAO.merge(user);
     }
 
-    @Override
+    
     public void deleteTUser(String id) {
         // TODO Auto-generated method stub
         TUser user = this.getTUser(id);
@@ -106,41 +106,41 @@ public class UserServiceImpl implements UserService {
         this.updateTUser(user);
     }
 
-    @Override
+    
     public TUser getTUser(String id) {
         // TODO Auto-generated method stub
         return this.tUserDAO.findById(id);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
+    
     public List<TUser> getAllTUser(PageBean pageBean) {
         // TODO Auto-generated method stub
         return this.tUserDAO.findAll(pageBean);
     }
 
-    @Override
+    
     public int getAllTUserCount() {
         // TODO Auto-generated method stub
         return this.tUserDAO.getAllTUserCount();
     }
 
     @SuppressWarnings("unchecked")
-    @Override
+    
     public List<TUser> getTUserByMutiProperty(String userId, String userName,
                                               String userType, String userState, PageBean pageBean) {
         // TODO Auto-generated method stub
         return this.tUserDAO.getTUserByMutiProperty(userId, userName, userType, userState, pageBean);
     }
 
-    @Override
+    
     public int getTUserCountByMutiProperty(String userId, String userName,
                                            String userType, String userState) {
         // TODO Auto-generated method stub
         return this.tUserDAO.getTUserCountByMutiProperty(userId, userName, userType, userState);
     }
 
-    @Override
+    
     public TUser userLogin(String userId, String password) {
         List list = this.tUserDAO.findByUserIdAndPwd(userId, password);
         if (list != null && list.size() > 0) {
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
+    
     public TUnit getUnitByUserId(String userId, String userType) {
         if ("00".equals(userType) || "01".equals(userType) || "02".equals(userType) || "03".equals(userType) || "04".equals(userType) || "05".equals(userType)) {
             List tmpList = this.tTeacherDAO.findTeacherByCode(userId);
