@@ -1,0 +1,66 @@
+﻿
+/* 
+ *	Generic styles for all Sexy Buttons
+ */
+.sexybutton,a.sexybutton {display: inline-block;margin: 0;padding: 0;font: normal 12px "Helvetica Neue", Helvetica, Arial, clean, sans-serif;text-decoration: none !important;text-shadow: 1px 1px 2px rgba(0,0,0,0.20);background: none;border: none;white-space: nowrap;cursor: pointer;user-select: none;-moz-user-select: none;_width: 0;overflow: visible; *margin-right:4px;}
+	.sexybutton span {display: block; width: auto !important; height: 24px;padding-right: 12px;background-repeat: no-repeat;background-position: right top;}
+		.sexybutton span span {padding-right: 0;padding-left: 12px;line-height: 24px;background-position: left top;}
+			.sexybutton span span em,.sexybutton span span input {display: block; height: 24px; font-style: normal; background: transparent url('images/sexybtn-sprite.gif') no-repeat scroll -1000px 0px; border: thin transparent none;}
+	
+	.sexybutton:hover span {background-position: right center;}
+		.sexybutton:hover span span {background-position: left center;}
+	
+	.sexybutton:active span {background-position: right bottom;}
+		.sexybutton:active span span {background-position: left bottom;}
+	
+	.sexybutton input {text-shadow: 1px 1px 2px rgba(0,0,0,0.20); cursor: pointer; }
+
+	.sexybutton img {margin-right: 5px;vertical-align: text-top;_margin-top: 4px;_vertical-align: text-bottom;}
+	.sexybutton img.after {margin-right: 0;margin-left: 5px;}
+
+.sexybutton.default,.sexybutton.default input { font-weight: bold; }
+
+.sexybutton.disabled,.sexybutton[disabled],.sexybutton.disabled input,.sexybutton[disabled] input,.sexybutton input[disabled] { cursor: default; color: #aaaaaa !important; }
+	.sexybutton.disabled:hover span,.sexybutton[disabled]:hover span {background-position: right top;}
+		.sexybutton.disabled:hover span span,.sexybutton[disabled]:hover span span {background-position: left top;}
+	
+	.sexybutton.disabled:active span,.sexybutton[disabled]:active span {background-position: right top;}
+		.sexybutton.disabled:active span span,.sexybutton[disabled]:active span span {background-position: left top;}
+
+.sexybutton.sexymedium	{ font-size: 15px; }
+.sexybutton.sexylarge	{ font-size: 18px; }
+
+/*
+ * Skins
+ */
+.sexybutton,.sexybutton input,.sexybutton.silver,.sexybutton.silver input {color: #555555 !important;}
+.sexybutton:hover,.sexybutton:hover input,.sexybutton.silver:hover,.sexybutton.silver:hover input {color: #000 !important;;}
+	.sexybutton span,.sexybutton.silver span {background-image: url(images/button_silver_right.gif);}
+		.sexybutton span span,.sexybutton.silver span span {background-image: url(images/button_silver_left.gif);}
+
+.sexybutton.orange,.sexybutton.orange:hover,.sexybutton.orange input,.sexybutton.orange:hover input {color: white !important;}	
+	.sexybutton.orange span {background-image: url(images/button_orange_right.gif);}
+		.sexybutton.orange span span {background-image: url(images/button_orange_left.gif);}
+
+.sexybutton.yellow,.sexybutton.yellow:hover,.sexybutton.yellow input,.sexybutton.yellow:hover input {color: #994800 !important;}
+	.sexybutton.yellow span {background-image: url(images/button_yellow_right.gif);}
+		.sexybutton.yellow span span {	background-image: url(images/button_yellow_left.gif);}
+
+/*
+ * Icon Definitions
+ */
+.sexybutton em.ok,.sexybutton input.ok,.sexybutton em.cancel,.sexybutton input.cancel,.sexybutton em.add,.sexybutton input.add,.sexybutton em.delete,.sexybutton input.delete,.sexybutton em.save,.sexybutton input.save,.sexybutton em.accept,.sexybutton input.accept,.sexybutton em.decline,.sexybutton input.decline,.sexybutton em.search,.sexybutton input.search,.sexybutton em.print,.sexybutton input.print,.sexybutton em.edit,.sexybutton input.edit,.sexybutton em.excel,.sexybutton input.excel { padding-left: 21px; }
+ 
+.sexybutton em.ok,.sexybutton input.ok					{ background-position: left top; }
+.sexybutton em.cancel,.sexybutton input.cancel			{ background-position: left -50px; }
+.sexybutton em.add,.sexybutton input.add				{ background-position: left -25px; }
+.sexybutton em.delete,.sexybutton input.delete			{ background-position: left -75px; }
+.sexybutton em.save,.sexybutton input.save				{ background-position: left -100px; }
+.sexybutton em.accept,.sexybutton input.accept			{ background-position: left -125px; }
+.sexybutton em.decline,.sexybutton input.decline		{ background-position: left -150px; }
+.sexybutton em.search,.sexybutton input.search			{ background-position: left -175px; }
+.sexybutton em.print,.sexybutton input.print			{ background-position: left -200px; }
+.sexybutton em.edit,.sexybutton input.edit				{ background-position: left -225px; }
+.sexybutton em.excel,.sexybutton input.excel 				{ background-position: left -250px; }
+
+

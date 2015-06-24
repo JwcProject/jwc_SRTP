@@ -1,0 +1,13 @@
+﻿/*
+ * 重庆市承研科技有限公司
+ * Copyright(c) 2009
+ *
+ */
+ html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}img,body,html{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}
+ body{font-family:"宋体","Courier New",Courier,monospace;font-size:12px;background-color:#fff;}
+ .unselectable,.unselectable *{-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:ignore;}
+ .clearfix:after{content:".";clear:both;height:0;visibility:hidden;display:block;}.clearfix{display:inline-block;}* html .clearfix{height:1%;}.clearfix{display:block;}
+ .floatl{float:left;}.floatr{float:right;}
+ .padding3{padding:3px;}.padding5{padding:5px;}.paddingl5{padding-left:5px;}.paddingl10{padding-left:10px;}.paddingr5{padding-right:5px;}.paddingr10{padding-right:10px;}.marginl5{margin-left:5px;}.marginl10{margin-left:10px;}.margint5{margin-top:5px;}.margint10{margin-top:10px;}.marginb5{margin-bottom:5px;}.marginb10{margin-bottom:10px;}.margin5{margin:5px;}.margin10{margin:10px;}.w10{width:10px;font-size:0;line-height:0;overflow:hidden;}
+ .w50{width: 50px;}.w80{width:80px;}.w100{width:100px;}.w120{width:120px;}.w130{width:130px;}.w200{width:200px;}.w300{width:300px;}.wauto{width:auto;}.center{text-align:center;}.sep13d{height:1px !important;overflow:hidden;font-size:0;line-height:0;background-color:#b8b8b8;border-bottom:1px #fff solid;}.sep5{height:5px;overflow:hidden;margin:0;padding:0;font-size:0;line-height:0;}.sep10{height:10px;overflow:hidden;margin:0;padding:0;font-size:0;line-height:0;}
+ .red{color:#ff0000;}.green{color:#00cc00;}.blue{color:#0000ff;}

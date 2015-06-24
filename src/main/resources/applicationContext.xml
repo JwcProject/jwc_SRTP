@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context">
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"/>
+
+
+    <context:annotation-config/>
+    <context:component-scan base-package="edu.cqu.no1"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+          p:driverClass="com.mysql.jdbc.Driver"
+          p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/srtp?characterEncoding=utf8"
+          p:user="root"
+          p:password="Hyouka21"
+          p:maxPoolSize="40"
+          p:minPoolSize="2"
+          p:initialPoolSize="2"
+          p:maxIdleTime="180"
+          p:testConnectionOnCheckout="true"/>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource">
+        <property name="annotatedClasses">
+            <list>
+                <value>edu.cqu.no1.domain.TResultDistribut</value>
+                <value>edu.cqu.no1.domain.TAchievemenType</value>
+                <value>edu.cqu.no1.domain.TAchievement</value>
+                <value>edu.cqu.no1.domain.TAnnounType</value>
+                <value>edu.cqu.no1.domain.TAnnouncement</value>
+                <value>edu.cqu.no1.domain.TAttachment</value>
+                <value>edu.cqu.no1.domain.TAttchmentType</value>
+                <value>edu.cqu.no1.domain.TCode</value>
+                <value>edu.cqu.no1.domain.TCredit</value>
+                <value>edu.cqu.no1.domain.TDeclComment</value>
+                <value>edu.cqu.no1.domain.TDeclFund</value>
+                <value>edu.cqu.no1.domain.TDeclJob</value>
+                <value>edu.cqu.no1.domain.TDeclaration</value>
+                <value>edu.cqu.no1.domain.TEmail</value>
+                <value>edu.cqu.no1.domain.TEmailReceiver</value>
+                <value>edu.cqu.no1.domain.TEndProject</value>
+                <value>edu.cqu.no1.domain.TEndProjectComment</value>
+                <value>edu.cqu.no1.domain.TEndProjectExport</value>
+                <value>edu.cqu.no1.domain.TEndProjectJob</value>
+                <value>edu.cqu.no1.domain.TExpertLib</value>
+                <value>edu.cqu.no1.domain.TExpertReview</value>
+                <value>edu.cqu.no1.domain.TExpertTeacher</value>
+                <value>edu.cqu.no1.domain.TFunds</value>
+                <value>edu.cqu.no1.domain.TJieqi</value>
+                <value>edu.cqu.no1.domain.TJournal</value>
+                <value>edu.cqu.no1.domain.TJournalAct</value>
+                <value>edu.cqu.no1.domain.TPermission</value>
+                <value>edu.cqu.no1.domain.TProfession</value>
+                <value>edu.cqu.no1.domain.TProject</value>
+                <value>edu.cqu.no1.domain.TProjectChange</value>
+                <value>edu.cqu.no1.domain.TProjectChangeContent</value>
+                <value>edu.cqu.no1.domain.TRole</value>
+                <value>edu.cqu.no1.domain.TRolePermission</value>
+                <value>edu.cqu.no1.domain.TStudent</value>
+                <value>edu.cqu.no1.domain.TTeacher</value>
+                <value>edu.cqu.no1.domain.TTempEmailReciver</value>
+                <value>edu.cqu.no1.domain.TUnit</value>
+                <value>edu.cqu.no1.domain.TUser</value>
+                <value>edu.cqu.no1.domain.TUserRole</value>
+                <value>edu.cqu.no1.domain.TAnnouncementModel</value>
+                <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
