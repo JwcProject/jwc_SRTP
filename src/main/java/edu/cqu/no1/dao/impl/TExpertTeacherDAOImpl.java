@@ -2,14 +2,11 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-import edu.cqu.no1.dao.*;
+import edu.cqu.no1.dao.TExpertTeacherDAO;
 import edu.cqu.no1.domain.TExpertLib;
 import edu.cqu.no1.domain.TExpertTeacher;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +34,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //根据届期id，专家库类型，获取专家库
-    @Nullable
+
     public List<TExpertLib> findExpertLibByJqid(String jqId, String type) {
         log.debug("get expert lib by jqid");
         try {
@@ -69,7 +66,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //根据届期id，专家库类型，登陆教师ID，获取本学院专家库
-    @Nullable
+
     public List<TExpertLib> findUnitExpertLibByJqid(String jqId, String type, String teacherCode) {
         log.debug("get expert lib by jqid");
         try {
@@ -102,7 +99,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过单个老师的id找到最近的专家教师对象
-    @Nullable
+
     public TExpertTeacher getExpertTeachersByTeaId(String teaId, String type){
         log.debug("get expertTeachers by teacher id");
         try {
@@ -127,7 +124,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     }
 
     //通过届期找到对应的专家教师
-    @NotNull
+
     public List findExpertTeachersByJQid(String jqId){
         log.debug("get expertTeachers by jieqi id");
         try {

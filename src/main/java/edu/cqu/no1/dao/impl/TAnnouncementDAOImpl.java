@@ -2,15 +2,11 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-import edu.cqu.no1.dao.*;
+import edu.cqu.no1.dao.TAnnouncementDAO;
 import edu.cqu.no1.domain.TAnnouncement;
 import edu.cqu.no1.domain.TAnnouncementModel;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.annotations.NotFound;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 
@@ -83,7 +79,6 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param announId
      * @return
      */
-    @Nullable
     public TAnnouncementModel getAnnounById(String announId) {
         log.debug("get a announcement with publisherName by announId");
         try {
@@ -112,7 +107,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-    @NotNull
+
     public List findStuTeatAnnoun(String number, String announName,
                                   Date announDate, PageBean pageBean) {
         log.debug("finding Student TAnnouncement instances");
@@ -187,7 +182,6 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-    @NotNull
     public List findUnitAnnoun(String teaCode, String announName,
                                Date announDate, PageBean pageBean) {
         log.debug("finding unit TAnnouncement");
@@ -271,7 +265,6 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
-    @NotNull
     public List findSchoolAnnoun(String announName, String checkState,
                                  Date announDate, String publisherName, String typeName,
                                  PageBean pageBean) {
@@ -431,7 +424,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param unitTeaCode 学院主管老师的教职工号
      * @param pageBean    return List
      */
-    @NotNull
+
     public List getUnitAnnounctment(String unitTeaCode, PageBean pageBean) {
         log.debug("finding unit all TAnnouncement instances by pageBeanun");
         return findUnitAnnoun(unitTeaCode, null, null, pageBean);
@@ -443,7 +436,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //通过当前学生所在学院获取学院公告
-    @NotNull
+
     public List getUnitAnnounctmentByStuCode(String unitStuCode, PageBean pageBean) {
         log.debug("getting unit all TAnnouncement instances by pageBeanun");
         try {
@@ -671,7 +664,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      *
      * @param pageBean return List
      */
-    @NotNull
+
     public List getSchoolAnnounctment(PageBean pageBean) {
         log.debug("finding all School TAnnouncement instances by pageBeanun");
         try {
@@ -715,7 +708,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param typeName 公告类别名称
      * @return
      */
-    @NotNull
+
     public List findAnnounByType(String typeName, PageBean pageBean) {
         log.debug("find TAnnouncement by type");
         return findIndexSchoolAnnoument(null, null, typeName, pageBean);
@@ -727,7 +720,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
     }
 
     //查询主页学校公告
-    @NotNull
+
     public List findIndexSchoolAnnoument(String announTitle, Date publishTime, String typeName, PageBean pageBean) {
         log.debug("find TAnnouncement by type");
         try {

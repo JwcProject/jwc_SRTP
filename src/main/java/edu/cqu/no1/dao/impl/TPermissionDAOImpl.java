@@ -2,7 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import edu.cqu.no1.dao.*;
+import edu.cqu.no1.dao.TPermissionDAO;
 import edu.cqu.no1.domain.TPermission;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;

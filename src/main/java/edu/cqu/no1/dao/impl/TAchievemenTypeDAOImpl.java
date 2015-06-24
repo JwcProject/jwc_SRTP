@@ -4,7 +4,6 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import edu.cqu.no1.dao.TAchievemenTypeDAO;
 import edu.cqu.no1.domain.TAchievemenType;
-import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 

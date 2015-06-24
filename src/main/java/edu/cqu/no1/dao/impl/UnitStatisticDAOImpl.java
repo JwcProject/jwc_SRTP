@@ -1,6 +1,5 @@
 package edu.cqu.no1.dao.impl;
 
-import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.UnitStatisticDAO;
 import edu.cqu.no1.domain.TResultDistribut;
 import edu.cqu.no1.util.PageBean;
@@ -16,7 +15,7 @@ import java.util.List;
 @Repository
 public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDAO {
     //获取学院项目成绩分布统计
-    @Nullable
+
     public List unitProjectScore(String unitId, String jqId) {
         String hql = "select new Map(projectScore, count(projectId)) from TProject where" +
                 " TUnit.unitId = :unitId and TJieqi.jqId = :jqId and projectScore is not null" +
@@ -33,7 +32,7 @@ public class UnitStatisticDAOImpl extends BaseDaoImpl implements UnitStatisticDA
         }
     }
 
-    @Nullable
+
     public List<TResultDistribut> getUnitResultDistribut(String unitId, PageBean pageBean) {
         try {
             String hql = "select d.TJieqi.jqId, d.TUnit.unitId, u.unitName, jq.jqYear || '年 第' || jq.qici || '期', count(d)," +

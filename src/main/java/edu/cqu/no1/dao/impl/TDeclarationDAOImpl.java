@@ -2,8 +2,7 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.NotNull;
-import edu.cqu.no1.dao.*;
+import edu.cqu.no1.dao.TDeclarationDAO;
 import edu.cqu.no1.domain.TDeclaration;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
@@ -1010,7 +1009,7 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
         return (TDeclarationDAO) ctx.getBean("TDeclarationDAO");
     }
 
-    @NotNull
+
     public List findAll(PageBean pageBean, String studentId) {
         log.debug("finding all TDeclaration instances");
         try {

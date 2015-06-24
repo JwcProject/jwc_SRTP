@@ -2,7 +2,6 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.NotNull;
 import edu.cqu.no1.dao.TProjectDAO;
 import edu.cqu.no1.domain.TProject;
 import edu.cqu.no1.util.PageBean;
@@ -164,7 +163,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     }
 
     //根据当前教师工号得到所在学院项目列表
-    @NotNull
+
     public List getProjectByTeaCode(String unitTeaCode, PageBean pageBean) {
         log.debug("finding unit all TProject instances by pageBean");
         try {

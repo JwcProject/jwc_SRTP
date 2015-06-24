@@ -2,10 +2,9 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import com.sun.istack.internal.Nullable;
 import edu.cqu.no1.dao.StatisticDAO;
-import edu.cqu.no1.domain.TResultDistribut;
 import edu.cqu.no1.domain.TJieqi;
+import edu.cqu.no1.domain.TResultDistribut;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by ZKQ on 2015/5/27.
@@ -24,7 +22,7 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     private static final Logger log = LoggerFactory.getLogger(StatisticDAOImpl.class);
 
     // 全校项目成绩分布统计
-    @Nullable
+
     public List<Map> SchooleProjectScore(String jqQici) {
         log.debug("全校项目成绩分布统计");
         try {
@@ -103,7 +101,7 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 全校数据指标 List
-    @Nullable
+
     public List<TResultDistribut> getSchoolResultDistribut(String college, String jqYear, String jqQici, PageBean pageBean) {
         log.debug("全校数据指标");
         try {
@@ -197,14 +195,14 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 按期次查看各学院数据
-    @Nullable
+
     public List<TResultDistribut> getSchoolStatisticsData(String jqQici) {
         log.debug("按期次查看各学院统计数据，参数-期次");
         return getSchoolResultDistribut(null, null, jqQici, null);
     }
 
     // 按学院查看各期次统计数据
-    @Nullable
+
     public List<TResultDistribut> getSchoolStatisticDataByCollege(String college) {
         log.debug("按学院查看各期次统计数据,参数-学院");
         return getSchoolResultDistribut(college, null, null, null);
@@ -241,7 +239,7 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 根据届期id获取当前届期信息
-    @Nullable
+
     public TJieqi getJieqiById(String id) {
         log.debug("根据届期id获取当前届期信息");
         try {
@@ -270,7 +268,7 @@ public class StatisticDAOImpl extends BaseDaoImpl implements StatisticDAO {
     }
 
     // 获取当前结题届期id
-    @Nullable
+
     public TJieqi getCurrentJieqi() {
         log.debug("获取当前结题届期");
         try {

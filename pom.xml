@@ -6,7 +6,7 @@
 
     <groupId>edu.cqu.no1</groupId>
     <artifactId>jwc_SRTP</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 
 
@@ -14,6 +14,10 @@
         <org.springframework.version>4.1.6.RELEASE</org.springframework.version>
         <org.apache.struts.version>2.3.24</org.apache.struts.version>
         <org.hibernate.version>4.3.10.Final</org.hibernate.version>
+        <!-- Modify the following to fit your own.
+        You could use `env.CATALINA_HOME` if having
+        configured it as a system variable. -->
+        <CATALINA_HOME>/usr/local/Cellar/tomcat/8.0.23/libexec</CATALINA_HOME>
     </properties>
 
     <dependencies>
@@ -171,7 +175,38 @@
 
     </dependencies>
 
-
-
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>web/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.5</version>
+                <configuration>
+                    <container>
+                        <!-- Modify the following to fit your own. -->
+                        <containerId>tomcat8x</containerId>
+                        <home>${CATALINA_HOME}</home>
+                    </container>
+                    <configuration>
+                        <type>existing</type>
+                        <home>${CATALINA_HOME}</home>
+                    </configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
