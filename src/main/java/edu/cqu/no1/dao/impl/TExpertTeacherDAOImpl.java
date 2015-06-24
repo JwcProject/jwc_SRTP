@@ -2,11 +2,12 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import edu.cqu.no1.dao.TExpertTeacherDAO;
+import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TExpertLib;
 import edu.cqu.no1.domain.TExpertTeacher;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 

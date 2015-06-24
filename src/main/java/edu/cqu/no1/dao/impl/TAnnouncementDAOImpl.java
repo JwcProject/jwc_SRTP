@@ -2,11 +2,13 @@ package edu.cqu.no1.dao.impl;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import edu.cqu.no1.dao.TAnnouncementDAO;
+import edu.cqu.no1.dao.*;
 import edu.cqu.no1.domain.TAnnouncement;
 import edu.cqu.no1.domain.TAnnouncementModel;
 import edu.cqu.no1.util.PageBean;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.annotations.NotFound;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 
@@ -79,6 +81,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param announId
      * @return
      */
+
     public TAnnouncementModel getAnnounById(String announId) {
         log.debug("get a announcement with publisherName by announId");
         try {
@@ -182,6 +185,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
+
     public List findUnitAnnoun(String teaCode, String announName,
                                Date announDate, PageBean pageBean) {
         log.debug("finding unit TAnnouncement");
@@ -265,6 +269,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
      * @param pageBean
      * @return
      */
+
     public List findSchoolAnnoun(String announName, String checkState,
                                  Date announDate, String publisherName, String typeName,
                                  PageBean pageBean) {
