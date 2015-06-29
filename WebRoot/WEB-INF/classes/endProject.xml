@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="endProject" extends="struts-default,json-default" namespace="/">
+	    <action name="listEndProjects" class="EndProjectAction" method="listEndProjects">
+		    <result name="success">/pages/endprojectManage/EndProject_list.jsp</result>
+		</action>
+		<!-- 生成结题申请页面 -->
+		<action name="PreEndProjectRequest" class="EndProjectAction" method="preEndProjectRequest">
+		<result name="success">/pages/endprojectManage/endproject_request.jsp
+			</result>
+			<result name="message">message_info.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 提交结题申请 -->
+		<action name="AddEndprojectRequest" class="EndProjectAction" method="addEndprojectRequest">
+		<result name="success" type="redirect">PreMyEndProjects
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 查看结题 -->
+		<action name="EndProjectDetail" class="EndProjectAction" method="endProjectDetail">
+		<result name="success">/pages/endprojectManage/view_endproject.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 生成我的结题 -->
+		<action name="PreMyEndProjects" class="EndProjectAction" method="preMyEndProjects">
+		<result name="success">/pages/endprojectManage/my_endprojects.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 生成组织结题评审页面 -->
+		<action name="PreOrganizeEndprojectReview" class="EndProjectAction" method="preOrganizeEndprojectReview">
+		<result name="success">/pages/endprojectManage/organize_endproject_review.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 组织结题评审 -->
+		<action name="SendEnprojectEmail" class="MailAction" method="sendEnprojectEmail">
+		<result name="success" type="redirect">PreOrganizeEndprojectReview</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 列出结题专家团队 -->
+		<action name="FindEndproExpTeam" class="ExpertTeamAction" method="findEndproExpTeam">
+		<result name="success">/pages/expertTeam/endproject_expert_team_list.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 查看某一期的专家教师 -->
+		<action name="ViewEndExpTea" class="ExpertTeamAction" method="viewExpTea">
+		    <result name="success">/pages/expertTeam/view_endexpert_team.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 生成编辑结题专家团队页面 -->
+		<action name="PreUpdateEndProExpTea" class="ExpertTeamAction" method="preUpdateEndProExpTea">
+		    <result name="success">/pages/expertTeam/update_endproject_expert_team.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 编辑结题专家团队 -->
+		<action name="UpdateEndProExpTea" class="ExpertTeamAction" method="updateEndProExpTea">
+		
+		</action>
+		
+		<!-- 生成创建结题专家团队页面 -->
+		<action name="PreCreateEndProExpertTeam" class="ExpertTeamAction" method="preCreateEndProExpertTeam">
+			<result name="success">/pages/expertTeam/endproject_create_expert.jsp</result>
+			<result name="hadValue">/pages/expertTeam/expert_had_existed.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 生成创建结题专家团队页面 -->
+		<action name="ConfirmCreateEndProExpertTeam" class="ExpertTeamAction" method="confirmCreateEndProExpertTeam">
+			<result name="success">/pages/expertTeam/endproject_create_expert.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		
+		<!-- 创建结题专家团队 -->
+		<action name="CreateEndproExpTeam" class="ExpertTeamAction" method="createEndproExpTeam">
+			<!--<result name="success" type="redirect">FindEndproExpTeam
+				</result>
+				<result name="error">db_err.jsp</result>
+			-->
+		</action>
+		
+		<!-- 分派结题评审专家 -->
+		<action name="AssignEndProExpert" class="ExpertTeamAction" method="assignEndProExpert">
+		</action>
+		
+		<!-- 生成分派结题评审专家页面 -->
+		<action name="PreAssignEndProExpert" class="ExpertTeamAction" method="preAssignEndProExpert">
+		<result name="success">/pages/expertTeam/endproject_assign_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 分派结题评审专家页面的查询 -->
+		<action name="QueryAssignEndProExpert" class="ExpertTeamAction" method="queryAssignEndProExpert">
+		<result name="success">/pages/expertTeam/endproject_assign_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 成绩录入页面的查询 -->
+		<action name="QueryEndProScoreTypeIn" class="ExpertTeamAction" method="queryEndProScoreTypeIn">
+		<result name="success">/pages/endprojectManage/endproject_result_typein.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 成绩审核页面的查询 -->
+		<action name="QueryEndProScoreCheck" class="ExpertTeamAction" method="queryEndProScoreTypeIn">
+		<result name="success">/pages/endprojectManage/endproject_score_audit.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 列出结题的历史专家教师 -->
+		<action name="ListEndProHistoryExpert" class="ExpertTeamAction" method="listEndProHistoryExpert">
+		<result name="success">/pages/expertTeam/unit_endproject_history_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 查询结题的历史专家教师 -->
+		<action name="FindEndProHistoryExpert" class="ExpertTeamAction" method="findEndProHistoryExpert">
+		<result name="success">/pages/expertTeam/unit_endproject_history_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 从历史专家库添加致本期专家库 -->
+		<action name="CreateEndProExpFromHistory" class="ExpertTeamAction" method="createEndProExpFromHistory">
+			<result name="success" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties ">result</param>
+			</result>
+		</action>
+		
+		<!-- 生成结题成绩录入页面 -->
+		<action name="PreEndProResultTypeIn" class="ExpertTeamAction" method="preEndProResultTypeIn">
+		<result name="success">/pages/endprojectManage/endproject_result_typein.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 学院录入成绩 -->
+		<action name="EndProScoreTypeIn" class="ExpertTeamAction" method="endProScoreTypeIn">
+		
+		</action>
+		
+		<!-- 生成结题成绩审核页面 -->
+		<action name="PreEndProScoreAudit" class="ExpertTeamAction" method="preEndProScoreAudit">
+		<result name="success">/pages/endprojectManage/endproject_score_audit.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 提交教务处审核结题成绩 -->
+		<action name="EndprojectUnitCheck" class="ExpertTeamAction" method="endprojectUnitCheck">
+		
+		</action>
+		
+		<!-- 生成我的结题评审页面 -->
+		<action name="PreMyEndProReview" class="ExpertTeamAction" method="preMyEndProReview">
+		<result name="success">/pages/expertTeam/my_endproject_review.jsp
+			</result>
+			<result name="message">message_info.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 生成单个结题评审的网评页面 -->
+		<action name="FindEndProComById" class="ExpertTeamAction" method="findEndProComById">
+		<result name="success">/pages/expertTeam/endproject_online_comments.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 评审专家提交结题网评 -->
+		<action name="AddEndProComment" class="ExpertTeamAction" method="addEndProComment">
+		<result name="success" type="redirect">PreMyEndProReview
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 生成学院主管教师添加评审意见-->
+		<action name="preUnitTeaAddEndProCom" class="EndProjectAction" method="endProjectDetail">
+		<result name="success">/pages/expertTeam/endpro_review_opinion.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 学院主管教师提交结题评审意见-->
+		<action name="UnitTeaAddEndProCom" class="EndProjectAction" method="unitTeaAddEndProCom">
+		<result name="success" type="redirect">PreEndProResultTypeIn
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<action name="preCreateExpForSecReview" class="EndProjectAction" method="preCreateExpForSecReview">
+		     <result name="success">/pages/endprojectManage/create_expert_secloudReview.jsp</result>
+		</action>
+		<action name="listExpertTeachers" class="EndProjectAction" method="listExpertTeachers">
+		     <result name="success" type="json">
+		          <param name="includeProperties">expertTeachers.*,totalNumber</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+		<action name="addExpertTeacher" class="EndProjectAction" method="addExpertTeacher">
+		     <result name="success" type="json">
+		          <param name="root">teaCode</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+		<action name="deleteExpertTeacher" class="EndProjectAction" method="deleteExpertTeacher">
+		     <result name="success" type="json">
+		          <param name="root">ids</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+		<action name="listEndProjectForSecReview" class="EndProjectAction" method="listEndProjectForSecReview">
+		     <result name="success" type="json">
+		          <param name="includeProperties">endProjectForDispatch.*,totalNumber</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+		<action name="preDispatchExpForSecReview" class="EndProjectAction" method="preDispatchExpForSecReview">
+		     <result name="success">/pages/endprojectManage/dispatch_expert.jsp</result>
+		     <result name="error">db_err.jsp</result>
+		</action>
+		<action name="dispatchExperTeacher" class="EndProjectAction" method="dispatchExperTeacher">
+		     <result name="success" type="json">
+		          <param name="root">ids</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+		<action name="preSecReviewResultTypeIn" class="EndProjectAction" method="preSecReviewResultTypeIn">
+		     <result name="success">/pages/endprojectManage/secondReview_result_typein.jsp</result>
+		     <result name="error">db_err.jsp</result>
+		</action>
+		<action name="listSecReviewResultEndPro" class="EndProjectAction" method="listSecReviewResultEndPro">
+		     <result name="success" type="json">
+		          <param name="includeProperties">endProjectForDispatch.*,totalNumber</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+		<action name="secondReviewResultTypeIn" class="EndProjectAction" method="secondReviewResultTypeIn">
+		     <result name="success" type="json">
+		          <param name="root">ids</param>
+				  <param name="excludeNullProperties">true</param> 
+		     </result>
+		</action>
+	</package>
+</struts>

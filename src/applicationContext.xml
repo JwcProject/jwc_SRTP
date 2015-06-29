@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:db-setting.properties</value>
+		</property>
+	</bean>
+
+	<!-- 数据库配置制定文件为db-setting.properties -->
+	<!-- 数据源定义,使用c3p0 连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize" value="${cpool.minPoolSize}" />
+		<property name="minPoolSize" value="${cpool.minPoolSize}" />
+		<property name="maxPoolSize" value="${cpool.maxPoolSize}" />
+		<property name="acquireIncrement" value="${cpool.acquireIncrement}" />
+		<property name="maxIdleTime" value="${cpool.maxIdleTime}" />
+		<property name="autoCommitOnClose" value="${cpool.autoCommitOnClose}" />
+	</bean>
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5Dialect
+				</prop>
+
+				<prop key="hibernate.query.factory_class">
+					org.hibernate.hql.ast.ASTQueryTranslatorFactory
+
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.fatch.size">100</prop>
+				<prop key="hibernate.jdbc.batch.size">50</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="myTxManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+
+		<property name="transactionManager">
+			<ref bean="myTxManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="TEndProjectDAO" class="com.isse.dao.TEndProjectDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TUnitDAO" class="com.isse.dao.TUnitDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TPermissionDAO" class="com.isse.dao.TPermissionDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TExpertTeacherDAO" class="com.isse.dao.TExpertTeacherDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TTempEmailReciverDAO" class="com.isse.dao.TTempEmailReciverDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TRoleDAO" class="com.isse.dao.TRoleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TProjectDAO" class="com.isse.dao.TProjectDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TUserDAO" class="com.isse.dao.TUserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TJournalActDAO" class="com.isse.dao.TJournalActDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TProjectChangeDAO" class="com.isse.dao.TProjectChangeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TDeclFundDAO" class="com.isse.dao.TDeclFundDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TCodeDAO" class="com.isse.dao.TCodeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TJieqiDAO" class="com.isse.dao.TJieqiDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TDeclCommentDAO" class="com.isse.dao.TDeclCommentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAchievementDAO" class="com.isse.dao.TAchievementDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TEmailReceiverDAO" class="com.isse.dao.TEmailReceiverDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAttchmentTypeDAO" class="com.isse.dao.TAttchmentTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TFundsDAO" class="com.isse.dao.TFundsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TStudentDAO" class="com.isse.dao.TStudentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TDeclJobDAO" class="com.isse.dao.TDeclJobDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TDeclarationDAO" class="com.isse.dao.TDeclarationDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TTeacherDAO" class="com.isse.dao.TTeacherDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TExpertReviewDAO" class="com.isse.dao.TExpertReviewDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TProjectChangeContentDAO" class="com.isse.dao.TProjectChangeContentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TEmailDAO" class="com.isse.dao.TEmailDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TCreditDAO" class="com.isse.dao.TCreditDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TRolePermissionDAO" class="com.isse.dao.TRolePermissionDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TProfessionDAO" class="com.isse.dao.TProfessionDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TJournalDAO" class="com.isse.dao.TJournalDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TUserRoleDAO" class="com.isse.dao.TUserRoleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAchievemenTypeDAO" class="com.isse.dao.TAchievemenTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAnnouncementDAO" class="com.isse.dao.TAnnouncementDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAnnounTypeDAO" class="com.isse.dao.TAnnounTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TEndProjectCommentDAO" class="com.isse.dao.TEndProjectCommentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TExpertLibDAO" class="com.isse.dao.TExpertLibDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TAttachmentDAO" class="com.isse.dao.TAttachmentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TEndProjectExportDAO" class="com.isse.dao.TEndProjectExportDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 统计分析DAO -->
+	<bean id="StatisticDAO" class="com.isse.dao.StatisticDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 学院统计分析DAO -->
+	<bean id="UnitStatisticDAO" class="com.isse.dao.UnitStatisticDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 用户管理 -->
+
+	<bean id="TUserServiceTarget" class="com.isse.serviceImpl.UserServiceImpl">
+		<property name="tUserDAO">
+			<ref bean="TUserDAO" />
+		</property>
+		<property name="tTeacherDAO">
+			<ref bean="TTeacherDAO" />
+		</property>
+		<property name="tStudentDAO">
+			<ref bean="TStudentDAO" />
+		</property>
+	</bean>
+	<bean id="TUserService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TUserServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="UserAction" class="com.isse.action.UserAction" scope="prototype">
+		<property name="userService">
+			<ref bean="TUserService" />
+		</property>
+		<property name="announcementService">
+			<ref bean="TAnnouncementService" />
+		</property>
+		<property name="expertTeacherService">
+			<ref bean="TExpertTeacherService" />
+		</property>
+		<property name="projectService">
+			<ref bean="TProjectService" />
+		</property>
+	</bean>
+	<!-- 权限管理 -->
+	<bean id="TPermissionServiceTarget" class="com.isse.serviceImpl.PermissionServiceImpl">
+		<property name="tPermissionDAO">
+			<ref bean="TPermissionDAO" />
+		</property>
+	</bean>
+	<bean id="TPermissionService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TPermissionServiceTarget" />
+		</property>
+	</bean>
+	<bean id="PermissionAction" class="com.isse.action.PermissionAction"
+		scope="prototype">
+		<property name="permissionService">
+			<ref bean="TPermissionService" />
+		</property>
+	</bean>
+
+	<!-- 日志管理 -->
+	<bean id="TJournalServiceTarget" class="com.isse.serviceImpl.JournalServiceImpl">
+		<property name="tJournalDAO">
+			<ref bean="TJournalDAO" />
+		</property>
+	</bean>
+	<bean id="TJournalService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TJournalServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="JournalAction" class="com.isse.action.JournalAction"
+		scope="prototype">
+		<property name="journalService">
+			<ref bean="TJournalService" />
+		</property>
+	</bean>
+
+	<!-- 用户行为管理 -->
+	<bean id="TJournalActServiceTarget" class="com.isse.serviceImpl.JournalActServiceImpl">
+		<property name="tJournalActDAO">
+			<ref bean="TJournalActDAO" />
+		</property>
+	</bean>
+	<bean id="TJournalActService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TJournalActServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="JournalActAction" class="com.isse.action.JournalActAction"
+		scope="prototype">
+		<property name="journalActService">
+			<ref bean="TJournalActService" />
+		</property>
+	</bean>
+
+	<!-- 角色管理 -->
+	<bean id="TRoleServiceTarget" class="com.isse.serviceImpl.RoleServiceImpl">
+		<property name="tRoleDao">
+			<ref bean="TRoleDAO" />
+		</property>
+		<property name="tRolePermissionDao">
+			<ref bean="TRolePermissionDAO" />
+		</property>
+	</bean>
+	<bean id="TRoleService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TRoleServiceTarget" />
+		</property>
+	</bean>
+	<bean id="RoleAction" class="com.isse.action.RoleAction" scope="prototype">
+		<property name="roleService">
+			<ref bean="TRoleService" />
+		</property>
+		<property name="permissionService">
+			<ref bean="TPermissionService" />
+		</property>
+	</bean>
+	<!-- 公告管理 -->
+	<bean id="TAnnouncementServiceTarget" class="com.isse.serviceImpl.AnnouncementServiceImpl">
+		<property name="tAnnouncementDAO">
+			<ref bean="TAnnouncementDAO" />
+		</property>
+		<property name="attachmentDAO">
+			<ref bean="TAttachmentDAO" />
+		</property>
+		<property name="tAttchmentTypeDAO">
+			<ref bean="TAttchmentTypeDAO" />
+		</property>
+		<property name="tAnnounTypeDAO">
+			<ref bean="TAnnounTypeDAO" />
+		</property>
+	</bean>
+	<bean id="TAnnouncementService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TAnnouncementServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="AnnouncementAction" class="com.isse.action.AnnouncementAction"
+		scope="prototype">
+		<property name="announcementService">
+			<ref bean="TAnnouncementService" />
+		</property>
+		<property name="roleService">
+			<ref bean="TRoleService" />
+		</property>
+	</bean>
+
+	<!-- 专业 -->
+	<bean id="TProfessionServiceTarget" class="com.isse.serviceImpl.ProfessionServiceImpl">
+		<property name="tProfessionDAO">
+			<ref bean="TProfessionDAO" />
+		</property>
+	</bean>
+	<bean id="TProfessionService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TProfessionServiceTarget" />
+		</property>
+	</bean>
+
+	<!-- 申报管理 -->
+	<bean id="DeclarationServiceTaget" class="com.isse.serviceImpl.DeclarationServiceImpl">
+		<property name="tStudentDAO">
+			<ref bean="TStudentDAO" />
+		</property>
+		<property name="teacherDAO">
+			<ref bean="TTeacherDAO" />
+		</property>
+		<property name="tUnitDAO">
+			<ref bean="TUnitDAO" />
+		</property>
+		<property name="tJieqiDAO">
+			<ref bean="TJieqiDAO" />
+		</property>
+		<property name="tDeclarationDAO">
+			<ref bean="TDeclarationDAO" />
+		</property>
+		<property name="tAttachmentDAO">
+			<ref bean="TAttachmentDAO" />
+		</property>
+		<property name="tAttchmentTypeDAO">
+			<ref bean="TAttchmentTypeDAO" />
+		</property>
+		<property name="tProfessionDAO">
+			<ref bean="TProfessionDAO" />
+		</property>
+		<property name="tDeclJobDAO">
+			<ref bean="TDeclJobDAO" />
+		</property>
+		<property name="tDeclFundDAO">
+			<ref bean="TDeclFundDAO" />
+		</property>
+		<property name="tempEmailReciverDAO">
+			<ref bean="TTempEmailReciverDAO" />
+		</property>
+	</bean>
+	<bean id="DeclarationService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="DeclarationServiceTaget" />
+		</property>
+	</bean>
+	<bean id="DeclarationAction" class="com.isse.action.DeclarationAction"
+		scope="prototype">
+		<property name="declarationService">
+			<ref bean="DeclarationService" />
+		</property>
+		<property name="professionService">
+			<ref bean="TProfessionService" />
+		</property>
+		<property name="jieQiService">
+			<ref bean="TJieqiService" />
+		</property>
+		<property name="expertTeacherService">
+			<ref bean="TExpertTeacherService" />
+		</property>
+	</bean>
+	<!-- 专家库 -->
+	<bean id="TExpertLibServiceTarget" class="com.isse.serviceImpl.ExpertLibServiceImpl">
+		<property name="tExpertLibDAO">
+			<ref bean="TExpertLibDAO" />
+		</property>
+		<property name="tExpertTeacherDAO">
+			<ref bean="TExpertTeacherDAO" />
+		</property>
+		<property name="tTempEmailReciverDAO">
+			<ref bean="TTempEmailReciverDAO" />
+		</property>
+	</bean>
+	<bean id="TExpertLibService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TExpertLibServiceTarget" />
+		</property>
+	</bean>
+	<!-- 结题评审专家 -->
+	<bean id="EndProjectExportServiceImplTarget" class="com.isse.serviceImpl.EndProjectExportServiceImpl">
+		<property name="endProjectExportDAO">
+			<ref bean="TEndProjectExportDAO" />
+		</property>
+		<property name="endProjectCommentDAO">
+			<ref bean="TEndProjectCommentDAO" />
+		</property>
+	</bean>
+	<bean id="EndProjectExportService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="EndProjectExportServiceImplTarget" />
+		</property>
+	</bean>
+	<!-- 教师 -->
+	<bean id="TTeacherServiceTarget" class="com.isse.serviceImpl.TeacherServiceImpl">
+		<property name="tTeacherDAO">
+			<ref bean="TTeacherDAO" />
+		</property>
+		<property name="tUserDAO">
+			<ref bean="TUserDAO" />
+		</property>
+	</bean>
+	<bean id="TTeacherService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TTeacherServiceTarget" />
+		</property>
+	</bean>
+	<!-- 届期 -->
+	<bean id="jieqiAction" class="com.isse.action.jieqiAction" scope="prototype">
+		<property name="jieQiService">
+			<ref bean="TJieqiService" />
+		</property>
+	</bean>
+	<bean id="TJieqiServiceTarget" class="com.isse.serviceImpl.JieQiServiceImpl">
+		<property name="tJieqiDAO">
+			<ref bean="TJieqiDAO" />
+		</property>
+	</bean>
+	<bean id="TJieqiService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TJieqiServiceTarget" />
+		</property>
+	</bean>
+	<!-- 项目 -->
+	<bean id="TProjectServiceTarget" class="com.isse.serviceImpl.ProjectServiceImpl">
+		<property name="tProjectDAO">
+			<ref bean="TProjectDAO" />
+		</property>
+	</bean>
+	<bean id="TProjectService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TProjectServiceTarget" />
+		</property>
+	</bean>
+
+	<!-- 专家教师 -->
+	<bean id="TExpertTeacherServiceTarget" class="com.isse.serviceImpl.ExpertTeacherServiceImpl">
+		<property name="teacherDAO">
+			<ref bean="TTeacherDAO" />
+		</property>
+		<property name="tExpertTeacherDAO">
+			<ref bean="TExpertTeacherDAO" />
+		</property>
+		<property name="declCommentDAO">
+			<ref bean="TDeclCommentDAO" />
+		</property>
+	</bean>
+	<bean id="TExpertTeacherService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TExpertTeacherServiceTarget" />
+		</property>
+	</bean>
+
+	<!-- 专家团队 -->
+	<bean id="ExpertTeamAction" class="com.isse.action.ExpertTeamAction"
+		scope="prototype">
+		<property name="declarationService">
+			<ref bean="DeclarationService" />
+		</property>
+		<property name="expertLibService">
+			<ref bean="TExpertLibService" />
+		</property>
+		<property name="expertTeacherService">
+			<ref bean="TExpertTeacherService" />
+		</property>
+		<property name="teacherService">
+			<ref bean="TTeacherService" />
+		</property>
+		<property name="jieQiService">
+			<ref bean="TJieqiService" />
+		</property>
+		<property name="professionService">
+			<ref bean="TProfessionService" />
+		</property>
+		<property name="expertReviewService">
+			<ref bean="TExpertReviewService" />
+		</property>
+		<property name="projectService">
+			<ref bean="TProjectService" />
+		</property>
+		<property name="endProjectService">
+			<ref bean="TEndProjectService" />
+		</property>
+		<property name="endProjectExportService">
+			<ref bean="EndProjectExportService" />
+		</property>
+	</bean>
+
+	<!-- 发送邮件 --> <!-- 临时邮件收信人 -->
+	<bean id="TTempEmailReciverServiceTarget" class="com.isse.serviceImpl.TempEmailReciverServiceImpl">
+		<property name="tempEmailReciverDAO">
+			<ref bean="TTempEmailReciverDAO" />
+		</property>
+	</bean>
+	<bean id="TempEmailReciverService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TTempEmailReciverServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="TEmailReciverServiceTarget" class="com.isse.serviceImpl.EmailReceiverServiceImpl">
+		<property name="tEmailReceiverDAO">
+			<ref bean="TEmailReceiverDAO" />
+		</property>
+	</bean>
+	<bean id="TEmailReciverService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TEmailReciverServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="MailAction" class="com.isse.action.MailAction" scope="prototype">
+		<property name="tempEmailReciverService">
+			<ref bean="TempEmailReciverService" />
+		</property>
+		<property name="emailService">
+			<ref bean="TEmailService" />
+		</property>
+		<property name="emailReceiverService">
+			<ref bean="TEmailReciverService" />
+		</property>
+		<property name="roleService">
+			<ref bean="TRoleService" />
+		</property>
+	</bean>
+	<!-- 结题 -->
+	<bean id="TEndProjectServiceTarget" class="com.isse.serviceImpl.EndProjectServiceImpl">
+		<property name="endProjectDAO">
+			<ref bean="TEndProjectDAO" />
+		</property>
+		<property name="attachmentDAO">
+			<ref bean="TAttachmentDAO" />
+		</property>
+		<property name="attchmentTypeDAO">
+			<ref bean="TAttchmentTypeDAO" />
+		</property>
+		<property name="endprojectJobDAO">
+			<ref bean="TEndprojectJobDAO" />
+		</property>
+		<property name="tempEmailReciverDAO">
+			<ref bean="TTempEmailReciverDAO" />
+		</property>
+		<property name="endProjectCommentDAO">
+			<ref bean="TEndProjectCommentDAO" />
+		</property>
+		<property name="unitDAO">
+			<ref bean="TUnitDAO" />
+		</property>
+		<property name="jieqiDAO">
+			<ref bean="TJieqiDAO" />
+		</property>
+		<property name="professionDAO">
+			<ref bean="TProfessionDAO" />
+		</property>
+		<property name="expertTeacherDAO">
+			<ref bean="TExpertTeacherDAO" />
+		</property>
+		<property name="teacherDAO">
+			<ref bean="TTeacherDAO" />
+		</property>
+		<property name="expertLibDAO">
+			<ref bean="TExpertLibDAO" />
+		</property>
+		<property name="endProjectExportDAO">
+			<ref bean="TEndProjectExportDAO" />
+		</property>
+	</bean>
+	<bean id="TEndProjectService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TEndProjectServiceTarget" />
+		</property>
+	</bean>
+	<!-- 我的结题的Action -->
+	<bean id="EndProjectAction" class="com.isse.action.EndProjectAction"
+		scope="prototype">
+		<property name="projectService">
+			<ref bean="TProjectService" />
+		</property>
+		<property name="jieQiService">
+			<ref bean="TJieqiService" />
+		</property>
+		<property name="endProjectService">
+			<ref bean="TEndProjectService" />
+		</property>
+		<property name="declarationService">
+			<ref bean="DeclarationService" />
+		</property>
+	</bean>
+
+	<!-- 专家评审 -->
+	<bean id="TExpertReviewServiceTarget" class="com.isse.serviceImpl.ExpertReviewServiceImpl">
+		<property name="tExpertReviewDAO">
+			<ref bean="TExpertReviewDAO" />
+		</property>
+	</bean>
+	<bean id="TExpertReviewService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TExpertReviewServiceTarget" />
+		</property>
+	</bean>
+
+	<!-- 项目 -->
+	<bean id="ProjectAction" class="com.isse.action.ProjectAction"
+		scope="prototype">
+		<property name="projectService">
+			<ref bean="TProjectService" />
+		</property>
+		<property name="declarationService">
+			<ref bean="DeclarationService" />
+		</property>
+		<property name="professionService">
+			<ref bean="TProfessionService" />
+		</property>
+	</bean>
+
+	<!-- 临时邮件 -->
+	<bean id="TEmailServiceTarget" class="com.isse.serviceImpl.EmailServiceImpl">
+		<property name="tEmailDAO">
+			<ref bean="TEmailDAO" />
+		</property>
+	</bean>
+	<bean id="TEmailService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="TEmailServiceTarget" />
+		</property>
+	</bean>
+	<bean id="TEndprojectJobDAO" class="com.isse.dao.TEndprojectJobDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 统计分析 -->
+	<bean id="StatisticServiceTarget" class="com.isse.serviceImpl.StatisticServiceImpl">
+		<property name="statisticDAO">
+			<ref bean="StatisticDAO" />
+		</property>
+	</bean>
+	<bean id="StatisticService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="StatisticServiceTarget" />
+		</property>
+	</bean>
+	<bean id="StatisticAction" class="com.isse.action.StatisticAction"
+		scope="prototype">
+		<property name="statisticService">
+			<ref bean="StatisticService"></ref>
+		</property>
+		<property name="declarationService">
+			<ref bean="DeclarationService"></ref>
+		</property>
+
+	</bean>
+
+	<!-- 学院统计分析 -->
+	<bean id="UnitStatisticServiceTarget" class="com.isse.serviceImpl.UnitStatisticServiceImpl">
+		<property name="unitStatisticDAO">
+			<ref bean="UnitStatisticDAO" />
+		</property>
+	</bean>
+	<bean id="UnitStatisticService" parent="baseTransactionProxy">
+		<property name="target">
+			<ref bean="UnitStatisticServiceTarget" />
+		</property>
+	</bean>
+	<bean id="UnitStatisticAction" class="com.isse.action.UnitStatisticAction"
+		scope="prototype">
+		<property name="unitStatisticService">
+			<ref bean="UnitStatisticService"></ref>
+		</property>
+		<property name="statisticService">
+			<ref bean="StatisticService"></ref>
+		</property>
+	</bean>
+</beans>

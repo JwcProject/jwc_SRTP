@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 配置redmine数据库连接  -->
+	<bean id="redmineDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/redmine-1.3.3</value>
+		</property>
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+	</bean>
+	<bean id="mysqlFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="redmineDS"/>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- <bean id="RedmineDAO" class="com.util.project.RedmineDao">
+		<property name="sessionFactory">
+			<ref bean="mysqlFactory" />
+		</property>
+	</bean> -->
+	<bean id="RedmineManager" class="com.util.project.RedmineManager">
+		<property name="sessionFactory">
+			<ref bean="mysqlFactory" />
+		</property>
+		<property name="studentDAO">
+			<ref bean="TStudentDAO" />
+		</property>
+		<property name="teacherDAO">
+			<ref bean="TTeacherDAO" />
+		</property>
+		<property name="userDAO">
+			<ref bean="TUserDAO" />
+		</property>
+	</bean>
+	<!-- redmine数据库配置连接完成  -->
+</beans>

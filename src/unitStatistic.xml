@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="unitStatistic" extends="struts-default,json-default" namespace="/UnitStatistic">
+	
+		<action name="UnitScoreStatistic" class="UnitStatisticAction" method="unitScoreStatistic">
+			<result name="success">/pages/unitStatisticsManage/circlelabelpie.jsp</result>
+			<result name="noData">../noData_err.jsp</result>
+			<result name="error">../db_err.jsp</result>
+		</action>
+		
+		<action name="UnitResultDistribut" class="UnitStatisticAction" method="unitResultDistribut">
+			<result name="success">/pages/unitStatisticsManage/unit_result_statistic_list.jsp</result>
+			<result name="error">../db_err.jsp</result>
+		</action>
+		
+		<action name="UnitLineChart" class="UnitStatisticAction" method="unitLineChart">
+			<result name="success">/pages/unitStatisticsManage/linePages/symbolline.jsp</result>
+			<result name="error">../db_err.jsp</result>
+		</action>
+	</package>
+</struts>

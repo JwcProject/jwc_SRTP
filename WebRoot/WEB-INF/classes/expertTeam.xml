@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="expertTeam" extends="struts-default,json-default" namespace="/">
+	
+		<!-- 判断输入教师工号是否在教师表中 -->
+		<action name="checkHasTeacher" class="ExpertTeamAction" method="checkHasTeacher">
+			<result name="success" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties">result</param>
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 生成创建专家团队页面 -->
+		<action name="PreCreateExpert" class="ExpertTeamAction" method="preCreateExpertTeam">
+			<result name="success">/pages/expertTeam/create_expert.jsp</result>
+			<result name="hadValue">/pages/expertTeam/decl_expert_had_existed.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 创建专家团队-->
+		<action name="CreateExpertTeam" class="ExpertTeamAction" method="createExpertTeam">
+		</action>
+		<!--生成历史专家库页面 -->
+		<action name="ListHistoryExpert" class="ExpertTeamAction" method="listHistoryExpert">
+			<result name="success">/pages/expertTeam/unit_history_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!--历史专家库页面查询-->
+		<action name="FindHistoryExpert" class="ExpertTeamAction" method="findHistoryExpert">
+			<result name="success">/pages/expertTeam/unit_history_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 从历史专家库添加专家 -->
+		<action name="CreateExpFromHistory" class="ExpertTeamAction" method="createExpFromHistory">
+			<result name="success" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties">result</param>
+			</result>
+		</action>
+		<!-- 生成分派评审专家页面 -->
+		<action name="PreAssignExpert" class="ExpertTeamAction" method="preAssignExpert">
+			<result name="success">/pages/expertTeam/assign_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 分派评审专家 -->
+		<action name="AssignExpert" class="ExpertTeamAction" method="assignExpert">
+		
+		</action>
+		<!-- 分派评审专家页面的查询 -->
+		<action name="QueryDeclaAssignExp" class="DeclarationAction" method="findAssignExpertDeclaration">
+			<result name="success">/pages/expertTeam/assign_expert.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!-- 学校审核-->
+		<action name="SchoolCheck" class="ExpertTeamAction" method="schoolCheck"></action>
+		
+		<!-- 学院领导审核 -->
+		<action name="UnitAudit" class="ExpertTeamAction" method="unitAudit"></action>
+		
+		<!-- 生成结果录入页面 -->
+		<action name="PreResultTypeIn" class="ExpertTeamAction" method="listResultTypeIn">
+			<result name="success">/pages/declarationManage/result_typein.jsp</result>
+			<result name="error">db_err.jsp</result>
+			<result name="message">message_info.jsp</result>
+		</action>
+		<!-- 结果录入页面的查询 -->
+		<action name="QueryResultTypeIn" class="ExpertTeamAction" method="findResultTypeIn">
+			<result name="success">/pages/declarationManage/result_typein.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 学院的评审专家列表 -->
+		<action name="ListUnitExperTeam" class="ExpertTeamAction" method="listUnitExperTeam">
+			<result name="success">/pages/expertTeam/expert_team_list.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!--生成组织评审页面-->
+		<action name="PreOrganizeReview" class="ExpertTeamAction" method="preOrganizeReview">
+			<result name="success">/pages/declarationManage/organize_review.jsp</result>
+			
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!--发送邮件-->
+		<action name="SendEmails" class="MailAction" method="sendEmails">
+		                                 
+			<result name="success" type="redirectAction">PreOrganizeReview</result>
+			
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!--生成学院 结果审核页面-->
+		<action name="UnitResultAudit" class="ExpertTeamAction" method="unitResultAudit">
+			<result name="success">/pages/declarationManage/result_audit.jsp</result>
+			<result name="error">db_err.jsp</result>
+			<result name="message">message_info.jsp</result>
+		</action>
+		
+		<!-- 结果审核页面的查询 -->
+		<action name="QueryResultAudit" class="ExpertTeamAction" method="findResultTypeIn">
+			<result name="success">/pages/declarationManage/result_audit.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!--生成我的评审页面-->
+		<action name="PreMyReview" class="ExpertTeamAction" method="preMyReview">
+			<result name="success">/pages/expertTeam/my_review.jsp
+			</result>
+			<result name="message">message_info.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!--我的评审页面的查询-->
+		<action name="FindInMyReview" class="ExpertTeamAction" method="findInMyReview">
+			<result name="success">/pages/expertTeam/my_review.jsp
+			</result>
+			<result name="error">db_err.jsp</result>
+			<result name="message">message_info.jsp</result>
+		</action>
+		<!--结果录入页面的审核-->
+		<action name="ResultTypeInSubmit" class="ExpertTeamAction" method="unitCheck">
+		</action>
+		<!-- 查看某一期的专家教师 -->
+		<action name="ViewExpTea" class="ExpertTeamAction" method="viewExpTea">
+		    <result name="success">/pages/expertTeam/view_expert_team.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 生成编辑专家团队页面 -->
+		<action name="PreUpdateExpTea" class="ExpertTeamAction" method="preUpdateExpTea">
+		    <result name="success">/pages/expertTeam/update_expert_team.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!-- 编辑专家团队 -->
+		<action name="UpdateExpTeacher" class="ExpertTeamAction" method="updateExpTea">
+		</action>
+		<!-- 删除专家团队-->
+		<action name="DeleteExpertLib" class="ExpertTeamAction" method="deleteExpertLib">
+		    <result name="success" type="redirect">ListUnitExperTeam</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<!--网评-->
+		<action name="OnlineComments" class="DeclarationAction" method="viewDeclaration">
+		    <result name="success">/pages/expertTeam/online_comments.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<action name="AddComments" class="ExpertTeamAction" method="addComments">
+		    <result name="success">/index.jsp</result>
+			<result name="addError">db_err.jsp</result>
+			<result name="message">message_info.jsp</result>
+		</action>
+		<!-- 申报评审意见 -->
+		<action name="ReviewOpinion" class="ExpertTeamAction" method="reviewOpinion">
+			 <result name="success" type="redirect">PreResultTypeIn</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<!--申报评审意见页面-->
+		<action name="DeclReviewOpinion" class="DeclarationAction" method="viewDeclaration">
+		    <result name="success">/pages/expertTeam/decl_review_opinion.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<action name="AddTeacher" class="ExpertTeamAction" method="addTeacher">
+			<result name="success" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties ">result</param>
+			</result>
+			<result name="error" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties ">result</param>
+			</result>
+		</action>
+		
+		
+		
+	</package>
+</struts>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="project" extends="struts-default" namespace="/">
+		<action name="ListProjectByUnitTeaCode" class="ProjectAction" method="listProjectByUnitTeaCode">
+			<result name="success">/pages/projectManage/unit_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		<action name="FindUnitProject" class="ProjectAction" method="findUnitProject">
+			<result name="success">/pages/projectManage/unit_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListSchoolProject" class="ProjectAction" method="listSchoolProject">
+			<result name="success">/pages/projectManage/school_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="FindSchoolProject" class="ProjectAction" method="findSchoolProject">
+			<result name="success">/pages/projectManage/school_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListStuPersonalProject" class="ProjectAction" method="listStuPersonalProject">
+			<result name="success">/pages/projectManage/stuPersonal_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListTeaPersonalProject" class="ProjectAction" method="listTeaPersonalProject">
+			<result name="success">/pages/projectManage/teaPersonal_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="FindTeaPersonalProject" class="ProjectAction" method="findTeaPersonalProject">
+			<result name="success">/pages/projectManage/teaPersonal_project_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+	</package>
+</struts>

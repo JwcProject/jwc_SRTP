@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="announcement" extends="struts-default,json-default" namespace="/">
+		<!-- announcement -->
+		<action name="ListStuTeaAnnoun" class="AnnouncementAction" method="listStuTeaAnnouncement">
+			<result name="success">/pages/announManage/person_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+
+		<action name="ListUnitAnnouncement" class="AnnouncementAction" method="listUnitAnnouncement">
+			<result name="success">/pages/announManage/unit_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListSchoolAnnouncement" class="AnnouncementAction" method="listSchoolAnnouncement">
+			<result name="success">/pages/announManage/schoolTea_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListSchoolLeaderAnnouncement" class="AnnouncementAction" method="listSchoolLeaderAnnouncement">
+			<result name="success">/pages/announManage/schoolLeader_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="SaveAnnouncement" class="AnnouncementAction" method="saveAnnouncement">
+			<result name="personalSuccess" type="redirect">ListStuTeaAnnoun</result>
+			<result name="unitSuccess" type="redirect">ListUnitAnnouncement</result>
+			<result name="schoolSuccess" type="redirect">ListSchoolAnnouncement</result>
+			<result name="addError">db_err.jsp</result>
+		</action>
+		
+		<action name="CommitAnnouncement" class="AnnouncementAction" method="commitAnnouncement">
+			<result name="personalSuccess" type="redirect">ListStuTeaAnnoun</result>
+			<result name="unitSuccess" type="redirect">ListUnitAnnouncement</result>
+			<result name="schoolSuccess" type="redirect">ListSchoolAnnouncement</result>
+			<result name="addError">db_err.jsp</result>
+		</action>
+		
+		<action name="CommitCheckingAnnouncement" class="AnnouncementAction" method="commitCheckingAnnouncement">
+			<result name="success">/pages/announManage/announ_commit.jsp</result>
+			<result name="addError">db_err.jsp</result>
+		</action>
+		
+		<action name="CommitSavedAnnouncement" class="AnnouncementAction" method="commitSavedAnnouncement">
+			<result name="personalSuccess" type="redirect">ListStuTeaAnnoun</result>
+			<result name="unitSuccess" type="redirect">ListUnitAnnouncement</result>
+			<result name="schoolSuccess" type="redirect">ListSchoolAnnouncement</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+		
+		<action name="ViewAnnouncement" class="AnnouncementAction" method="viewAnnouncement">
+			<result name="success">/pages/announManage/announ_view.jsp</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+		
+		<action name="ViewLoginAnnouncement" class="AnnouncementAction" method="viewLoginAnnouncement">
+			<result name="success">/pages/announManage/announ_login_view.jsp</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+		
+		<action name="EditAnnouncement" class="AnnouncementAction" method="editAnnouncement">
+			<result name="success">/pages/announManage/announ_edit.jsp</result>
+			<result name="editError">db_err.jsp</result>
+		</action>
+		
+		
+		<action name="UpdateAnnouncement" class="AnnouncementAction" method="updateAnnouncement">
+			<result name="successStuTea" type="redirect">ListStuTeaAnnoun</result>
+			<result name="successUnit" type="redirect">ListUnitAnnouncement</result>
+			<result name="successSchool" type="redirect">ListSchoolAnnouncement</result>	
+			<result name="updateError">db_err.jsp</result>
+		</action>
+		
+		<action name="DeleteAnnouncement" class="AnnouncementAction" method="deleteAnnouncement">
+			<result name="successStuTea" type="redirect">ListStuTeaAnnoun</result>
+			<result name="successUnit" type="redirect">ListUnitAnnouncement</result>
+			<result name="successSchool" type="redirect">ListSchoolAnnouncement</result>	
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+		
+		<action name="CheckAnnouncement" class="AnnouncementAction" method="checkAnnouncement">
+			<result name="success">/pages/announManage/announ_check.jsp</result>
+			<result name="checkError">db_err.jsp</result>
+		</action>
+		
+		<action name="UnpassedAnnouncement" class="AnnouncementAction" method="unpassedAnnouncement">
+			<result name="success" type="redirect">ListSchoolLeaderAnnouncement</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+		
+		<action name="PassedAnnouncement" class="AnnouncementAction" method="passedAnnouncement">
+			<result name="success" type="redirect">ListSchoolLeaderAnnouncement</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+		
+		<action name="QueryStuTeaAnnoun" class="AnnouncementAction" method="queryStuTeaAnnoun">
+			<result name="success">/pages/announManage/person_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="QueryUnitAnnoun" class="AnnouncementAction" method="queryUnitAnnoun">
+			<result name="success">/pages/announManage/unit_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="QuerySchoolAnnoun" class="AnnouncementAction" method="querySchoolAnnoun">
+			<result name="successTea">/pages/announManage/schoolTea_announ_list.jsp</result>
+			<result name="successLeader" type="redirect">/pages/announManage/schoolLeader_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="QuerySchoolLeaderAnnoun" class="AnnouncementAction" method="querySchoolLeaderAnnoun">
+			<result name="success">/pages/announManage/schoolLeader_announ_list.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListIndexDeanAnnouncement" class="AnnouncementAction" method="listIndexDeanAnnouncement">
+			<result name="success">/pages/announManage/indexSchoolAnnounList.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListIndexUnitAnnouncement" class="AnnouncementAction" method="listIndexUnitAnnouncement">
+			<result name="success">/pages/announManage/indexUnitAnnounList.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListCommonAnnouncement" class="AnnouncementAction" method="listCommonAnnouncement">
+			<result name="success">/pages/announManage/indexCommonAnnounList.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="FindIndexDeanAnnouncement" class="AnnouncementAction" method="findIndexDeanAnnouncement">
+			<result name="success">/pages/announManage/indexSchoolAnnounList.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="FindIndexUnitAnnouncement" class="AnnouncementAction" method="findIndexUnitAnnouncement">
+			<result name="success">/pages/announManage/indexUnitAnnounList.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="FindCommonAnnouncement" class="AnnouncementAction" method="findCommonAnnouncement">
+			<result name="success">/pages/announManage/indexCommonAnnounList.jsp</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="listDeanRecentAnnouncement" class="UserAction" method="listDeanRecentAnnouncement">
+		    <result name="success" type="json">
+		        <param name="root">announcements</param>
+		    </result>
+		</action>
+	</package>
+</struts>

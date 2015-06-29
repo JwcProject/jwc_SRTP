@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.multipart.maxSize" value="10701096" />
+	<include file="announcement.xml"></include>
+	<include file="expertTeam.xml"></include>
+	<include file="endProject.xml"></include>
+	<include file="jieqi.xml"></include>
+	<include file="project.xml"></include>
+	
+	<!-- 统计分析 -->
+	<include file="statistic.xml"/>
+	<include file="unitStatistic.xml"/>
+	
+	<package name="default" extends="struts-default,json-default" namespace="/">
+
+		<!-- user -->
+		<action name="ListUser" class="UserAction" method="listUser">
+			<result name="success">/pages/systemManage/userManage/user_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+        
+		<action name="QueryUser" class="UserAction" method="queryUser">
+			<result name="success">/pages/systemManage/userManage/user_list.jsp
+			</result>
+			<result name="queryError">db_err.jsp</result>
+		</action>
+        <action name="changePassword" class="UserAction" method="changePassword">
+			<result name="success" type="json">
+			   <param name="root">statu</param>
+			</result>			
+		</action>
+        <action name="findUserInfo" class="UserAction" method="findUserInfo">
+			<result name="success">/pages/PersonalCenter/password_maintenance.jsp</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		<action name="ViewUser" class="UserAction" method="viewUser">
+			<result name="success">/pages/systemManage/userManage/user_view.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+
+		<action name="PreAddUser" class="UserAction" method="preAddUser">
+			<result name="success">/pages/systemManage/userManage/user_add.jsp
+			</result>
+		</action>
+
+		<action name="AddUser" class="UserAction" method="addUser">
+			<result name="input">/pages/systemManage/userManage/user_add.jsp
+			</result>
+			<result name="success" type="redirect">ListUser</result>
+			<result name="addError">db_err.jsp</result>
+		</action>
+
+		<action name="PreUpdateUser" class="UserAction" method="viewUser">
+			<result name="input">/pages/systemManage/userManage/user_edit.jsp
+			</result>
+			<result name="success">/pages/systemManage/userManage/user_edit.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+
+		<action name="UpdateUser" class="UserAction" method="updateUser">
+			<result name="input">/pages/systemManage/userManage/user_edit.jsp
+			</result>
+			<result name="success" type="redirect">ListUser</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+
+		<action name="DeleteUser" class="UserAction" method="deleteUser">
+			<result name="success" type="redirect">ListUser</result>
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+
+		<!-- permission -->
+		<action name="ListPermission" class="PermissionAction" method="listPermission">
+			<result name="success">/pages/systemManage/permissionManage/permission_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		<action name="ViewPermission" class="PermissionAction" method="viewPermission">
+			<result name="success">/pages/systemManage/permissionManage/permission_view.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+
+		<action name="PreAddPermission" class="PermissionAction"
+			method="preAddPermission">
+			<result name="success">/pages/systemManage/permissionManage/permission_add.jsp
+			</result>
+		</action>
+
+		<action name="AddPermission" class="PermissionAction" method="addPermission">
+			<result name="input">/pages/systemManage/permissionManage/permission_add.jsp
+			</result>
+			<result name="success" type="redirect">ListPermission</result>
+			<result name="addError">db_err.jsp</result>
+		</action>
+
+		<action name="PreUpdatePermission" class="PermissionAction"
+			method="viewPermission">
+			<result name="input">/pages/systemManage/permissionManage/permission_edit.jsp
+			</result>
+			<result name="success">/pages/systemManage/permissionManage/permission_edit.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+
+		<action name="UpdatePermission" class="PermissionAction"
+			method="updatePermission">
+			<result name="input">/pages/systemManage/permissionManage/permission_edit.jsp
+			</result>
+			<result name="success" type="redirect">ListPermission</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+
+		<action name="DeletePermission" class="PermissionAction"
+			method="deletePermission">
+			<result name="success" type="redirect">ListPermission</result>
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+		<action name="searchPermission" class="PermissionAction"
+			method="searchPermission">
+			<result name="success">/pages/systemManage/permissionManage/permission_list.jsp
+			</result>
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+		<!-- role -->
+		<action name="ListRole" class="RoleAction" method="listRole">
+			<result name="success">/pages/systemManage/roleManage/role_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+
+		<action name="ViewRole" class="RoleAction" method="viewRole">
+			<result name="success">/pages/systemManage/roleManage/role_view.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+
+		<action name="PreAddRole" class="RoleAction" method="preAddRole">
+			<result name="success">/pages/systemManage/roleManage/role_add.jsp
+			</result>
+		</action>
+
+		<action name="AddRole" class="RoleAction" method="addRole">
+			<result name="input">/pages/systemManage/roleManage/role_add.jsp
+			</result>
+			<result name="success" type="redirectAction">ListRole</result>
+			<result name="addError">db_err.jsp</result>
+		</action>
+
+		<action name="PreUpdateRole" class="RoleAction" method="viewRole">
+			<result name="input">/pages/systemManage/roleManage/role_list.jsp
+			</result>
+			<result name="success">/pages/systemManage/roleManage/role_edit.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+
+		<action name="UpdateRole" class="RoleAction" method="updateRole">
+			<result name="input">/pages/systemManage/roleManage/role_edit.jsp
+			</result>
+			<result name="success" type="redirectAction">ListRole</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+
+		<action name="DeleteRole" class="RoleAction" method="deleteRole">
+			<result name="success" type="redirectAction">ListRole</result>
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+
+		<action name="PreAssignPermission" class="RoleAction" method="preAssignPermission">
+			<result name="success">/pages/systemManage/roleManage/permission_add.jsp
+			</result>
+			<result name="getPermissionError">db_err.jsp</result>
+		</action>
+
+		<action name="AssignPermission" class="RoleAction" method="assignPermission">
+			<result name="success" type="redirectAction">ListRole</result>
+			<result name="assignPermissionError">db_err.jsp</result>
+		</action>
+
+		<action name="QueryRole" class="RoleAction" method="queryRole">
+			<result name="success">/pages/systemManage/roleManage/role_list.jsp
+			</result>
+			<result name="queryError">db_err.jsp</result>
+		</action>
+
+		<!--journal -->
+		<action name="ListJournal" class="JournalAction" method="listJournal">
+			<result name="success">/pages/systemManage/journalManage/journal_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+
+		<action name="ListSelectedJournal" class="JournalAction"
+			method="listSelectedJournal">
+			<result name="success">/pages/systemManage/journalManage/journal_list.jsp
+			</result>
+
+			<result name="listError">db_err.jsp</result>
+		</action>
+
+		<!--journalAct -->
+		<action name="ListJournalAct" class="JournalActAction" method="listJournalAct">
+			<result name="success">/pages/systemManage/journalManage/journal_act_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+
+		<action name="ListSelectedJournalAct" class="JournalActAction"
+			method="listSelectedJournalAct">
+			<result name="success">/pages/systemManage/journalManage/journal_act_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		<!--生成添加申报页面 -->
+		
+		
+		<action name="CheckIsInDeclaration" class="DeclarationAction" method="checkIsInDeclaration">
+			<result name="success" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties ">result</param>
+			</result>
+			<result name="error">db_err.jsp</result>
+		</action>
+		
+		<action name="preAddDeclaration" class="DeclarationAction" method="preAddDeclaration">
+			<result name="success">/pages/declarationManage/declaration_add.jsp</result>
+			<result name="error">db_err.jsp</result>
+			<result name="message">message_info.jsp</result>
+		</action>
+		
+		
+		<!--Declaration -->
+		
+		
+		<!-- 判断当前用户是否已经参与申报 -->
+		<action name="CheckHadDeclaration" class="DeclarationAction" method="checkHadDeclaration">
+			<result name="success" type="json">
+				<param name="contentType">text/html</param>
+			    <param name="includeProperties">result</param>
+			</result>
+			<result name="error">db_err.jsp</result>
+			<result name="noSession">message_info.jsp</result>
+		</action>
+		
+		<action name="addDeclaration" class="DeclarationAction" method="addDeclaration">
+			<result name="success" type="json">
+			    <param name="root">Id</param>
+			</result>
+			<result name="addError" type="redirect">db_err.jsp</result>
+		</action>
+		<!-- 学院申报列表 -->
+		<action name="ListUnitDeclaration" class="DeclarationAction"
+			method="listUnitDeclaration">
+			<result name="success">/pages/declarationManage/unit_declaration_list.jsp
+			</result>
+			<result name="list_Error">db_err.jsp</result>
+		</action>
+		<!-- 学院申报列表查询 -->
+		<action name="QueryUnitDeclaration" class="DeclarationAction"
+			method="findUnitDeclaration">
+			<result name="success">/pages/declarationManage/unit_declaration_list.jsp
+			</result>
+			<result name="list_Error">db_err.jsp</result>
+		</action>
+		<!-- 删除学院申报列表的一个申报 -->
+		<action name="DeleteUnitDeclaration" class="DeclarationAction"
+			method="deleteDeclaration">
+			<result name="success" type="redirect">ListUnitDeclaration</result>
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+
+		<!-- 教务处申报结果录入列表 -->
+		<action name="ListSchoolDeclaration" class="DeclarationAction"
+			method="listSchoolDeclaration">
+			<result name="success">/pages/declarationManage/school_declaration_list.jsp
+			</result>
+			<result name="list_error">db_err.jsp</result>
+		</action>
+		<!-- 教务处申报列表 -->
+		<action name="SchoolDeclaration" class="DeclarationAction"
+			method="schoolDeclaration">
+			<result name="success">/pages/declarationManage/schoolDeclaration.jsp
+			</result>
+			<result name="list_error">db_err.jsp</result>
+		</action>
+		<!-- 教务处申报列表查询 -->
+		<action name="FindSchoolDeclaration" class="DeclarationAction"
+			method="findSchoolDeclaration">
+			<result name="success">/pages/declarationManage/schoolDeclaration.jsp
+			</result>
+			<result name="list_error">db_err.jsp</result>
+		</action>
+		<!-- 教务处申报结果录入列表查询 -->
+		<action name="FindSchoolDeclarationCheck" class="DeclarationAction"
+			method="findSchoolDeclaration">
+			<result name="success">/pages/declarationManage/school_declaration_list.jsp
+			</result>
+			<result name="list_error">db_err.jsp</result>
+		</action>
+
+		<action name="ListDeclaration" class="DeclarationAction"
+			method="listDeclaration">
+			<result name="success">/pages/declarationManage/declaration_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="ListTeaPersonalDeclaration" class="DeclarationAction"
+			method="listTeaPersonalDeclaration">
+			<result name="success">/pages/declarationManage/teaPersonal_declaration_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		<action name="FindTeaPersonalDeclaration" class="DeclarationAction"
+			method="findTeaPersonalDeclaration">
+			<result name="success">/pages/declarationManage/teaPersonal_declaration_list.jsp
+			</result>
+			<result name="listError">db_err.jsp</result>
+		</action>
+		
+		
+		
+		<action name="ViewDeclaration" class="DeclarationAction"
+			method="viewDeclaration">
+			<result name="success">/pages/declarationManage/declaration_view.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+		
+		<action name="CommitSavedDeclaration" class="DeclarationAction"
+			method="commitSavedDeclaration">
+			<result name="success" type="redirect">ListDeclaration
+			</result>
+			<result name="commitError">db_err.jsp</result>
+		</action>
+		
+		<action name="PreUpdateDeclaration" class="DeclarationAction"
+			method="viewDeclaration">
+			<result name="input">/pages/declarationManage/declaration_edit.jsp
+			</result>
+			<result name="success">/pages/declarationManage/declaration_edit.jsp
+			</result>
+			<result name="viewError">db_err.jsp</result>
+		</action>
+		<action name="UpdateDeclaration" class="DeclarationAction"
+			method="updateDeclaration">
+			<result name="input">/pages/declarationManage/declaration_edit.jsp
+			</result>
+			<result name="success" type="redirect">ListDeclaration</result>
+			<result name="updateError">db_err.jsp</result>
+		</action>
+		<action name="DeleteDeclaration" class="DeclarationAction"
+			method="deleteDeclaration">
+			<result name="success" type="redirect">ListDeclaration</result>
+			<result name="deleteError">db_err.jsp</result>
+		</action>
+		<action name="downLoadAttachment" class="DeclarationAction"
+			method="downLoadAttachment">
+			<result name="success" type="stream"></result>
+			<result name="error">/db_err.jsp</result>
+		</action>
+		
+		<action name="userLoginAction" class="UserAction" method="userLogin">
+		    <result name="login">/login.jsp</result>
+		    <result name="student">/student_index.jsp</result>
+		    <result name="teacher">/teacher_index.jsp</result>
+		    <result name="jiaowuchu">/dean_index.jsp</result>
+		    <result name="error">/db_err.jsp</result>
+		</action>
+		
+		<action name="ReturnIndex" class="UserAction" method="returnIndex">
+		    
+		    <result name="student">/student_index.jsp</result>
+		    <result name="teacher">/teacher_index.jsp</result>
+		    <result name="jiaowuchu">/dean_index.jsp</result>
+		    <result name="error">/db_err.jsp</result>
+		</action>
+		
+		
+		<action name="userLogoutAction" class="UserAction" method="userLogout">
+		    <result name="success">/login.jsp</result>
+		    <result name="error">//login.jsp</result>
+		</action>
+	</package>
+
+	<package name="json" extends="json-default" namespace="/">
+		<action name="findFatherPermsTree" class="PermissionAction"
+			method="findFatherPermsTree">
+			<result type="json">
+				<param name="fathPermsTree">fathPermsTree</param>
+			</result>
+		</action>
+		<action name="findStudentsByNumber" class="DeclarationAction"
+			method="findStudentsByNumbers">
+			<result type="json">
+				<param name="root">students</param>
+				<param name="excludeNullProperties">true
+    			</param> 
+			</result>
+		</action>
+		<action name="findTeachersByName" class="DeclarationAction"
+			method="findTeachersByName">
+			<result type="json">
+				<param name="root">teachers</param>
+				<param name="excludeNullProperties">true
+    			</param> 
+			</result>
+		</action>
+		
+		
+		<action name="GetRolePermissons" class="RoleAction" method="getRolePermission">
+			<result type="json">
+				<param name="root">nodeList</param>
+				<param name="excludeNullProperties">true
+    			</param> 
+			</result>
+		</action>
+	</package>
+</struts>    
+
