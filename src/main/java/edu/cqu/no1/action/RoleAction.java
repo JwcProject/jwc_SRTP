@@ -174,7 +174,7 @@ public class RoleAction extends ActionSupport {
 
 
     @Action(value = "GetRolePermissons", results = {
-            @Result(type = "json", params = {"root", "nodeList", "excludeNullProperties", "true"})
+            @Result(name = "success",type = "json", params = {"root", "nodeList", "excludeNullProperties", "true"})
 
     })
 	public String getRolePermission() {

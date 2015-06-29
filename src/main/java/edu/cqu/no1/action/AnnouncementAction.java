@@ -100,7 +100,7 @@ public class AnnouncementAction extends BaseAction {
 			listAnnouncementModels = this.announcementService
 					.listStuTeaAnnouncements(number, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("list student announcements exception:" + e);
 			throw e;
@@ -124,7 +124,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncementModels = this.announcementService.listUnitAnnouncements(number, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("list unit announcements exception:" + e);
 			throw e;
@@ -140,7 +140,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncementModels = this.announcementService.listSchoolAnnouncements(pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 			
 		} catch (Exception e) {
 			System.out.println("list school announcements exception:" + e);
@@ -158,7 +158,7 @@ public class AnnouncementAction extends BaseAction {
 			listAnnouncementModels = this.announcementService.getAnnounByType("教务处公告", pageBean);
 			totalPage = pageBean.getTotalPage();
 		
-				return "success";
+				return SUCCESS;
 
 			
 		} catch (Exception e) {
@@ -195,7 +195,7 @@ public class AnnouncementAction extends BaseAction {
 					.queryStuTeaAnnoun(number, announTitle, publishTime,
 							pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("query StuTea Announcement exception: " + e);
 			throw e;
@@ -216,7 +216,7 @@ public class AnnouncementAction extends BaseAction {
 			listAnnouncementModels = this.announcementService.queryUnitAnnoun(
 					number, announTitle, publishTime, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("query Unit Announcement exception: " + e);
 			throw e;
@@ -261,7 +261,7 @@ public class AnnouncementAction extends BaseAction {
 							announTypeName, pageBean);
 			totalPage = pageBean.getTotalPage();
 			
-			return "success";
+			return SUCCESS;
 			
 		} catch (Exception e) {
 			System.out.println("query StuTea Announcement exception: " + e);
@@ -281,7 +281,7 @@ public class AnnouncementAction extends BaseAction {
 			listAnnouncementModels = this.announcementService.getAnnounByType(
 					announTypeName, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("query StuTea Announcement exception: " + e);
 			throw e;
@@ -597,7 +597,7 @@ public class AnnouncementAction extends BaseAction {
 	public String checkAnnouncement() throws Exception {
 		try {
 			announcementModel = this.announcementService.getAnnounById(announId);
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
 		}
@@ -626,7 +626,7 @@ public class AnnouncementAction extends BaseAction {
 			
 			this.announcementService.updateTAnnouncement(announcement);
 
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("update exception: " + e.toString());
 
@@ -664,7 +664,7 @@ public class AnnouncementAction extends BaseAction {
 			
 			this.announcementService.updateTAnnouncement(announcement);
 
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			System.out.println("update exception: " + e.toString());
 
@@ -675,7 +675,7 @@ public class AnnouncementAction extends BaseAction {
 
 
     @Action(value = "ViewAnnouncement", results = {
-            @Result(name = "success", location = "/pages/announManage/announ_view.jsp")
+            @Result(name = SUCCESS, location = "/pages/announManage/announ_view.jsp")
      } )
 	//查看公告
 	public String viewAnnouncement() throws Exception 
@@ -683,7 +683,7 @@ public class AnnouncementAction extends BaseAction {
 		try {
 			announcementModel = this.announcementService.getAnnounById(announId);
 			attachments = this.announcementService.getAttachmentsByAnnounceId(announId);
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
 		}
@@ -700,7 +700,7 @@ public class AnnouncementAction extends BaseAction {
 		try {
 			announcementModel = this.announcementService.getAnnounById(announId);
 			attachments = this.announcementService.getAttachmentsByAnnounceId(announId);
-			return "success";
+			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
 		}
@@ -716,7 +716,7 @@ public class AnnouncementAction extends BaseAction {
 		{
 			announcement = this.announcementService.getAnnouncement(announId);
 			attachments = this.announcementService.getAttachmentsByAnnounceId(announId);
-			return "success";
+			return SUCCESS;
 		}
 		catch(Exception e)
 		{
@@ -855,7 +855,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncementModels = this.announcementService.getAnnounByType("教务处公告", pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 			
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -880,7 +880,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncements = this.announcementService.getTAnnouncementByStuCode(stuCode, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 			
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -904,7 +904,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncements = this.announcementService.getCommonStuAndTeaAnnoun(pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";			
+			return SUCCESS;
 			
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -929,7 +929,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncementModels = this.announcementService.findIndexSchoolAnnoument(announTitle, publishTime, "教务处公告", pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 			
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -954,7 +954,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncements = this.announcementService.findTAnnouncementByStuCode(stuCode, announTitle, publishTime, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 			
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -979,7 +979,7 @@ public class AnnouncementAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			listAnnouncements = this.announcementService.findCommonStuAndTeaAnnoun(announTitle, announContent, publishTime, pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";			
+			return SUCCESS;
 			
 		} catch (RuntimeException e) {
 			e.printStackTrace();

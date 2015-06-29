@@ -54,10 +54,7 @@ public class UnitStatisticAction extends BaseAction {
 
     @Action(value = "UnitScoreStatistic", results = {
             @Result(name = "success", location = "/pages/unitStatisticsManage/circlelabelpie.jsp"),
-            @Result(name = "noData", location = "../noData_err.jsp"),
-            @Result(name = "error", location = "../db_err.jsp"),
-
-
+            @Result(name = "noData", location = "/noData_err.jsp")
     })
 	public String unitScoreStatistic() throws Exception
 	{
@@ -103,7 +100,7 @@ public class UnitStatisticAction extends BaseAction {
 				 jieqi = this.statisticService.getJieqiById(jqId);
 				 jqName =jieqi.getJqYear()+"年 第" + jieqi.getQici()+"期" ;
 				
-				return "success";
+				return SUCCESS;
 			}
 			else
 			{
@@ -113,16 +110,13 @@ public class UnitStatisticAction extends BaseAction {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return "error";
+			return ERROR;
 		}
 	}
 
 
     @Action(value = "UnitResultDistribut", results = {
-            @Result(name = "success", location = "/pages/unitStatisticsManage/unit_result_statistic_list.jsp"),
-           @Result(name = "error", location = "../db_err.jsp"),
-
-
+            @Result(name = "success", location = "/pages/unitStatisticsManage/unit_result_statistic_list.jsp")
     })
 	public String  unitResultDistribut() throws Exception
 	{
@@ -138,11 +132,11 @@ public class UnitStatisticAction extends BaseAction {
 			pageBean = new PageBean(page, totalNumber, pageCapacity);
 			resultDistribut = this.unitStatisticService.getUnitResultDistribut(unitId,pageBean);
 			totalPage = pageBean.getTotalPage();
-			return "success";
+			return SUCCESS;
 		}
 		catch(Exception e)
 		{
-			return "error";
+			return ERROR;
 		}
 	}
 
@@ -193,17 +187,17 @@ public class UnitStatisticAction extends BaseAction {
 				request.getSession().setAttribute("proRate", proRate);
 				request.getSession().setAttribute("bestRate", bestRate);
 				
-				return "success";
+				return SUCCESS;
 			}
 			else
 			{
-				return "error";
+				return ERROR;
 			}
 			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			return "error";
+			return ERROR;
 		}
 	}
 	

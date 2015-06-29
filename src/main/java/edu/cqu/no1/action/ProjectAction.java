@@ -83,7 +83,7 @@ public class ProjectAction extends BaseAction {
 
             getJieQiAndPro(unitTeaCode);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
 
             System.out.println("query exception: " + e.toString());
@@ -134,7 +134,7 @@ public class ProjectAction extends BaseAction {
             projectList = this.projectService.listSchoolProject(pageBean);
             totalPage = pageBean.getTotalPage();
             getJieQiAndPro();
-            return "success";
+            return SUCCESS;
 
         } catch (Exception e) {
             return ERROR;
@@ -158,7 +158,7 @@ public class ProjectAction extends BaseAction {
             projectList = this.projectService.findSchoolProject(jqYear, jqQici, unitName, studentNums, projectName, pageBean);
             totalPage = pageBean.getTotalPage();
             getJieQiAndPro();
-            return "success";
+            return SUCCESS;
 
         } catch (Exception e) {
             return ERROR;
@@ -179,7 +179,7 @@ public class ProjectAction extends BaseAction {
             }
             String stuCode = tUser.getUserId();
             projectList = this.projectService.getStuProject(stuCode);
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
@@ -201,7 +201,7 @@ public class ProjectAction extends BaseAction {
             pageBean = new PageBean(page, totalNumber, pageCapacity);
             projectList = this.projectService.getTeaProject(teaCode, pageBean);
             totalPage = pageBean.getTotalPage();
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
@@ -224,7 +224,7 @@ public class ProjectAction extends BaseAction {
             pageBean = new PageBean(page, totalNumber, pageCapacity);
             projectList = this.projectService.findTeaProject(teaCode, projectName, studentNums, pageBean);
             totalPage = pageBean.getTotalPage();
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }

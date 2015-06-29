@@ -63,13 +63,13 @@ public class JournalActAction extends ActionSupport {
 			
 			totalPage = this.pageBean.getTotalPage(); 
 			
-			return "success";
+			return SUCCESS;
 		}
 		catch (Exception e)
 		{
 			System.out.println("list exception: " + e.toString());
 			
-			return "listError";
+			return ERROR;
 		}
 	}
 
@@ -91,13 +91,13 @@ public class JournalActAction extends ActionSupport {
 		    
 			totalPage = this.pageBean.getTotalPage(); 
 			
-			return "success";
+			return SUCCESS;
 		}
 		catch (Exception e)
 		{
             System.out.println("list exception: " + e.toString());
 			
-			return "listError";
+			return ERROR;
 		}
 	}
 	

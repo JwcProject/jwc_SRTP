@@ -138,9 +138,9 @@ public class DeclarationAction extends BaseAction {
                     result = "no";
                 }
 
-                return "success";
+                return SUCCESS;
             } catch (Exception e) {
-                result = "error";
+                result = ERROR;
 
                 return ERROR;
             }
@@ -171,12 +171,12 @@ public class DeclarationAction extends BaseAction {
                 TJieqi jieqi = this.jieQiService.findCurrentJieQi();
                 if (jieqi == null) {
                     messageInfo = "当前时间不能够申报项目！";
-                    return "message";
+                    return MESSAGE;
                 } else {
                     boolean dec = this.declarationService.checkHadReqDecla(stuNumber);
                     if (dec) {
                         messageInfo = "本期 您已经参与其他项目的申报，不能再申报！";
-                        return "message";
+                        return MESSAGE;
                     }
                 }
                 return SUCCESS;
@@ -211,7 +211,7 @@ public class DeclarationAction extends BaseAction {
                     result = "no";
                 }
 
-                return "success";
+                return SUCCESS;
             }
         } catch (Exception e) {
             return ERROR;
@@ -523,7 +523,7 @@ public class DeclarationAction extends BaseAction {
             listDeclaration = this.declarationService.getAllTDeclaration(pageBean, studentId);
 
             totalPage = this.pageBean.getTotalPage();
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
 
             System.out.println("list exception: " + e.toString());
@@ -552,7 +552,7 @@ public class DeclarationAction extends BaseAction {
             declarations = this.declarationService.getTeaDeclaration(teaCode, pageBean);
 
             totalPage = this.pageBean.getTotalPage();
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
@@ -579,7 +579,7 @@ public class DeclarationAction extends BaseAction {
             declarations = this.declarationService.findTeaDeclaration(teaCode, proName, studentNums, pageBean);
 
             totalPage = this.pageBean.getTotalPage();
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
@@ -595,7 +595,7 @@ public class DeclarationAction extends BaseAction {
             listTDeclJob = this.declarationService.getTDeclJob(Id);
             listTDeclFund = this.declarationService.getTDeclFund(Id);
             attachments = this.declarationService.getAttachmentByDeclarId(Id);
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
@@ -646,7 +646,7 @@ public class DeclarationAction extends BaseAction {
                         declaration, groupCodes, teacherCodes, groupWork,
                         projectFund);
             }
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("update exception: " + e.toString());
             return ERROR;
@@ -660,7 +660,7 @@ public class DeclarationAction extends BaseAction {
     public String deleteDeclaration() throws Exception {
         try {
             this.declarationService.deleteTDeclaration(Id);
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }

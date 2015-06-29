@@ -57,11 +57,11 @@ public class PermissionAction extends ActionSupport {
 
             totalPage = this.pageBean.getTotalPage();
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("list exception: " + e.toString());
 
-            return "listError";
+            return ERROR;
         }
     }
 
@@ -75,11 +75,11 @@ public class PermissionAction extends ActionSupport {
         try {
             this.permissionService.addTPermission(permission);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("add exception: " + e.toString());
 
-            return "addError";
+            return ERROR;
         }
     }
 
@@ -88,7 +88,7 @@ public class PermissionAction extends ActionSupport {
             @Result(name = "success", location = "/pages/systemManage/permissionManage/permission_add.jsp")
     })
     public String preAddPermission() throws Exception {
-        return "success";
+        return SUCCESS;
     }
 
 
@@ -99,9 +99,9 @@ public class PermissionAction extends ActionSupport {
         try {
             permission = this.permissionService.getTPermission(id);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
-            return "viewError";
+            return ERROR;
         }
     }
 
@@ -115,11 +115,11 @@ public class PermissionAction extends ActionSupport {
         try {
             this.permissionService.updateTPermission(permission);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("add exception: " + e.toString());
 
-            return "updateError";
+            return ERROR;
         }
     }
 
@@ -131,10 +131,10 @@ public class PermissionAction extends ActionSupport {
     public String deletePermission() throws Exception {
         try {
             this.permissionService.deleteTPermission(id);
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("delete exception: " + e.toString());
-            return "deleteError";
+            return ERROR;
         }
     }
 
@@ -154,11 +154,11 @@ public class PermissionAction extends ActionSupport {
 
             totalPage = this.pageBean.getTotalPage();
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("search exception: " + e.toString());
 
-            return "listError";
+            return ERROR;
         }
     }
 

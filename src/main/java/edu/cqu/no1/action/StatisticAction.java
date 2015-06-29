@@ -81,7 +81,7 @@ public class StatisticAction extends ActionSupport {
 
     @Action(value = "ListSchoolProjectScore", results = {
             @Result(name = "success", location = "/pages/StatisticsManage/iconpie2.jsp"),
-            @Result(name = "noData", location = "../noData_err.jsp")
+            @Result(name = "noData", location = "/noData_err.jsp")
     })
     public String schoolScoreStatistic() throws Exception {
         try {
@@ -96,7 +96,7 @@ public class StatisticAction extends ActionSupport {
                     schoolScoreList = this.statisticService.SchooleProjectScore(jieqi.getJqId());
                 } else {
                     result = "noData";
-                    return "success";
+                    return "noData";
                 }
             }
             if (null != schoolScoreList && schoolScoreList.size() > 0) {
@@ -125,11 +125,11 @@ public class StatisticAction extends ActionSupport {
                 }
                 request.getSession().setAttribute("data", data);
                 request.getSession().setAttribute("labels", labels);
-                result = "success";
-                return "success";
+                result = SUCCESS;
+                return SUCCESS;
             } else {
                 result = "noData";
-                return "success";
+                return "noData";
             }
         } catch (Exception e) {
             return ERROR;
@@ -176,7 +176,7 @@ public class StatisticAction extends ActionSupport {
             pageBean = new PageBean(page, totalNumber, pageCapacity);
             resultDistribut = this.statisticService.getSchoolResultDistribut(college, jqYear, jqQici, pageBean);
             totalPage = pageBean.getTotalPage();
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
@@ -279,7 +279,7 @@ public class StatisticAction extends ActionSupport {
                 //jieqi = this.statisticService.getJieqiById(jqQici);
                 jqName = resultDistribut.get(0).getJqname();
 
-                return "success";
+                return SUCCESS;
             } else {
                 return "noData";
             }
@@ -385,7 +385,7 @@ public class StatisticAction extends ActionSupport {
                 //jieqi = this.statisticService.getJieqiById(jqQici);
                 collegeName = resultDistribut.get(0).getCollegename();
 
-                return "success";
+                return SUCCESS;
             } else {
                 return "noData";
             }
@@ -413,7 +413,7 @@ public class StatisticAction extends ActionSupport {
                 } else {
                     result = "false";
                 }
-                return "success";
+                return SUCCESS;
             } else {
                 result = "noValue";
                 return "noValue";

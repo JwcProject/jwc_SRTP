@@ -114,7 +114,7 @@ public class UserAction extends BaseAction {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return "error";
+            return ERROR;
         }
 
         return SUCCESS;
@@ -162,7 +162,7 @@ public class UserAction extends BaseAction {
                 announcements = listIndexDeanAnnouncement();
                 return "jiaowuchu";
             } else {
-                return "error";
+                return ERROR;
             }
         }
     }
@@ -170,7 +170,7 @@ public class UserAction extends BaseAction {
 
     @Action(value = "userLogoutAction", results = {
             @Result(name = "success", location = "/login.jsp"),
-            @Result(name = "error", location = "//login.jsp")
+            @Result(name = "error", location = "/login.jsp")
     })
     public String userLogout() {
         try {
@@ -239,11 +239,11 @@ public class UserAction extends BaseAction {
             System.out.println("\n getUserType: " + this.getUsertype());
 			System.out.println("\n getUser: " + this.getSessionUser().getUserName());*/
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
 
             System.out.println("list exception: " + e.toString());
-            return "listError";
+            return ERROR;
         }
     }
 
@@ -262,12 +262,12 @@ public class UserAction extends BaseAction {
 
             totalPage = this.pageBean.getTotalPage();
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
 
             System.out.println("query exception: " + e.toString());
             e.printStackTrace();
-            return "queryError";
+            return ERROR;
         }
     }
 
@@ -280,11 +280,11 @@ public class UserAction extends BaseAction {
         try {
             this.userService.addTUser(user);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("add exception: " + e.toString());
 
-            return "addError";
+            return ERROR;
         }
     }
 
@@ -292,7 +292,7 @@ public class UserAction extends BaseAction {
             @Result(name = "success", location = "/pages/systemManage/userManage/user_add.jsp")
     })
     public String preAddUser() throws Exception {
-        return "success";
+        return SUCCESS;
     }
 
 
@@ -303,9 +303,9 @@ public class UserAction extends BaseAction {
         try {
             user = this.userService.getTUser(id);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
-            return "viewError";
+            return ERROR;
         }
     }
 
@@ -318,11 +318,11 @@ public class UserAction extends BaseAction {
         try {
             this.userService.updateTUser(user);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("update exception: " + e.toString());
 
-            return "updateError";
+            return ERROR;
         }
     }
 
@@ -336,11 +336,12 @@ public class UserAction extends BaseAction {
             user.setIsdeleted("Y");
             this.userService.updateTUser(user);
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
-            return "deleteError";
+            return ERROR;
         }
     }
+
 
     public String listDeanRecentAnnouncement() throws Exception {
         try {

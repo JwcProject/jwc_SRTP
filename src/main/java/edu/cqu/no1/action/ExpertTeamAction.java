@@ -142,9 +142,9 @@ public class ExpertTeamAction extends BaseAction {
                 result = "no";
             }
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -169,7 +169,7 @@ public class ExpertTeamAction extends BaseAction {
             totalPage = pageBean.getTotalPage();
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -208,7 +208,7 @@ public class ExpertTeamAction extends BaseAction {
             }
 
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -236,7 +236,7 @@ public class ExpertTeamAction extends BaseAction {
             return SUCCESS;
 
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -315,7 +315,7 @@ public class ExpertTeamAction extends BaseAction {
             expertTeachers = this.expertTeacherService.findAssignedExpertTeachers(jieqi.getJqId(), "02", teaCode);
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -800,7 +800,7 @@ public class ExpertTeamAction extends BaseAction {
             tExpertLib = this.expertLibService.getById(expLibId);
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -878,7 +878,7 @@ public class ExpertTeamAction extends BaseAction {
                 return SUCCESS;
             }
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -923,7 +923,7 @@ public class ExpertTeamAction extends BaseAction {
                     .findAssignedExpertTeachers(jieqi.getJqId(), "01", teaCode);
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -951,7 +951,7 @@ public class ExpertTeamAction extends BaseAction {
 
             if (null == jieqi) {
                 messageInfo = "当前时间不是可以进行结果录入的时间段";
-                return "message";
+                return MESSAGE;
             }
 
             String year = jieqi.getJqYear().toString();
@@ -1136,7 +1136,7 @@ public class ExpertTeamAction extends BaseAction {
             TJieqi jieqi = this.jieQiService.findJieQiNow();
             if (null == jieqi) {
                 messageInfo = "当前时间不是可以进行结果审核的时间段";
-                return "message";
+                return MESSAGE;
             }
 
             String year = jieqi.getJqYear().toString();
@@ -1206,10 +1206,10 @@ public class ExpertTeamAction extends BaseAction {
             this.teacherService.addUsers(tUser);
 
             result = "yes";
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             result = "no";
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1307,7 +1307,7 @@ public class ExpertTeamAction extends BaseAction {
             totalPage = pageBean.getTotalPage();
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1329,7 +1329,7 @@ public class ExpertTeamAction extends BaseAction {
             totalPage = pageBean.getTotalPage();
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1486,7 +1486,7 @@ public class ExpertTeamAction extends BaseAction {
             totalPage = pageBean.getTotalPage();
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1534,7 +1534,7 @@ public class ExpertTeamAction extends BaseAction {
             totalPage = pageBean.getTotalPage();
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1561,7 +1561,7 @@ public class ExpertTeamAction extends BaseAction {
             qici = tExpertLib.getTJieqi().getQici();
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1590,7 +1590,7 @@ public class ExpertTeamAction extends BaseAction {
 
             return SUCCESS;
         } catch (Exception e) {
-            return "error";
+            return ERROR;
         }
     }
 
@@ -1688,7 +1688,7 @@ public class ExpertTeamAction extends BaseAction {
             TJieqi jieqi = this.jieQiService.findJieQiNow();
             if (jieqi == null) {
                 messageInfo = "当前时间不是可以进行网评的时间段";
-                return "message";
+                return MESSAGE;
             }
             TExpertReview tExpertReview = this.expertReviewService
                     .getTExpertReview(jieqi.getJqId(), teaCode, declarId, "01");
@@ -1701,10 +1701,10 @@ public class ExpertTeamAction extends BaseAction {
             tDeclComment.setDeclScore(declComment.getDeclScore());
             tDeclComment.setDeclArgument(declComment.getDeclArgument());
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("decLconment exception: " + e.toString());
-            return "addError";
+            return ERROR;
         }
     }
 

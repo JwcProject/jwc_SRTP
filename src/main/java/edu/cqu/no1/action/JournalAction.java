@@ -61,7 +61,7 @@ public class JournalAction extends ActionSupport {
 
             totalPage = this.pageBean.getTotalPage();
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("list exception: " + e.toString());
 
@@ -85,7 +85,7 @@ public class JournalAction extends ActionSupport {
 
             totalPage = this.pageBean.getTotalPage();
 
-            return "success";
+            return SUCCESS;
         } catch (Exception e) {
             System.out.println("list exception: " + e.toString());
 

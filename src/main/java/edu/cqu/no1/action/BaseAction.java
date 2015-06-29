@@ -22,6 +22,9 @@ public class BaseAction extends ActionSupport {
 	private TUnit tunit;
 	private String toPath ="";
 
+    protected static final String MESSAGE = "message";
+    protected static final String ERROR = "db_error";
+
 	public String getUserId() throws IOException {
 		tuser =  (TUser)ActionContext.getContext().getSession().get("user"); 
 		if (null != tuser)

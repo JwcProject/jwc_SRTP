@@ -265,17 +265,17 @@ public class EndProjectAction extends BaseAction {
             Date now = new Date();
             if (jieqi == null) {
                 messageInfo = "当前时间不是可以申请结题的时间段";
-                return "message";
+                return MESSAGE;
             } else {
                 TEndProject t = endProjectService.findByLeaderCode(studentNumber);
                 if (t != null) {
                     messageInfo = "您已经申请结题，不能重复申请";
-                    return "message";
+                    return MESSAGE;
                 } else {
                     project = projectService.findByLeaderCode(studentNumber);
                     if (project == null) {
                         messageInfo = "您没有可以申请结题的项目";
-                        return "message";
+                        return MESSAGE;
                     }
                 }
 
@@ -417,7 +417,7 @@ public class EndProjectAction extends BaseAction {
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error";
+            return ERROR;
         }
     }
 
