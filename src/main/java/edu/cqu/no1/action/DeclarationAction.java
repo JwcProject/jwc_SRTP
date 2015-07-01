@@ -3,12 +3,10 @@ package edu.cqu.no1.action;
 
 import edu.cqu.no1.datamodel.JieQiYear;
 import edu.cqu.no1.domain.*;
-import edu.cqu.no1.service.DeclarationService;
-import edu.cqu.no1.service.ExpertTeacherService;
-import edu.cqu.no1.service.JieQiService;
-import edu.cqu.no1.service.ProfessionService;
+import edu.cqu.no1.service.*;
 import edu.cqu.no1.util.FileUtility;
 import edu.cqu.no1.util.PageBean;
+import edu.cqu.no1.util.mail.MailInfo;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -97,6 +95,10 @@ public class DeclarationAction extends BaseAction {
     private String Id;
     private String addStudentNumber;
     private String result;
+
+
+
+
 
 
     @Action(value = "findStudentsByNumber", results = {
@@ -685,6 +687,9 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+
+
+
     @JSON(serialize = false)
     public String getStudentNums() {
         return studentNums;
@@ -1085,6 +1090,5 @@ public class DeclarationAction extends BaseAction {
     public void setResult(String result) {
         this.result = result;
     }
-
 
 }

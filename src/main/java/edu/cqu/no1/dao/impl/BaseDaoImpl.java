@@ -22,7 +22,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class BaseDaoImpl<T> implements BaseDao<T> {
+abstract public class BaseDaoImpl<T> implements BaseDao<T> {
     // DAO组件进行持久化操作底层依赖的SessionFactory组件
     @Resource
     private SessionFactory sessionFactory;
@@ -88,13 +88,12 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public boolean removeALLDeleted() {
         try {
-            String className = getClass().getSimpleName();
-
-            String queryString = "delete from " + className + " as model where model.isdeleted = 'Y'";
+            Class<T> entityClazz = getEntityClass();
+            String className = entityClazz.getSimpleName();
+            String queryString = "delete " + className + " as model where model.isdeleted = 'Y'";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
             query.executeUpdate();
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -172,9 +171,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     public T findById(String id) {
         try {
-            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            Class<T> entityClass = getEntityClass();
             T instance = (T) getSessionFactory().getCurrentSession().get(entityClass, id);
-
             return instance;
         } catch (RuntimeException re) {
             throw re;
@@ -190,8 +188,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     }
 
+    private Class<T> getEntityClass() {
+        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
     public List findByProperty(String propertyName, Object value) {
-        String className = getClass().getSimpleName();
+        Class<T> entityClass = getEntityClass();
+
+        String className = entityClass.getSimpleName();
 
         String queryString = "from " + className + " as model where model."
                 + propertyName + "= ?";

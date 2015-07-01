@@ -1,9 +1,7 @@
 package edu.cqu.no1.service;
 
 import edu.cqu.no1.domain.TEmail;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import edu.cqu.no1.util.mail.MailInfo;
 
 
 /**
@@ -11,6 +9,8 @@ import java.util.List;
  */
 
 public interface EmailService {
-	public void saveEmail(TEmail tEmail);
+	public boolean saveEmail(MailInfo mailInfo, boolean sendState);
+
+    public boolean sendMail(MailInfo mailInfo);
 	
 }

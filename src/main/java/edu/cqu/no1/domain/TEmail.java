@@ -65,7 +65,7 @@ public class TEmail implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "email_id", unique = true, nullable = false, length = 32)
+	@Column(name = "email_id", unique = true, nullable = false, length = 64)
 	public String getEmailId() {
 		return this.emailId;
 	}
@@ -139,7 +139,7 @@ public class TEmail implements java.io.Serializable {
 		this.creatOn = creatOn;
 	}
 
-	@Column(name = "send_state", length = 2)
+	@Column(name = "send_state", length = 4)
 	public String getSendState() {
 		return this.sendState;
 	}

@@ -1259,23 +1259,14 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
 
-            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            TJieqi jieqi = jieQiService.findCurrentJieQi();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
             List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
             tmpJieqis.add(jieqi);
             qicis.put(year.toString(), tmpJieqis);
-            /*
-            years = this.declarationService.findAllYears();
-			jieQiYears = new ArrayList<JieQiYear>();
-			for (BigDecimal year : years) {
-				jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
-				List<TJieqi> tmpJieqis = this.declarationService
-						.findJieqiByYear(year.toString());
-				qicis.put(year.toString(), tmpJieqis);
-			}
-			*/
+
             return SUCCESS;
         } catch (Exception e) {
             return ERROR;

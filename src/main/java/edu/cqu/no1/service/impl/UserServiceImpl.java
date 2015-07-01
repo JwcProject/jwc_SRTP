@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public TUser changeLoginState(String userId, String state) {
         TUser user = this.tUserDAO.findById(userId);
         user.setUserState(state);
-        this.tUserDAO.merge(user);
+       // this.tUserDAO.merge(user);
         return user;
     }
 

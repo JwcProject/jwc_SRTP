@@ -131,10 +131,10 @@ public class UserAction extends BaseAction {
         HttpServletRequest request = ServletActionContext.getRequest();
         Map session = ActionContext.getContext().getSession();
         String sessionVaCode = (String) request.getSession().getAttribute("validateCode");
-        if (!sessionVaCode.equals(validateCode)) {
+        /*if (!sessionVaCode.equals(validateCode)) {
             request.setAttribute("msg", "验证码错误！");
             return "login";
-        }
+        }*/
 //        String md5Pwd = MD5Util.MD5(password);
         String md5Pwd = password;
         if (userService.userLogin(userId, md5Pwd) == null) {
