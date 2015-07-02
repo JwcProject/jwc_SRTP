@@ -11,7 +11,6 @@ import java.util.List;
  */
 
 
-@Transactional
 public interface BaseDao<T>
 {
 

@@ -16,6 +16,7 @@ import edu.cqu.no1.util.PageBean;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -37,54 +38,34 @@ public class ExpertLibServiceImpl implements ExpertLibService {
         return this.tExpertLibDAO.findById(libId);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.ExpertLibService#creatExpertLib()
-     */
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    //创建一个专家库
     public void creatExpertLib(TExpertLib tExpertLib,
                                List<TExpertTeacher> tExpertTeacherList, String type) {
-        // TODO Auto-generated method stub
-        Session session = this.tExpertTeacherDAO.getSessionFactory().getCurrentSession();
-        Transaction trans = session.beginTransaction();
-        try {
-            // 开始事务
-            trans.begin();
 
-            this.tExpertLibDAO.save(tExpertLib);
-            for (int i = 0; i < tExpertTeacherList.size(); i++) {
-                //向专家教师表中添加对象
-                tExpertTeacherList.get(i).setTExpertLib(tExpertLib);
-                this.tExpertTeacherDAO.save(tExpertTeacherList.get(i));
+        this.tExpertLibDAO.save(tExpertLib);
+        for (int i = 0; i < tExpertTeacherList.size(); i++) {
+            //向专家教师表中添加对象
+            tExpertTeacherList.get(i).setTExpertLib(tExpertLib);
+            this.tExpertTeacherDAO.save(tExpertTeacherList.get(i));
 
-                //向临时邮件收信人表中添加对象
-                TTempEmailReciver tTempEmailReciver = new TTempEmailReciver();
-                tTempEmailReciver.setCode(tExpertTeacherList.get(i).getTTeacher().getTeaCode());
-                tTempEmailReciver.setDepartId(tExpertTeacherList.get(i).getTTeacher().getTUnit().getUnitId());
-                tTempEmailReciver.setEmail(tExpertTeacherList.get(i).getTTeacher().getTeaEmail());
-                tTempEmailReciver.setJqId(tExpertLib.getTJieqi().getJqId());
-                tTempEmailReciver.setName(tExpertTeacherList.get(i).getTTeacher().getTeaName());
-                //设置类别和单位
-                tTempEmailReciver.setIsdeleted("N");
-                tTempEmailReciver.setType(type);
-                tTempEmailReciver.setDepartId(tExpertLib.getTUnit().getUnitId());
-                this.tTempEmailReciverDAO.save(tTempEmailReciver);
+            //向临时邮件收信人表中添加对象
+            TTempEmailReciver tTempEmailReciver = new TTempEmailReciver();
+            tTempEmailReciver.setCode(tExpertTeacherList.get(i).getTTeacher().getTeaCode());
+            tTempEmailReciver.setDepartId(tExpertTeacherList.get(i).getTTeacher().getTUnit().getUnitId());
+            tTempEmailReciver.setEmail(tExpertTeacherList.get(i).getTTeacher().getTeaEmail());
+            tTempEmailReciver.setJqId(tExpertLib.getTJieqi().getJqId());
+            tTempEmailReciver.setName(tExpertTeacherList.get(i).getTTeacher().getTeaName());
+            //设置类别和单位
+            tTempEmailReciver.setIsdeleted("N");
+            tTempEmailReciver.setType(type);
+            tTempEmailReciver.setDepartId(tExpertLib.getTUnit().getUnitId());
+            this.tTempEmailReciverDAO.save(tTempEmailReciver);
 
-            }
-            this.tExpertTeacherDAO.changeReviewUserType(tExpertLib.getLibId());
-            trans.commit();
-
-        } catch (Exception e) {
-
-            try {
-                trans.rollback();// JTA事务回滚
-
-            } catch (Exception e2) {
-                // JTA事务回滚出错处理
-                e2.printStackTrace();
-            }
-            e.printStackTrace();
         }
+        this.tExpertTeacherDAO.changeReviewUserType(tExpertLib.getLibId());
+
     }
 
     /**

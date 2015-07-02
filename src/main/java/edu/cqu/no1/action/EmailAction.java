@@ -1,7 +1,6 @@
 package edu.cqu.no1.action;
 
 
-import edu.cqu.no1.domain.TEmailReceiver;
 import edu.cqu.no1.service.EmailService;
 import edu.cqu.no1.util.mail.MailInfo;
 import org.apache.struts2.convention.annotation.Action;

@@ -9,7 +9,6 @@ import java.util.List;
  * Created by ZKQ on 2015/5/27.
  */
 
-@Transactional
 public interface TAchievementDAO extends BaseDao<TAchievement> {
 
     List findByAchievementIntroduction(Object achievementIntroduction);

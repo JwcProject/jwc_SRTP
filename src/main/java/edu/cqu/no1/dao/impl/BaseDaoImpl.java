@@ -19,9 +19,8 @@ import java.util.List;
  * Created by ZKQ on 2015/5/26.
  */
 
-
-@Repository
 @Transactional
+@Repository
 abstract public class BaseDaoImpl<T> implements BaseDao<T> {
     // DAO组件进行持久化操作底层依赖的SessionFactory组件
     @Resource

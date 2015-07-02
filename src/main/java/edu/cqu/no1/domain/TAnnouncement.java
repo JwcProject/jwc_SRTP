@@ -61,7 +61,7 @@ public class TAnnouncement implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "announ_id", unique = true, nullable = false, length = 32)
+	@Column(name = "announ_id", unique = true, nullable = false, length = 36)
 	public String getAnnounId() {
 		return this.announId;
 	}

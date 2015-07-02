@@ -51,7 +51,7 @@ public class TProjectChangeContent implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "projectChangeContent_id", unique = true, nullable = false, length = 32)
+	@Column(name = "projectChangeContent_id", unique = true, nullable = false, length = 36)
 	public String getProjectChangeContentId() {
 		return this.projectChangeContentId;
 	}

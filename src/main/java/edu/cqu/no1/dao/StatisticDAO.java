@@ -11,7 +11,6 @@ import java.util.List;
  * Created by ZKQ on 2015/5/27.
  */
 
-@Transactional
 public interface StatisticDAO extends BaseDao{
     // 全校项目成绩分布统计
     List SchooleProjectScore(String jqQici);

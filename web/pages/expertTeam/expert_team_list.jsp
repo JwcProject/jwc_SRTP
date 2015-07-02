@@ -91,7 +91,7 @@
 						<td bgcolor="#FFFFFF" width="10%"> |是否分派</td>
 						<td bgcolor="#FFFFFF" width="40%"> |操作 </td>                     
 						 </tr>
-					<s:iterator value="expertLibs" id="expertLibs" status="stuts"> 
+					<s:iterator value="expertLibs" id="expertLib" status="stuts">
 					<s:if test="#stuts.odd == true">
 					  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#eef7ff">
     				</s:if>
@@ -101,22 +101,22 @@
     				</s:else>
                       <!--  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">-->
                         <td style="padding-left:10px" class="NoNewline"><s:property
-									value="#expertLibs.TJieqi.jqYear+'年,第'" />
+									value="#expertLib.TJieqi.jqYear+'年,第'" />
 								<s:property
-									value="#expertLibs.TJieqi.qici+'期'" />
+									value="#expertLib.TJieqi.qici+'期'" />
 						</td>
-                        <td ><s:property value="#expertLibs.TTeacher.teaName" />&nbsp;&nbsp; </td>
+                        <td ><s:property value="#expertLib.TTeacher.teaName" />&nbsp;&nbsp; </td>
                         <td >
-						<s:if test="null==#expertLibs.creatOn||#expertLibs.creatOn.isEmpty()">  
+						<s:if test="null==#expertLib.creatOn||#expertLib.creatOn.isEmpty()">
 						    
 						</s:if>
 						<s:else>
-						    &nbsp;<s:text name="global.format.date">
-							<s:param value="#expertLibs.creatOn"/>
-							</s:text>
+						    &nbsp;
+							<s:property value="#expertLib.creatOn"/>
+
 						</s:else>
 						</td>
-						<td ><s:if test="#expertLibs.isAssigned=='01'">
+						<td ><s:if test="#expertLib.isAssigned=='01'">
 											&nbsp;已分派
 								</s:if> 
 						        <s:else>

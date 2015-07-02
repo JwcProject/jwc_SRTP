@@ -62,7 +62,7 @@ public class TExpertLib implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "lib_id", unique = true, nullable = false, length = 32)
+	@Column(name = "lib_id", unique = true, nullable = false, length = 36)
 	public String getLibId() {
 		return this.libId;
 	}

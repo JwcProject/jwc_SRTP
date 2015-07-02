@@ -49,7 +49,7 @@ public class TEmailReceiver implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "receiver_id", unique = true, nullable = false, length = 64)
+	@Column(name = "receiver_id", unique = true, nullable = false, length = 36)
 	public String getReceiverId() {
 		return this.receiverId;
 	}

@@ -52,7 +52,7 @@ public class TRole implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "role_id", unique = true, nullable = false, length = 32)
+	@Column(name = "role_id", unique = true, nullable = false, length = 36)
 	public String getRoleId() {
 		return this.roleId;
 	}

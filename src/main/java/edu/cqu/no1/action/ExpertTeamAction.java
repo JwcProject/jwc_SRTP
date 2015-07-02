@@ -878,6 +878,7 @@ public class ExpertTeamAction extends BaseAction {
                 return SUCCESS;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return ERROR;
         }
     }
@@ -1396,12 +1397,11 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             TTeacher creater = this.teacherService.findTeacherByTeaCode(teaCode); // 根据主管教师code获取其对象
-            Date date = new Date();
             TJieqi jieqi = this.jieQiService.findTjieqiById(qici);// 获取届期对象
             // 专家库对象
             TExpertLib tLib = new TExpertLib();
             tLib.setTTeacher(creater);
-            tLib.setCreatOn((Timestamp) date);
+            tLib.setCreatOn(new Timestamp(System.currentTimeMillis()));
             tLib.setTJieqi(jieqi);
             tLib.setIsdeleted("N");
             tLib.setType("01");
@@ -1422,7 +1422,8 @@ public class ExpertTeamAction extends BaseAction {
             this.expertLibService
                     .creatExpertLib(tLib, tExpertTeacherList, "01");
         } catch (Exception e) {
-            System.out.println("create expert team failed " + e);
+            System.out.println("create expert team failed ");
+            e.printStackTrace();
         }
     }
 

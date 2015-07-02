@@ -60,7 +60,7 @@ public class TExpertTeacherModel implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "guid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "EX_TEA_ID", unique = true, nullable = false, length = 32)
+	@Column(name = "EX_TEA_ID", unique = true, nullable = false, length = 36)
 	public String getExTeaId() {
 		return this.exTeaId;
 	}
