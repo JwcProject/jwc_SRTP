@@ -12,8 +12,10 @@ import edu.cqu.no1.service.JieQiService;
 import edu.cqu.no1.service.ProjectService;
 import edu.cqu.no1.util.FileUtility;
 import edu.cqu.no1.util.PageBean;
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -166,14 +168,19 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "preCreateExpForSecReview",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/create_expert_secloudReview.jsp")
+    })
     public String preCreateExpForSecReview() {
         getYearAndQicis();
+
         return SUCCESS;
     }
 
     private void getYearAndQicis() {
-        List<BigDecimal> list = this.endProjectService.getAllJieQiYear();
-        for (BigDecimal year : list) {
+        List list = this.endProjectService.getAllJieQiYear();
+        for (int i=0;i<list.size();i++) {
+            BigDecimal year=new BigDecimal((Integer)list.get(i));
             allYears.add(new JieQiYear(year.toString(), year.toString()));
             List<TJieqi> jieqis = this.endProjectService.getJieqisOfYear(year
                     .toString());

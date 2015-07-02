@@ -294,7 +294,7 @@ public class EndProjectServiceImpl implements EndProjectService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<BigDecimal> getAllJieQiYear() {
+    public List getAllJieQiYear() {
         return jieqiDAO.findAllYears();
     }
 
