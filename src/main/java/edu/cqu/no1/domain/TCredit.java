@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TCredit entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_credit", catalog = "srtp")
+@Table(name = "t_credit", catalog = "srtp2")
 public class TCredit implements java.io.Serializable {
 
 	// Fields
@@ -41,7 +41,7 @@ public class TCredit implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "credit_id", unique = true, nullable = false, length = 36)

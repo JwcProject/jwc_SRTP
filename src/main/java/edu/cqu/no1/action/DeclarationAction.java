@@ -30,11 +30,14 @@ import java.util.Map;
 @ParentPackage("base")
 public class DeclarationAction extends BaseAction {
 
-    private TDeclaration declaration;
-
     @Resource
     private DeclarationService declarationService;
+    @Resource
+    private ProfessionService professionService;
+    @Resource
+    private JieQiService jieQiService;
 
+    private TDeclaration declaration;
     private List<TStudent> students = new ArrayList<TStudent>();
     private List<TTeacher> teachers = new ArrayList<TTeacher>();
     private String studentNums;
@@ -51,10 +54,7 @@ public class DeclarationAction extends BaseAction {
     private List<Integer> years;
     private List<JieQiYear> jieQiYears;
     private List<TProfession> professions;
-    @Resource
-    private ProfessionService professionService;
-    @Resource
-    private JieQiService jieQiService;
+
     // 上传文件 数组
     private File[] files;
     private String[] filesContentType;
@@ -294,7 +294,7 @@ public class DeclarationAction extends BaseAction {
                         TAttachment tAttachment = new TAttachment();
                         tAttachment.setFileName(fileNames[i]);
                         tAttachment.setFileFormat(fileContentType[i]);
-                        tAttachment.setFileSize(new BigDecimal(files[i].length()));
+                        tAttachment.setFileSize(new Double(files[i].length()));
                         tAttachment.setFileUrl(fileUris.get(i));
                         tAttachment.setTUser(user);
                         tAttachments.add(tAttachment);
@@ -692,7 +692,7 @@ public class DeclarationAction extends BaseAction {
                             TAttachment tAttachment = new TAttachment();
                             tAttachment.setFileName(filesFileName[i]);
                             tAttachment.setFileFormat(filesContentType[i]);
-                            tAttachment.setFileSize(new BigDecimal(files[i].length()));
+                            tAttachment.setFileSize(new Double(files[i].length()));
                             tAttachment.setFileUrl(fileUris.get(i));
                             tAttachment.setTUser(user);
                             newAttachments.add(tAttachment);

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TEndProjectComment entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_end_project_comment", catalog = "srtp")
+@Table(name = "t_end_project_comment", catalog = "srtp2")
 public class TEndProjectComment implements java.io.Serializable {
 
 	// Fields
@@ -23,10 +23,10 @@ public class TEndProjectComment implements java.io.Serializable {
 	private String id;
 	private TEndProjectExport TEndProjectExport;
 	private String endProjectCommentAdvise;
-	private Integer endProjectCommentScore;
 	private String endProjectCommentContent;
-	private String isdeleted;
+	private Integer endProjectCommentScore;
 	private Timestamp endProjectCommentTime;
+	private String isdeleted;
 
 	// Constructors
 
@@ -36,19 +36,19 @@ public class TEndProjectComment implements java.io.Serializable {
 
 	/** full constructor */
 	public TEndProjectComment(TEndProjectExport TEndProjectExport,
-			String endProjectCommentAdvise, Integer endProjectCommentScore,
-			String endProjectCommentContent, String isdeleted,
-			Timestamp endProjectCommentTime) {
+			String endProjectCommentAdvise, String endProjectCommentContent,
+			Integer endProjectCommentScore, Timestamp endProjectCommentTime,
+			String isdeleted) {
 		this.TEndProjectExport = TEndProjectExport;
 		this.endProjectCommentAdvise = endProjectCommentAdvise;
-		this.endProjectCommentScore = endProjectCommentScore;
 		this.endProjectCommentContent = endProjectCommentContent;
-		this.isdeleted = isdeleted;
+		this.endProjectCommentScore = endProjectCommentScore;
 		this.endProjectCommentTime = endProjectCommentTime;
+		this.isdeleted = isdeleted;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "id", unique = true, nullable = false, length = 36)
@@ -79,15 +79,6 @@ public class TEndProjectComment implements java.io.Serializable {
 		this.endProjectCommentAdvise = endProjectCommentAdvise;
 	}
 
-	@Column(name = "endProjectComment_score")
-	public Integer getEndProjectCommentScore() {
-		return this.endProjectCommentScore;
-	}
-
-	public void setEndProjectCommentScore(Integer endProjectCommentScore) {
-		this.endProjectCommentScore = endProjectCommentScore;
-	}
-
 	@Column(name = "endProjectComment_content", length = 5)
 	public String getEndProjectCommentContent() {
 		return this.endProjectCommentContent;
@@ -97,13 +88,13 @@ public class TEndProjectComment implements java.io.Serializable {
 		this.endProjectCommentContent = endProjectCommentContent;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "endProjectComment_score")
+	public Integer getEndProjectCommentScore() {
+		return this.endProjectCommentScore;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setEndProjectCommentScore(Integer endProjectCommentScore) {
+		this.endProjectCommentScore = endProjectCommentScore;
 	}
 
 	@Column(name = "endProjectComment_time", length = 19)
@@ -113,6 +104,15 @@ public class TEndProjectComment implements java.io.Serializable {
 
 	public void setEndProjectCommentTime(Timestamp endProjectCommentTime) {
 		this.endProjectCommentTime = endProjectCommentTime;
+	}
+
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
+
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
 }

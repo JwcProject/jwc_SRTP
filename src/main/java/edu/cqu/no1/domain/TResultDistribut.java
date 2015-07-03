@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,26 +11,26 @@ import org.hibernate.annotations.GenericGenerator;
  * TResultDistribut entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_result_distribut", catalog = "srtp")
+@Table(name = "t_result_distribut", catalog = "srtp2")
 public class TResultDistribut implements java.io.Serializable {
 
 	// Fields
 
 	private String id;
-	private String jqId;
+	private Double badsum;
+	private Double bestrate;
+	private Double bestsum;
 	private String college;
 	private String collegename;
-	private String jqname;
 	private Double decsum;
-	private Double prosum;
-	private Double bestsum;
-	private Double badsum;
-	private Double endsum;
-	private Double delaysum;
-	private Double prorate;
-	private Double bestrate;
-	private Double endrate;
 	private Double delayrate;
+	private Double delaysum;
+	private Double endrate;
+	private Double endsum;
+	private String jqId;
+	private String jqname;
+	private Double prorate;
+	private Double prosum;
 
 	// Constructors
 
@@ -39,28 +39,28 @@ public class TResultDistribut implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TResultDistribut(String jqId, String college, String collegename,
-			String jqname, Double decsum, Double prosum, Double bestsum,
-			Double badsum, Double endsum, Double delaysum, Double prorate,
-			Double bestrate, Double endrate, Double delayrate) {
-		this.jqId = jqId;
+	public TResultDistribut(Double badsum, Double bestrate, Double bestsum,
+			String college, String collegename, Double decsum,
+			Double delayrate, Double delaysum, Double endrate, Double endsum,
+			String jqId, String jqname, Double prorate, Double prosum) {
+		this.badsum = badsum;
+		this.bestrate = bestrate;
+		this.bestsum = bestsum;
 		this.college = college;
 		this.collegename = collegename;
-		this.jqname = jqname;
 		this.decsum = decsum;
-		this.prosum = prosum;
-		this.bestsum = bestsum;
-		this.badsum = badsum;
-		this.endsum = endsum;
-		this.delaysum = delaysum;
-		this.prorate = prorate;
-		this.bestrate = bestrate;
-		this.endrate = endrate;
 		this.delayrate = delayrate;
+		this.delaysum = delaysum;
+		this.endrate = endrate;
+		this.endsum = endsum;
+		this.jqId = jqId;
+		this.jqname = jqname;
+		this.prorate = prorate;
+		this.prosum = prosum;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, length = 36)
@@ -72,13 +72,31 @@ public class TResultDistribut implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "JQ_ID", length = 32)
-	public String getJqId() {
-		return this.jqId;
+	@Column(name = "BADSUM", precision = 22, scale = 0)
+	public Double getBadsum() {
+		return this.badsum;
 	}
 
-	public void setJqId(String jqId) {
-		this.jqId = jqId;
+	public void setBadsum(Double badsum) {
+		this.badsum = badsum;
+	}
+
+	@Column(name = "BESTRATE", precision = 22, scale = 0)
+	public Double getBestrate() {
+		return this.bestrate;
+	}
+
+	public void setBestrate(Double bestrate) {
+		this.bestrate = bestrate;
+	}
+
+	@Column(name = "BESTSUM", precision = 22, scale = 0)
+	public Double getBestsum() {
+		return this.bestsum;
+	}
+
+	public void setBestsum(Double bestsum) {
+		this.bestsum = bestsum;
 	}
 
 	@Column(name = "COLLEGE", length = 32)
@@ -99,15 +117,6 @@ public class TResultDistribut implements java.io.Serializable {
 		this.collegename = collegename;
 	}
 
-	@Column(name = "JQNAME", length = 50)
-	public String getJqname() {
-		return this.jqname;
-	}
-
-	public void setJqname(String jqname) {
-		this.jqname = jqname;
-	}
-
 	@Column(name = "DECSUM", precision = 22, scale = 0)
 	public Double getDecsum() {
 		return this.decsum;
@@ -117,40 +126,13 @@ public class TResultDistribut implements java.io.Serializable {
 		this.decsum = decsum;
 	}
 
-	@Column(name = "PROSUM", precision = 22, scale = 0)
-	public Double getProsum() {
-		return this.prosum;
+	@Column(name = "DELAYRATE", precision = 22, scale = 0)
+	public Double getDelayrate() {
+		return this.delayrate;
 	}
 
-	public void setProsum(Double prosum) {
-		this.prosum = prosum;
-	}
-
-	@Column(name = "BESTSUM", precision = 22, scale = 0)
-	public Double getBestsum() {
-		return this.bestsum;
-	}
-
-	public void setBestsum(Double bestsum) {
-		this.bestsum = bestsum;
-	}
-
-	@Column(name = "BADSUM", precision = 22, scale = 0)
-	public Double getBadsum() {
-		return this.badsum;
-	}
-
-	public void setBadsum(Double badsum) {
-		this.badsum = badsum;
-	}
-
-	@Column(name = "ENDSUM", precision = 22, scale = 0)
-	public Double getEndsum() {
-		return this.endsum;
-	}
-
-	public void setEndsum(Double endsum) {
-		this.endsum = endsum;
+	public void setDelayrate(Double delayrate) {
+		this.delayrate = delayrate;
 	}
 
 	@Column(name = "DELAYSUM", precision = 22, scale = 0)
@@ -162,24 +144,6 @@ public class TResultDistribut implements java.io.Serializable {
 		this.delaysum = delaysum;
 	}
 
-	@Column(name = "PRORATE", precision = 22, scale = 0)
-	public Double getProrate() {
-		return this.prorate;
-	}
-
-	public void setProrate(Double prorate) {
-		this.prorate = prorate;
-	}
-
-	@Column(name = "BESTRATE", precision = 22, scale = 0)
-	public Double getBestrate() {
-		return this.bestrate;
-	}
-
-	public void setBestrate(Double bestrate) {
-		this.bestrate = bestrate;
-	}
-
 	@Column(name = "ENDRATE", precision = 22, scale = 0)
 	public Double getEndrate() {
 		return this.endrate;
@@ -189,13 +153,49 @@ public class TResultDistribut implements java.io.Serializable {
 		this.endrate = endrate;
 	}
 
-	@Column(name = "DELAYRATE", precision = 22, scale = 0)
-	public Double getDelayrate() {
-		return this.delayrate;
+	@Column(name = "ENDSUM", precision = 22, scale = 0)
+	public Double getEndsum() {
+		return this.endsum;
 	}
 
-	public void setDelayrate(Double delayrate) {
-		this.delayrate = delayrate;
+	public void setEndsum(Double endsum) {
+		this.endsum = endsum;
+	}
+
+	@Column(name = "JQ_ID", length = 32)
+	public String getJqId() {
+		return this.jqId;
+	}
+
+	public void setJqId(String jqId) {
+		this.jqId = jqId;
+	}
+
+	@Column(name = "JQNAME", length = 50)
+	public String getJqname() {
+		return this.jqname;
+	}
+
+	public void setJqname(String jqname) {
+		this.jqname = jqname;
+	}
+
+	@Column(name = "PRORATE", precision = 22, scale = 0)
+	public Double getProrate() {
+		return this.prorate;
+	}
+
+	public void setProrate(Double prorate) {
+		this.prorate = prorate;
+	}
+
+	@Column(name = "PROSUM", precision = 22, scale = 0)
+	public Double getProsum() {
+		return this.prosum;
+	}
+
+	public void setProsum(Double prosum) {
+		this.prosum = prosum;
 	}
 
 }

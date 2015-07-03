@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
@@ -15,18 +15,18 @@ import org.hibernate.annotations.GenericGenerator;
  * TJournalAct entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_journal_act", catalog = "srtp")
+@Table(name = "t_journal_act", catalog = "srtp2")
 public class TJournalAct implements java.io.Serializable {
 
 	// Fields
 
 	private String journalActId;
 	private TJournal TJournal;
-	private String journalActType;
-	private String journalActIntroduction;
-	private Timestamp time;
-	private String journalActRemark;
 	private String isdeleted;
+	private String journalActIntroduction;
+	private String journalActRemark;
+	private String journalActType;
+	private Timestamp time;
 	private String userId;
 
 	// Constructors
@@ -41,20 +41,20 @@ public class TJournalAct implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TJournalAct(TJournal TJournal, String journalActType,
-			String journalActIntroduction, Timestamp time,
-			String journalActRemark, String isdeleted, String userId) {
+	public TJournalAct(TJournal TJournal, String isdeleted,
+			String journalActIntroduction, String journalActRemark,
+			String journalActType, Timestamp time, String userId) {
 		this.TJournal = TJournal;
-		this.journalActType = journalActType;
-		this.journalActIntroduction = journalActIntroduction;
-		this.time = time;
-		this.journalActRemark = journalActRemark;
 		this.isdeleted = isdeleted;
+		this.journalActIntroduction = journalActIntroduction;
+		this.journalActRemark = journalActRemark;
+		this.journalActType = journalActType;
+		this.time = time;
 		this.userId = userId;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "journalAct_id", unique = true, nullable = false, length = 36)
@@ -76,13 +76,13 @@ public class TJournalAct implements java.io.Serializable {
 		this.TJournal = TJournal;
 	}
 
-	@Column(name = "journalAct_type", length = 2)
-	public String getJournalActType() {
-		return this.journalActType;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setJournalActType(String journalActType) {
-		this.journalActType = journalActType;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
 	@Column(name = "journalAct_introduction", length = 100)
@@ -94,15 +94,6 @@ public class TJournalAct implements java.io.Serializable {
 		this.journalActIntroduction = journalActIntroduction;
 	}
 
-	@Column(name = "time", nullable = false, length = 19)
-	public Timestamp getTime() {
-		return this.time;
-	}
-
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
-
 	@Column(name = "journalAct_remark", length = 100)
 	public String getJournalActRemark() {
 		return this.journalActRemark;
@@ -112,13 +103,22 @@ public class TJournalAct implements java.io.Serializable {
 		this.journalActRemark = journalActRemark;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "journalAct_type", length = 2)
+	public String getJournalActType() {
+		return this.journalActType;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setJournalActType(String journalActType) {
+		this.journalActType = journalActType;
+	}
+
+	@Column(name = "time", nullable = false, length = 19)
+	public Timestamp getTime() {
+		return this.time;
+	}
+
+	public void setTime(Timestamp time) {
+		this.time = time;
 	}
 
 	@Column(name = "user_id", length = 32)

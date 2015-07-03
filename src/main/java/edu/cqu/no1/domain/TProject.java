@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TProject entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_project", catalog = "srtp")
+@Table(name = "t_project", catalog = "srtp2")
 public class TProject implements java.io.Serializable {
 
 	// Fields
@@ -33,27 +33,27 @@ public class TProject implements java.io.Serializable {
 	private TStudent TStudentByProjectUser2;
 	private TUnit TUnit;
 	private TStudent TStudentByProjectUser1;
-	private String projectLine;
-	private String projectState;
-	private String projectNumber;
-	private String projectSense;
-	private String projectContent;
-	private String projectLabtype;
-	private String projectLabname;
-	private String projectName;
-	private String projectIntroduction;
-	private Float projectFund;
-	private Timestamp projectBegintime;
-	private Timestamp projectEndtime;
-	private String projectInnovate;
-	private String projectCondition;
-	private String projectProgress;
-	private String projectGoal;
+	private String isdeleted;
 	private String projectAchievement;
+	private Timestamp projectBegintime;
+	private String projectCondition;
+	private String projectContent;
+	private Timestamp projectEndtime;
+	private Float projectFund;
+	private String projectGoal;
+	private String projectInnovate;
+	private String projectIntroduction;
+	private String projectLabname;
+	private String projectLabtype;
+	private String projectLine;
+	private String projectName;
+	private String projectNumber;
+	private String projectProgress;
+	private String projectScore;
+	private String projectSense;
+	private String projectState;
 	private String projectWork;
 	private String redmineProjectid;
-	private String projectScore;
-	private String isdeleted;
 	private Set<TCredit> TCredits = new HashSet<TCredit>(0);
 	private Set<TEndProject> TEndProjects = new HashSet<TEndProject>(0);
 	private Set<TAchievement> TAchievements = new HashSet<TAchievement>(0);
@@ -71,18 +71,16 @@ public class TProject implements java.io.Serializable {
 			TTeacher TTeacherByProjectTeacher1, TJieqi TJieqi,
 			TStudent TStudentByProjectLeader, TDeclaration TDeclaration,
 			TStudent TStudentByProjectUser2, TUnit TUnit,
-			TStudent TStudentByProjectUser1, String projectLine,
-			String projectState, String projectNumber, String projectSense,
-			String projectContent, String projectLabtype,
-			String projectLabname, String projectName,
-			String projectIntroduction, Float projectFund,
-			Timestamp projectBegintime, Timestamp projectEndtime,
-			String projectInnovate, String projectCondition,
-			String projectProgress, String projectGoal,
-			String projectAchievement, String projectWork,
-			String redmineProjectid, String projectScore, String isdeleted,
-			Set<TCredit> TCredits, Set<TEndProject> TEndProjects,
-			Set<TAchievement> TAchievements,
+			TStudent TStudentByProjectUser1, String isdeleted,
+			String projectAchievement, Timestamp projectBegintime,
+			String projectCondition, String projectContent,
+			Timestamp projectEndtime, Float projectFund, String projectGoal,
+			String projectInnovate, String projectIntroduction,
+			String projectLabname, String projectLabtype, String projectLine,
+			String projectName, String projectNumber, String projectProgress,
+			String projectScore, String projectSense, String projectState,
+			String projectWork, String redmineProjectid, Set<TCredit> TCredits,
+			Set<TEndProject> TEndProjects, Set<TAchievement> TAchievements,
 			Set<TProjectChange> TProjectChanges, Set<TFunds> TFundses) {
 		this.TTeacherByProjectTeacher2 = TTeacherByProjectTeacher2;
 		this.TTeacherByProjectTeacher1 = TTeacherByProjectTeacher1;
@@ -92,27 +90,27 @@ public class TProject implements java.io.Serializable {
 		this.TStudentByProjectUser2 = TStudentByProjectUser2;
 		this.TUnit = TUnit;
 		this.TStudentByProjectUser1 = TStudentByProjectUser1;
-		this.projectLine = projectLine;
-		this.projectState = projectState;
-		this.projectNumber = projectNumber;
-		this.projectSense = projectSense;
-		this.projectContent = projectContent;
-		this.projectLabtype = projectLabtype;
-		this.projectLabname = projectLabname;
-		this.projectName = projectName;
-		this.projectIntroduction = projectIntroduction;
-		this.projectFund = projectFund;
-		this.projectBegintime = projectBegintime;
-		this.projectEndtime = projectEndtime;
-		this.projectInnovate = projectInnovate;
-		this.projectCondition = projectCondition;
-		this.projectProgress = projectProgress;
-		this.projectGoal = projectGoal;
+		this.isdeleted = isdeleted;
 		this.projectAchievement = projectAchievement;
+		this.projectBegintime = projectBegintime;
+		this.projectCondition = projectCondition;
+		this.projectContent = projectContent;
+		this.projectEndtime = projectEndtime;
+		this.projectFund = projectFund;
+		this.projectGoal = projectGoal;
+		this.projectInnovate = projectInnovate;
+		this.projectIntroduction = projectIntroduction;
+		this.projectLabname = projectLabname;
+		this.projectLabtype = projectLabtype;
+		this.projectLine = projectLine;
+		this.projectName = projectName;
+		this.projectNumber = projectNumber;
+		this.projectProgress = projectProgress;
+		this.projectScore = projectScore;
+		this.projectSense = projectSense;
+		this.projectState = projectState;
 		this.projectWork = projectWork;
 		this.redmineProjectid = redmineProjectid;
-		this.projectScore = projectScore;
-		this.isdeleted = isdeleted;
 		this.TCredits = TCredits;
 		this.TEndProjects = TEndProjects;
 		this.TAchievements = TAchievements;
@@ -121,7 +119,7 @@ public class TProject implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "project_id", unique = true, nullable = false, length = 36)
@@ -213,94 +211,22 @@ public class TProject implements java.io.Serializable {
 		this.TStudentByProjectUser1 = TStudentByProjectUser1;
 	}
 
-	@Column(name = "project_line", length = 500)
-	public String getProjectLine() {
-		return this.projectLine;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setProjectLine(String projectLine) {
-		this.projectLine = projectLine;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
-	@Column(name = "project_state", length = 2)
-	public String getProjectState() {
-		return this.projectState;
+	@Column(name = "project_achievement", length = 500)
+	public String getProjectAchievement() {
+		return this.projectAchievement;
 	}
 
-	public void setProjectState(String projectState) {
-		this.projectState = projectState;
-	}
-
-	@Column(name = "project_number", length = 20)
-	public String getProjectNumber() {
-		return this.projectNumber;
-	}
-
-	public void setProjectNumber(String projectNumber) {
-		this.projectNumber = projectNumber;
-	}
-
-	@Column(name = "project_sense", length = 1000)
-	public String getProjectSense() {
-		return this.projectSense;
-	}
-
-	public void setProjectSense(String projectSense) {
-		this.projectSense = projectSense;
-	}
-
-	@Column(name = "project_content", length = 1000)
-	public String getProjectContent() {
-		return this.projectContent;
-	}
-
-	public void setProjectContent(String projectContent) {
-		this.projectContent = projectContent;
-	}
-
-	@Column(name = "project_labtype", length = 2)
-	public String getProjectLabtype() {
-		return this.projectLabtype;
-	}
-
-	public void setProjectLabtype(String projectLabtype) {
-		this.projectLabtype = projectLabtype;
-	}
-
-	@Column(name = "project_labname", length = 20)
-	public String getProjectLabname() {
-		return this.projectLabname;
-	}
-
-	public void setProjectLabname(String projectLabname) {
-		this.projectLabname = projectLabname;
-	}
-
-	@Column(name = "project_name", length = 50)
-	public String getProjectName() {
-		return this.projectName;
-	}
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
-
-	@Column(name = "project_introduction", length = 500)
-	public String getProjectIntroduction() {
-		return this.projectIntroduction;
-	}
-
-	public void setProjectIntroduction(String projectIntroduction) {
-		this.projectIntroduction = projectIntroduction;
-	}
-
-	@Column(name = "project_fund", precision = 12, scale = 0)
-	public Float getProjectFund() {
-		return this.projectFund;
-	}
-
-	public void setProjectFund(Float projectFund) {
-		this.projectFund = projectFund;
+	public void setProjectAchievement(String projectAchievement) {
+		this.projectAchievement = projectAchievement;
 	}
 
 	@Column(name = "project_begintime", length = 19)
@@ -312,24 +238,6 @@ public class TProject implements java.io.Serializable {
 		this.projectBegintime = projectBegintime;
 	}
 
-	@Column(name = "project_endtime", length = 19)
-	public Timestamp getProjectEndtime() {
-		return this.projectEndtime;
-	}
-
-	public void setProjectEndtime(Timestamp projectEndtime) {
-		this.projectEndtime = projectEndtime;
-	}
-
-	@Column(name = "project_innovate", length = 500)
-	public String getProjectInnovate() {
-		return this.projectInnovate;
-	}
-
-	public void setProjectInnovate(String projectInnovate) {
-		this.projectInnovate = projectInnovate;
-	}
-
 	@Column(name = "project_condition", length = 500)
 	public String getProjectCondition() {
 		return this.projectCondition;
@@ -339,13 +247,31 @@ public class TProject implements java.io.Serializable {
 		this.projectCondition = projectCondition;
 	}
 
-	@Column(name = "project_progress", length = 500)
-	public String getProjectProgress() {
-		return this.projectProgress;
+	@Column(name = "project_content", length = 1000)
+	public String getProjectContent() {
+		return this.projectContent;
 	}
 
-	public void setProjectProgress(String projectProgress) {
-		this.projectProgress = projectProgress;
+	public void setProjectContent(String projectContent) {
+		this.projectContent = projectContent;
+	}
+
+	@Column(name = "project_endtime", length = 19)
+	public Timestamp getProjectEndtime() {
+		return this.projectEndtime;
+	}
+
+	public void setProjectEndtime(Timestamp projectEndtime) {
+		this.projectEndtime = projectEndtime;
+	}
+
+	@Column(name = "project_fund", precision = 12, scale = 0)
+	public Float getProjectFund() {
+		return this.projectFund;
+	}
+
+	public void setProjectFund(Float projectFund) {
+		this.projectFund = projectFund;
 	}
 
 	@Column(name = "project_goal", length = 500)
@@ -357,13 +283,103 @@ public class TProject implements java.io.Serializable {
 		this.projectGoal = projectGoal;
 	}
 
-	@Column(name = "project_achievement", length = 500)
-	public String getProjectAchievement() {
-		return this.projectAchievement;
+	@Column(name = "project_innovate", length = 500)
+	public String getProjectInnovate() {
+		return this.projectInnovate;
 	}
 
-	public void setProjectAchievement(String projectAchievement) {
-		this.projectAchievement = projectAchievement;
+	public void setProjectInnovate(String projectInnovate) {
+		this.projectInnovate = projectInnovate;
+	}
+
+	@Column(name = "project_introduction", length = 500)
+	public String getProjectIntroduction() {
+		return this.projectIntroduction;
+	}
+
+	public void setProjectIntroduction(String projectIntroduction) {
+		this.projectIntroduction = projectIntroduction;
+	}
+
+	@Column(name = "project_labname", length = 20)
+	public String getProjectLabname() {
+		return this.projectLabname;
+	}
+
+	public void setProjectLabname(String projectLabname) {
+		this.projectLabname = projectLabname;
+	}
+
+	@Column(name = "project_labtype", length = 2)
+	public String getProjectLabtype() {
+		return this.projectLabtype;
+	}
+
+	public void setProjectLabtype(String projectLabtype) {
+		this.projectLabtype = projectLabtype;
+	}
+
+	@Column(name = "project_line", length = 500)
+	public String getProjectLine() {
+		return this.projectLine;
+	}
+
+	public void setProjectLine(String projectLine) {
+		this.projectLine = projectLine;
+	}
+
+	@Column(name = "project_name", length = 50)
+	public String getProjectName() {
+		return this.projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	@Column(name = "project_number", length = 20)
+	public String getProjectNumber() {
+		return this.projectNumber;
+	}
+
+	public void setProjectNumber(String projectNumber) {
+		this.projectNumber = projectNumber;
+	}
+
+	@Column(name = "project_progress", length = 500)
+	public String getProjectProgress() {
+		return this.projectProgress;
+	}
+
+	public void setProjectProgress(String projectProgress) {
+		this.projectProgress = projectProgress;
+	}
+
+	@Column(name = "project_score", length = 10)
+	public String getProjectScore() {
+		return this.projectScore;
+	}
+
+	public void setProjectScore(String projectScore) {
+		this.projectScore = projectScore;
+	}
+
+	@Column(name = "project_sense", length = 1000)
+	public String getProjectSense() {
+		return this.projectSense;
+	}
+
+	public void setProjectSense(String projectSense) {
+		this.projectSense = projectSense;
+	}
+
+	@Column(name = "project_state", length = 2)
+	public String getProjectState() {
+		return this.projectState;
+	}
+
+	public void setProjectState(String projectState) {
+		this.projectState = projectState;
 	}
 
 	@Column(name = "project_work", length = 500)
@@ -382,24 +398,6 @@ public class TProject implements java.io.Serializable {
 
 	public void setRedmineProjectid(String redmineProjectid) {
 		this.redmineProjectid = redmineProjectid;
-	}
-
-	@Column(name = "project_score", length = 10)
-	public String getProjectScore() {
-		return this.projectScore;
-	}
-
-	public void setProjectScore(String projectScore) {
-		this.projectScore = projectScore;
-	}
-
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
-	}
-
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProject")

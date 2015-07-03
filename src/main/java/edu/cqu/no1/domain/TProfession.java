@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,21 +18,21 @@ import org.hibernate.annotations.GenericGenerator;
  * TProfession entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_profession", catalog = "srtp")
+@Table(name = "t_profession", catalog = "srtp2")
 public class TProfession implements java.io.Serializable {
 
 	// Fields
 
 	private String professionId;
 	private TUnit TUnit;
-	private String professionName;
-	private String professionSession;
 	private String professionClass;
-	private String professionRemark;
 	private String professionIsdeleted;
+	private String professionName;
+	private String professionRemark;
+	private String professionSession;
 	private Set<TStudent> TStudentsForProProfessionId = new HashSet<TStudent>(0);
-	private Set<TStudent> TStudentsForProfessionId = new HashSet<TStudent>(0);
 	private Set<TTeacher> TTeachers = new HashSet<TTeacher>(0);
+	private Set<TStudent> TStudentsForProfessionId = new HashSet<TStudent>(0);
 
 	// Constructors
 
@@ -41,24 +41,24 @@ public class TProfession implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TProfession(TUnit TUnit, String professionName,
-			String professionSession, String professionClass,
-			String professionRemark, String professionIsdeleted,
-			Set<TStudent> TStudentsForProProfessionId,
-			Set<TStudent> TStudentsForProfessionId, Set<TTeacher> TTeachers) {
+	public TProfession(TUnit TUnit, String professionClass,
+			String professionIsdeleted, String professionName,
+			String professionRemark, String professionSession,
+			Set<TStudent> TStudentsForProProfessionId, Set<TTeacher> TTeachers,
+			Set<TStudent> TStudentsForProfessionId) {
 		this.TUnit = TUnit;
-		this.professionName = professionName;
-		this.professionSession = professionSession;
 		this.professionClass = professionClass;
-		this.professionRemark = professionRemark;
 		this.professionIsdeleted = professionIsdeleted;
+		this.professionName = professionName;
+		this.professionRemark = professionRemark;
+		this.professionSession = professionSession;
 		this.TStudentsForProProfessionId = TStudentsForProProfessionId;
-		this.TStudentsForProfessionId = TStudentsForProfessionId;
 		this.TTeachers = TTeachers;
+		this.TStudentsForProfessionId = TStudentsForProfessionId;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "profession_id", unique = true, nullable = false, length = 36)
@@ -80,24 +80,6 @@ public class TProfession implements java.io.Serializable {
 		this.TUnit = TUnit;
 	}
 
-	@Column(name = "profession_name", length = 64)
-	public String getProfessionName() {
-		return this.professionName;
-	}
-
-	public void setProfessionName(String professionName) {
-		this.professionName = professionName;
-	}
-
-	@Column(name = "profession_session", length = 20)
-	public String getProfessionSession() {
-		return this.professionSession;
-	}
-
-	public void setProfessionSession(String professionSession) {
-		this.professionSession = professionSession;
-	}
-
 	@Column(name = "profession_class", length = 64)
 	public String getProfessionClass() {
 		return this.professionClass;
@@ -105,6 +87,24 @@ public class TProfession implements java.io.Serializable {
 
 	public void setProfessionClass(String professionClass) {
 		this.professionClass = professionClass;
+	}
+
+	@Column(name = "profession_isdeleted", length = 1)
+	public String getProfessionIsdeleted() {
+		return this.professionIsdeleted;
+	}
+
+	public void setProfessionIsdeleted(String professionIsdeleted) {
+		this.professionIsdeleted = professionIsdeleted;
+	}
+
+	@Column(name = "profession_name", length = 64)
+	public String getProfessionName() {
+		return this.professionName;
+	}
+
+	public void setProfessionName(String professionName) {
+		this.professionName = professionName;
 	}
 
 	@Column(name = "profession_remark", length = 200)
@@ -116,13 +116,13 @@ public class TProfession implements java.io.Serializable {
 		this.professionRemark = professionRemark;
 	}
 
-	@Column(name = "profession_isdeleted", length = 1)
-	public String getProfessionIsdeleted() {
-		return this.professionIsdeleted;
+	@Column(name = "profession_session", length = 20)
+	public String getProfessionSession() {
+		return this.professionSession;
 	}
 
-	public void setProfessionIsdeleted(String professionIsdeleted) {
-		this.professionIsdeleted = professionIsdeleted;
+	public void setProfessionSession(String professionSession) {
+		this.professionSession = professionSession;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfessionByProProfessionId")
@@ -135,6 +135,15 @@ public class TProfession implements java.io.Serializable {
 		this.TStudentsForProProfessionId = TStudentsForProProfessionId;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfession")
+	public Set<TTeacher> getTTeachers() {
+		return this.TTeachers;
+	}
+
+	public void setTTeachers(Set<TTeacher> TTeachers) {
+		this.TTeachers = TTeachers;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfessionByProfessionId")
 	public Set<TStudent> getTStudentsForProfessionId() {
 		return this.TStudentsForProfessionId;
@@ -143,15 +152,6 @@ public class TProfession implements java.io.Serializable {
 	public void setTStudentsForProfessionId(
 			Set<TStudent> TStudentsForProfessionId) {
 		this.TStudentsForProfessionId = TStudentsForProfessionId;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProfession")
-	public Set<TTeacher> getTTeachers() {
-		return this.TTeachers;
-	}
-
-	public void setTTeachers(Set<TTeacher> TTeachers) {
-		this.TTeachers = TTeachers;
 	}
 
 }

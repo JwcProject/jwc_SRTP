@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,18 +14,18 @@ import org.hibernate.annotations.GenericGenerator;
  * TFunds entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_funds", catalog = "srtp")
+@Table(name = "t_funds", catalog = "srtp2")
 public class TFunds implements java.io.Serializable {
 
 	// Fields
 
 	private String id;
 	private TProject TProject;
+	private String fundsDetail;
 	private String fundsId;
-	private String fundsName;
 	private String fundsIsReimburse;
 	private Float fundsMoney;
-	private String fundsDetail;
+	private String fundsName;
 	private String fundsUse;
 	private String isdeleted;
 
@@ -36,21 +36,21 @@ public class TFunds implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TFunds(TProject TProject, String fundsId, String fundsName,
-			String fundsIsReimburse, Float fundsMoney, String fundsDetail,
+	public TFunds(TProject TProject, String fundsDetail, String fundsId,
+			String fundsIsReimburse, Float fundsMoney, String fundsName,
 			String fundsUse, String isdeleted) {
 		this.TProject = TProject;
+		this.fundsDetail = fundsDetail;
 		this.fundsId = fundsId;
-		this.fundsName = fundsName;
 		this.fundsIsReimburse = fundsIsReimburse;
 		this.fundsMoney = fundsMoney;
-		this.fundsDetail = fundsDetail;
+		this.fundsName = fundsName;
 		this.fundsUse = fundsUse;
 		this.isdeleted = isdeleted;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, length = 36)
@@ -72,6 +72,15 @@ public class TFunds implements java.io.Serializable {
 		this.TProject = TProject;
 	}
 
+	@Column(name = "funds_detail", length = 200)
+	public String getFundsDetail() {
+		return this.fundsDetail;
+	}
+
+	public void setFundsDetail(String fundsDetail) {
+		this.fundsDetail = fundsDetail;
+	}
+
 	@Column(name = "funds_id", length = 32)
 	public String getFundsId() {
 		return this.fundsId;
@@ -79,15 +88,6 @@ public class TFunds implements java.io.Serializable {
 
 	public void setFundsId(String fundsId) {
 		this.fundsId = fundsId;
-	}
-
-	@Column(name = "funds_name", length = 50)
-	public String getFundsName() {
-		return this.fundsName;
-	}
-
-	public void setFundsName(String fundsName) {
-		this.fundsName = fundsName;
 	}
 
 	@Column(name = "funds_isReimburse", length = 2)
@@ -108,13 +108,13 @@ public class TFunds implements java.io.Serializable {
 		this.fundsMoney = fundsMoney;
 	}
 
-	@Column(name = "funds_detail", length = 200)
-	public String getFundsDetail() {
-		return this.fundsDetail;
+	@Column(name = "funds_name", length = 50)
+	public String getFundsName() {
+		return this.fundsName;
 	}
 
-	public void setFundsDetail(String fundsDetail) {
-		this.fundsDetail = fundsDetail;
+	public void setFundsName(String fundsName) {
+		this.fundsName = fundsName;
 	}
 
 	@Column(name = "funds_use", length = 200)

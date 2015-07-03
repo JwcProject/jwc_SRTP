@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TAnnounType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_announ_type", catalog = "srtp")
+@Table(name = "t_announ_type", catalog = "srtp2")
 public class TAnnounType implements java.io.Serializable {
 
 	// Fields
@@ -41,7 +41,7 @@ public class TAnnounType implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "announ_type_id", unique = true, nullable = false, length = 36)
@@ -76,8 +76,7 @@ public class TAnnounType implements java.io.Serializable {
 		return this.TAnnouncements;
 	}
 
-	public void setTAnnouncements(
-			Set<TAnnouncement> TAnnouncements) {
+	public void setTAnnouncements(Set<TAnnouncement> TAnnouncements) {
 		this.TAnnouncements = TAnnouncements;
 	}
 

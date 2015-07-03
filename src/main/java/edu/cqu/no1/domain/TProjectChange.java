@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -19,21 +19,21 @@ import org.hibernate.annotations.GenericGenerator;
  * TProjectChange entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_project_change", catalog = "srtp")
+@Table(name = "t_project_change", catalog = "srtp2")
 public class TProjectChange implements java.io.Serializable {
 
 	// Fields
 
 	private String projectChangeId;
 	private TProject TProject;
-	private String projectChangeState;
+	private String isdeleted;
 	private String projectChangeAtid;
+	private Timestamp projectChangeAtime;
 	private String projectChangeCtid;
 	private Timestamp projectChangeCtime;
-	private Timestamp projectChangeAtime;
 	private Timestamp projectChangeDate;
 	private String projectChangeReason;
-	private String isdeleted;
+	private String projectChangeState;
 	private Set<TProjectChangeContent> TProjectChangeContents = new HashSet<TProjectChangeContent>(
 			0);
 
@@ -44,25 +44,26 @@ public class TProjectChange implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TProjectChange(TProject TProject, String projectChangeState,
-			String projectChangeAtid, String projectChangeCtid,
-			Timestamp projectChangeCtime, Timestamp projectChangeAtime,
+	public TProjectChange(TProject TProject, String isdeleted,
+			String projectChangeAtid, Timestamp projectChangeAtime,
+			String projectChangeCtid, Timestamp projectChangeCtime,
 			Timestamp projectChangeDate, String projectChangeReason,
-			String isdeleted, Set<TProjectChangeContent> TProjectChangeContents) {
+			String projectChangeState,
+			Set<TProjectChangeContent> TProjectChangeContents) {
 		this.TProject = TProject;
-		this.projectChangeState = projectChangeState;
+		this.isdeleted = isdeleted;
 		this.projectChangeAtid = projectChangeAtid;
+		this.projectChangeAtime = projectChangeAtime;
 		this.projectChangeCtid = projectChangeCtid;
 		this.projectChangeCtime = projectChangeCtime;
-		this.projectChangeAtime = projectChangeAtime;
 		this.projectChangeDate = projectChangeDate;
 		this.projectChangeReason = projectChangeReason;
-		this.isdeleted = isdeleted;
+		this.projectChangeState = projectChangeState;
 		this.TProjectChangeContents = TProjectChangeContents;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "projectChange_id", unique = true, nullable = false, length = 36)
@@ -84,13 +85,13 @@ public class TProjectChange implements java.io.Serializable {
 		this.TProject = TProject;
 	}
 
-	@Column(name = "projectChange_state", length = 2)
-	public String getProjectChangeState() {
-		return this.projectChangeState;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setProjectChangeState(String projectChangeState) {
-		this.projectChangeState = projectChangeState;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
 	@Column(name = "projectChange_atid", length = 32)
@@ -100,6 +101,15 @@ public class TProjectChange implements java.io.Serializable {
 
 	public void setProjectChangeAtid(String projectChangeAtid) {
 		this.projectChangeAtid = projectChangeAtid;
+	}
+
+	@Column(name = "projectChange_atime", length = 19)
+	public Timestamp getProjectChangeAtime() {
+		return this.projectChangeAtime;
+	}
+
+	public void setProjectChangeAtime(Timestamp projectChangeAtime) {
+		this.projectChangeAtime = projectChangeAtime;
 	}
 
 	@Column(name = "projectChange_ctid", length = 32)
@@ -120,15 +130,6 @@ public class TProjectChange implements java.io.Serializable {
 		this.projectChangeCtime = projectChangeCtime;
 	}
 
-	@Column(name = "projectChange_atime", length = 19)
-	public Timestamp getProjectChangeAtime() {
-		return this.projectChangeAtime;
-	}
-
-	public void setProjectChangeAtime(Timestamp projectChangeAtime) {
-		this.projectChangeAtime = projectChangeAtime;
-	}
-
 	@Column(name = "projectChange_date", length = 19)
 	public Timestamp getProjectChangeDate() {
 		return this.projectChangeDate;
@@ -147,13 +148,13 @@ public class TProjectChange implements java.io.Serializable {
 		this.projectChangeReason = projectChangeReason;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "projectChange_state", length = 2)
+	public String getProjectChangeState() {
+		return this.projectChangeState;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setProjectChangeState(String projectChangeState) {
+		this.projectChangeState = projectChangeState;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TProjectChange")

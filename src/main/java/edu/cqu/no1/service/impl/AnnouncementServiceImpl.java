@@ -14,6 +14,7 @@ import edu.cqu.no1.util.PageBean;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -45,28 +46,18 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return this.attachmentDAO.findByObjectCode(annouceId);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TAnnouncement addTAnnouncement(List<TAttachment> attachments,
                                           TAnnouncement announcement) throws Exception {
-        Session session = this.tAnnouncementDAO.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            transaction.begin();
-            this.tAnnouncementDAO.save(announcement);
-            TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("2");
-            for (TAttachment tAttachment : attachments) {
-                tAttachment.setTAttchmentType(tAttchmentType);
-                tAttachment.setObjectCode(announcement.getAnnounId());
-                this.attachmentDAO.save(tAttachment);
-            }
-            transaction.commit();
-            return announcement;
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
-            throw e;
-//			return null;
+        this.tAnnouncementDAO.save(announcement);
+        TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("2");
+        for (TAttachment tAttachment : attachments) {
+            tAttachment.setTAttchmentType(tAttchmentType);
+            tAttachment.setObjectCode(announcement.getAnnounId());
+            this.attachmentDAO.save(tAttachment);
         }
+        return announcement;
     }
 
 
@@ -81,26 +72,18 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         this.tAnnouncementDAO.merge(tAnnouncement);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateTAnnouncement(List<TAttachment> attachments,
                                     TAnnouncement tAnnouncement) {
-        Session session = this.tAnnouncementDAO.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            transaction.begin();
-            TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("2");
-            this.attachmentDAO.deleteTAttachmentsByObjectCode(tAnnouncement.getAnnounId());
-            for (TAttachment tAttachment : attachments) {
-                tAttachment.setTAttchmentType(tAttchmentType);
-                tAttachment.setObjectCode(tAnnouncement.getAnnounId());
-                this.attachmentDAO.save(tAttachment);
-            }
-            this.tAnnouncementDAO.merge(tAnnouncement);
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
+        TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("2");
+        this.attachmentDAO.deleteTAttachmentsByObjectCode(tAnnouncement.getAnnounId());
+        for (TAttachment tAttachment : attachments) {
+            tAttachment.setTAttchmentType(tAttchmentType);
+            tAttachment.setObjectCode(tAnnouncement.getAnnounId());
+            this.attachmentDAO.save(tAttachment);
         }
+        this.tAnnouncementDAO.merge(tAnnouncement);
     }
 
     @Override
@@ -113,22 +96,22 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @SuppressWarnings("unchecked")
     @Override
     public List<TAnnouncement> queryStuTeaAnnoun(String number,
-                                                      String announName, Date announDate, PageBean pageBean) {
+                                                 String announName, Date announDate, PageBean pageBean) {
         return this.tAnnouncementDAO.getStuTeatAnnoun(number, announName, announDate, pageBean);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<TAnnouncement> queryUnitAnnoun(String teaCode,
-                                                    String announName, Date announDate, PageBean pageBean) {
+                                               String announName, Date announDate, PageBean pageBean) {
         return this.tAnnouncementDAO.getUnitAnnoun(teaCode, announName, announDate, pageBean);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<TAnnouncement> querySchoolAnnoun(String announName, String checkState,
-                                                      Date announDate, String publisherName, String typeName,
-                                                      PageBean pageBean) {
+                                                 Date announDate, String publisherName, String typeName,
+                                                 PageBean pageBean) {
         return this.tAnnouncementDAO.getSchoolAnnoun(announName, checkState, announDate, publisherName, typeName, pageBean);
     }
 
@@ -153,7 +136,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @SuppressWarnings("unchecked")
     @Override
     public List<TAnnouncement> getAnnounByType(String typeName,
-                                                    PageBean pageBean) {
+                                               PageBean pageBean) {
         return this.tAnnouncementDAO.findAnnounByType(typeName, pageBean);
     }
 

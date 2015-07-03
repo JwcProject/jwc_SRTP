@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TEndProjectJob entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_end_project_job", catalog = "srtp")
+@Table(name = "t_end_project_job", catalog = "srtp2")
 public class TEndProjectJob implements java.io.Serializable {
 
 	// Fields
@@ -22,9 +22,9 @@ public class TEndProjectJob implements java.io.Serializable {
 	private String jobId;
 	private TStudent TStudent;
 	private TEndProject TEndProject;
-	private String jobContent;
 	private String finished;
 	private String isdeleted;
+	private String jobContent;
 
 	// Constructors
 
@@ -34,16 +34,16 @@ public class TEndProjectJob implements java.io.Serializable {
 
 	/** full constructor */
 	public TEndProjectJob(TStudent TStudent, TEndProject TEndProject,
-			String jobContent, String finished, String isdeleted) {
+			String finished, String isdeleted, String jobContent) {
 		this.TStudent = TStudent;
 		this.TEndProject = TEndProject;
-		this.jobContent = jobContent;
 		this.finished = finished;
 		this.isdeleted = isdeleted;
+		this.jobContent = jobContent;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "job_id", unique = true, nullable = false, length = 36)
@@ -75,15 +75,6 @@ public class TEndProjectJob implements java.io.Serializable {
 		this.TEndProject = TEndProject;
 	}
 
-	@Column(name = "job_content", length = 500)
-	public String getJobContent() {
-		return this.jobContent;
-	}
-
-	public void setJobContent(String jobContent) {
-		this.jobContent = jobContent;
-	}
-
 	@Column(name = "finished", length = 50)
 	public String getFinished() {
 		return this.finished;
@@ -100,6 +91,15 @@ public class TEndProjectJob implements java.io.Serializable {
 
 	public void setIsdeleted(String isdeleted) {
 		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "job_content", length = 500)
+	public String getJobContent() {
+		return this.jobContent;
+	}
+
+	public void setJobContent(String jobContent) {
+		this.jobContent = jobContent;
 	}
 
 }

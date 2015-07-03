@@ -1,6 +1,5 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TAttachment entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_attachment", catalog = "srtp")
+@Table(name = "t_attachment", catalog = "srtp2")
 public class TAttachment implements java.io.Serializable {
 
 	// Fields
@@ -24,14 +23,14 @@ public class TAttachment implements java.io.Serializable {
 	private String attaId;
 	private TAttchmentType TAttchmentType;
 	private TUser TUser;
-	private String fileName;
-	private BigDecimal fileSize;
 	private String fileFormat;
+	private String fileName;
+	private Double fileSize;
 	private String fileUrl;
-	private String uploaderRole;
-	private Timestamp uploadTime;
-	private String objectCode;
 	private String isdeleted;
+	private String objectCode;
+	private Timestamp uploadTime;
+	private String uploaderRole;
 
 	// Constructors
 
@@ -41,23 +40,23 @@ public class TAttachment implements java.io.Serializable {
 
 	/** full constructor */
 	public TAttachment(TAttchmentType TAttchmentType, TUser TUser,
-			String fileName, BigDecimal fileSize, String fileFormat,
-			String fileUrl, String uploaderRole, Timestamp uploadTime,
-			String objectCode, String isdeleted) {
+			String fileFormat, String fileName, Double fileSize,
+			String fileUrl, String isdeleted, String objectCode,
+			Timestamp uploadTime, String uploaderRole) {
 		this.TAttchmentType = TAttchmentType;
 		this.TUser = TUser;
+		this.fileFormat = fileFormat;
 		this.fileName = fileName;
 		this.fileSize = fileSize;
-		this.fileFormat = fileFormat;
 		this.fileUrl = fileUrl;
-		this.uploaderRole = uploaderRole;
-		this.uploadTime = uploadTime;
-		this.objectCode = objectCode;
 		this.isdeleted = isdeleted;
+		this.objectCode = objectCode;
+		this.uploadTime = uploadTime;
+		this.uploaderRole = uploaderRole;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "atta_id", unique = true, nullable = false, length = 36)
@@ -89,6 +88,15 @@ public class TAttachment implements java.io.Serializable {
 		this.TUser = TUser;
 	}
 
+	@Column(name = "file_format", length = 150)
+	public String getFileFormat() {
+		return this.fileFormat;
+	}
+
+	public void setFileFormat(String fileFormat) {
+		this.fileFormat = fileFormat;
+	}
+
 	@Column(name = "file_name", length = 100)
 	public String getFileName() {
 		return this.fileName;
@@ -99,24 +107,15 @@ public class TAttachment implements java.io.Serializable {
 	}
 
 	@Column(name = "file_size")
-	public BigDecimal getFileSize() {
+	public Double getFileSize() {
 		return this.fileSize;
 	}
 
-	public void setFileSize(BigDecimal fileSize) {
+	public void setFileSize(Double fileSize) {
 		this.fileSize = fileSize;
 	}
 
-	@Column(name = "file_format", length = 50)
-	public String getFileFormat() {
-		return this.fileFormat;
-	}
-
-	public void setFileFormat(String fileFormat) {
-		this.fileFormat = fileFormat;
-	}
-
-	@Column(name = "file_url", length = 50)
+	@Column(name = "file_url", length = 150)
 	public String getFileUrl() {
 		return this.fileUrl;
 	}
@@ -125,13 +124,22 @@ public class TAttachment implements java.io.Serializable {
 		this.fileUrl = fileUrl;
 	}
 
-	@Column(name = "uploader_role", length = 32)
-	public String getUploaderRole() {
-		return this.uploaderRole;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setUploaderRole(String uploaderRole) {
-		this.uploaderRole = uploaderRole;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "object_code", length = 36)
+	public String getObjectCode() {
+		return this.objectCode;
+	}
+
+	public void setObjectCode(String objectCode) {
+		this.objectCode = objectCode;
 	}
 
 	@Column(name = "upload_time", length = 19)
@@ -143,22 +151,13 @@ public class TAttachment implements java.io.Serializable {
 		this.uploadTime = uploadTime;
 	}
 
-	@Column(name = "object_code", length = 32)
-	public String getObjectCode() {
-		return this.objectCode;
+	@Column(name = "uploader_role", length = 36)
+	public String getUploaderRole() {
+		return this.uploaderRole;
 	}
 
-	public void setObjectCode(String objectCode) {
-		this.objectCode = objectCode;
-	}
-
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
-	}
-
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setUploaderRole(String uploaderRole) {
+		this.uploaderRole = uploaderRole;
 	}
 
 }

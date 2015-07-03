@@ -76,6 +76,7 @@ public class TAttachmentDAOImpl extends BaseDaoImpl<TAttachment> implements TAtt
 
 
     public List findByObjectCode(Object objectCode) {
+        removeALLDeleted();
         return findByProperty(OBJECT_CODE, objectCode);
     }
 

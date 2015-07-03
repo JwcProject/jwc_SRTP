@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -19,19 +19,19 @@ import org.hibernate.annotations.GenericGenerator;
  * TJournal entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_journal", catalog = "srtp")
+@Table(name = "t_journal", catalog = "srtp2")
 public class TJournal implements java.io.Serializable {
 
 	// Fields
 
 	private String journalId;
 	private TUser TUser;
-	private String userName;
+	private String isdeleted;
+	private String journalLoginIp;
 	private Timestamp journalLogintime;
 	private Timestamp journalQuitime;
 	private String journalRemark;
-	private String isdeleted;
-	private String journalLoginIp;
+	private String userName;
 	private Set<TJournalAct> TJournalActs = new HashSet<TJournalAct>(0);
 
 	// Constructors
@@ -41,21 +41,21 @@ public class TJournal implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TJournal(TUser TUser, String userName, Timestamp journalLogintime,
-			Timestamp journalQuitime, String journalRemark, String isdeleted,
-			String journalLoginIp, Set<TJournalAct> TJournalActs) {
+	public TJournal(TUser TUser, String isdeleted, String journalLoginIp,
+			Timestamp journalLogintime, Timestamp journalQuitime,
+			String journalRemark, String userName, Set<TJournalAct> TJournalActs) {
 		this.TUser = TUser;
-		this.userName = userName;
+		this.isdeleted = isdeleted;
+		this.journalLoginIp = journalLoginIp;
 		this.journalLogintime = journalLogintime;
 		this.journalQuitime = journalQuitime;
 		this.journalRemark = journalRemark;
-		this.isdeleted = isdeleted;
-		this.journalLoginIp = journalLoginIp;
+		this.userName = userName;
 		this.TJournalActs = TJournalActs;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "journal_id", unique = true, nullable = false, length = 36)
@@ -77,13 +77,22 @@ public class TJournal implements java.io.Serializable {
 		this.TUser = TUser;
 	}
 
-	@Column(name = "user_name", length = 100)
-	public String getUserName() {
-		return this.userName;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "journal_loginIp", length = 50)
+	public String getJournalLoginIp() {
+		return this.journalLoginIp;
+	}
+
+	public void setJournalLoginIp(String journalLoginIp) {
+		this.journalLoginIp = journalLoginIp;
 	}
 
 	@Column(name = "journal_logintime", length = 19)
@@ -113,22 +122,13 @@ public class TJournal implements java.io.Serializable {
 		this.journalRemark = journalRemark;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "user_name", length = 100)
+	public String getUserName() {
+		return this.userName;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
-	}
-
-	@Column(name = "journal_loginIp", length = 50)
-	public String getJournalLoginIp() {
-		return this.journalLoginIp;
-	}
-
-	public void setJournalLoginIp(String journalLoginIp) {
-		this.journalLoginIp = journalLoginIp;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TJournal")

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,23 +16,23 @@ import org.hibernate.annotations.GenericGenerator;
  * TUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_user", catalog = "srtp")
+@Table(name = "t_user", catalog = "srtp2")
 public class TUser implements java.io.Serializable {
 
 	// Fields
 
 	private String userId;
+	private String isdeleted;
+	private String userIntroduction;
 	private String userName;
 	private String userPassword;
 	private String userState;
-	private String userIntroduction;
-	private String isdeleted;
 	private String userType;
-    private String previousType;
-	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
+	private String previousType;
 	private Set<TUserRole> TUserRoles = new HashSet<TUserRole>(0);
-	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
+	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
 	private Set<TAttachment> TAttachments = new HashSet<TAttachment>(0);
+	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
 
 	// Constructors
 
@@ -41,24 +41,26 @@ public class TUser implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TUser(String userName, String userPassword, String userState,
-			String userIntroduction, String isdeleted, String userType,
-			Set<TJournal> TJournals, Set<TUserRole> TUserRoles,
-			Set<TStudent> TStudents, Set<TAttachment> TAttachments) {
+	public TUser(String isdeleted, String userIntroduction, String userName,
+			String userPassword, String userState, String userType,
+			String previousType, Set<TUserRole> TUserRoles,
+			Set<TJournal> TJournals, Set<TAttachment> TAttachments,
+			Set<TStudent> TStudents) {
+		this.isdeleted = isdeleted;
+		this.userIntroduction = userIntroduction;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.userState = userState;
-		this.userIntroduction = userIntroduction;
-		this.isdeleted = isdeleted;
 		this.userType = userType;
-		this.TJournals = TJournals;
+		this.previousType = previousType;
 		this.TUserRoles = TUserRoles;
-		this.TStudents = TStudents;
+		this.TJournals = TJournals;
 		this.TAttachments = TAttachments;
+		this.TStudents = TStudents;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "user_id", unique = true, nullable = false, length = 36)
@@ -68,6 +70,24 @@ public class TUser implements java.io.Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
+
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "user_introduction", length = 200)
+	public String getUserIntroduction() {
+		return this.userIntroduction;
+	}
+
+	public void setUserIntroduction(String userIntroduction) {
+		this.userIntroduction = userIntroduction;
 	}
 
 	@Column(name = "user_name", length = 50)
@@ -97,24 +117,6 @@ public class TUser implements java.io.Serializable {
 		this.userState = userState;
 	}
 
-	@Column(name = "user_introduction", length = 200)
-	public String getUserIntroduction() {
-		return this.userIntroduction;
-	}
-
-	public void setUserIntroduction(String userIntroduction) {
-		this.userIntroduction = userIntroduction;
-	}
-
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
-	}
-
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
-	}
-
 	@Column(name = "user_type", length = 2)
 	public String getUserType() {
 		return this.userType;
@@ -124,22 +126,13 @@ public class TUser implements java.io.Serializable {
 		this.userType = userType;
 	}
 
-    @Column(name = "previous_type", length = 2)
-    public String getPreviousType() {
-        return previousType;
-    }
-
-    public void setPreviousType(String previousType) {
-        this.previousType = previousType;
-    }
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
-	public Set<TJournal> getTJournals() {
-		return this.TJournals;
+	@Column(name = "previous_type", length = 2)
+	public String getPreviousType() {
+		return this.previousType;
 	}
 
-	public void setTJournals(Set<TJournal> TJournals) {
-		this.TJournals = TJournals;
+	public void setPreviousType(String previousType) {
+		this.previousType = previousType;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
@@ -152,12 +145,12 @@ public class TUser implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
-	public Set<TStudent> getTStudents() {
-		return this.TStudents;
+	public Set<TJournal> getTJournals() {
+		return this.TJournals;
 	}
 
-	public void setTStudents(Set<TStudent> TStudents) {
-		this.TStudents = TStudents;
+	public void setTJournals(Set<TJournal> TJournals) {
+		this.TJournals = TJournals;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
@@ -167,6 +160,15 @@ public class TUser implements java.io.Serializable {
 
 	public void setTAttachments(Set<TAttachment> TAttachments) {
 		this.TAttachments = TAttachments;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
+	public Set<TStudent> getTStudents() {
+		return this.TStudents;
+	}
+
+	public void setTStudents(Set<TStudent> TStudents) {
+		this.TStudents = TStudents;
 	}
 
 }

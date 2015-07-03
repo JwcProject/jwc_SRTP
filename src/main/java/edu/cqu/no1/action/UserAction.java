@@ -55,14 +55,9 @@ public class UserAction extends BaseAction {
     private int pageCapacity = 14; // 每页显示条数
 
 
-    /**
-     * 获取教务处最近五条公告
-     *
-     * @return
-     */
-    private List<TAnnouncement> announcements;
-    private List<TAnnouncement> announcementList;
-    private List<TAnnouncement> commonAnnouncement;
+    private List<TAnnouncement> deanAnnounList;
+    private List<TAnnouncement> unitAnnounList;
+    private List<TAnnouncement> commonAnnounList;
     private List<TExpertTeacher> expertTeachers;
     private List<TProject> projects;
 
@@ -77,6 +72,7 @@ public class UserAction extends BaseAction {
     private TTeacher teacher;
     private String newPassword;
     private Boolean statu;
+
 
 
     @Action(value = "changePassword", results = {
@@ -138,7 +134,8 @@ public class UserAction extends BaseAction {
         String md5Pwd = MD5Util.MD5(password);*/
         String md5Pwd = password;
         user = userService.userLogin(userId, md5Pwd);
-        if (user == null) {
+        if (user == null || user.getUserId() == null
+                || user.getUserId().equals("")) {
             request.setAttribute("msg", "用户名或密码错误！");
             return "login";
         }
@@ -150,16 +147,16 @@ public class UserAction extends BaseAction {
         session.put("unit", unit);
 
         if ("06".equals(uType) || "07".equals(uType) || "08".equals(uType)) {
-            announcements = listIndexDeanAnnouncement();
-            announcementList = listIndexUnitAnnouncement(user.getUserId());
-            commonAnnouncement = listCommonAnnouncement();
+            deanAnnounList = listIndexDeanAnnouncement();
+            unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
+            commonAnnounList = listCommonAnnouncement();
             return "student";
         } else if ("02".equals(uType) || "03".equals(uType) || "04".equals(uType) || "05".equals(uType)) {
             expertTeachers = listHistoryExpert(user.getUserId());
             projects = listProjectByTeaCode(user.getUserId());
             return "teacher";
         } else if ("01".equals(uType) || "00".equals(uType)) {
-            announcements = listIndexDeanAnnouncement();
+            deanAnnounList = listIndexDeanAnnouncement();
             return "jiaowuchu";
         } else {
             return ERROR;
@@ -194,25 +191,25 @@ public class UserAction extends BaseAction {
     public String returnIndex() {
         try {
             user = getSessionUser();
-            if (user == null || user.getUserId() == null
-                    || user.getUserId().equals("")) {
+            if (user == null) {
                 toLogin();
             }
             String uType = user.getUserType();
             if ("06".equals(uType) || "07".equals(uType) || "08".equals(uType)) {
-                announcements = listIndexDeanAnnouncement();
-                announcementList = listIndexUnitAnnouncement(user.getUserId());
-                commonAnnouncement = listCommonAnnouncement();
+                deanAnnounList = listIndexDeanAnnouncement();
+                unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
+                commonAnnounList = listCommonAnnouncement();
                 return "student";
             } else if ("02".equals(uType) || "03".equals(uType) || "04".equals(uType) || "05".equals(uType)) {
                 expertTeachers = listHistoryExpert(user.getUserId());
                 projects = listProjectByTeaCode(user.getUserId());
                 return "teacher";
             } else if ("01".equals(uType) || "00".equals(uType)) {
-                announcements = listIndexDeanAnnouncement();
+                deanAnnounList = listIndexDeanAnnouncement();
                 return "jiaowuchu";
-            } else
+            } else {
                 return ERROR;
+            }
 
 
         } catch (Exception e) {
@@ -346,7 +343,7 @@ public class UserAction extends BaseAction {
     public String listDeanRecentAnnouncement() throws Exception {
         try {
             pageBean = new PageBean(1, 5, 5);
-            announcements = this.announcementService.getAnnounByType("教务处公告", pageBean);
+            deanAnnounList = this.announcementService.getAnnounByType("教务处公告", pageBean);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -412,17 +409,25 @@ public class UserAction extends BaseAction {
         }
     }
 
+
     /**
      * **************************************************
      * get & set methods
      * ************************************************
      */
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    @JSON(serialize = false)
     public TUser getUser() {
         return user;
     }
@@ -431,7 +436,6 @@ public class UserAction extends BaseAction {
         this.user = user;
     }
 
-    @JSON(serialize = false)
     public List<TUser> getListUsers() {
         return listUsers;
     }
@@ -440,7 +444,6 @@ public class UserAction extends BaseAction {
         this.listUsers = listUsers;
     }
 
-    @JSON(serialize = false)
     public String getId() {
         return id;
     }
@@ -449,52 +452,7 @@ public class UserAction extends BaseAction {
         this.id = id;
     }
 
-    @JSON(serialize = false)
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    @JSON(serialize = false)
-    public PageBean getPageBean() {
-        return pageBean;
-    }
-
-    public void setPageBean(PageBean pageBean) {
-        this.pageBean = pageBean;
-    }
-
-    @JSON(serialize = false)
-    public int getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(int totalPage) {
-        this.totalPage = totalPage;
-    }
-
-    @JSON(serialize = false)
-    public int getTotalNumber() {
-        return totalNumber;
-    }
-
-    public void setTotalNumber(int totalNumber) {
-        this.totalNumber = totalNumber;
-    }
-
-    @JSON(serialize = false)
-    public int getPageCapacity() {
-        return pageCapacity;
-    }
-
-    public void setPageCapacity(int pageCapacity) {
-        this.pageCapacity = pageCapacity;
-    }
-
-    @JSON(serialize = false)
+    @Override
     public String getUserId() {
         return userId;
     }
@@ -503,7 +461,6 @@ public class UserAction extends BaseAction {
         this.userId = userId;
     }
 
-    @JSON(serialize = false)
     public String getUserName() {
         return userName;
     }
@@ -512,7 +469,6 @@ public class UserAction extends BaseAction {
         this.userName = userName;
     }
 
-    @JSON(serialize = false)
     public String getUserType() {
         return userType;
     }
@@ -521,7 +477,6 @@ public class UserAction extends BaseAction {
         this.userType = userType;
     }
 
-    @JSON(serialize = false)
     public String getUserState() {
         return userState;
     }
@@ -530,12 +485,6 @@ public class UserAction extends BaseAction {
         this.userState = userState;
     }
 
-    @JSON(serialize = false)
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    @JSON(serialize = false)
     public String getValidateCode() {
         return validateCode;
     }
@@ -544,7 +493,6 @@ public class UserAction extends BaseAction {
         this.validateCode = validateCode;
     }
 
-    @JSON(serialize = false)
     public String getPassword() {
         return password;
     }
@@ -553,84 +501,108 @@ public class UserAction extends BaseAction {
         this.password = password;
     }
 
-    public List<TAnnouncement> getAnnouncements() {
-        return announcements;
+    public int getPage() {
+        return page;
     }
 
-    public void setAnnouncements(List<TAnnouncement> announcements) {
-        this.announcements = announcements;
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public PageBean getPageBean() {
+        return pageBean;
+    }
+
+    public void setPageBean(PageBean pageBean) {
+        this.pageBean = pageBean;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public int getTotalNumber() {
+        return totalNumber;
+    }
+
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public int getPageCapacity() {
+        return pageCapacity;
+    }
+
+    public void setPageCapacity(int pageCapacity) {
+        this.pageCapacity = pageCapacity;
+    }
+
+    public List<TAnnouncement> getDeanAnnounList() {
+        return deanAnnounList;
+    }
+
+    public void setDeanAnnounList(List<TAnnouncement> deanAnnounList) {
+        this.deanAnnounList = deanAnnounList;
+    }
+
+    public List<TAnnouncement> getUnitAnnounList() {
+        return unitAnnounList;
+    }
+
+    public void setUnitAnnounList(List<TAnnouncement> unitAnnounList) {
+        this.unitAnnounList = unitAnnounList;
+    }
+
+    public List<TAnnouncement> getCommonAnnounList() {
+        return commonAnnounList;
+    }
+
+    public void setCommonAnnounList(List<TAnnouncement> commonAnnounList) {
+        this.commonAnnounList = commonAnnounList;
+    }
+
+    public List<TExpertTeacher> getExpertTeachers() {
+        return expertTeachers;
+    }
+
+    public void setExpertTeachers(List<TExpertTeacher> expertTeachers) {
+        this.expertTeachers = expertTeachers;
+    }
+
+    public List<TProject> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<TProject> projects) {
+        this.projects = projects;
+    }
+
+    public AnnouncementService getAnnouncementService() {
+        return announcementService;
     }
 
     public void setAnnouncementService(AnnouncementService announcementService) {
         this.announcementService = announcementService;
     }
 
-    public List<TAnnouncement> getAnnouncementList() {
-        return announcementList;
-    }
-
-    public void setAnnouncementList(List<TAnnouncement> announcementList) {
-        this.announcementList = announcementList;
-    }
-
-
-    public List<TAnnouncement> getCommonAnnouncement() {
-        return commonAnnouncement;
-    }
-
-
-    public void setCommonAnnouncement(List<TAnnouncement> commonAnnouncement) {
-        this.commonAnnouncement = commonAnnouncement;
-    }
-
-
     public ExpertTeacherService getExpertTeacherService() {
         return expertTeacherService;
     }
-
 
     public void setExpertTeacherService(ExpertTeacherService expertTeacherService) {
         this.expertTeacherService = expertTeacherService;
     }
 
-
-    public UserService getUserService() {
-        return userService;
-    }
-
-
-    public AnnouncementService getAnnouncementService() {
-        return announcementService;
-    }
-
-
-    public List<TExpertTeacher> getExpertTeachers() {
-        return expertTeachers;
-    }
-
-
-    public void setExpertTeachers(List<TExpertTeacher> expertTeachers) {
-        this.expertTeachers = expertTeachers;
-    }
-
-
     public ProjectService getProjectService() {
         return projectService;
     }
 
-
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
-    }
-
-
-    public List<TProject> getProjects() {
-        return projects;
-    }
-
-
-    public void setProjects(List<TProject> projects) {
-        this.projects = projects;
     }
 
     public TStudent getStudent() {
@@ -664,5 +636,6 @@ public class UserAction extends BaseAction {
     public void setStatu(Boolean statu) {
         this.statu = statu;
     }
+
 
 }

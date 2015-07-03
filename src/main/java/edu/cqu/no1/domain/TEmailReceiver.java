@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,18 +14,18 @@ import org.hibernate.annotations.GenericGenerator;
  * TEmailReceiver entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_email_receiver", catalog = "srtp")
+@Table(name = "t_email_receiver", catalog = "srtp2")
 public class TEmailReceiver implements java.io.Serializable {
 
 	// Fields
 
 	private String receiverId;
 	private TEmail TEmail;
-	private String receiverCode;
-	private String receiverRole;
 	private String emailAddress;
 	private String isReceived;
 	private String isdeleted;
+	private String receiverCode;
+	private String receiverRole;
 
 	// Constructors
 
@@ -34,19 +34,19 @@ public class TEmailReceiver implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TEmailReceiver(TEmail TEmail, String receiverCode,
-			String receiverRole, String emailAddress, String isReceived,
-			String isdeleted) {
+	public TEmailReceiver(TEmail TEmail, String emailAddress,
+			String isReceived, String isdeleted, String receiverCode,
+			String receiverRole) {
 		this.TEmail = TEmail;
-		this.receiverCode = receiverCode;
-		this.receiverRole = receiverRole;
 		this.emailAddress = emailAddress;
 		this.isReceived = isReceived;
 		this.isdeleted = isdeleted;
+		this.receiverCode = receiverCode;
+		this.receiverRole = receiverRole;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "receiver_id", unique = true, nullable = false, length = 36)
@@ -66,24 +66,6 @@ public class TEmailReceiver implements java.io.Serializable {
 
 	public void setTEmail(TEmail TEmail) {
 		this.TEmail = TEmail;
-	}
-
-	@Column(name = "receiver_code", length = 32)
-	public String getReceiverCode() {
-		return this.receiverCode;
-	}
-
-	public void setReceiverCode(String receiverCode) {
-		this.receiverCode = receiverCode;
-	}
-
-	@Column(name = "receiver_role", length = 20)
-	public String getReceiverRole() {
-		return this.receiverRole;
-	}
-
-	public void setReceiverRole(String receiverRole) {
-		this.receiverRole = receiverRole;
 	}
 
 	@Column(name = "email_address", length = 100)
@@ -111,6 +93,24 @@ public class TEmailReceiver implements java.io.Serializable {
 
 	public void setIsdeleted(String isdeleted) {
 		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "receiver_code", length = 32)
+	public String getReceiverCode() {
+		return this.receiverCode;
+	}
+
+	public void setReceiverCode(String receiverCode) {
+		this.receiverCode = receiverCode;
+	}
+
+	@Column(name = "receiver_role", length = 20)
+	public String getReceiverRole() {
+		return this.receiverRole;
+	}
+
+	public void setReceiverRole(String receiverRole) {
+		this.receiverRole = receiverRole;
 	}
 
 }

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,23 +16,23 @@ import org.hibernate.annotations.GenericGenerator;
  * TUnit entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_unit", catalog = "srtp")
+@Table(name = "t_unit", catalog = "srtp2")
 public class TUnit implements java.io.Serializable {
 
 	// Fields
 
 	private String unitId;
-	private String unitName;
-	private String unitType;
-	private String unitFatherid;
-	private String unitCode;
-	private String unitRemark;
 	private String isdeleted;
-	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
+	private String unitCode;
+	private String unitFatherid;
+	private String unitName;
+	private String unitRemark;
+	private String unitType;
 	private Set<TEndProject> TEndProjects = new HashSet<TEndProject>(0);
-	private Set<TProject> TProjects = new HashSet<TProject>(0);
 	private Set<TProfession> TProfessions = new HashSet<TProfession>(0);
 	private Set<TDeclaration> TDeclarations = new HashSet<TDeclaration>(0);
+	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
+	private Set<TProject> TProjects = new HashSet<TProject>(0);
 	private Set<TTeacher> TTeachers = new HashSet<TTeacher>(0);
 	private Set<TExpertLib> TExpertLibs = new HashSet<TExpertLib>(0);
 
@@ -43,29 +43,29 @@ public class TUnit implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TUnit(String unitName, String unitType, String unitFatherid,
-			String unitCode, String unitRemark, String isdeleted,
-			Set<TStudent> TStudents, Set<TEndProject> TEndProjects,
-			Set<TProject> TProjects, Set<TProfession> TProfessions,
-			Set<TDeclaration> TDeclarations, Set<TTeacher> TTeachers,
+	public TUnit(String isdeleted, String unitCode, String unitFatherid,
+			String unitName, String unitRemark, String unitType,
+			Set<TEndProject> TEndProjects, Set<TProfession> TProfessions,
+			Set<TDeclaration> TDeclarations, Set<TStudent> TStudents,
+			Set<TProject> TProjects, Set<TTeacher> TTeachers,
 			Set<TExpertLib> TExpertLibs) {
-		this.unitName = unitName;
-		this.unitType = unitType;
-		this.unitFatherid = unitFatherid;
-		this.unitCode = unitCode;
-		this.unitRemark = unitRemark;
 		this.isdeleted = isdeleted;
-		this.TStudents = TStudents;
+		this.unitCode = unitCode;
+		this.unitFatherid = unitFatherid;
+		this.unitName = unitName;
+		this.unitRemark = unitRemark;
+		this.unitType = unitType;
 		this.TEndProjects = TEndProjects;
-		this.TProjects = TProjects;
 		this.TProfessions = TProfessions;
 		this.TDeclarations = TDeclarations;
+		this.TStudents = TStudents;
+		this.TProjects = TProjects;
 		this.TTeachers = TTeachers;
 		this.TExpertLibs = TExpertLibs;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "unit_id", unique = true, nullable = false, length = 36)
@@ -77,31 +77,13 @@ public class TUnit implements java.io.Serializable {
 		this.unitId = unitId;
 	}
 
-	@Column(name = "unit_name", length = 100)
-	public String getUnitName() {
-		return this.unitName;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setUnitName(String unitName) {
-		this.unitName = unitName;
-	}
-
-	@Column(name = "unit_type", length = 2)
-	public String getUnitType() {
-		return this.unitType;
-	}
-
-	public void setUnitType(String unitType) {
-		this.unitType = unitType;
-	}
-
-	@Column(name = "unit_fatherid", length = 32)
-	public String getUnitFatherid() {
-		return this.unitFatherid;
-	}
-
-	public void setUnitFatherid(String unitFatherid) {
-		this.unitFatherid = unitFatherid;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
 	@Column(name = "unit_code", length = 100)
@@ -113,6 +95,24 @@ public class TUnit implements java.io.Serializable {
 		this.unitCode = unitCode;
 	}
 
+	@Column(name = "unit_fatherid", length = 32)
+	public String getUnitFatherid() {
+		return this.unitFatherid;
+	}
+
+	public void setUnitFatherid(String unitFatherid) {
+		this.unitFatherid = unitFatherid;
+	}
+
+	@Column(name = "unit_name", length = 100)
+	public String getUnitName() {
+		return this.unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+
 	@Column(name = "unit_remark", length = 200)
 	public String getUnitRemark() {
 		return this.unitRemark;
@@ -122,22 +122,13 @@ public class TUnit implements java.io.Serializable {
 		this.unitRemark = unitRemark;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "unit_type", length = 2)
+	public String getUnitType() {
+		return this.unitType;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
-	public Set<TStudent> getTStudents() {
-		return this.TStudents;
-	}
-
-	public void setTStudents(Set<TStudent> TStudents) {
-		this.TStudents = TStudents;
+	public void setUnitType(String unitType) {
+		this.unitType = unitType;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
@@ -147,15 +138,6 @@ public class TUnit implements java.io.Serializable {
 
 	public void setTEndProjects(Set<TEndProject> TEndProjects) {
 		this.TEndProjects = TEndProjects;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
-	public Set<TProject> getTProjects() {
-		return this.TProjects;
-	}
-
-	public void setTProjects(Set<TProject> TProjects) {
-		this.TProjects = TProjects;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
@@ -174,6 +156,24 @@ public class TUnit implements java.io.Serializable {
 
 	public void setTDeclarations(Set<TDeclaration> TDeclarations) {
 		this.TDeclarations = TDeclarations;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TStudent> getTStudents() {
+		return this.TStudents;
+	}
+
+	public void setTStudents(Set<TStudent> TStudents) {
+		this.TStudents = TStudents;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")
+	public Set<TProject> getTProjects() {
+		return this.TProjects;
+	}
+
+	public void setTProjects(Set<TProject> TProjects) {
+		this.TProjects = TProjects;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUnit")

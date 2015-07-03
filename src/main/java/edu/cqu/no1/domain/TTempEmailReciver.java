@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,18 +11,18 @@ import org.hibernate.annotations.GenericGenerator;
  * TTempEmailReciver entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_temp_email_reciver", catalog = "srtp")
+@Table(name = "t_temp_email_reciver", catalog = "srtp2")
 public class TTempEmailReciver implements java.io.Serializable {
 
 	// Fields
 
 	private String id;
-	private String departId;
-	private String jqId;
 	private String code;
-	private String name;
+	private String departId;
 	private String email;
 	private String isdeleted;
+	private String jqId;
+	private String name;
 	private String type;
 
 	// Constructors
@@ -32,19 +32,19 @@ public class TTempEmailReciver implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TTempEmailReciver(String departId, String jqId, String code,
-			String name, String email, String isdeleted, String type) {
-		this.departId = departId;
-		this.jqId = jqId;
+	public TTempEmailReciver(String code, String departId, String email,
+			String isdeleted, String jqId, String name, String type) {
 		this.code = code;
-		this.name = name;
+		this.departId = departId;
 		this.email = email;
 		this.isdeleted = isdeleted;
+		this.jqId = jqId;
+		this.name = name;
 		this.type = type;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "id", unique = true, nullable = false, length = 36)
@@ -56,24 +56,6 @@ public class TTempEmailReciver implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "depart_id", length = 32)
-	public String getDepartId() {
-		return this.departId;
-	}
-
-	public void setDepartId(String departId) {
-		this.departId = departId;
-	}
-
-	@Column(name = "jq_id", length = 32)
-	public String getJqId() {
-		return this.jqId;
-	}
-
-	public void setJqId(String jqId) {
-		this.jqId = jqId;
-	}
-
 	@Column(name = "code", length = 32)
 	public String getCode() {
 		return this.code;
@@ -83,13 +65,13 @@ public class TTempEmailReciver implements java.io.Serializable {
 		this.code = code;
 	}
 
-	@Column(name = "name", length = 50)
-	public String getName() {
-		return this.name;
+	@Column(name = "depart_id", length = 32)
+	public String getDepartId() {
+		return this.departId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDepartId(String departId) {
+		this.departId = departId;
 	}
 
 	@Column(name = "email", length = 100)
@@ -108,6 +90,24 @@ public class TTempEmailReciver implements java.io.Serializable {
 
 	public void setIsdeleted(String isdeleted) {
 		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "jq_id", length = 32)
+	public String getJqId() {
+		return this.jqId;
+	}
+
+	public void setJqId(String jqId) {
+		this.jqId = jqId;
+	}
+
+	@Column(name = "name", length = 50)
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Column(name = "type", length = 2)

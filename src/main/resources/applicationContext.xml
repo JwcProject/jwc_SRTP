@@ -72,6 +72,10 @@
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TUserRole</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
+                <value>edu.cqu.no1.domain.Resultdistribut</value>
+                <value>edu.cqu.no1.domain.TEndprojectJob</value>
+                <value>edu.cqu.no1.domain.Tannouncementmodel</value>
+                <value>edu.cqu.no1.domain.Texpertteachermodel</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -80,6 +84,8 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/srtp</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
     </bean>

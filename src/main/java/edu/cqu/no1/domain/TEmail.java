@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TEmail entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_email", catalog = "srtp")
+@Table(name = "t_email", catalog = "srtp2")
 public class TEmail implements java.io.Serializable {
 
 	// Fields
@@ -27,14 +27,14 @@ public class TEmail implements java.io.Serializable {
 	private String emailId;
 	private TJieqi TJieqi;
 	private TTeacher TTeacher;
-	private String emailTitle;
-	private String emailContent;
-	private String sender;
-	private String emailSecret;
 	private Timestamp creatOn;
-	private String sendState;
-	private Timestamp sendOn;
+	private String emailContent;
+	private String emailSecret;
+	private String emailTitle;
 	private String isdeleted;
+	private Timestamp sendOn;
+	private String sendState;
+	private String sender;
 	private Set<TEmailReceiver> TEmailReceivers = new HashSet<TEmailReceiver>(0);
 
 	// Constructors
@@ -44,25 +44,25 @@ public class TEmail implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TEmail(TJieqi TJieqi, TTeacher TTeacher, String emailTitle,
-			String emailContent, String sender, String emailSecret,
-			Timestamp creatOn, String sendState, Timestamp sendOn,
-			String isdeleted, Set<TEmailReceiver> TEmailReceivers) {
+	public TEmail(TJieqi TJieqi, TTeacher TTeacher, Timestamp creatOn,
+			String emailContent, String emailSecret, String emailTitle,
+			String isdeleted, Timestamp sendOn, String sendState,
+			String sender, Set<TEmailReceiver> TEmailReceivers) {
 		this.TJieqi = TJieqi;
 		this.TTeacher = TTeacher;
-		this.emailTitle = emailTitle;
-		this.emailContent = emailContent;
-		this.sender = sender;
-		this.emailSecret = emailSecret;
 		this.creatOn = creatOn;
-		this.sendState = sendState;
-		this.sendOn = sendOn;
+		this.emailContent = emailContent;
+		this.emailSecret = emailSecret;
+		this.emailTitle = emailTitle;
 		this.isdeleted = isdeleted;
+		this.sendOn = sendOn;
+		this.sendState = sendState;
+		this.sender = sender;
 		this.TEmailReceivers = TEmailReceivers;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "email_id", unique = true, nullable = false, length = 36)
@@ -94,13 +94,13 @@ public class TEmail implements java.io.Serializable {
 		this.TTeacher = TTeacher;
 	}
 
-	@Column(name = "email_title", length = 200)
-	public String getEmailTitle() {
-		return this.emailTitle;
+	@Column(name = "creat_on", length = 19)
+	public Timestamp getCreatOn() {
+		return this.creatOn;
 	}
 
-	public void setEmailTitle(String emailTitle) {
-		this.emailTitle = emailTitle;
+	public void setCreatOn(Timestamp creatOn) {
+		this.creatOn = creatOn;
 	}
 
 	@Column(name = "email_content", length = 1000)
@@ -112,15 +112,6 @@ public class TEmail implements java.io.Serializable {
 		this.emailContent = emailContent;
 	}
 
-	@Column(name = "sender", length = 100)
-	public String getSender() {
-		return this.sender;
-	}
-
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-
 	@Column(name = "email_secret", length = 20)
 	public String getEmailSecret() {
 		return this.emailSecret;
@@ -130,22 +121,22 @@ public class TEmail implements java.io.Serializable {
 		this.emailSecret = emailSecret;
 	}
 
-	@Column(name = "creat_on", length = 19)
-	public Timestamp getCreatOn() {
-		return this.creatOn;
+	@Column(name = "email_title", length = 200)
+	public String getEmailTitle() {
+		return this.emailTitle;
 	}
 
-	public void setCreatOn(Timestamp creatOn) {
-		this.creatOn = creatOn;
+	public void setEmailTitle(String emailTitle) {
+		this.emailTitle = emailTitle;
 	}
 
-	@Column(name = "send_state", length = 4)
-	public String getSendState() {
-		return this.sendState;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setSendState(String sendState) {
-		this.sendState = sendState;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
 	@Column(name = "send_on", length = 19)
@@ -157,13 +148,22 @@ public class TEmail implements java.io.Serializable {
 		this.sendOn = sendOn;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "send_state", length = 4)
+	public String getSendState() {
+		return this.sendState;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setSendState(String sendState) {
+		this.sendState = sendState;
+	}
+
+	@Column(name = "sender", length = 100)
+	public String getSender() {
+		return this.sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TEmail")

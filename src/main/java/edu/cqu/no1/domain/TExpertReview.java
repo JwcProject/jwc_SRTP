@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,14 +18,13 @@ import org.hibernate.annotations.GenericGenerator;
  * TExpertReview entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_expert_review", catalog = "srtp")
+@Table(name = "t_expert_review", catalog = "srtp2")
 public class TExpertReview implements java.io.Serializable {
 
 	// Fields
 
 	private String exReviewId;
 	private TDeclaration TDeclaration;
-	private TExpertTeacherModel TExpertTeacherModel;
 	private TExpertTeacher TExpertTeacher;
 	private String isdeleted;
 	private Set<TDeclComment> TDeclComments = new HashSet<TDeclComment>(0);
@@ -38,18 +37,16 @@ public class TExpertReview implements java.io.Serializable {
 
 	/** full constructor */
 	public TExpertReview(TDeclaration TDeclaration,
-			TExpertTeacherModel TExpertTeacherModel,
 			TExpertTeacher TExpertTeacher, String isdeleted,
 			Set<TDeclComment> TDeclComments) {
 		this.TDeclaration = TDeclaration;
-		this.TExpertTeacherModel = TExpertTeacherModel;
 		this.TExpertTeacher = TExpertTeacher;
 		this.isdeleted = isdeleted;
 		this.TDeclComments = TDeclComments;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ex_review_id", unique = true, nullable = false, length = 36)
@@ -73,16 +70,6 @@ public class TExpertReview implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ex_tea_id")
-	public TExpertTeacherModel getTExpertTeacherModel() {
-		return this.TExpertTeacherModel;
-	}
-
-	public void setTExpertTeacherModel(TExpertTeacherModel TExpertTeacherModel) {
-		this.TExpertTeacherModel = TExpertTeacherModel;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ex_tea_id", insertable = false, updatable = false)
 	public TExpertTeacher getTExpertTeacher() {
 		return this.TExpertTeacher;
 	}

@@ -106,7 +106,7 @@
                         <td bgcolor="#FFFFFF" width="25%"> |操作 </td>
                                                                              
                       </tr>
-                      <s:iterator value="listAnnouncementModels" id="listAnnouncementModels" status="stuts">
+                      <s:iterator value="listAnnouncement" id="listAnnouncementModels" status="stuts">
                       <s:if test="#stuts.odd == true">
 					  	<tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#eef7ff">
     				  </s:if>
@@ -131,9 +131,9 @@
 						    
 						</s:if>
 						<s:else>
-						    <s:text name="global.format.date">
-							<s:param value="#listAnnouncementModels.publishTime"/>
-							</s:text>
+						    <%--<s:text name="global.format.date">--%>
+							<s:property value="#listAnnouncementModels.publishTime"/>
+							<%--</s:text>--%>
 						</s:else>
                          </td>
                         <td >

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TStudent entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_student", catalog = "srtp")
+@Table(name = "t_student", catalog = "srtp2")
 public class TStudent implements java.io.Serializable {
 
 	// Fields
@@ -29,27 +29,27 @@ public class TStudent implements java.io.Serializable {
 	private TProfession TProfessionByProProfessionId;
 	private TProfession TProfessionByProfessionId;
 	private TUnit TUnit;
-	private String studentNumber;
-	private Timestamp studentBirthday;
-	private String studentSex;
-	private String studentName;
-	private String studentAge;
-	private String studentEmail;
-	private String studentTelphone;
-	private String studentDegree;
-	private String studentRemark;
 	private String isdeleted;
-	private Set<TDeclaration> TDeclarationsForMember1Code = new HashSet<TDeclaration>(
-			0);
-	private Set<TDeclJob> TDeclJobs = new HashSet<TDeclJob>(0);
+	private String studentAge;
+	private Timestamp studentBirthday;
+	private String studentDegree;
+	private String studentEmail;
+	private String studentName;
+	private String studentNumber;
+	private String studentRemark;
+	private String studentSex;
+	private String studentTelphone;
 	private Set<TDeclaration> TDeclarationsForLeaderCode = new HashSet<TDeclaration>(
 			0);
-	private Set<TProject> TProjectsForProjectLeader = new HashSet<TProject>(0);
-	private Set<TEndProjectJob> TEndProjectJobs = new HashSet<TEndProjectJob>(0);
+	private Set<TDeclaration> TDeclarationsForMember1Code = new HashSet<TDeclaration>(
+			0);
+	private Set<TProject> TProjectsForProjectUser1 = new HashSet<TProject>(0);
 	private Set<TDeclaration> TDeclarationsForMember2Code = new HashSet<TDeclaration>(
 			0);
+	private Set<TDeclJob> TDeclJobs = new HashSet<TDeclJob>(0);
 	private Set<TProject> TProjectsForProjectUser2 = new HashSet<TProject>(0);
-	private Set<TProject> TProjectsForProjectUser1 = new HashSet<TProject>(0);
+	private Set<TProject> TProjectsForProjectLeader = new HashSet<TProject>(0);
+	private Set<TEndProjectJob> TEndProjectJobs = new HashSet<TEndProjectJob>(0);
 
 	// Constructors
 
@@ -60,43 +60,43 @@ public class TStudent implements java.io.Serializable {
 	/** full constructor */
 	public TStudent(TUser TUser, TProfession TProfessionByProProfessionId,
 			TProfession TProfessionByProfessionId, TUnit TUnit,
-			String studentNumber, Timestamp studentBirthday, String studentSex,
-			String studentName, String studentAge, String studentEmail,
-			String studentTelphone, String studentDegree, String studentRemark,
-			String isdeleted, Set<TDeclaration> TDeclarationsForMember1Code,
-			Set<TDeclJob> TDeclJobs,
+			String isdeleted, String studentAge, Timestamp studentBirthday,
+			String studentDegree, String studentEmail, String studentName,
+			String studentNumber, String studentRemark, String studentSex,
+			String studentTelphone,
 			Set<TDeclaration> TDeclarationsForLeaderCode,
-			Set<TProject> TProjectsForProjectLeader,
-			Set<TEndProjectJob> TEndProjectJobs,
+			Set<TDeclaration> TDeclarationsForMember1Code,
+			Set<TProject> TProjectsForProjectUser1,
 			Set<TDeclaration> TDeclarationsForMember2Code,
-			Set<TProject> TProjectsForProjectUser2,
-			Set<TProject> TProjectsForProjectUser1) {
+			Set<TDeclJob> TDeclJobs, Set<TProject> TProjectsForProjectUser2,
+			Set<TProject> TProjectsForProjectLeader,
+			Set<TEndProjectJob> TEndProjectJobs) {
 		this.TUser = TUser;
 		this.TProfessionByProProfessionId = TProfessionByProProfessionId;
 		this.TProfessionByProfessionId = TProfessionByProfessionId;
 		this.TUnit = TUnit;
-		this.studentNumber = studentNumber;
-		this.studentBirthday = studentBirthday;
-		this.studentSex = studentSex;
-		this.studentName = studentName;
-		this.studentAge = studentAge;
-		this.studentEmail = studentEmail;
-		this.studentTelphone = studentTelphone;
-		this.studentDegree = studentDegree;
-		this.studentRemark = studentRemark;
 		this.isdeleted = isdeleted;
-		this.TDeclarationsForMember1Code = TDeclarationsForMember1Code;
-		this.TDeclJobs = TDeclJobs;
+		this.studentAge = studentAge;
+		this.studentBirthday = studentBirthday;
+		this.studentDegree = studentDegree;
+		this.studentEmail = studentEmail;
+		this.studentName = studentName;
+		this.studentNumber = studentNumber;
+		this.studentRemark = studentRemark;
+		this.studentSex = studentSex;
+		this.studentTelphone = studentTelphone;
 		this.TDeclarationsForLeaderCode = TDeclarationsForLeaderCode;
+		this.TDeclarationsForMember1Code = TDeclarationsForMember1Code;
+		this.TProjectsForProjectUser1 = TProjectsForProjectUser1;
+		this.TDeclarationsForMember2Code = TDeclarationsForMember2Code;
+		this.TDeclJobs = TDeclJobs;
+		this.TProjectsForProjectUser2 = TProjectsForProjectUser2;
 		this.TProjectsForProjectLeader = TProjectsForProjectLeader;
 		this.TEndProjectJobs = TEndProjectJobs;
-		this.TDeclarationsForMember2Code = TDeclarationsForMember2Code;
-		this.TProjectsForProjectUser2 = TProjectsForProjectUser2;
-		this.TProjectsForProjectUser1 = TProjectsForProjectUser1;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "student_id", unique = true, nullable = false, length = 36)
@@ -150,40 +150,13 @@ public class TStudent implements java.io.Serializable {
 		this.TUnit = TUnit;
 	}
 
-	@Column(name = "student_number", length = 20)
-	public String getStudentNumber() {
-		return this.studentNumber;
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
 	}
 
-	public void setStudentNumber(String studentNumber) {
-		this.studentNumber = studentNumber;
-	}
-
-	@Column(name = "student_birthday", length = 19)
-	public Timestamp getStudentBirthday() {
-		return this.studentBirthday;
-	}
-
-	public void setStudentBirthday(Timestamp studentBirthday) {
-		this.studentBirthday = studentBirthday;
-	}
-
-	@Column(name = "student_sex", length = 2)
-	public String getStudentSex() {
-		return this.studentSex;
-	}
-
-	public void setStudentSex(String studentSex) {
-		this.studentSex = studentSex;
-	}
-
-	@Column(name = "student_name", length = 50)
-	public String getStudentName() {
-		return this.studentName;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
 	}
 
 	@Column(name = "student_age", length = 2)
@@ -195,22 +168,13 @@ public class TStudent implements java.io.Serializable {
 		this.studentAge = studentAge;
 	}
 
-	@Column(name = "student_email", length = 100)
-	public String getStudentEmail() {
-		return this.studentEmail;
+	@Column(name = "student_birthday", length = 19)
+	public Timestamp getStudentBirthday() {
+		return this.studentBirthday;
 	}
 
-	public void setStudentEmail(String studentEmail) {
-		this.studentEmail = studentEmail;
-	}
-
-	@Column(name = "student_telphone", length = 15)
-	public String getStudentTelphone() {
-		return this.studentTelphone;
-	}
-
-	public void setStudentTelphone(String studentTelphone) {
-		this.studentTelphone = studentTelphone;
+	public void setStudentBirthday(Timestamp studentBirthday) {
+		this.studentBirthday = studentBirthday;
 	}
 
 	@Column(name = "student_degree", length = 5)
@@ -222,6 +186,33 @@ public class TStudent implements java.io.Serializable {
 		this.studentDegree = studentDegree;
 	}
 
+	@Column(name = "student_email", length = 100)
+	public String getStudentEmail() {
+		return this.studentEmail;
+	}
+
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
+	}
+
+	@Column(name = "student_name", length = 50)
+	public String getStudentName() {
+		return this.studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	@Column(name = "student_number", length = 20)
+	public String getStudentNumber() {
+		return this.studentNumber;
+	}
+
+	public void setStudentNumber(String studentNumber) {
+		this.studentNumber = studentNumber;
+	}
+
 	@Column(name = "student_remark", length = 200)
 	public String getStudentRemark() {
 		return this.studentRemark;
@@ -231,13 +222,32 @@ public class TStudent implements java.io.Serializable {
 		this.studentRemark = studentRemark;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "student_sex", length = 2)
+	public String getStudentSex() {
+		return this.studentSex;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setStudentSex(String studentSex) {
+		this.studentSex = studentSex;
+	}
+
+	@Column(name = "student_telphone", length = 15)
+	public String getStudentTelphone() {
+		return this.studentTelphone;
+	}
+
+	public void setStudentTelphone(String studentTelphone) {
+		this.studentTelphone = studentTelphone;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByLeaderCode")
+	public Set<TDeclaration> getTDeclarationsForLeaderCode() {
+		return this.TDeclarationsForLeaderCode;
+	}
+
+	public void setTDeclarationsForLeaderCode(
+			Set<TDeclaration> TDeclarationsForLeaderCode) {
+		this.TDeclarationsForLeaderCode = TDeclarationsForLeaderCode;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByMember1Code")
@@ -250,6 +260,26 @@ public class TStudent implements java.io.Serializable {
 		this.TDeclarationsForMember1Code = TDeclarationsForMember1Code;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectUser1")
+	public Set<TProject> getTProjectsForProjectUser1() {
+		return this.TProjectsForProjectUser1;
+	}
+
+	public void setTProjectsForProjectUser1(
+			Set<TProject> TProjectsForProjectUser1) {
+		this.TProjectsForProjectUser1 = TProjectsForProjectUser1;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByMember2Code")
+	public Set<TDeclaration> getTDeclarationsForMember2Code() {
+		return this.TDeclarationsForMember2Code;
+	}
+
+	public void setTDeclarationsForMember2Code(
+			Set<TDeclaration> TDeclarationsForMember2Code) {
+		this.TDeclarationsForMember2Code = TDeclarationsForMember2Code;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudent")
 	public Set<TDeclJob> getTDeclJobs() {
 		return this.TDeclJobs;
@@ -259,14 +289,14 @@ public class TStudent implements java.io.Serializable {
 		this.TDeclJobs = TDeclJobs;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByLeaderCode")
-	public Set<TDeclaration> getTDeclarationsForLeaderCode() {
-		return this.TDeclarationsForLeaderCode;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectUser2")
+	public Set<TProject> getTProjectsForProjectUser2() {
+		return this.TProjectsForProjectUser2;
 	}
 
-	public void setTDeclarationsForLeaderCode(
-			Set<TDeclaration> TDeclarationsForLeaderCode) {
-		this.TDeclarationsForLeaderCode = TDeclarationsForLeaderCode;
+	public void setTProjectsForProjectUser2(
+			Set<TProject> TProjectsForProjectUser2) {
+		this.TProjectsForProjectUser2 = TProjectsForProjectUser2;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectLeader")
@@ -286,36 +316,6 @@ public class TStudent implements java.io.Serializable {
 
 	public void setTEndProjectJobs(Set<TEndProjectJob> TEndProjectJobs) {
 		this.TEndProjectJobs = TEndProjectJobs;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByMember2Code")
-	public Set<TDeclaration> getTDeclarationsForMember2Code() {
-		return this.TDeclarationsForMember2Code;
-	}
-
-	public void setTDeclarationsForMember2Code(
-			Set<TDeclaration> TDeclarationsForMember2Code) {
-		this.TDeclarationsForMember2Code = TDeclarationsForMember2Code;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectUser2")
-	public Set<TProject> getTProjectsForProjectUser2() {
-		return this.TProjectsForProjectUser2;
-	}
-
-	public void setTProjectsForProjectUser2(
-			Set<TProject> TProjectsForProjectUser2) {
-		this.TProjectsForProjectUser2 = TProjectsForProjectUser2;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TStudentByProjectUser1")
-	public Set<TProject> getTProjectsForProjectUser1() {
-		return this.TProjectsForProjectUser1;
-	}
-
-	public void setTProjectsForProjectUser1(
-			Set<TProject> TProjectsForProjectUser1) {
-		this.TProjectsForProjectUser1 = TProjectsForProjectUser1;
 	}
 
 }

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TDeclJob entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_job", catalog = "srtp")
+@Table(name = "t_decl_job", catalog = "srtp2")
 public class TDeclJob implements java.io.Serializable {
 
 	// Fields
@@ -22,8 +22,8 @@ public class TDeclJob implements java.io.Serializable {
 	private String jobId;
 	private TStudent TStudent;
 	private TDeclaration TDeclaration;
-	private String jobContent;
 	private String isdeleted;
+	private String jobContent;
 
 	// Constructors
 
@@ -33,15 +33,15 @@ public class TDeclJob implements java.io.Serializable {
 
 	/** full constructor */
 	public TDeclJob(TStudent TStudent, TDeclaration TDeclaration,
-			String jobContent, String isdeleted) {
+			String isdeleted, String jobContent) {
 		this.TStudent = TStudent;
 		this.TDeclaration = TDeclaration;
-		this.jobContent = jobContent;
 		this.isdeleted = isdeleted;
+		this.jobContent = jobContent;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "job_id", unique = true, nullable = false, length = 36)
@@ -73,15 +73,6 @@ public class TDeclJob implements java.io.Serializable {
 		this.TDeclaration = TDeclaration;
 	}
 
-	@Column(name = "job_content", length = 500)
-	public String getJobContent() {
-		return this.jobContent;
-	}
-
-	public void setJobContent(String jobContent) {
-		this.jobContent = jobContent;
-	}
-
 	@Column(name = "isdeleted", length = 1)
 	public String getIsdeleted() {
 		return this.isdeleted;
@@ -89,6 +80,15 @@ public class TDeclJob implements java.io.Serializable {
 
 	public void setIsdeleted(String isdeleted) {
 		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "job_content", length = 500)
+	public String getJobContent() {
+		return this.jobContent;
+	}
+
+	public void setJobContent(String jobContent) {
+		this.jobContent = jobContent;
 	}
 
 }

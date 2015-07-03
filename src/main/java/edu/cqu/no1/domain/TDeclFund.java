@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,17 +14,17 @@ import org.hibernate.annotations.GenericGenerator;
  * TDeclFund entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_fund", catalog = "srtp")
+@Table(name = "t_decl_fund", catalog = "srtp2")
 public class TDeclFund implements java.io.Serializable {
 
 	// Fields
 
 	private String declFundId;
 	private TDeclaration TDeclaration;
-	private String serialNum;
-	private String fundContent;
 	private Float amount;
+	private String fundContent;
 	private String isdeleted;
+	private String serialNum;
 
 	// Constructors
 
@@ -33,17 +33,17 @@ public class TDeclFund implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TDeclFund(TDeclaration TDeclaration, String serialNum,
-			String fundContent, Float amount, String isdeleted) {
+	public TDeclFund(TDeclaration TDeclaration, Float amount,
+			String fundContent, String isdeleted, String serialNum) {
 		this.TDeclaration = TDeclaration;
-		this.serialNum = serialNum;
-		this.fundContent = fundContent;
 		this.amount = amount;
+		this.fundContent = fundContent;
 		this.isdeleted = isdeleted;
+		this.serialNum = serialNum;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "decl_fund_id", unique = true, nullable = false, length = 36)
@@ -65,13 +65,13 @@ public class TDeclFund implements java.io.Serializable {
 		this.TDeclaration = TDeclaration;
 	}
 
-	@Column(name = "serial_num", length = 2)
-	public String getSerialNum() {
-		return this.serialNum;
+	@Column(name = "amount", precision = 12, scale = 0)
+	public Float getAmount() {
+		return this.amount;
 	}
 
-	public void setSerialNum(String serialNum) {
-		this.serialNum = serialNum;
+	public void setAmount(Float amount) {
+		this.amount = amount;
 	}
 
 	@Column(name = "fund_content", length = 200)
@@ -83,15 +83,6 @@ public class TDeclFund implements java.io.Serializable {
 		this.fundContent = fundContent;
 	}
 
-	@Column(name = "amount", precision = 12, scale = 0)
-	public Float getAmount() {
-		return this.amount;
-	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
-	}
-
 	@Column(name = "isdeleted", length = 1)
 	public String getIsdeleted() {
 		return this.isdeleted;
@@ -99,6 +90,15 @@ public class TDeclFund implements java.io.Serializable {
 
 	public void setIsdeleted(String isdeleted) {
 		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "serial_num", length = 2)
+	public String getSerialNum() {
+		return this.serialNum;
+	}
+
+	public void setSerialNum(String serialNum) {
+		this.serialNum = serialNum;
 	}
 
 }

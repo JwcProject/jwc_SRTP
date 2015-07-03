@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,13 +18,12 @@ import org.hibernate.annotations.GenericGenerator;
  * TEndProjectExport entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_end_project_export", catalog = "srtp")
+@Table(name = "t_end_project_export", catalog = "srtp2")
 public class TEndProjectExport implements java.io.Serializable {
 
 	// Fields
 
 	private String id;
-	private TExpertTeacherModel TExpertTeacherModel;
 	private TExpertTeacher TExpertTeacher;
 	private TEndProject TEndProject;
 	private String isdeleted;
@@ -38,10 +37,9 @@ public class TEndProjectExport implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TEndProjectExport(TExpertTeacherModel TExpertTeacherModel,
-			TExpertTeacher TExpertTeacher, TEndProject TEndProject,
-			String isdeleted, Set<TEndProjectComment> TEndProjectComments) {
-		this.TExpertTeacherModel = TExpertTeacherModel;
+	public TEndProjectExport(TExpertTeacher TExpertTeacher,
+			TEndProject TEndProject, String isdeleted,
+			Set<TEndProjectComment> TEndProjectComments) {
 		this.TExpertTeacher = TExpertTeacher;
 		this.TEndProject = TEndProject;
 		this.isdeleted = isdeleted;
@@ -49,7 +47,7 @@ public class TEndProjectExport implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "id", unique = true, nullable = false, length = 36)
@@ -63,16 +61,6 @@ public class TEndProjectExport implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "expert_id")
-	public TExpertTeacherModel getTExpertTeacherModel() {
-		return this.TExpertTeacherModel;
-	}
-
-	public void setTExpertTeacherModel(TExpertTeacherModel TExpertTeacherModel) {
-		this.TExpertTeacherModel = TExpertTeacherModel;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "expert_id", insertable = false, updatable = false)
 	public TExpertTeacher getTExpertTeacher() {
 		return this.TExpertTeacher;
 	}

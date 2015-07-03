@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TExpertLib entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_expert_lib", catalog = "srtp")
+@Table(name = "t_expert_lib", catalog = "srtp2")
 public class TExpertLib implements java.io.Serializable {
 
 	// Fields
@@ -59,7 +59,7 @@ public class TExpertLib implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "lib_id", unique = true, nullable = false, length = 36)

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,14 +16,14 @@ import org.hibernate.annotations.GenericGenerator;
  * TAchievemenType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_achievemen_type", catalog = "srtp")
+@Table(name = "t_achievemen_type", catalog = "srtp2")
 public class TAchievemenType implements java.io.Serializable {
 
 	// Fields
 
 	private String achievementypeId;
-	private String achievementypeName;
 	private String achievementypeIntroduction;
+	private String achievementypeName;
 	private String isdeleted;
 	private Set<TAchievement> TAchievements = new HashSet<TAchievement>(0);
 
@@ -34,17 +34,17 @@ public class TAchievemenType implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TAchievemenType(String achievementypeName,
-			String achievementypeIntroduction, String isdeleted,
+	public TAchievemenType(String achievementypeIntroduction,
+			String achievementypeName, String isdeleted,
 			Set<TAchievement> TAchievements) {
-		this.achievementypeName = achievementypeName;
 		this.achievementypeIntroduction = achievementypeIntroduction;
+		this.achievementypeName = achievementypeName;
 		this.isdeleted = isdeleted;
 		this.TAchievements = TAchievements;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "achievementype_id", unique = true, nullable = false, length = 36)
@@ -56,15 +56,6 @@ public class TAchievemenType implements java.io.Serializable {
 		this.achievementypeId = achievementypeId;
 	}
 
-	@Column(name = "achievementype_name", length = 50)
-	public String getAchievementypeName() {
-		return this.achievementypeName;
-	}
-
-	public void setAchievementypeName(String achievementypeName) {
-		this.achievementypeName = achievementypeName;
-	}
-
 	@Column(name = "achievementype_introduction", length = 200)
 	public String getAchievementypeIntroduction() {
 		return this.achievementypeIntroduction;
@@ -72,6 +63,15 @@ public class TAchievemenType implements java.io.Serializable {
 
 	public void setAchievementypeIntroduction(String achievementypeIntroduction) {
 		this.achievementypeIntroduction = achievementypeIntroduction;
+	}
+
+	@Column(name = "achievementype_name", length = 50)
+	public String getAchievementypeName() {
+		return this.achievementypeName;
+	}
+
+	public void setAchievementypeName(String achievementypeName) {
+		this.achievementypeName = achievementypeName;
 	}
 
 	@Column(name = "isdeleted", length = 1)

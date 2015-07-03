@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +11,15 @@ import org.hibernate.annotations.GenericGenerator;
  * TCode entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_code", catalog = "srtp")
+@Table(name = "t_code", catalog = "srtp2")
 public class TCode implements java.io.Serializable {
 
 	// Fields
 
 	private String encodeId;
-	private String encodeValue;
 	private String encodeDesc;
 	private String encodeRemark;
+	private String encodeValue;
 	private String isdeleted;
 
 	// Constructors
@@ -29,16 +29,16 @@ public class TCode implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TCode(String encodeValue, String encodeDesc, String encodeRemark,
+	public TCode(String encodeDesc, String encodeRemark, String encodeValue,
 			String isdeleted) {
-		this.encodeValue = encodeValue;
 		this.encodeDesc = encodeDesc;
 		this.encodeRemark = encodeRemark;
+		this.encodeValue = encodeValue;
 		this.isdeleted = isdeleted;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "encode_id", unique = true, nullable = false, length = 36)
@@ -48,15 +48,6 @@ public class TCode implements java.io.Serializable {
 
 	public void setEncodeId(String encodeId) {
 		this.encodeId = encodeId;
-	}
-
-	@Column(name = "encode_value", length = 2)
-	public String getEncodeValue() {
-		return this.encodeValue;
-	}
-
-	public void setEncodeValue(String encodeValue) {
-		this.encodeValue = encodeValue;
 	}
 
 	@Column(name = "encode_desc", length = 20)
@@ -75,6 +66,15 @@ public class TCode implements java.io.Serializable {
 
 	public void setEncodeRemark(String encodeRemark) {
 		this.encodeRemark = encodeRemark;
+	}
+
+	@Column(name = "encode_value", length = 2)
+	public String getEncodeValue() {
+		return this.encodeValue;
+	}
+
+	public void setEncodeValue(String encodeValue) {
+		this.encodeValue = encodeValue;
 	}
 
 	@Column(name = "isdeleted", length = 1)

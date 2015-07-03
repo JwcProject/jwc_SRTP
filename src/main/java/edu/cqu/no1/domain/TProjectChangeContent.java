@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,18 +14,18 @@ import org.hibernate.annotations.GenericGenerator;
  * TProjectChangeContent entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_project_change_content", catalog = "srtp")
+@Table(name = "t_project_change_content", catalog = "srtp2")
 public class TProjectChangeContent implements java.io.Serializable {
 
 	// Fields
 
 	private String projectChangeContentId;
 	private TProjectChange TProjectChange;
+	private String isdeleted;
 	private String projectChangeContentField;
 	private String projectChangeContentFieldname;
-	private String projectChangeContentOvalue;
 	private String projectChangeContentNvalue;
-	private String isdeleted;
+	private String projectChangeContentOvalue;
 
 	// Constructors
 
@@ -35,20 +35,19 @@ public class TProjectChangeContent implements java.io.Serializable {
 
 	/** full constructor */
 	public TProjectChangeContent(TProjectChange TProjectChange,
-			String projectChangeContentField,
+			String isdeleted, String projectChangeContentField,
 			String projectChangeContentFieldname,
-			String projectChangeContentOvalue,
-			String projectChangeContentNvalue, String isdeleted) {
+			String projectChangeContentNvalue, String projectChangeContentOvalue) {
 		this.TProjectChange = TProjectChange;
+		this.isdeleted = isdeleted;
 		this.projectChangeContentField = projectChangeContentField;
 		this.projectChangeContentFieldname = projectChangeContentFieldname;
-		this.projectChangeContentOvalue = projectChangeContentOvalue;
 		this.projectChangeContentNvalue = projectChangeContentNvalue;
-		this.isdeleted = isdeleted;
+		this.projectChangeContentOvalue = projectChangeContentOvalue;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "projectChangeContent_id", unique = true, nullable = false, length = 36)
@@ -70,6 +69,15 @@ public class TProjectChangeContent implements java.io.Serializable {
 		this.TProjectChange = TProjectChange;
 	}
 
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
+
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
 	@Column(name = "projectChangeContent_field", length = 100)
 	public String getProjectChangeContentField() {
 		return this.projectChangeContentField;
@@ -89,15 +97,6 @@ public class TProjectChangeContent implements java.io.Serializable {
 		this.projectChangeContentFieldname = projectChangeContentFieldname;
 	}
 
-	@Column(name = "projectChangeContent_ovalue", length = 1000)
-	public String getProjectChangeContentOvalue() {
-		return this.projectChangeContentOvalue;
-	}
-
-	public void setProjectChangeContentOvalue(String projectChangeContentOvalue) {
-		this.projectChangeContentOvalue = projectChangeContentOvalue;
-	}
-
 	@Column(name = "projectChangeContent_nvalue", length = 1000)
 	public String getProjectChangeContentNvalue() {
 		return this.projectChangeContentNvalue;
@@ -107,13 +106,13 @@ public class TProjectChangeContent implements java.io.Serializable {
 		this.projectChangeContentNvalue = projectChangeContentNvalue;
 	}
 
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
+	@Column(name = "projectChangeContent_ovalue", length = 1000)
+	public String getProjectChangeContentOvalue() {
+		return this.projectChangeContentOvalue;
 	}
 
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setProjectChangeContentOvalue(String projectChangeContentOvalue) {
+		this.projectChangeContentOvalue = projectChangeContentOvalue;
 	}
 
 }

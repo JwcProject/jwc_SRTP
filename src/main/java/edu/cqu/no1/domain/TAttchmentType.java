@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TAttchmentType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_attchment_type", catalog = "srtp")
+@Table(name = "t_attchment_type", catalog = "srtp2")
 public class TAttchmentType implements java.io.Serializable {
 
 	// Fields
@@ -41,7 +41,7 @@ public class TAttchmentType implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "atta_type_id", unique = true, nullable = false, length = 36)

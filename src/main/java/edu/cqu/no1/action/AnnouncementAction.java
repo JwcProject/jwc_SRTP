@@ -77,6 +77,11 @@ public class AnnouncementAction extends BaseAction {
     private String[] filesFileName;
 
 
+    /**
+     * 查询学生老师个人公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "findStuTeaAnnoun", results = {
             @Result(name = "success", location = "/pages/announManage/person_announ_list.jsp")
     })
@@ -103,6 +108,11 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 查询学院公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "findUnitAnnoun", results = {
             @Result(name = "success", location = "/pages/announManage/unit_announ_list.jsp")
     })
@@ -129,10 +139,15 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
-    @Action(value = "findSchoolLeaderAnnoun", results = {
+    /**
+     * 查询教务处公告
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "findDeanAnnoun", results = {
             @Result(name = "success", location = "/pages/announManage/schoolLeader_announ_list.jsp")
     })
-    public String querySchoolLeaderAnnoun() throws Exception {
+    public String queryDeanAnnoun() throws Exception {
         try {
 
             announTypeName = "教务处公告";
@@ -154,9 +169,14 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 查询全校公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "findSchoolAnnoun", results = {
             @Result(name = "successTea", location = "/pages/announManage/schoolTea_announ_list.jsp"),
-            @Result(name = "successLeader", type = "redirect", location = "/pages/announManage/schoolLeader_announ_list.jsp")
+            @Result(name = "successLeader", location = "/pages/announManage/schoolLeader_announ_list.jsp")
     })
     public String querySchoolAnnoun() throws Exception {
         try {
@@ -204,15 +224,16 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 发布不用审核的公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "CommitAnnouncement", results = {
             @Result(name = "personalSuccess", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "unitSuccess", type = "redirect", location = "findUnitAnnoun"),
             @Result(name = "schoolSuccess", type = "redirect", location = "findSchoolAnnoun")
     })
-    /**
-     *
-     * 发布不用审核的公告
-     */
     public String commitAnnouncement() throws Exception {
         try {
 
@@ -279,12 +300,14 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 发布需审核的公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "CommitCheckingAnnouncement", results = {
             @Result(name = "success", location = "/pages/announManage/announ_commit.jsp")
     })
-    /**
-     * 发布需审核的公告
-     */
     public String commitCheckingAnnouncement() throws Exception {
         try {
             announcement.setPublishState("Y");
@@ -328,7 +351,6 @@ public class AnnouncementAction extends BaseAction {
 
     /**
      * 保存公告和附件的帮助方法
-     *
      * @param announcement
      * @return
      * @throws Exception
@@ -349,7 +371,7 @@ public class AnnouncementAction extends BaseAction {
                     TAttachment tAttachment = new TAttachment();
                     tAttachment.setFileName(filesFileName[i]);
                     tAttachment.setFileFormat(filesContentType[i]);
-                    tAttachment.setFileSize(new BigDecimal(files[i].length()));
+                    tAttachment.setFileSize(new Double(files[i].length()));
                     tAttachment.setFileUrl(fileUris.get(i));
                     tAttachment.setTUser(user);
                     tAttachments.add(tAttachment);
@@ -364,14 +386,16 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 保存公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "SaveAnnouncement", results = {
             @Result(name = "personalSuccess", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "unitSuccess", type = "redirect", location = "findUnitAnnoun"),
             @Result(name = "schoolSuccess", type = "redirect", location = "findSchoolAnnoun")
     })
-    /**
-     * 保存公告
-     */
     public String saveAnnouncement() throws Exception {
         try {
 
@@ -430,14 +454,16 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 发布已保存的公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "CommitSavedAnnouncement", results = {
             @Result(name = "personalSuccess", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "unitSuccess", type = "redirect", location = "findUnitAnnoun"),
             @Result(name = "schoolSuccess", type = "redirect", location = "findSchoolAnnoun")
     })
-    /**
-     * 发布已保存的公告
-     */
     public String commitSavedAnnouncement() throws Exception {
         try {
             announcement = this.announcementService.getAnnounById(announId);
@@ -480,28 +506,32 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 审核公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "CheckAnnouncement", results = {
             @Result(name = "success", location = "/pages/announManage/announ_check.jsp")
     })
-    /**
-     * 审核公告
-     */
     public String checkAnnouncement() throws Exception {
         try {
             announcementModel = this.announcementService.getAnnounById(announId);
+            attachments = this.announcementService.getAttachmentsByAnnounceId(announId);
             return SUCCESS;
         } catch (Exception e) {
             return ERROR;
         }
     }
 
-
-    @Action(value = "UnpassedAnnouncement", results = {
-            @Result(name = "success", type = "redirect", location = "findSchoolLeaderAnnoun")
-    })
     /**
      * 审核不通过
+     * @return
+     * @throws Exception
      */
+    @Action(value = "UnpassedAnnouncement", results = {
+            @Result(name = "success", type = "redirect", location = "findDeanAnnoun")
+    })
     public String unpassedAnnouncement() throws Exception {
         try {
             announcement = this.announcementService.getAnnounById(announId);
@@ -519,12 +549,14 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
-    @Action(value = "PassedAnnouncement", results = {
-            @Result(name = "success", type = "redirect", location = "findSchoolLeaderAnnoun")
-    })
     /**
      * 审核通过
+     * @return
+     * @throws Exception
      */
+    @Action(value = "PassedAnnouncement", results = {
+            @Result(name = "success", type = "redirect", location = "findDeanAnnoun")
+    })
     public String passedAnnouncement() throws Exception {
         try {
 
@@ -554,12 +586,14 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 查看主页的公告详情
+     * @return
+     * @throws Exception
+     */
     @Action(value = "ViewAnnouncement", results = {
             @Result(name = SUCCESS, location = "/pages/announManage/announ_view.jsp")
     })
-    /**
-     * 查看公告
-     */
     public String viewAnnouncement() throws Exception {
         try {
             announcementModel = this.announcementService.getAnnounById(announId);
@@ -585,6 +619,11 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 编辑公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "EditAnnouncement", results = {
             @Result(name = "success", location = "/pages/announManage/announ_edit.jsp")
     })
@@ -598,15 +637,16 @@ public class AnnouncementAction extends BaseAction {
         }
     }
 
-
+    /**
+     * 保存编辑的公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "UpdateAnnouncement", results = {
             @Result(name = "successStuTea", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "successUnit", type = "redirect", location = "findUnitAnnoun"),
             @Result(name = "successSchool", type = "redirect", location = "findSchoolAnnoun")
     })
-    /**
-     * 保存编辑公告
-     */
     public String updateAnnouncement() throws Exception {
         try {
             TUser user = getSessionUser();
@@ -624,6 +664,7 @@ public class AnnouncementAction extends BaseAction {
                     List<TAttachment> tAttachments = this.announcementService.getAttachmentsByAnnounceId(announId);
                     for (TAttachment tAttachment : tAttachments) {
                         FileUtility.DeleteFile(tAttachment.getFileUrl());
+                        tAttachment.setIsdeleted("Y");
                     }
                     List<String> fileUris = FileUtility.SaveFiles(files,
                             filesFileName, filesContentType);
@@ -633,7 +674,7 @@ public class AnnouncementAction extends BaseAction {
                             TAttachment tAttachment = new TAttachment();
                             tAttachment.setFileName(filesFileName[i]);
                             tAttachment.setFileFormat(filesContentType[i]);
-                            tAttachment.setFileSize(new BigDecimal(files[i].length()));
+                            tAttachment.setFileSize(new Double(files[i].length()));
                             tAttachment.setFileUrl(fileUris.get(i));
                             tAttachment.setTUser(user);
                             newAttachments.add(tAttachment);
@@ -666,14 +707,16 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 删除公告
+     * @return
+     * @throws Exception
+     */
     @Action(value = "DeleteAnnouncement", results = {
             @Result(name = "successStuTea", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "successUnit", type = "redirect", location = "findUnitAnnoun"),
-            @Result(name = "successSchool", type = "redirect", location = "findSchoolAnnoun")
+            @Result(name = "successSchool", type = "redirect", location = "findDeanAnnoun")
     })
-    /**
-     * 删除公告
-     */
     public String deleteAnnouncement() throws Exception {
         try {
 
@@ -700,6 +743,8 @@ public class AnnouncementAction extends BaseAction {
     @Action(value = "findCommonAnnouncement", results = {
             @Result(name = "success", location = "/pages/announManage/indexCommonAnnounList.jsp")
     })
+
+
     /**
      * 查询主页公告 普通教师及学生
      */
@@ -722,12 +767,13 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
-    @Action(value = "findIndexUnitAnnouncement", results = {
-            @Result(name = "success", location = "/pages/announManage/indexUnitAnnounList.jsp")
-    })
+
     /**
      * 查询主页公告 学院
      */
+    @Action(value = "findIndexUnitAnnouncement", results = {
+            @Result(name = "success", location = "/pages/announManage/indexUnitAnnounList.jsp")
+    })
     public String findIndexUnitAnnouncement() throws Exception {
         try {
             tUser = getSessionUser();
@@ -748,12 +794,12 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
-    @Action(value = "findIndexDeanAnnouncement", results = {
-            @Result(name = "success", location = "/pages/announManage/indexSchoolAnnounList.jsp")
-    })
     /**
      * 查询主页公告 教务处
      */
+    @Action(value = "findIndexDeanAnnouncement", results = {
+            @Result(name = "success", location = "/pages/announManage/indexSchoolAnnounList.jsp")
+    })
     public String findIndexDeanAnnouncement() throws Exception {
         try {
             //获取当前用户的id

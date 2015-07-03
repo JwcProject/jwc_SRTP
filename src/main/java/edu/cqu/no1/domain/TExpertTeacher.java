@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TExpertTeacher entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_expert_teacher", catalog = "srtp")
+@Table(name = "t_expert_teacher", catalog = "srtp2")
 public class TExpertTeacher implements java.io.Serializable {
 
 	// Fields
@@ -26,8 +26,8 @@ public class TExpertTeacher implements java.io.Serializable {
 	private String exTeaId;
 	private TExpertLib TExpertLib;
 	private TTeacher TTeacher;
-	private Integer reDeclNum;
 	private String isdeleted;
+	private Integer reDeclNum;
 	private Set<TEndProjectExport> TEndProjectExports = new HashSet<TEndProjectExport>(
 			0);
 	private Set<TExpertReview> TExpertReviews = new HashSet<TExpertReview>(0);
@@ -40,19 +40,19 @@ public class TExpertTeacher implements java.io.Serializable {
 
 	/** full constructor */
 	public TExpertTeacher(TExpertLib TExpertLib, TTeacher TTeacher,
-			Integer reDeclNum, String isdeleted,
+			String isdeleted, Integer reDeclNum,
 			Set<TEndProjectExport> TEndProjectExports,
 			Set<TExpertReview> TExpertReviews) {
 		this.TExpertLib = TExpertLib;
 		this.TTeacher = TTeacher;
-		this.reDeclNum = reDeclNum;
 		this.isdeleted = isdeleted;
+		this.reDeclNum = reDeclNum;
 		this.TEndProjectExports = TEndProjectExports;
 		this.TExpertReviews = TExpertReviews;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ex_tea_id", unique = true, nullable = false, length = 36)
@@ -84,15 +84,6 @@ public class TExpertTeacher implements java.io.Serializable {
 		this.TTeacher = TTeacher;
 	}
 
-	@Column(name = "re_decl_num")
-	public Integer getReDeclNum() {
-		return this.reDeclNum;
-	}
-
-	public void setReDeclNum(Integer reDeclNum) {
-		this.reDeclNum = reDeclNum;
-	}
-
 	@Column(name = "isdeleted", length = 1)
 	public String getIsdeleted() {
 		return this.isdeleted;
@@ -102,7 +93,16 @@ public class TExpertTeacher implements java.io.Serializable {
 		this.isdeleted = isdeleted;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacherModel")
+	@Column(name = "re_decl_num")
+	public Integer getReDeclNum() {
+		return this.reDeclNum;
+	}
+
+	public void setReDeclNum(Integer reDeclNum) {
+		this.reDeclNum = reDeclNum;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacher")
 	public Set<TEndProjectExport> getTEndProjectExports() {
 		return this.TEndProjectExports;
 	}
@@ -111,7 +111,7 @@ public class TExpertTeacher implements java.io.Serializable {
 		this.TEndProjectExports = TEndProjectExports;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacherModel")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TExpertTeacher")
 	public Set<TExpertReview> getTExpertReviews() {
 		return this.TExpertReviews;
 	}

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
@@ -15,28 +15,24 @@ import org.hibernate.annotations.GenericGenerator;
  * TAnnouncement entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_announcement", catalog = "srtp")
+@Table(name = "t_announcement", catalog = "srtp2")
 public class TAnnouncement implements java.io.Serializable {
 
 	// Fields
 
 	private String announId;
 	private TAnnounType TAnnounType;
-	private String announTitle;
 	private String announContent;
+	private String announTitle;
+	private String checkState;
+	private Timestamp checkTime;
+	private String checkerCode;
+	private String isdeleted;
+	private String publishState;
+	private Timestamp publishTime;
 	private String publisherCode;
 	private String publisherRole;
-
-    private String publisherName;
-
-
-
-    private Timestamp publishTime;
-	private String publishState;
-	private String checkerCode;
-	private Timestamp checkTime;
-	private String checkState;
-	private String isdeleted;
+	private String publisherName;
 
 	// Constructors
 
@@ -45,25 +41,27 @@ public class TAnnouncement implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TAnnouncement(TAnnounType TAnnounType, String announTitle,
-			String announContent, String publisherCode, String publisherRole,
-			Timestamp publishTime, String publishState, String checkerCode,
-			Timestamp checkTime, String checkState, String isdeleted) {
+	public TAnnouncement(TAnnounType TAnnounType, String announContent,
+			String announTitle, String checkState, Timestamp checkTime,
+			String checkerCode, String isdeleted, String publishState,
+			Timestamp publishTime, String publisherCode, String publisherRole,
+			String publisherName) {
 		this.TAnnounType = TAnnounType;
-		this.announTitle = announTitle;
 		this.announContent = announContent;
+		this.announTitle = announTitle;
+		this.checkState = checkState;
+		this.checkTime = checkTime;
+		this.checkerCode = checkerCode;
+		this.isdeleted = isdeleted;
+		this.publishState = publishState;
+		this.publishTime = publishTime;
 		this.publisherCode = publisherCode;
 		this.publisherRole = publisherRole;
-		this.publishTime = publishTime;
-		this.publishState = publishState;
-		this.checkerCode = checkerCode;
-		this.checkTime = checkTime;
-		this.checkState = checkState;
-		this.isdeleted = isdeleted;
+		this.publisherName = publisherName;
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "announ_id", unique = true, nullable = false, length = 36)
@@ -85,6 +83,15 @@ public class TAnnouncement implements java.io.Serializable {
 		this.TAnnounType = TAnnounType;
 	}
 
+	@Column(name = "announ_content", length = 4000)
+	public String getAnnounContent() {
+		return this.announContent;
+	}
+
+	public void setAnnounContent(String announContent) {
+		this.announContent = announContent;
+	}
+
 	@Column(name = "announ_title", length = 200)
 	public String getAnnounTitle() {
 		return this.announTitle;
@@ -94,13 +101,58 @@ public class TAnnouncement implements java.io.Serializable {
 		this.announTitle = announTitle;
 	}
 
-	@Column(name = "announ_content", length = 4000)
-	public String getAnnounContent() {
-		return this.announContent;
+	@Column(name = "check_state", length = 2)
+	public String getCheckState() {
+		return this.checkState;
 	}
 
-	public void setAnnounContent(String announContent) {
-		this.announContent = announContent;
+	public void setCheckState(String checkState) {
+		this.checkState = checkState;
+	}
+
+	@Column(name = "check_time", length = 19)
+	public Timestamp getCheckTime() {
+		return this.checkTime;
+	}
+
+	public void setCheckTime(Timestamp checkTime) {
+		this.checkTime = checkTime;
+	}
+
+	@Column(name = "checker_code", length = 32)
+	public String getCheckerCode() {
+		return this.checkerCode;
+	}
+
+	public void setCheckerCode(String checkerCode) {
+		this.checkerCode = checkerCode;
+	}
+
+	@Column(name = "isdeleted", length = 1)
+	public String getIsdeleted() {
+		return this.isdeleted;
+	}
+
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+
+	@Column(name = "publish_state", length = 2)
+	public String getPublishState() {
+		return this.publishState;
+	}
+
+	public void setPublishState(String publishState) {
+		this.publishState = publishState;
+	}
+
+	@Column(name = "publish_time", length = 19)
+	public Timestamp getPublishTime() {
+		return this.publishTime;
+	}
+
+	public void setPublishTime(Timestamp publishTime) {
+		this.publishTime = publishTime;
 	}
 
 	@Column(name = "publisher_code", length = 32)
@@ -121,67 +173,13 @@ public class TAnnouncement implements java.io.Serializable {
 		this.publisherRole = publisherRole;
 	}
 
-    @Column(name = "publisher_name", length = 32)
-    public String getPublisherName() {
-        return publisherName;
-    }
-
-    public void setPublisherName(String publisherName) {
-        this.publisherName = publisherName;
-    }
-
-	@Column(name = "publish_time", length = 19)
-	public Timestamp getPublishTime() {
-		return this.publishTime;
+	@Column(name = "publisher_name", length = 32)
+	public String getPublisherName() {
+		return this.publisherName;
 	}
 
-	public void setPublishTime(Timestamp publishTime) {
-		this.publishTime = publishTime;
-	}
-
-	@Column(name = "publish_state", length = 2)
-	public String getPublishState() {
-		return this.publishState;
-	}
-
-	public void setPublishState(String publishState) {
-		this.publishState = publishState;
-	}
-
-	@Column(name = "checker_code", length = 32)
-	public String getCheckerCode() {
-		return this.checkerCode;
-	}
-
-	public void setCheckerCode(String checkerCode) {
-		this.checkerCode = checkerCode;
-	}
-
-	@Column(name = "check_time", length = 19)
-	public Timestamp getCheckTime() {
-		return this.checkTime;
-	}
-
-	public void setCheckTime(Timestamp checkTime) {
-		this.checkTime = checkTime;
-	}
-
-	@Column(name = "check_state", length = 2)
-	public String getCheckState() {
-		return this.checkState;
-	}
-
-	public void setCheckState(String checkState) {
-		this.checkState = checkState;
-	}
-
-	@Column(name = "isdeleted", length = 1)
-	public String getIsdeleted() {
-		return this.isdeleted;
-	}
-
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setPublisherName(String publisherName) {
+		this.publisherName = publisherName;
 	}
 
 }

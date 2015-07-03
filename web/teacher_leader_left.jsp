@@ -36,7 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <div class="jt"><img src="<%=path%>/images/jt2.png" width="8" height="13" /></div>
                        <img src="<%=path%>/images/anniu1.jpg" width="215" height="43" /></dt>
                   <div class="menu_body">
-                     <dd><a href="<%=path%>/pages/announManage/announ_commit.jsp">公告发布</a></dd>
+                     <dd><a href="<%=path%>/pages/announManage/announ_commit.jsp">发布公告</a></dd>
+                      <dd><a href="/findUnitAnnoun">学院公告</a></dd>
                   </div>  
               </dl>
               <dl>

@@ -1,4 +1,4 @@
-package edu.cqu.no1.domain;// default package
+package edu.cqu.no1.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TRolePermission entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_role_permission", catalog = "srtp")
+@Table(name = "t_role_permission", catalog = "srtp2")
 public class TRolePermission implements java.io.Serializable {
 
 	// Fields
@@ -39,7 +39,7 @@ public class TRolePermission implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@GenericGenerator(name = "generator", strategy = "guid")
+	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "rolePermission_id", unique = true, nullable = false, length = 36)
