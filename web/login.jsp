@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
     <script src="<%=path%>/js/iepng.js" type="text/javascript"></script>
     <script type="text/javascript" src="<%=path%>/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         $(function(){
            var url = "<%=path%>/listDeanRecentAnnouncement";
            $.ajax({
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		
     	  });	
         });
-    </script>
+    </script>--%>
   </head>
   
   <body>

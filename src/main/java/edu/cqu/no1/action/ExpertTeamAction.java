@@ -153,6 +153,10 @@ public class ExpertTeamAction extends BaseAction {
     /**
      * TODO 列出学院所有结题的专家团队 02为结题的专家团队
      */
+    @Action(value = "FindEndproExpTeam",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_expert_team_list.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String findEndproExpTeam() throws Exception {
         try {
             user = getSessionUser();
@@ -178,6 +182,11 @@ public class ExpertTeamAction extends BaseAction {
      * TODO 生成创建结题专家团队页面
      */
     @SuppressWarnings("unchecked")
+    @Action(value = "PreCreateEndProExpertTeam",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_create_expert.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp"),
+            @Result(name= "hadValue",location = "/pages/expertTeam/expert_had_existed.jsp")
+    })
     public String preCreateEndProExpertTeam() throws Exception {
         try {
             // 学院主管老师的教职工号
@@ -213,6 +222,10 @@ public class ExpertTeamAction extends BaseAction {
     }
 
     @SuppressWarnings("unchecked")
+    @Action(value = "ConfirmCreateEndProExpertTeam",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_create_expert.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String confirmCreateEndProExpertTeam() throws Exception {
         try {
             // 学院主管老师的教职工号
@@ -244,6 +257,7 @@ public class ExpertTeamAction extends BaseAction {
     /**
      * TODO 创建结题的专家团队
      */
+    @Action(value = "CreateEndproExpTeam")
     public void createEndproExpTeam() throws Exception {
         try {
             user = getSessionUser();
@@ -287,6 +301,10 @@ public class ExpertTeamAction extends BaseAction {
      * TODO 生成分派结题专家团队页面
      */
     @SuppressWarnings("unchecked")
+    @Action(value = "PreAssignEndProExpert",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_assign_expert.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String preAssignEndProExpert() throws Exception {
         try {
             // 学院主管老师的教职工号
@@ -323,6 +341,7 @@ public class ExpertTeamAction extends BaseAction {
     /**
      * TODO 分派结题评审专家
      */
+    @Action(value = "AssignEndProExpert")
     public void assignEndProExpert() throws Exception {
         try {
             user = getSessionUser();
@@ -354,6 +373,10 @@ public class ExpertTeamAction extends BaseAction {
      * TODO 分派专家团队页面的查询
      */
     @SuppressWarnings("unchecked")
+    @Action(value = "QueryAssignEndProExpert",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_assign_expert.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String queryAssignEndProExpert() throws Exception {
         try {
             if (getSessionUser() == null) {
@@ -394,6 +417,10 @@ public class ExpertTeamAction extends BaseAction {
      * TODO 成绩录入页面的查询 authoy lzh
      */
     @SuppressWarnings("unchecked")
+    @Action(value = "QueryEndProScoreTypeIn",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_result_typein.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String queryEndProScoreTypeIn() throws Exception {
         try {
             user = getSessionUser();
@@ -458,6 +485,10 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "ListEndProHistoryExpert",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/unit_endproject_history_expert.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String listEndProHistoryExpert() throws Exception {
         try {
             System.out.println("123");
@@ -482,6 +513,10 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "FindEndProHistoryExpert",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/unit_endproject_history_expert.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String findEndProHistoryExpert() throws Exception {
         try {
             // 学院主管教师教职工号
@@ -509,6 +544,9 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "CreateEndProExpFromHistory",results = {
+            @Result(name = SUCCESS,type = "json",params = {"contentType","text/html","includeProperties","result"})
+    })
     public String createEndProExpFromHistory() throws Exception {
         try {
             user = getSessionUser();
@@ -552,6 +590,10 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "PreEndProResultTypeIn",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_result_typein.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String preEndProResultTypeIn() throws Exception {
         try {
             user = getSessionUser();
@@ -591,6 +633,7 @@ public class ExpertTeamAction extends BaseAction {
      *
      * @return
      */
+
     public void endProScoreTypeIn() {
         try {
             user = getSessionUser();
@@ -620,6 +663,10 @@ public class ExpertTeamAction extends BaseAction {
      *
      * @return
      */
+    @Action(value = "PreEndProScoreAudit",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_score_audit.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String preEndProScoreAudit() {
         try {
             // 主管教师教职工号
@@ -658,6 +705,7 @@ public class ExpertTeamAction extends BaseAction {
      *
      * @return
      */
+    @Action(value = "EndprojectUnitCheck")
     public void endprojectUnitCheck() {
         try {
             user = getSessionUser();
@@ -682,6 +730,11 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "PreMyEndProReview",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/my_endproject_review.jsp"),
+            @Result(name=MESSAGE,location = "message_info.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String preMyEndProReview() throws Exception {
         try {
             // 评审教师教职号
@@ -735,6 +788,10 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "FindEndProComById",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_online_comments.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String findEndProComById() throws Exception {
         try {
             user = getSessionUser();
@@ -759,6 +816,10 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "AddEndProComment",results = {
+            @Result(name = SUCCESS,type = "redirect",location = "PreMyEndProReview"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String addEndProComment() throws Exception {
         try {
             user = getSessionUser();
@@ -785,6 +846,10 @@ public class ExpertTeamAction extends BaseAction {
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
+    @Action(value = "PreUpdateEndProExpTea",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/update_endproject_expert_team.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String preUpdateEndProExpTea() throws Exception {
         try {
             // 从session中获取教职工号
@@ -810,6 +875,7 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "UpdateEndProExpTea")
     public void updateEndProExpTea() throws Exception {
         try {
             user = getSessionUser();
@@ -1536,7 +1602,8 @@ public class ExpertTeamAction extends BaseAction {
      * TODO 根据专家库ID查看专家库的专家教师
      */
     @Action(value = "ViewExpTea", results = {
-            @Result(name = "success", location = "/pages/expertTeam/view_expert_team.jsp")
+            @Result(name = SUCCESS, location = "/pages/expertTeam/view_expert_team.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
     })
     public String viewExpTea() throws Exception {
         try {
