@@ -48,13 +48,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           <td valign="top"><table width="99%" border="0" height="40" cellspacing="0" cellpadding="0" align="center" class="bottomline mb5">
                               <tr>
                                 <td width="85%"><div class="gonggao">教务处公告</div></td>
-                                <td width="15%" align="right" class="morelink"><a href="ListIndexDeanAnnouncement" >更多>></a></td>
+                                <td width="15%" align="right" class="morelink"><a href="findIndexDeanAnnouncement" >更多>></a></td>
                               </tr>
                             </table>
                             <div class="gonggaolist">
                               <ul>
-                              <s:iterator value="announcements" id="announcements">
-								<li><a href="ViewAnnouncement?announId=<s:property value = '#announcementList.announId' />" target="_blank">
+                              <s:iterator value="deanAnnounList" id="announcements">
+								<li><a href="ViewAnnouncement?announId=<s:property value = '#announcements.announId' />" target="_blank">
 								    <s:if test="%{#announcements.announTitle.length()>50}">
 										<s:property value="%{#announcements.announTitle.substring(0,50)+'...'}" escape="#onlineList.frmTitle" />
 									</s:if>
@@ -74,12 +74,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           <td valign="top"><table width="99%" border="0" height="40" cellspacing="0" cellpadding="0" align="center" class="bottomline mb5">
                               <tr>
                                 <td width="85%"><div class="gonggao">学院公告</div></td>
-                                <td width="15%" align="right" class="morelink"><a href="ListIndexUnitAnnouncement" >更多>></a></td>
+                                <td width="15%" align="right" class="morelink"><a href="findIndexUnitAnnouncement" >更多>></a></td>
                               </tr>
                             </table>
                             <div class="gonggaolist">
                               <ul>
-                                <s:iterator value="announcementList" id="announcementList">
+                                <s:iterator value="unitAnnounList" id="announcementList">
 								<li><a href="ViewAnnouncement?announId=<s:property value = '#announcementList.announId' />" target="_blank">
 								    <s:if test="%{#announcementList.announTitle.length()>50}">
 										<s:property value="%{#announcementList.announTitle.substring(0,50)+'...'}" escape="#onlineList.frmTitle" />

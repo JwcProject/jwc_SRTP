@@ -200,7 +200,7 @@ function changePage(pageclickednumber){
 	  var checkState = $("#checkState")[0].value;
 	  var publisherName = $("#publisherName")[0].value;
 	 // var announTypeName = $("#announTypeName")[0].value;
-	  location="findSchoolLeaderAnnoun?page="+pageclickednumber+"&announTitle="+announTitle+"&publishTime="+publishTime+"&checkState="+checkState+"&publisherName="+publisherName;
+	  location="findDeanAnnoun?page="+pageclickednumber+"&announTitle="+announTitle+"&publishTime="+publishTime+"&checkState="+checkState+"&publisherName="+publisherName;
 	 
 	}
 
@@ -208,7 +208,7 @@ function queryAnnoun()
 {
     //$("#pages")[0].value = 1;
     //alert("aaa");
-	document.queryForm.action="<%=basePath%>findSchoolLeaderAnnoun";
+	document.queryForm.action="<%=basePath%>findDeanAnnoun";
 	document.queryForm.submit();
 }     
 
