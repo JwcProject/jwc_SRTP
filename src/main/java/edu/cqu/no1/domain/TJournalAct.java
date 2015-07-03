@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TJournalAct entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_journal_act", catalog = "srtp2")
+@Table(name = "t_journal_act", catalog = "srtp")
 public class TJournalAct implements java.io.Serializable {
 
 	// Fields
@@ -57,7 +57,7 @@ public class TJournalAct implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "journalAct_id", unique = true, nullable = false, length = 36)
+	@Column(name = "journalAct_id", unique = true, nullable = false, length = 32)
 	public String getJournalActId() {
 		return this.journalActId;
 	}

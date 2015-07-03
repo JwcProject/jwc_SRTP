@@ -204,7 +204,7 @@ function changePage(pageclickednumber){
 
       var announTitle = $("#announTitle")[0].value;
 	  var publishTime = $("#publishTime")[0].value;
-	  location="FindIndexUnitAnnouncement?page="+pageclickednumber+"&announTitle="+announTitle+"&publishTime="+publishTime;
+	  location="findIndexUnitAnnoun?page="+pageclickednumber+"&announTitle="+announTitle+"&publishTime="+publishTime;
 	 
 	}
 
@@ -212,7 +212,7 @@ function queryUnitAnnoun()
 {
     //$("#pages")[0].value = 1;
     //alert("aaa");
-	document.queryForm.action="<%=basePath%>FindIndexUnitAnnouncement";
+	document.queryForm.action="<%=basePath%>findIndexUnitAnnoun";
 	document.queryForm.submit();
 }    
 

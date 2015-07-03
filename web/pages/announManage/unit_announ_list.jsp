@@ -204,14 +204,14 @@
 
         var announTitle = $("#announTitle")[0].value;
         var publishTime = $("#publishTime")[0].value;
-        location = "QueryUnitAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime;
+        location = "findUnitAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime;
 
     }
 
     function queryUnitAnnoun() {
         //$("#pages")[0].value = 1;
         //alert("aaa");
-        document.queryForm.action = "<%=basePath%>QueryUnitAnnoun";
+        document.queryForm.action = "<%=basePath%>findUnitAnnoun";
         document.queryForm.submit();
     }
 

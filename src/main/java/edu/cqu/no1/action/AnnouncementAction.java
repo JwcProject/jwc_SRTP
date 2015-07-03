@@ -412,6 +412,7 @@ public class AnnouncementAction extends BaseAction {
             announcement.setPublisherCode(tUser.getUserId());
             String userType = tUser.getUserType();
             announcement.setPublisherRole(userType);
+            announcement.setIsdeleted("N");
 
 
             if (userType.equals("06") || userType.equals("07") || userType.equals("08")) {

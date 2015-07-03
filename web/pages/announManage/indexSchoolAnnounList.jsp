@@ -184,14 +184,14 @@ function changePage(pageclickednumber){
 
       var announTitle = $("#announTitle")[0].value;
 	  var publishTime = $("#publishTime")[0].value;
-	  location="FindIndexDeanAnnouncement?page="+pageclickednumber+"&announTitle="+announTitle+"&publishTime="+publishTime;
+	  location="findIndexDeanAnnoun?page="+pageclickednumber+"&announTitle="+announTitle+"&publishTime="+publishTime;
 	 
 	}
 
 function queryUnitAnnoun()
 {
     $("#pages")[0].value = 1;
-	document.queryForm.action="<%=basePath%>FindIndexDeanAnnouncement";
+	document.queryForm.action="<%=basePath%>findIndexDeanAnnoun";
 	document.queryForm.submit();
 }    
 

@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TAttchmentType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_attchment_type", catalog = "srtp2")
+@Table(name = "t_attchment_type", catalog = "srtp")
 public class TAttchmentType implements java.io.Serializable {
 
 	// Fields
@@ -44,7 +44,7 @@ public class TAttchmentType implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "atta_type_id", unique = true, nullable = false, length = 36)
+	@Column(name = "atta_type_id", unique = true, nullable = false, length = 32)
 	public String getAttaTypeId() {
 		return this.attaTypeId;
 	}

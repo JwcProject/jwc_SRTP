@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TDeclComment entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_comment", catalog = "srtp2")
+@Table(name = "t_decl_comment", catalog = "srtp")
 public class TDeclComment implements java.io.Serializable {
 
 	// Fields
@@ -50,7 +50,7 @@ public class TDeclComment implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "decl_com_id", unique = true, nullable = false, length = 36)
+	@Column(name = "decl_com_id", unique = true, nullable = false, length = 32)
 	public String getDeclComId() {
 		return this.declComId;
 	}

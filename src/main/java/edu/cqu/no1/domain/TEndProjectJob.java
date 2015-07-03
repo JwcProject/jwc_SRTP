@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TEndProjectJob entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_end_project_job", catalog = "srtp2")
+@Table(name = "t_end_project_job", catalog = "srtp")
 public class TEndProjectJob implements java.io.Serializable {
 
 	// Fields
@@ -46,7 +46,7 @@ public class TEndProjectJob implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "job_id", unique = true, nullable = false, length = 36)
+	@Column(name = "job_id", unique = true, nullable = false, length = 32)
 	public String getJobId() {
 		return this.jobId;
 	}

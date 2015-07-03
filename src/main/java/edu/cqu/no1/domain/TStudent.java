@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TStudent entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_student", catalog = "srtp2")
+@Table(name = "t_student", catalog = "srtp")
 public class TStudent implements java.io.Serializable {
 
 	// Fields
@@ -99,7 +99,7 @@ public class TStudent implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "student_id", unique = true, nullable = false, length = 36)
+	@Column(name = "student_id", unique = true, nullable = false, length = 32)
 	public String getStudentId() {
 		return this.studentId;
 	}

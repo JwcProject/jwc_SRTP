@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TUserRole entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_user_role", catalog = "srtp2")
+@Table(name = "t_user_role", catalog = "srtp")
 public class TUserRole implements java.io.Serializable {
 
 	// Fields
@@ -41,7 +41,7 @@ public class TUserRole implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "userRole_id", unique = true, nullable = false, length = 36)
+	@Column(name = "userRole_id", unique = true, nullable = false, length = 32)
 	public String getUserRoleId() {
 		return this.userRoleId;
 	}

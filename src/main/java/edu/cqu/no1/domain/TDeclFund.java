@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TDeclFund entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_decl_fund", catalog = "srtp2")
+@Table(name = "t_decl_fund", catalog = "srtp")
 public class TDeclFund implements java.io.Serializable {
 
 	// Fields
@@ -46,7 +46,7 @@ public class TDeclFund implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "decl_fund_id", unique = true, nullable = false, length = 36)
+	@Column(name = "decl_fund_id", unique = true, nullable = false, length = 32)
 	public String getDeclFundId() {
 		return this.declFundId;
 	}

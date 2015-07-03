@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TEmailReceiver entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_email_receiver", catalog = "srtp2")
+@Table(name = "t_email_receiver", catalog = "srtp")
 public class TEmailReceiver implements java.io.Serializable {
 
 	// Fields
@@ -49,7 +49,7 @@ public class TEmailReceiver implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "receiver_id", unique = true, nullable = false, length = 36)
+	@Column(name = "receiver_id", unique = true, nullable = false, length = 32)
 	public String getReceiverId() {
 		return this.receiverId;
 	}

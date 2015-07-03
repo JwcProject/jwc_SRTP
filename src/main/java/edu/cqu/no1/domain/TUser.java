@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_user", catalog = "srtp2")
+@Table(name = "t_user", catalog = "srtp")
 public class TUser implements java.io.Serializable {
 
 	// Fields
@@ -63,7 +63,7 @@ public class TUser implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "user_id", unique = true, nullable = false, length = 36)
+	@Column(name = "user_id", unique = true, nullable = false, length = 32)
 	public String getUserId() {
 		return this.userId;
 	}

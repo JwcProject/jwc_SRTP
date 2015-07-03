@@ -72,10 +72,7 @@
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TUserRole</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
-                <value>edu.cqu.no1.domain.Resultdistribut</value>
-                <value>edu.cqu.no1.domain.TEndprojectJob</value>
-                <value>edu.cqu.no1.domain.Tannouncementmodel</value>
-                <value>edu.cqu.no1.domain.Texpertteachermodel</value>
+                <value>edu.cqu.no1.domain.TEndProjectJob</value>
             </list>
         </property>
         <property name="hibernateProperties">

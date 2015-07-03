@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TExpertReview entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_expert_review", catalog = "srtp2")
+@Table(name = "t_expert_review", catalog = "srtp")
 public class TExpertReview implements java.io.Serializable {
 
 	// Fields
@@ -49,7 +49,7 @@ public class TExpertReview implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "ex_review_id", unique = true, nullable = false, length = 36)
+	@Column(name = "ex_review_id", unique = true, nullable = false, length = 32)
 	public String getExReviewId() {
 		return this.exReviewId;
 	}

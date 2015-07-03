@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TRolePermission entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_role_permission", catalog = "srtp2")
+@Table(name = "t_role_permission", catalog = "srtp")
 public class TRolePermission implements java.io.Serializable {
 
 	// Fields
@@ -42,7 +42,7 @@ public class TRolePermission implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "rolePermission_id", unique = true, nullable = false, length = 36)
+	@Column(name = "rolePermission_id", unique = true, nullable = false, length = 32)
 	public String getRolePermissionId() {
 		return this.rolePermissionId;
 	}

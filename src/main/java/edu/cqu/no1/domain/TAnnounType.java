@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * TAnnounType entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "t_announ_type", catalog = "srtp2")
+@Table(name = "t_announ_type", catalog = "srtp")
 public class TAnnounType implements java.io.Serializable {
 
 	// Fields
@@ -44,7 +44,7 @@ public class TAnnounType implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "announ_type_id", unique = true, nullable = false, length = 36)
+	@Column(name = "announ_type_id", unique = true, nullable = false, length = 32)
 	public String getAnnounTypeId() {
 		return this.announTypeId;
 	}

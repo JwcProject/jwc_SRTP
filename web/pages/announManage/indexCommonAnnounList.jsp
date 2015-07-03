@@ -199,7 +199,7 @@ function changePage(pageclickednumber){
       var announContent = $("#announContent")[0].value;
       var announTitle = $("#announTitle")[0].value;
 	  var publishTime = $("#publishTime")[0].value;
-	  location="FindCommonAnnouncement?page="+pageclickednumber+"&announTitle="+announTitle+"&announContent="+announContent+"&publishTime="+publishTime;
+	  location="findCommonAnnoun?page="+pageclickednumber+"&announTitle="+announTitle+"&announContent="+announContent+"&publishTime="+publishTime;
 	 
 	}
 
@@ -207,7 +207,7 @@ function queryUnitAnnoun()
 {
     //$("#pages")[0].value = 1;
     //alert("aaa");
-	document.queryForm.action="<%=basePath%>FindCommonAnnouncement";
+	document.queryForm.action="<%=basePath%>findCommonAnnoun";
 	document.queryForm.submit();
 }    
 
