@@ -402,8 +402,7 @@ public class EndProjectAction extends BaseAction {
                             TAttachment tAttachment = new TAttachment();
                             tAttachment.setFileName(filesFileName[i]);
                             tAttachment.setFileFormat(filesContentType[i]);
-                            tAttachment.setFileSize(new BigDecimal(files[i]
-                                    .length()));
+                            tAttachment.setFileSize(new Double(files[i].length()));
                             tAttachment.setFileUrl(fileUris.get(i));
                             tAttachment.setTUser(user);
                             tAttachments.add(tAttachment);

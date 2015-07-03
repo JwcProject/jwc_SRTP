@@ -1180,7 +1180,7 @@ public class ExpertTeamAction extends BaseAction {
             teacher.setTeaCode(teacherCode);
             //
             if (teacherAge != null && !teacherAge.trim().equals("")) {
-                teacher.setTeaAge(new BigDecimal(teacherAge));
+                teacher.setTeaAge(new Double(teacherAge));
             }
             teacher.setTeaSex(teacherSex);
             teacher.setTeaTitle(teacherTitle);
