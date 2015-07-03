@@ -37,7 +37,10 @@ public interface TExpertTeacherDAO extends BaseDao<TExpertTeacher> {
     List findExpTeaByExpLibId(String expLibId);
 
     //修改评审教师的用户类型
-    void changeReviewUserType(String libId);
+    void changeReviewUserType(String libId, String type);
+
+    //撤销用户类型修改
+    void rollBackUserType(String libId) ;
 
     TExpertTeacher findExpTeaByCode(String teaCode);
 

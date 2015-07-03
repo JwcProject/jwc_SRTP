@@ -69,44 +69,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<TAnnouncementModel> listStuTeaAnnouncements(String code, PageBean pageBean) {
-        return this.tAnnouncementDAO.getStuTeaAnnounctment(code, pageBean);
-    }
-
-    @Override
-    public int getStuTeaAnnouncementCount(String code) {
-        return this.tAnnouncementDAO.getStuTeaAnnouncementCount(code);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<TAnnouncementModel> listUnitAnnouncements(String unitTeaCode,
-                                                          PageBean pageBean) {
-        return this.tAnnouncementDAO.getUnitAnnounctment(unitTeaCode, pageBean);
-    }
-
-    @Override
-    public int getUnitAnnouncementCount(String unitTeaCode) {
-        return this.tAnnouncementDAO.getUnitAnnounctmentCount(unitTeaCode);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<TAnnouncementModel> listSchoolAnnouncements(PageBean pageBean) {
-        return this.tAnnouncementDAO.getSchoolAnnounctment(pageBean);
-    }
-
-    @Override
-    public int getSchoolAnnouncementCount() {
-        return this.tAnnouncementDAO.getSchoolAnnounctmentCount();
-    }
-
-    @Override
-    public TAnnouncement getAnnouncement(String id) {
-        return this.tAnnouncementDAO.findById(id);
-    }
 
     @Override
     public TAnnouncement addTAnnouncement(TAnnouncement tAnnouncement) {
@@ -143,125 +105,116 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     @Override
     public void deleteTAnnouncement(String id) {
-        TAnnouncement tAnnouncement = this.getAnnouncement(id);
+        TAnnouncement tAnnouncement = tAnnouncementDAO.findById(id);
         tAnnouncement.setIsdeleted("Y");
         this.updateTAnnouncement(tAnnouncement);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<TAnnouncementModel> queryStuTeaAnnoun(String number,
+    public List<TAnnouncement> queryStuTeaAnnoun(String number,
                                                       String announName, Date announDate, PageBean pageBean) {
-        return this.tAnnouncementDAO.findStuTeatAnnoun(number, announName, announDate, pageBean);
+        return this.tAnnouncementDAO.getStuTeatAnnoun(number, announName, announDate, pageBean);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<TAnnouncementModel> queryUnitAnnoun(String teaCode,
+    public List<TAnnouncement> queryUnitAnnoun(String teaCode,
                                                     String announName, Date announDate, PageBean pageBean) {
-        return this.tAnnouncementDAO.findUnitAnnoun(teaCode, announName, announDate, pageBean);
+        return this.tAnnouncementDAO.getUnitAnnoun(teaCode, announName, announDate, pageBean);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#querySchoolAnnoun(java.lang.String, java.sql.Date, java.lang.String, java.lang.String, com.util.PageBean)
-     */
     @SuppressWarnings("unchecked")
     @Override
-    public List<TAnnouncementModel> querySchoolAnnoun(String announName, String checkState,
+    public List<TAnnouncement> querySchoolAnnoun(String announName, String checkState,
                                                       Date announDate, String publisherName, String typeName,
                                                       PageBean pageBean) {
-        return this.tAnnouncementDAO.findSchoolAnnoun(announName, checkState, announDate, publisherName, typeName, pageBean);
+        return this.tAnnouncementDAO.getSchoolAnnoun(announName, checkState, announDate, publisherName, typeName, pageBean);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#queryStuTeaAnnounCount(java.lang.String, java.lang.String, java.sql.Date)
-     */
     @Override
     public int queryStuTeaAnnounCount(String number, String announName,
                                       Date announDate) {
-        return this.tAnnouncementDAO.findStuTeaAnnounCount(number, announName, announDate);
+        return this.tAnnouncementDAO.getStuTeaAnnounCount(number, announName, announDate);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#queryUnitAnnounCount(java.lang.String, java.lang.String, java.sql.Date)
-     */
     @Override
     public int queryUnitAnnounCount(String teaCode, String announName,
                                     Date announDate) {
-        return this.tAnnouncementDAO.findUnitAnnounCount(teaCode, announName, announDate);
+        return this.tAnnouncementDAO.getUnitAnnounCount(teaCode, announName, announDate);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#querySchoolAnnounCount(java.lang.String, java.sql.Date, java.lang.String, java.lang.String)
-     */
     @Override
     public int querySchoolAnnounCount(String announName, String checkState, Date announDate,
                                       String publisherName, String typeName) {
-        return this.tAnnouncementDAO.findSchoolAnnounCount(announName, checkState, announDate, publisherName, typeName);
+        return this.tAnnouncementDAO.getSchoolAnnounCount(announName, checkState, announDate, publisherName, typeName);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#getAnnounByType(java.lang.String, com.util.PageBean)
-     */
     @SuppressWarnings("unchecked")
     @Override
-    public List<TAnnouncementModel> getAnnounByType(String typeName,
+    public List<TAnnouncement> getAnnounByType(String typeName,
                                                     PageBean pageBean) {
         return this.tAnnouncementDAO.findAnnounByType(typeName, pageBean);
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#getAnnounByTypeCount(java.lang.String)
-     */
     @Override
     public int getAnnounByTypeCount(String typeName) {
         return this.tAnnouncementDAO.findAnnounByTypeCount(typeName);
     }
 
+
     //通过当前学生所在学院获取学院公告
+    @Override
     public List<TAnnouncement> getTAnnouncementByStuCode(String stuCode, PageBean pageBean) {
-        return this.tAnnouncementDAO.getUnitAnnounctmentByStuCode(stuCode, pageBean);
+        return this.tAnnouncementDAO.getUnitAnnounctmentByStuCode(stuCode, null, null, pageBean);
     }
 
-    public int getTAnnouncementByStuCodeCount(String stuCode) {
-        return this.tAnnouncementDAO.getUnitAnnounctmentByStuCodeCount(stuCode);
-    }
 
     //获取普通学生和教师的公告
+    @Override
     public List<TAnnouncement> getCommonStuAndTeaAnnoun(PageBean pageBean) {
-        return this.tAnnouncementDAO.getCommonStuAndTeaAnnoun(pageBean);
+        return this.tAnnouncementDAO.getCommonStuAndTeaAnnoun(null, null, null, pageBean);
     }
 
-    public int getCommonStuAndTeaAnnounCount() {
-        return this.tAnnouncementDAO.getCommonStuAndTeaAnnounCount();
-    }
 
     //查询当前学生所在学院获取学院公告
+    @Override
     public List<TAnnouncement> findTAnnouncementByStuCode(String stuCode, String announTitle, Date publishTime, PageBean pageBean) {
-        return this.tAnnouncementDAO.findUnitAnnounctmentByStuCode(stuCode, announTitle, publishTime, pageBean);
+        return this.tAnnouncementDAO.getUnitAnnounctmentByStuCode(stuCode, announTitle, publishTime, pageBean);
     }
 
+    @Override
     public int findTAnnouncementByStuCodeCount(String stuCode, String announTitle, Date publishTime) {
-        return this.tAnnouncementDAO.findUnitAnnounctmentByStuCodeCount(stuCode, announTitle, publishTime);
+        return this.tAnnouncementDAO.getUnitAnnounctmentByStuCodeCount(stuCode, announTitle, publishTime);
     }
 
     //查询普通学生和教师的公告
+    @Override
     public List<TAnnouncement> findCommonStuAndTeaAnnoun(String announTitle, String announContent, Date publishTime, PageBean pageBean) {
-        return this.tAnnouncementDAO.findCommonStuAndTeaAnnoun(announTitle, announContent, publishTime, pageBean);
+        return this.tAnnouncementDAO.getCommonStuAndTeaAnnoun(announTitle, announContent, publishTime, pageBean);
     }
 
+    @Override
     public int findCommonStuAndTeaAnnounCount(String announTitle, String announContent, Date publishTime) {
-        return this.tAnnouncementDAO.findCommonStuAndTeaAnnounCount(announTitle, announContent, publishTime);
+        return this.tAnnouncementDAO.getCommonStuAndTeaAnnounCount(announTitle, announContent, publishTime);
     }
 
     //查询主页学校公告列表
-    public List<TAnnouncementModel> findIndexSchoolAnnoument(String announTitle, Date publishTime, String typeName, PageBean pageBean) {
+    @Override
+    public List<TAnnouncement> findIndexSchoolAnnoument(String announTitle, Date publishTime, String typeName, PageBean pageBean) {
         return this.tAnnouncementDAO.findIndexSchoolAnnoument(announTitle, publishTime, typeName, pageBean);
     }
 
+    @Override
     public int findIndexSchoolAnnoumentCount(String announTitle, Date publishTime, String typeName) {
         return this.tAnnouncementDAO.findIndexSchoolAnnoumentCount(announTitle, publishTime, typeName);
     }
+
+    @Override
+    public TAnnouncement getAnnounById(String announId) {
+        return this.tAnnouncementDAO.findById(announId);
+    }
+
 
     /**
      * ***************************************
@@ -276,13 +229,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         this.tAnnouncementDAO = tAnnouncementDAO;
     }
 
-    /* (non-Javadoc)
-     * @see com.isse.service.AnnouncementService#getAnnounById(java.lang.String)
-     */
-    @Override
-    public TAnnouncementModel getAnnounById(String announId) {
-        return this.tAnnouncementDAO.getAnnounById(announId);
-    }
 
     public TAttachmentDAO getAttachmentDAO() {
         return attachmentDAO;

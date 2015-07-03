@@ -24,8 +24,6 @@ public class TAnnounType implements java.io.Serializable {
 	private String announTypeId;
 	private String announTypeName;
 	private String isdeleted;
-	private Set<TAnnouncementModel> TAnnouncementModels = new HashSet<TAnnouncementModel>(
-			0);
 	private Set<TAnnouncement> TAnnouncements = new HashSet<TAnnouncement>(0);
 
 	// Constructors
@@ -36,11 +34,9 @@ public class TAnnounType implements java.io.Serializable {
 
 	/** full constructor */
 	public TAnnounType(String announTypeName, String isdeleted,
-			Set<TAnnouncementModel> TAnnouncementModels,
 			Set<TAnnouncement> TAnnouncements) {
 		this.announTypeName = announTypeName;
 		this.isdeleted = isdeleted;
-		this.TAnnouncementModels = TAnnouncementModels;
 		this.TAnnouncements = TAnnouncements;
 	}
 
@@ -76,21 +72,12 @@ public class TAnnounType implements java.io.Serializable {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TAnnounType")
-	public Set<TAnnouncementModel> getTAnnouncementModels() {
-		return this.TAnnouncementModels;
-	}
-
-	public void setTAnnouncementModels(
-			Set<TAnnouncementModel> TAnnouncementModels) {
-		this.TAnnouncementModels = TAnnouncementModels;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TAnnounType")
 	public Set<TAnnouncement> getTAnnouncements() {
 		return this.TAnnouncements;
 	}
 
-	public void setTAnnouncements(Set<TAnnouncement> TAnnouncements) {
+	public void setTAnnouncements(
+			Set<TAnnouncement> TAnnouncements) {
 		this.TAnnouncements = TAnnouncements;
 	}
 

@@ -2,6 +2,7 @@ package edu.cqu.no1.service;
 
 import edu.cqu.no1.domain.*;
 import edu.cqu.no1.util.PageBean;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -64,7 +65,7 @@ public interface DeclarationService {
 
     public int getReviewTeaDeclarationCount(String teaCode);
 
-    public List<BigDecimal> findAllYears();
+    public List<Integer> findAllYears();
 
     public List<TTeacher> findUnitTeachers(String teaCode);
 

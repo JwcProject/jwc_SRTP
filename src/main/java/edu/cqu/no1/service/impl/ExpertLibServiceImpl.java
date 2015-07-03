@@ -64,7 +64,7 @@ public class ExpertLibServiceImpl implements ExpertLibService {
             this.tTempEmailReciverDAO.save(tTempEmailReciver);
 
         }
-        this.tExpertTeacherDAO.changeReviewUserType(tExpertLib.getLibId());
+        this.tExpertTeacherDAO.changeReviewUserType(tExpertLib.getLibId(), "04");
 
     }
 
@@ -87,38 +87,26 @@ public class ExpertLibServiceImpl implements ExpertLibService {
         return this.tExpertLibDAO.findNowJieQiExpLib(type);
     }
 
+
     //删除专家库以及该专家库中的专家教师
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public void deleteExperLib(TExpertLib tExpertLib) {
-        Session session = this.tExpertTeacherDAO.getSessionFactory().getCurrentSession();
-        Transaction trans = session.beginTransaction();
-        try {
-            // 开始事务
-            trans.begin();
-            tExpertLib.setIsdeleted("Y");
-            this.tExpertLibDAO.merge(tExpertLib);
-            List<TExpertTeacher> expertTeacherList = this.tExpertTeacherDAO.getExpetTeachersByExpertLib(tExpertLib.getLibId());
-            for (int i = 0; i < expertTeacherList.size(); i++) {
-                expertTeacherList.get(i).setIsdeleted("Y");
-                this.tExpertTeacherDAO.merge(expertTeacherList.get(i));
-            }
+        tExpertLib.setIsdeleted("Y");
+        this.tExpertLibDAO.merge(tExpertLib);
+        //恢复用户类型(之前已经修改为评审专家类型04)
+        this.tExpertTeacherDAO.rollBackUserType(tExpertLib.getLibId());
 
-            List<TTempEmailReciver> tempEmailReciverList = this.tTempEmailReciverDAO.findTempEmailReciverByJQid(tExpertLib.getTJieqi().getJqId());
-            for (int i = 0; i < tempEmailReciverList.size(); i++) {
-                tempEmailReciverList.get(i).setIsdeleted("Y");
-                this.tTempEmailReciverDAO.merge(tempEmailReciverList.get(i));
-            }
-            trans.commit();
+        List<TExpertTeacher> expertTeacherList = this.tExpertTeacherDAO.getExpetTeachersByExpertLib(tExpertLib.getLibId());
+        for (int i = 0; i < expertTeacherList.size(); i++) {
+            expertTeacherList.get(i).setIsdeleted("Y");
+            this.tExpertTeacherDAO.merge(expertTeacherList.get(i));
+        }
 
-        } catch (Exception e) {
-
-            try {
-                trans.rollback();// JTA事务回滚
-
-            } catch (Exception e2) {
-                // JTA事务回滚出错处理
-                e2.printStackTrace();
-            }
-            e.printStackTrace();
+        List<TTempEmailReciver> tempEmailReciverList = this.tTempEmailReciverDAO.findTempEmailReciverByJQid(tExpertLib.getTJieqi().getJqId());
+        for (int i = 0; i < tempEmailReciverList.size(); i++) {
+            tempEmailReciverList.get(i).setIsdeleted("Y");
+            this.tTempEmailReciverDAO.merge(tempEmailReciverList.get(i));
         }
     }
 

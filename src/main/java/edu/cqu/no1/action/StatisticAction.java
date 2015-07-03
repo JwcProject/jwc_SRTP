@@ -59,7 +59,7 @@ public class StatisticAction extends ActionSupport {
     public double[] delayRate;
 
     private Map<String, List<TJieqi>> qicis = new HashMap<String, List<TJieqi>>();
-    private List<BigDecimal> years;
+    private List<Integer> years;
     private List<JieQiYear> jieQiYears;
     private String college;
     private String jqYear;
@@ -151,7 +151,7 @@ public class StatisticAction extends ActionSupport {
         List<TJieqi> list = new ArrayList<TJieqi>();
         list.add(tJieqi);
         //qicis.put("",list);
-        for (BigDecimal year : years) {
+        for (Integer year : years) {
             jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
             list = this.declarationService.findJieqiByYear(year.toString());
             List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
@@ -521,11 +521,11 @@ public class StatisticAction extends ActionSupport {
         this.qicis = qicis;
     }
 
-    public List<BigDecimal> getYears() {
+    public List<Integer> getYears() {
         return years;
     }
 
-    public void setYears(List<BigDecimal> years) {
+    public void setYears(List<Integer> years) {
         this.years = years;
     }
 

@@ -28,6 +28,7 @@ public class TUser implements java.io.Serializable {
 	private String userIntroduction;
 	private String isdeleted;
 	private String userType;
+    private String previousType;
 	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
 	private Set<TUserRole> TUserRoles = new HashSet<TUserRole>(0);
 	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
@@ -122,6 +123,15 @@ public class TUser implements java.io.Serializable {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
+
+    @Column(name = "previous_type", length = 2)
+    public String getPreviousType() {
+        return previousType;
+    }
+
+    public void setPreviousType(String previousType) {
+        this.previousType = previousType;
+    }
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
 	public Set<TJournal> getTJournals() {

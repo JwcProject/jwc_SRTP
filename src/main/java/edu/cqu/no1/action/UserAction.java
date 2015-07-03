@@ -60,7 +60,7 @@ public class UserAction extends BaseAction {
      *
      * @return
      */
-    private List<TAnnouncementModel> announcements;
+    private List<TAnnouncement> announcements;
     private List<TAnnouncement> announcementList;
     private List<TAnnouncement> commonAnnouncement;
     private List<TExpertTeacher> expertTeachers;
@@ -130,41 +130,41 @@ public class UserAction extends BaseAction {
     public String userLogin() throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         Map session = ActionContext.getContext().getSession();
-        String sessionVaCode = (String) request.getSession().getAttribute("validateCode");
-        /*if (!sessionVaCode.equals(validateCode)) {
+        /*String sessionVaCode = (String) request.getSession().getAttribute("validateCode");
+        if (!sessionVaCode.equals(validateCode)) {
             request.setAttribute("msg", "验证码错误！");
             return "login";
-        }*/
-//        String md5Pwd = MD5Util.MD5(password);
+        }
+        String md5Pwd = MD5Util.MD5(password);*/
         String md5Pwd = password;
-        if (userService.userLogin(userId, md5Pwd) == null) {
+        user = userService.userLogin(userId, md5Pwd);
+        if (user == null) {
             request.setAttribute("msg", "用户名或密码错误！");
             return "login";
-        } else {
-            user = userService.userLogin(userId, md5Pwd);
-            session.put("user", user);
-            userService.changeLoginState(user.getUserId(), "YY");
-            request.setAttribute("msg", "登录成功!");
-            String uType = user.getUserType();
-            TUnit unit = userService.getUnitByUserId(user.getUserId(), uType);
-            session.put("unit", unit);
-
-            if ("06".equals(uType) || "07".equals(uType) || "08".equals(uType)) {
-                announcements = listIndexDeanAnnouncement();
-                announcementList = listIndexUnitAnnouncement(user.getUserId());
-                commonAnnouncement = listCommonAnnouncement();
-                return "student";
-            } else if ("02".equals(uType) || "03".equals(uType) || "04".equals(uType) || "05".equals(uType)) {
-                expertTeachers = listHistoryExpert(user.getUserId());
-                projects = listProjectByTeaCode(user.getUserId());
-                return "teacher";
-            } else if ("01".equals(uType) || "00".equals(uType)) {
-                announcements = listIndexDeanAnnouncement();
-                return "jiaowuchu";
-            } else {
-                return ERROR;
-            }
         }
+        session.put("user", user);
+        userService.changeLoginState(user.getUserId(), "YY");
+        request.setAttribute("msg", "登录成功!");
+        String uType = user.getUserType();
+        TUnit unit = userService.getUnitByUserId(user.getUserId(), uType);
+        session.put("unit", unit);
+
+        if ("06".equals(uType) || "07".equals(uType) || "08".equals(uType)) {
+            announcements = listIndexDeanAnnouncement();
+            announcementList = listIndexUnitAnnouncement(user.getUserId());
+            commonAnnouncement = listCommonAnnouncement();
+            return "student";
+        } else if ("02".equals(uType) || "03".equals(uType) || "04".equals(uType) || "05".equals(uType)) {
+            expertTeachers = listHistoryExpert(user.getUserId());
+            projects = listProjectByTeaCode(user.getUserId());
+            return "teacher";
+        } else if ("01".equals(uType) || "00".equals(uType)) {
+            announcements = listIndexDeanAnnouncement();
+            return "jiaowuchu";
+        } else {
+            return ERROR;
+        }
+
     }
 
 
@@ -355,7 +355,7 @@ public class UserAction extends BaseAction {
     }
 
     //教务处公告
-    public List<TAnnouncementModel> listIndexDeanAnnouncement() throws Exception {
+    public List<TAnnouncement> listIndexDeanAnnouncement() throws Exception {
         try {
             pageBean = new PageBean(1, 6, 6);
             return this.announcementService.getAnnounByType("教务处公告", pageBean);
@@ -553,11 +553,11 @@ public class UserAction extends BaseAction {
         this.password = password;
     }
 
-    public List<TAnnouncementModel> getAnnouncements() {
+    public List<TAnnouncement> getAnnouncements() {
         return announcements;
     }
 
-    public void setAnnouncements(List<TAnnouncementModel> announcements) {
+    public void setAnnouncements(List<TAnnouncement> announcements) {
         this.announcements = announcements;
     }
 

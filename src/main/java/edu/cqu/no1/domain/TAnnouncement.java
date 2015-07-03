@@ -26,7 +26,12 @@ public class TAnnouncement implements java.io.Serializable {
 	private String announContent;
 	private String publisherCode;
 	private String publisherRole;
-	private Timestamp publishTime;
+
+    private String publisherName;
+
+
+
+    private Timestamp publishTime;
 	private String publishState;
 	private String checkerCode;
 	private Timestamp checkTime;
@@ -115,6 +120,15 @@ public class TAnnouncement implements java.io.Serializable {
 	public void setPublisherRole(String publisherRole) {
 		this.publisherRole = publisherRole;
 	}
+
+    @Column(name = "publisher_name", length = 32)
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
 
 	@Column(name = "publish_time", length = 19)
 	public Timestamp getPublishTime() {

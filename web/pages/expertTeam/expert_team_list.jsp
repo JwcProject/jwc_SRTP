@@ -125,15 +125,15 @@
 						 </td>						
 						
 						<td>
-						<s:a href="ViewExpTea?expLibId=%{#expertLibs.libId}"><img src="images/shenbiaoliebiao_icon1.gif" alt="查看" /></s:a>
+						<s:a href="ViewExpTea?expLibId=%{#expertLib.libId}"><img src="images/shenbiaoliebiao_icon1.gif" alt="查看" /></s:a>
 						
-						<s:a href="PreUpdateExpTea?expLibId=%{#expertLibs.libId}">
+						<s:a href="PreUpdateExpTea?expLibId=%{#expertLib.libId}">
 							<img src="images/gonggaoweihu_icon3.gif" alt="编辑" />
 						</s:a>
-						<s:a href="DeleteExpertLib?expLibId=%{#expertLibs.libId}" >
+						<s:a href="DeleteExpertLib?expLibId=%{#expertLib.libId}" >
 							<img src="images/gonggaoweihu_icon4.gif" alt="删除" />
 						</s:a>
-						<s:if test="#expertLibs.isAssigned=='N '">
+						<s:if test="#expertLib.isAssigned=='N '">
 						<s:a href="PreAssignExpert" >
 						<img src="images/assign.png" alt="分派" /></s:a>
 						</s:if> 

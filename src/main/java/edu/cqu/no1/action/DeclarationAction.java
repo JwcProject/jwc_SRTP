@@ -30,7 +30,6 @@ import java.util.Map;
 @ParentPackage("base")
 public class DeclarationAction extends BaseAction {
 
-    public TUser tUser;
     private TDeclaration declaration;
 
     @Resource
@@ -49,7 +48,7 @@ public class DeclarationAction extends BaseAction {
     private List<TDeclaration> declarations;
     private List<TAttachment> attachments;
     private Map<String, List<TJieqi>> qicis = new HashMap<String, List<TJieqi>>();
-    private List<BigDecimal> years;
+    private List<Integer> years;
     private List<JieQiYear> jieQiYears;
     private List<TProfession> professions;
     @Resource
@@ -97,10 +96,6 @@ public class DeclarationAction extends BaseAction {
     private String result;
 
 
-
-
-
-
     @Action(value = "findStudentsByNumber", results = {
             @Result(name = "success", type = "json", params = {"root", "students", "excludeNullProperties", "true"})
     })
@@ -123,6 +118,7 @@ public class DeclarationAction extends BaseAction {
         this.teacherName = "";
         return SUCCESS;
     }
+
 
     /**
      * 判断输入的学号是否已经参与其他SRTP项目
@@ -155,13 +151,13 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * TODO 生成申请申报页面
+     * 生成申请申报页面
      */
     @Action(value = "preAddDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/declaration_add.jsp"),
             @Result(name = "message", location = "message_info.jsp")
     })
-    public String preAddDeclaration() throws Exception {
+    public String preAddDeclaration()  {
         try {
             TUser user = getSessionUser();
             if (user == null || user.getUserId() == null
@@ -191,18 +187,57 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    /**
+     * 生成审核结果录入页面
+     */
+    @Action(value = "PreResultTypeIn", results = {
+            @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp"),
+            @Result(name = "message", location = "message_info.jsp")
+    })
+    public String preResultTypeIn(){
+        try {
+            TUser user = getSessionUser();
+            if (user == null || user.getUserId() == null
+                    || user.getUserId().equals("")) {
+                toLogin();
+            } else {
+               /* String stuNumber = user.getUserId();
+                //判断是否在申请申报的时间内
+                TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+                if (jieqi == null) {
+                    messageInfo = "当前时间不能够申报项目！";
+                    return MESSAGE;
+                } else {
+                    boolean dec = this.declarationService.checkHadReqDecla(stuNumber);
+                    if (dec) {
+                        messageInfo = "本期 您已经参与其他项目的申报，不能再申报！";
+                        return MESSAGE;
+                    }
+                }*/
+                getJieQiAndPro(user.getUserId());
+
+
+                return SUCCESS;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+
+
     @Action(value = "CheckHadDeclaration", results = {
-            @Result(name = "success", type = "json", params = {"contentType", "text/html", "includeProperties", "result"}),
-            @Result(name = "noSession", location = "message_info.jsp")
+            @Result(name = "success", type = "json", params = {"contentType", "text/html", "includeProperties", "result"})
 
     })
     public String checkHadDeclaration() throws Exception {
         try {
             TUser user = getSessionUser();
-            if (user == null || user.getUserId() == null || user.getUserId().equals("")) {
+            if (user == null) {
                 toLogin();
-                messageInfo = "当前用户登录时间过久，请重新登录！";
-                return "noSession";
+                return ERROR;
             } else {
                 String stuNumber = user.getUserId();
                 boolean dec = this.declarationService.checkHadReqDecla(stuNumber);
@@ -227,8 +262,7 @@ public class DeclarationAction extends BaseAction {
     public String addDeclaration() {
         try {
             TUser user = getSessionUser();
-            if (user == null || user.getUserId() == null
-                    || user.getUserId().equals("")) {
+            if (user == null) {
                 toLogin();
             }
             if (files != null && files.length > 0) {
@@ -243,6 +277,7 @@ public class DeclarationAction extends BaseAction {
         }
     }
 
+    //添加申报的帮助方法
     public void addDeclarationAndFile(File[] files, String[] fileNames,
                                       String[] fileContentType, TUser user, TDeclaration declaration, String groupCodes, String teacherCodes, String groupWork,
                                       String projectFund)
@@ -279,37 +314,18 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * TODO 列出学院的申报列表
+     * 发布已经保存的申报
+     * @return
      */
-    @Action(value = "ListUnitDeclaration", results = {
-            @Result(name = "success", location = "/pages/declarationManage/unit_declaration_list.jsp"),
+    @Action(value = "commitSavedDeclaration", results = {
+            @Result(name = "success", type = "redirect", location = "ListDeclaration")
     })
-    public String listUnitDeclaration() throws Exception {
-        try {
-            //学院主管老师的教职工号
-            tUser = getSessionUser();
-            if (tUser == null || tUser.getUserId() == null
-                    || tUser.getUserId().equals("")) {
-                toLogin();
-            }
-            teacherCodes = tUser.getUserId();
-            //TJieqi tJieqi = this.jieQiService.findCurrentJieQi();
-            totalNumber = this.declarationService.getUnitDeclarationCount(teacherCodes, "02", "09");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getUnitDeclaration(teacherCodes, "02", "09", pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro(teacherCodes);
-            return SUCCESS;
-        } catch (Exception e) {
-            System.out.println("list Unit Declaration failed:" + e);
-            e.printStackTrace();
-            return ERROR;
-        }
-    }
-
-
     public String commitSavedDeclaration() {
         try {
+            TUser tUser = getSessionUser();
+            if(tUser == null){
+                toLogin();
+            }
             declaration = this.declarationService.getTDeclaration(Id);
             declaration.setCheckState("02");
             this.declarationService.updateTDeclaration(declaration);
@@ -324,199 +340,21 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * TODO 多条件查询学院的申报列表
+     * 获取学生个人申报列表
+     * @return
+     * @throws Exception
      */
-
-    @Action(value = "QueryUnitDeclaration", results = {
-            @Result(name = "success", location = "/pages/declarationManage/unit_declaration_list.jsp"),
-    })
-    public String findUnitDeclaration() throws Exception {
-        try {
-            //学院主管老师的教职工号
-            tUser = getSessionUser();
-            if (tUser == null || tUser.getUserId() == null
-                    || tUser.getUserId().equals("")) {
-                toLogin();
-            }
-            teacherCodes = tUser.getUserId();
-            this.totalNumber = this.declarationService.findUnitDeclarationsCount(teacherCodes, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName);
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.findUnitDeclarations(teacherCodes, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName, pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro(teacherCodes);
-            return SUCCESS;
-        } catch (Exception e) {
-            //throw e;
-            return ERROR;
-        }
-
-
-    }
-
-
-    //在分派评审专家页面上查询申报
-    @Action(value = "QueryDeclaAssignExp", results = {
-            @Result(name = "success", location = "/pages/expertTeam/assign_expert.jsp")
-    })
-    public String findAssignExpertDeclaration() throws Exception {
-        try {
-            //学院主管老师的教职工号
-            tUser = getSessionUser();
-            if (tUser == null || tUser.getUserId() == null
-                    || tUser.getUserId().equals("")) {
-                toLogin();
-            }
-            teacherCodes = tUser.getUserId();
-            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
-            this.totalNumber = this.declarationService.findUnitDeclarationsCount(teacherCodes, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName);
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.findUnitDeclarations(teacherCodes, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName, pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro(teacherCodes);
-            expertTeachers = this.expertTeacherService.findAssignedExpertTeachers(jieqi.getJqId(), "01", teacherCodes);
-            return SUCCESS;
-        } catch (Exception e) {
-            //throw e;
-            return ERROR;
-        }
-    }
-
-
-    /**
-     * TODO 生成教务处申报结果列表页面
-     */
-    @Action(value = "ListSchoolDeclaration", results = {
-            @Result(name = "success", location = "/pages/declarationManage/school_declaration_list.jsp")
-    })
-    public String listSchoolDeclaration() throws Exception {
-        try {
-            //TJieqi jieqi = this.jieQiService.findCurrentJieQi();
-            //String checkState1 = "06";
-            totalNumber = this.declarationService.getSchoolDeclarationCount("06", "06");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getSchoolDeclaration("06", "06", pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro();
-            return SUCCESS;
-        } catch (Exception e) {
-            return ERROR;
-        }
-    }
-
-
-    //生成教务处申报列表页面
-
-    @Action(value = "SchoolDeclaration", results = {
-            @Result(name = "success", location = "/pages/declarationManage/schoolDeclaration.jsp")
-    })
-    public String schoolDeclaration() throws Exception {
-        try {
-            //TJieqi jieqi = this.jieQiService.findCurrentJieQi();
-            //String checkState1 = "06";
-            totalNumber = this.declarationService.getSchoolDeclarationCount("02", "09");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getSchoolDeclaration("02", "09", pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro();
-            return SUCCESS;
-        } catch (Exception e) {
-            return ERROR;
-        }
-    }
-
-
-    /**
-     * TODO 教务处教师查询申报
-     */
-    @Action(value = "FindSchoolDeclaration", results = {
-            @Result(name = "success", location = "/pages/declarationManage/schoolDeclaration.jsp")
-    })
-    public String findSchoolDeclaration() throws Exception {
-        try {
-
-            totalNumber = this.declarationService.findSchoolDeclarationCount(proName, jqYear, jqQici, checkState, college);
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.findSchoolDeclaration(proName, jqYear, jqQici, checkState, college, pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro();
-            return SUCCESS;
-        } catch (Exception e) {
-            return ERROR;
-        }
-    }
-
-    /**
-     * TODO 学校申报列表的年份和期次
-     * authoy lzh
-     */
-    private void getJieQiAndPro() {
-        years = this.declarationService.findAllYears();
-        jieQiYears = new ArrayList<JieQiYear>();
-        //年份list 添加一个"所有",对应的key为"ALL"
-        jieQiYears.add(new JieQiYear("", "所有"));
-        TJieqi tJieqi = new TJieqi();
-        tJieqi.setJqId("");
-        tJieqi.setQici("所有");
-        List<TJieqi> list = new ArrayList<TJieqi>();
-        list.add(tJieqi);
-        qicis.put("", list);
-        for (BigDecimal year : years) {
-            jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
-            list = this.declarationService.findJieqiByYear(year.toString());
-            List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
-            //期次list 添加一个"所有",对应的key为"ALL"
-            tmpJieqis.add(tJieqi);
-            for (TJieqi t : list) {
-                tmpJieqis.add(t);
-            }
-            qicis.put(year.toString(), tmpJieqis);
-        }
-    }
-
-    /**
-     * TODO 获取学院申报列表页面的年份，期次，专业 数据
-     * authoy lzh
-     *
-     * @param teaCode
-     */
-    private void getJieQiAndPro(String teaCode) {
-        years = this.declarationService.findAllYears();
-        //获取专业列表
-        professions = this.professionService.findTProfessionsByTeaCode(teacherCodes);
-        jieQiYears = new ArrayList<JieQiYear>();
-        //年份list 添加一个"所有",对应的key为"ALL"
-        jieQiYears.add(new JieQiYear("", "所有"));
-        TJieqi tJieqi = new TJieqi();
-        tJieqi.setJqId("");
-        tJieqi.setQici("所有");
-        List<TJieqi> list = new ArrayList<TJieqi>();
-        list.add(tJieqi);
-        qicis.put("", list);
-        for (BigDecimal year : years) {
-            jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
-            list = this.declarationService.findJieqiByYear(year.toString());
-            List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
-            //期次list 添加一个"所有",对应的key为"ALL"
-            tmpJieqis.add(tJieqi);
-            for (TJieqi t : list) {
-                tmpJieqis.add(t);
-            }
-            qicis.put(year.toString(), tmpJieqis);
-        }
-    }
-
-
     @Action(value = "ListDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/declaration_list.jsp")
     })
     public String listDeclaration() throws Exception {
         try {
-            tUser = getSessionUser();
+            TUser tUser = getSessionUser();
             if (tUser == null || tUser.getUserId() == null
                     || tUser.getUserId().equals("")) {
                 toLogin();
             }
-            studentId = tUser.getUserId();
+            String studentId = tUser.getUserId();
 
             this.totalNumber = this.declarationService.getAllTDeclarationCount(studentId);
 
@@ -534,13 +372,15 @@ public class DeclarationAction extends BaseAction {
     }
 
 
-    //获取教师个人申报列表
+    /**
+     * 获取教师个人申报列表
+     */
     @Action(value = "ListTeaPersonalDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/teaPersonal_declaration_list.jsp")
     })
     public String listTeaPersonalDeclaration() throws Exception {
         try {
-            tUser = getSessionUser();
+            TUser tUser = getSessionUser();
             if (tUser == null || tUser.getUserId() == null
                     || tUser.getUserId().equals("")) {
                 toLogin();
@@ -552,7 +392,6 @@ public class DeclarationAction extends BaseAction {
             // 构造分页对象
             pageBean = new PageBean(page, totalNumber, pageCapacity);
             declarations = this.declarationService.getTeaDeclaration(teaCode, pageBean);
-
             totalPage = this.pageBean.getTotalPage();
             return SUCCESS;
         } catch (Exception e) {
@@ -561,13 +400,17 @@ public class DeclarationAction extends BaseAction {
     }
 
 
-    //查询教师个人申报列表
+    /**
+     * 条件查询教师个人申报列表
+     * @return
+     * @throws Exception
+     */
     @Action(value = "FindTeaPersonalDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/teaPersonal_declaration_list.jsp")
     })
     public String findTeaPersonalDeclaration() throws Exception {
         try {
-            tUser = getSessionUser();
+            TUser tUser = getSessionUser();
             if (tUser == null || tUser.getUserId() == null
                     || tUser.getUserId().equals("")) {
                 toLogin();
@@ -588,6 +431,218 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+
+    /**
+     * 列出学院的申报列表
+     */
+    @Action(value = "ListUnitDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/unit_declaration_list.jsp"),
+    })
+    public String listUnitDeclaration() throws Exception {
+        try {
+            TUser tUser = getSessionUser();
+            if (tUser == null) {
+                toLogin();
+            }
+            String teaCode = tUser.getUserId();
+            //TJieqi tJieqi = this.jieQiService.findCurrentJieQi();
+            totalNumber = this.declarationService.getUnitDeclarationCount(teaCode, "02", "09");
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.getUnitDeclaration(teaCode, "02", "09", pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro(teaCode);
+            return SUCCESS;
+        } catch (Exception e) {
+            System.out.println("list Unit Declaration failed:" + e);
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+
+    /**
+     * 查询学院的申报列表
+     */
+    @Action(value = "QueryUnitDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/unit_declaration_list.jsp"),
+    })
+    public String findUnitDeclaration() throws Exception {
+        try {
+            //学院主管老师的教职工号
+            TUser tUser = getSessionUser();
+            if (tUser == null || tUser.getUserId() == null
+                    || tUser.getUserId().equals("")) {
+                toLogin();
+            }
+            String teaCode = tUser.getUserId();
+            this.totalNumber = this.declarationService.findUnitDeclarationsCount(teaCode, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName);
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.findUnitDeclarations(teaCode, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName, pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro(teaCode);
+            return SUCCESS;
+        } catch (Exception e) {
+            //throw e;
+            return ERROR;
+        }
+
+
+    }
+
+    /**
+     * 全校SRTP项目申报列表   教务处查看
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "SchoolDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/schoolDeclaration.jsp")
+    })
+    public String schoolDeclaration() throws Exception {
+        try {
+            //TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            //String checkState1 = "06";
+            totalNumber = this.declarationService.getSchoolDeclarationCount("02", "09");
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.getSchoolDeclaration("02", "09", pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro();
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
+
+    /**
+     * 全校SRTP项目申报列表   教务处筛选查看
+     */
+    @Action(value = "FindSchoolDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/schoolDeclaration.jsp")
+    })
+    public String findSchoolDeclaration() throws Exception {
+        try {
+
+            totalNumber = this.declarationService.findSchoolDeclarationCount(proName, jqYear, jqQici, checkState, college);
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.findSchoolDeclaration(proName, jqYear, jqQici, checkState, college, pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro();
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
+    /**
+     * 在分派评审专家页面上查询申报
+     */
+    @Action(value = "QueryDeclaAssignExp", results = {
+            @Result(name = "success", location = "/pages/expertTeam/assign_expert.jsp")
+    })
+    public String findAssignExpertDeclaration() throws Exception {
+        try {
+            //学院主管老师的教职工号
+            TUser tUser = getSessionUser();
+            if (tUser == null || tUser.getUserId() == null
+                    || tUser.getUserId().equals("")) {
+                toLogin();
+            }
+            String teaCode = tUser.getUserId();
+            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            this.totalNumber = this.declarationService.findUnitDeclarationsCount(teaCode, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName);
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.findUnitDeclarations(teaCode, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName, pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro(teaCode);
+            expertTeachers = this.expertTeacherService.findAssignedExpertTeachers(jieqi.getJqId(), "01", teaCode);
+            return SUCCESS;
+        } catch (Exception e) {
+            //throw e;
+            return ERROR;
+        }
+    }
+
+
+    /**
+     * 生成教务处申报结果列表页面
+     */
+    @Action(value = "ListSchoolDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/school_declaration_list.jsp")
+    })
+    public String listSchoolDeclaration() throws Exception {
+        try {
+            totalNumber = this.declarationService.getSchoolDeclarationCount("06", "06");
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.getSchoolDeclaration("06", "06", pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro();
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
+
+
+    //学校申报列表的年份和期次
+    private void getJieQiAndPro() {
+        years = this.declarationService.findAllYears();
+        jieQiYears = new ArrayList<JieQiYear>();
+        //年份list 添加一个"所有",对应的key为"ALL"
+        jieQiYears.add(new JieQiYear("", "所有"));
+        TJieqi tJieqi = new TJieqi();
+        tJieqi.setJqId("");
+        tJieqi.setQici("所有");
+        List<TJieqi> list = new ArrayList<TJieqi>();
+        list.add(tJieqi);
+        qicis.put("", list);
+        for (Integer year : years) {
+            jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
+            list = this.declarationService.findJieqiByYear(year.toString());
+            List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
+            //期次list 添加一个"所有",对应的key为"ALL"
+            tmpJieqis.add(tJieqi);
+            for (TJieqi t : list) {
+                tmpJieqis.add(t);
+            }
+            qicis.put(year.toString(), tmpJieqis);
+        }
+    }
+
+    //学院申报列表页面的年份，期次，专业
+    private void getJieQiAndPro(String teaCode) {
+        years = this.declarationService.findAllYears();
+        //获取专业列表
+        professions = this.professionService.findTProfessionsByTeaCode(teaCode);
+        jieQiYears = new ArrayList<JieQiYear>();
+        //年份list 添加一个"所有",对应的key为"ALL"
+        jieQiYears.add(new JieQiYear("", "所有"));
+        TJieqi tJieqi = new TJieqi();
+        tJieqi.setJqId("");
+        tJieqi.setQici("所有");
+        List<TJieqi> list = new ArrayList<TJieqi>();
+        list.add(tJieqi);
+        qicis.put("", list);
+        for (Integer year : years) {
+            jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
+            list = this.declarationService.findJieqiByYear(year.toString());
+            List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
+            //期次list 添加一个"所有",对应的key为"ALL"
+            tmpJieqis.add(tJieqi);
+            for (TJieqi t : list) {
+                tmpJieqis.add(t);
+            }
+            qicis.put(year.toString(), tmpJieqis);
+        }
+    }
+
+
+
+    /**
+     * 网评
+     * @return
+     * @throws Exception
+     */
     @Action(value = "OnlineComments", results = {
             @Result(name = "success", location = "/pages/expertTeam/online_comments.jsp")
     })
@@ -604,6 +659,11 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    /**
+     * 更新申报
+     * @return
+     * @throws Exception
+     */
     @Action(value = "UpdateDeclaration", results = {
             @Result(name = "input", location = "/pages/declarationManage/declaration_edit.jsp"),
             @Result(name = "success", type = "redirect", location = "ListDeclaration"),
@@ -656,6 +716,11 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    /**
+     * 删除申报
+     * @return
+     * @throws Exception
+     */
     @Action(value = "DeleteUnitDeclaration", results = {
             @Result(name = "success", type = "redirect", location = "ListUnitDeclaration")
     })
@@ -669,6 +734,11 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    /**
+     * 下载申报附件
+     * @return
+     * @throws Exception
+     */
     @Action(value = "downLoadAttachment", results = {
             @Result(name = "success", type = "stream")
     })
@@ -685,9 +755,6 @@ public class DeclarationAction extends BaseAction {
         }
         return SUCCESS;
     }
-
-
-
 
 
     @JSON(serialize = false)
@@ -847,11 +914,11 @@ public class DeclarationAction extends BaseAction {
     }
 
     @JSON(serialize = false)
-    public List<BigDecimal> getYears() {
+    public List<Integer> getYears() {
         return years;
     }
 
-    public void setYears(List<BigDecimal> years) {
+    public void setYears(List<Integer> years) {
         this.years = years;
     }
 
@@ -1040,14 +1107,6 @@ public class DeclarationAction extends BaseAction {
 
     public void setCollgegId(String collgegId) {
         this.collgegId = collgegId;
-    }
-
-    public TUser gettUser() {
-        return tUser;
-    }
-
-    public void settUser(TUser tUser) {
-        this.tUser = tUser;
     }
 
     public String getMessageInfo() {

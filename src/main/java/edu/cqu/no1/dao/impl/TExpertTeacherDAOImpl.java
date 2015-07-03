@@ -241,12 +241,38 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
         }
     }
 
-    //修改评审教师的用户类型
 
-    public void changeReviewUserType(String libId) {
+    /**
+     * 修改用户类型为评审专家
+     * @param libId 专家库id
+     * @param type  要修改的类型
+     */
+    @Override
+    public void changeReviewUserType(String libId, String type) {
         log.debug("change review teacher user type");
         try {
-            String hql = "update TUser user set user.userType = '04' where user.userId in" +
+            String hql = "update TUser user set user.previousType = user.userType , user.userType = :type where user.userId in" +
+                    " (select teacher.teaCode from TTeacher teacher where teacher in" +
+                    "(select expert.TTeacher from TExpertTeacher expert where expert.TExpertLib.libId = :libId))";
+            Query query = getSessionFactory().getCurrentSession().createQuery(hql);
+            query.setString("type", type);
+            query.setString("libId", libId);
+            query.executeUpdate();
+        } catch (RuntimeException re) {
+            log.error("change review teacher user type failed", re);
+            throw re;
+        }
+    }
+
+    /**
+     * 撤销用户类型修改
+     * @param libId 专家库id
+     */
+    @Override
+    public void rollBackUserType(String libId) {
+        log.debug("change review teacher user type");
+        try {
+            String hql = "update TUser user set user.userType = user.previousType where user.userId in" +
                     " (select teacher.teaCode from TTeacher teacher where teacher in" +
                     "(select expert.TTeacher from TExpertTeacher expert where expert.TExpertLib.libId = :libId))";
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);
@@ -257,6 +283,8 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
             throw re;
         }
     }
+
+
 
     /**
      * 根据教职工号获取专家教师对象

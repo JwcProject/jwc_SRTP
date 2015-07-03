@@ -71,7 +71,6 @@
                 <value>edu.cqu.no1.domain.TUnit</value>
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TUserRole</value>
-                <value>edu.cqu.no1.domain.TAnnouncementModel</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
             </list>
         </property>

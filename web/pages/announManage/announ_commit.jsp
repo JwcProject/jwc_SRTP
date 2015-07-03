@@ -1,4 +1,4 @@
-<%@page import="com.isse.model.TUser"%>
+<%@page import="edu.cqu.no1.domain.TUser"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   if($('#text_fabu').val() == ""){
 		      $('#text_fabu').focus();
 		   }else{
-		      document.announcement.action = "<%=basePath%>SaveAnnouncement";
+		      document.announcement.action = "/SaveAnnouncement";
 			  document.announcement.submit();
 		   } 
 		}
@@ -47,7 +47,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    if($('#text_fabu').val() == ""){
 		       $('#text_fabu').focus();
 		    }else{
-		    //alert("commit");
 		       document.announcement.action = "<%=basePath%>CommitAnnouncement";
 			   document.announcement.submit();
 		    }	

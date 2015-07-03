@@ -20,8 +20,6 @@ public class ActionRedirect {
 
 		String redirectPageUrl = path + "/Redirect.jsp?Action=" + URLEncoder.encode(action, "UTF-8") + "&Message=" + URLEncoder.encode(message, "UTF-8");
 		response.sendRedirect(redirectPageUrl);
-		return;
-
 	}
 
 	static public void redirectURL(String URL, String message) throws IOException {

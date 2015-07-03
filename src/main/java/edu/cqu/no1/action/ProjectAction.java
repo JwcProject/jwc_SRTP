@@ -13,6 +13,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -39,7 +40,7 @@ public class ProjectAction extends BaseAction {
     private List<TProject> projectList;
     private TUser tUser;
     private Map<String, List<TJieqi>> qicis = new HashMap<String, List<TJieqi>>();
-    private List<BigDecimal> years;
+    private List<Integer> years;
     private List<JieQiYear> jieQiYears;
     private List<TProfession> professions;
 
@@ -243,7 +244,7 @@ public class ProjectAction extends BaseAction {
         List<TJieqi> list = new ArrayList<TJieqi>();
         list.add(tJieqi);
         qicis.put("", list);
-        for (BigDecimal year : years) {
+        for (Integer year : years) {
             jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
             list = this.declarationService.findJieqiByYear(year.toString());
             List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
@@ -267,7 +268,7 @@ public class ProjectAction extends BaseAction {
         List<TJieqi> list = new ArrayList<TJieqi>();
         list.add(tJieqi);
         qicis.put("", list);
-        for (BigDecimal year : years) {
+        for (Integer year : years) {
             jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
             list = this.declarationService.findJieqiByYear(year.toString());
             List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
@@ -386,11 +387,11 @@ public class ProjectAction extends BaseAction {
         this.qicis = qicis;
     }
 
-    public List<BigDecimal> getYears() {
+    public List<Integer> getYears() {
         return years;
     }
 
-    public void setYears(List<BigDecimal> years) {
+    public void setYears(List<Integer> years) {
         this.years = years;
     }
 

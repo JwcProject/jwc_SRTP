@@ -32,7 +32,7 @@ public class ExpertTeamAction extends BaseAction {
     @Resource
     private DeclarationService declarationService;
     private String teaCode; // 学院主管老师的教职工号
-    private List<BigDecimal> years;
+    private List<Integer> years;
     private List<JieQiYear> jieQiYears;
     private List<TTeacher> teachers;
     private Map<String, List<TJieqi>> qicis = new HashMap<String, List<TJieqi>>();
@@ -884,7 +884,6 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
      * TODO 生成分派专家团队页面(申报) authoy lzh
      */
@@ -927,9 +926,6 @@ public class ExpertTeamAction extends BaseAction {
             return ERROR;
         }
     }
-
-
-
 
 
     /**
@@ -979,7 +975,6 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
      * TODO 结果录入页面查询
      */
@@ -997,7 +992,7 @@ public class ExpertTeamAction extends BaseAction {
             teacherCode = user.getUserId();
             years = this.declarationService.findAllYears();
             jieQiYears = new ArrayList<JieQiYear>();
-            for (BigDecimal year : years) {
+            for (Integer year : years) {
                 jieQiYears.add(new JieQiYear(year.toString(), year.toString()));
                 List<TJieqi> tmpJieqis = this.declarationService
                         .findJieqiByYear(year.toString());
@@ -1023,9 +1018,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
-     * TODO 学院主管教师审核申报
+     * 学院主管教师审核申报
      */
     @Action(value = "ResultTypeInSubmit")
     public void unitCheck() {
@@ -1057,7 +1051,9 @@ public class ExpertTeamAction extends BaseAction {
 
 
     @Action(value = "UnitAudit")
-    //学院领导审核
+    /**
+     * 学院领导审核
+     */
     public void unitAudit() {
         try {
             //System.out.println("dkkdk");
@@ -1074,7 +1070,9 @@ public class ExpertTeamAction extends BaseAction {
 
 
     @Action(value = "SchoolCheck")
-    // 教务处主管教师审核申报
+    /**
+     * 教务处主管教师审核申报
+     */
     public void schoolCheck() {
         try {
             String state = checkState;
@@ -1109,10 +1107,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
-
     /**
-     * TODO 获取学院评审通过的申报
+     * 获取学院评审通过的申报
      */
     @Action(value = "UnitResultAudit", results = {
             @Result(name = "success", location = "/pages/declarationManage/result_audit.jsp"),
@@ -1161,13 +1157,13 @@ public class ExpertTeamAction extends BaseAction {
     }
 
     /**
-     * TODO 添加一个教师
+     * 添加一个教师
      */
     @Action(value = "AddTeacher", results = {
             @Result(name = "success", type = "json", params = {"contentType", "text/html", "includeProperties", "result"}),
             @Result(name = "error", type = "json", params = {"contentType", "text/html", "includeProperties", "result"})
 
-})
+    })
     public String addTeacher() throws Exception {
         try {
             // 获取学院主管教师的教职工号
@@ -1217,7 +1213,7 @@ public class ExpertTeamAction extends BaseAction {
 
     @Action(value = "AssignExpert")
     /**
-     * TODO 分派评审专家 authoy lzh
+     * 分派评审专家
      */
     public void assignExpert() throws Exception {
         try {
@@ -1246,8 +1242,9 @@ public class ExpertTeamAction extends BaseAction {
         }
     }
 
+
     /**
-     * TODO 生成组织评审页面
+     * 生成组织评审页面
      */
     @Action(value = "PreOrganizeReview", results = {
             @Result(name = "success", location = "/pages/declarationManage/organize_review.jsp")
@@ -1275,9 +1272,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
-     * TODO 列出学院的所有申报专家团队
+     * 列出学院的所有申报专家团队
      */
     @Action(value = "ListUnitExperTeam", results = {
             @Result(name = "success", location = "/pages/expertTeam/expert_team_list.jsp")
@@ -1428,7 +1424,6 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
      * TODO 生成我的评审的页面
      */
@@ -1483,9 +1478,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
-     * TODO 我的评审页面的查询
+     * 我的评审页面的查询
      */
     @Action(value = "FindInMyReview", results = {
             @Result(name = "success", location = "/pages/expertTeam/my_review.jsp"),
@@ -1531,9 +1525,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
-     * TODO 根据专家库ID查看专家库的专家教师
+     * 根据专家库ID查看专家库的专家教师
      */
     @Action(value = "ViewExpTea", results = {
             @Result(name = "success", location = "/pages/expertTeam/view_expert_team.jsp")
@@ -1558,9 +1551,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
-     * TODO 生成编辑学院专家团队页面
+     * 生成编辑学院专家团队页面
      */
     @Action(value = "PreUpdateExpTea", results = {
             @Result(name = "success", location = "/pages/expertTeam/update_expert_team.jsp")
@@ -1585,7 +1577,6 @@ public class ExpertTeamAction extends BaseAction {
             return ERROR;
         }
     }
-
 
 
     /**
@@ -1618,7 +1609,7 @@ public class ExpertTeamAction extends BaseAction {
 
 
     /**
-     * TODO 删除专家团队
+     * 删除专家团队
      */
     @Action(value = "DeleteExpertLib", results = {
             @Result(name = "success", type = "redirect", location = "ListUnitExperTeam")
@@ -1638,9 +1629,8 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
     /**
-     * TODO 评审意见
+     * 评审意见
      */
     @Action(value = "ReviewOpinion", results = {
             @Result(name = "success", type = "redirect", location = "PreResultTypeIn")
@@ -1661,6 +1651,7 @@ public class ExpertTeamAction extends BaseAction {
             return ERROR;
         }
     }
+
 
     @Action(value = "AddComments", results = {
             @Result(name = "success", location = "/index.jsp"),
@@ -1701,13 +1692,6 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-
-
-
-
-
-
-
     /**
      * ***************************
      * set and get methods
@@ -1730,11 +1714,11 @@ public class ExpertTeamAction extends BaseAction {
         this.teaCode = teaCode;
     }
 
-    public List<BigDecimal> getYears() {
+    public List<Integer> getYears() {
         return years;
     }
 
-    public void setYears(List<BigDecimal> years) {
+    public void setYears(List<Integer> years) {
         this.years = years;
     }
 

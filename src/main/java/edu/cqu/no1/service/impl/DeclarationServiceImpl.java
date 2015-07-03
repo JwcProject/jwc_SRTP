@@ -378,7 +378,7 @@ public class DeclarationServiceImpl implements DeclarationService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<BigDecimal> findAllYears() {
+    public List<Integer> findAllYears() {
         return this.tJieqiDAO.findAllYears();
     }
 

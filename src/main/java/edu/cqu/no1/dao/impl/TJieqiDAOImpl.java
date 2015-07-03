@@ -120,7 +120,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     }
 
 
-    public List findAllYears(){
+    public List<Integer> findAllYears(){
         log.debug("get all years from jieqi");
         try {
             String queryString ="select distinct t.jqYear from TJieqi t order by t.jqYear desc";
