@@ -275,14 +275,15 @@ public class EndProjectAction extends BaseAction {
     }
 
     private void findYearsAndQicis() {
-        List<BigDecimal> list = this.endProjectService.getAllJieQiYear();
+        List list = this.endProjectService.getAllJieQiYear();
         JieQiYear tempYear = new JieQiYear("0", "所有");
         allYears.add(tempYear);
         TJieqi tempJieqi = new TJieqi();
         tempJieqi.setJqId("0");
         tempJieqi.setQici("所有");
         qicis.put("0", Arrays.asList(new TJieqi[]{tempJieqi}));
-        for (BigDecimal year : list) {
+        for (int i=0;i<list.size();i++) {
+            BigDecimal year=new BigDecimal((Integer)list.get(i));
             allYears.add(new JieQiYear(year.toString(), year.toString()));
             List<TJieqi> jieqis = this.endProjectService.getJieqisOfYear(year
                     .toString());
