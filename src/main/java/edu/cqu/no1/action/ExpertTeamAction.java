@@ -933,7 +933,7 @@ public class ExpertTeamAction extends BaseAction {
      */
     @Action(value = "PreResultTypeIn", results = {
             @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp"),
-            @Result(name = "message", location = "message_info.jsp")
+            @Result(name = "message", location = "/message_info.jsp")
     })
     public String listResultTypeIn() throws Exception {
         try {
@@ -1211,11 +1211,13 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-    @Action(value = "AssignExpert")
+    @Action(value = "AssignExpert", results = {
+            @Result(name = "success", type = "redirect", location = "ListUnitDeclaration")
+    })
     /**
      * 分派评审专家
      */
-    public void assignExpert() throws Exception {
+    public String assignExpert() throws Exception {
         try {
             user = getSessionUser();
             if (user == null) {
@@ -1223,7 +1225,8 @@ public class ExpertTeamAction extends BaseAction {
             }
             List<TExpertTeacher> tExpertTeacher;
             String teas[] = experts.split(",");
-            // checkProjects申报ID
+
+
             for (int i = 0; i < checkProjects.length; i++) {
                 tExpertTeacher = new ArrayList<TExpertTeacher>();
                 for (int j = 0; j < teas.length; j++) {
@@ -1238,7 +1241,10 @@ public class ExpertTeamAction extends BaseAction {
                 this.expertReviewService.creatExpertReview(declaration,
                         tExpertTeacher);
             }
+            return SUCCESS;
         } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
         }
     }
 

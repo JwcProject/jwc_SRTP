@@ -27,8 +27,20 @@
       <tr>
 	  
         <!--  左边区域-->
-        
-		<jsp:include page="../../dean_left.jsp"></jsp:include>
+          <!--  左边区域-->
+          <s:if test="null!=#session.user">
+              <s:if test="%{#session.user.userType == '00'}">
+                  <jsp:include page="../../dean_leader_left.jsp"></jsp:include>
+              </s:if>
+              <s:elseif test="%{#session.user.userType == '01'}">
+                  <jsp:include page="../../dean_left.jsp"></jsp:include>
+              </s:elseif>
+          </s:if>
+          <s:else>
+              <jsp:forward  page="../../login.jsp"></jsp:forward>
+          </s:else>
+
+
         <!--中间区域-->
         <td width="88%" valign="top"  style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc" bordercolor="#f4f3f1"  >
 		<div class="midbox">

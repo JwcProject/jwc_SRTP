@@ -10,6 +10,7 @@ import edu.cqu.no1.service.ExpertReviewService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,16 +27,18 @@ public class ExpertReviewServiceImpl implements ExpertReviewService {
     @Resource
     TDeclCommentDAO tDeclCommentDAO;
 
+
+    /**
+     * 创建专家评审
+     *
+     * @param tDeclaration       申报
+     * @param tExpertTeacherList 评审专家列表
+     */
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    //创建专家评审
     public void creatExpertReview(TDeclaration tDeclaration,
                                   List<TExpertTeacher> tExpertTeacherList) {
-        // TODO Auto-generated method stub
-        Session session = tExpertReviewDAO.getSessionFactory().getCurrentSession();
-        Transaction trans = session.beginTransaction();
         try {
-            //开始事务
-            trans.begin();
             tDeclaration.setCheckState("03");
             TExpertReview tExpertReview = null;
             TDeclComment tDeclComment = null;
@@ -43,25 +46,14 @@ public class ExpertReviewServiceImpl implements ExpertReviewService {
                 tExpertReview = new TExpertReview();
                 tExpertReview.setTDeclaration(tDeclaration);
                 tExpertReview.setTExpertTeacher(tExpertTeacherList.get(i));
-                //tExpertReview.setIsdeleted("N");
+                tExpertReview.setIsdeleted("N");
                 this.tExpertReviewDAO.save(tExpertReview);
 
                 //添加专家评审
                 tDeclComment = new TDeclComment();
                 tDeclComment.setTExpertReview(tExpertReview);
-
             }
-            trans.commit();
-
         } catch (Exception e) {
-
-            try {
-                trans.rollback();//JTA事务回滚
-
-            } catch (Exception e2) {
-                //JTA事务回滚出错处理
-                e2.printStackTrace();
-            }
             e.printStackTrace();
         }
     }

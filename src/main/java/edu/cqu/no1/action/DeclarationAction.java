@@ -18,10 +18,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Resource;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 
@@ -96,6 +93,11 @@ public class DeclarationAction extends BaseAction {
     private String result;
 
 
+    /**
+     * 填写申报页面 根据学好找学生
+     *
+     * @return
+     */
     @Action(value = "findStudentsByNumber", results = {
             @Result(name = "success", type = "json", params = {"root", "students", "excludeNullProperties", "true"})
     })
@@ -108,6 +110,11 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    /**
+     * 填写申报页面  根据老师姓名找老师
+     *
+     * @return
+     */
     @Action(value = "findTeachersByName", results = {
             @Result(name = "success", type = "json", params = {"root", "teachers", "excludeNullProperties", "true"})
     })
@@ -155,9 +162,9 @@ public class DeclarationAction extends BaseAction {
      */
     @Action(value = "preAddDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/declaration_add.jsp"),
-            @Result(name = "message", location = "message_info.jsp")
+            @Result(name = "message", location = "/message_info.jsp")
     })
-    public String preAddDeclaration()  {
+    public String preAddDeclaration() {
         try {
             TUser user = getSessionUser();
             if (user == null || user.getUserId() == null
@@ -191,43 +198,37 @@ public class DeclarationAction extends BaseAction {
      * 生成审核结果录入页面
      */
     @Action(value = "PreResultTypeIn", results = {
-            @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp"),
-            @Result(name = "message", location = "message_info.jsp")
+            @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp")
     })
-    public String preResultTypeIn(){
+    public String preResultTypeIn() {
         try {
             TUser user = getSessionUser();
             if (user == null || user.getUserId() == null
                     || user.getUserId().equals("")) {
                 toLogin();
-            } else {
-               /* String stuNumber = user.getUserId();
-                //判断是否在申请申报的时间内
-                TJieqi jieqi = this.jieQiService.findCurrentJieQi();
-                if (jieqi == null) {
-                    messageInfo = "当前时间不能够申报项目！";
-                    return MESSAGE;
-                } else {
-                    boolean dec = this.declarationService.checkHadReqDecla(stuNumber);
-                    if (dec) {
-                        messageInfo = "本期 您已经参与其他项目的申报，不能再申报！";
-                        return MESSAGE;
-                    }
-                }*/
-                getJieQiAndPro(user.getUserId());
-
-
-                return SUCCESS;
             }
 
+            getJieQiAndPro(user.getUserId());
+            String teaCode = user.getUserId();
+            totalNumber = this.declarationService.getUnitDeclarationCount(teaCode, "03", "03");
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.getUnitDeclaration(teaCode, "03", "03", pageBean);
+            totalPage = pageBean.getTotalPage();
+
+            return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
-        return SUCCESS;
     }
 
 
+    /**
+     * 验证某学生是否已经有申报
+     *
+     * @return
+     * @throws Exception
+     */
     @Action(value = "CheckHadDeclaration", results = {
             @Result(name = "success", type = "json", params = {"contentType", "text/html", "includeProperties", "result"})
 
@@ -256,6 +257,11 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    /**
+     * 保存申报
+     *
+     * @return
+     */
     @Action(value = "addDeclaration", results = {
             @Result(name = "success", type = "json", params = {"root", "Id"})
     })
@@ -280,8 +286,7 @@ public class DeclarationAction extends BaseAction {
     //添加申报的帮助方法
     public void addDeclarationAndFile(File[] files, String[] fileNames,
                                       String[] fileContentType, TUser user, TDeclaration declaration, String groupCodes, String teacherCodes, String groupWork,
-                                      String projectFund)
-            throws RuntimeException {
+                                      String projectFund) throws RuntimeException {
         try {
             if (files != null && fileNames != null && fileContentType != null
                     && files.length == fileNames.length
@@ -299,8 +304,9 @@ public class DeclarationAction extends BaseAction {
                         tAttachment.setTUser(user);
                         tAttachments.add(tAttachment);
                     }
+                    //将填写申报的学生学号置于最前面
                     TStudent student = (TStudent) this.declarationService.getStudentsByNumber(user.getUserId()).get(0);
-                    groupCodes = groupCodes.replace("," + student.getStudentId(), "").replace(student.getStudentId() + ",", "");
+                    groupCodes = groupCodes.replace("," + student.getStudentId(), "").replace(student.getStudentId() + ",", "").replace(student.getStudentId(), "");
                     groupCodes = student.getStudentId() + "," + groupCodes;
                     this.declaration = this.declarationService.addDeclaration(tAttachments, declaration, groupCodes, teacherCodes, groupWork, projectFund);
                     Id = declaration.getDeclarId();
@@ -315,15 +321,16 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 发布已经保存的申报
+     *
      * @return
      */
-    @Action(value = "commitSavedDeclaration", results = {
+    @Action(value = "CommitSavedDeclaration", results = {
             @Result(name = "success", type = "redirect", location = "ListDeclaration")
     })
     public String commitSavedDeclaration() {
         try {
             TUser tUser = getSessionUser();
-            if(tUser == null){
+            if (tUser == null) {
                 toLogin();
             }
             declaration = this.declarationService.getTDeclaration(Id);
@@ -341,6 +348,7 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 获取学生个人申报列表
+     *
      * @return
      * @throws Exception
      */
@@ -356,11 +364,20 @@ public class DeclarationAction extends BaseAction {
             }
             String studentId = tUser.getUserId();
 
-            this.totalNumber = this.declarationService.getAllTDeclarationCount(studentId);
 
+            listDeclaration = new ArrayList<TDeclaration>();
+            this.totalNumber = this.declarationService.getAllTDeclarationCount(studentId);
+            if (totalNumber == 0) {
+                return SUCCESS;
+            }
             // 构造分页对象
             pageBean = new PageBean(page, totalNumber, pageCapacity);
-            listDeclaration = this.declarationService.getAllTDeclaration(pageBean, studentId);
+            List tmpList = this.declarationService.getAllTDeclaration(pageBean, studentId);
+            //由于使用了左外连接，此处list的每一项实际上包含TDeclaration和3个TStudent，此处获取TDeclaration
+            for (Object item : tmpList) {
+                Object[] objects = (Object[]) item;
+                listDeclaration.add((TDeclaration) objects[0]);
+            }
 
             totalPage = this.pageBean.getTotalPage();
             return SUCCESS;
@@ -373,7 +390,7 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * 获取教师个人申报列表
+     * 获取导师是某教师的申报列表
      */
     @Action(value = "ListTeaPersonalDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/teaPersonal_declaration_list.jsp")
@@ -401,7 +418,8 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * 条件查询教师个人申报列表
+     * 条件查询 导师是某教师的申报列表
+     *
      * @return
      * @throws Exception
      */
@@ -429,7 +447,6 @@ public class DeclarationAction extends BaseAction {
             return ERROR;
         }
     }
-
 
 
     /**
@@ -461,7 +478,7 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * 查询学院的申报列表
+     * 条件查询学院的申报列表
      */
     @Action(value = "QueryUnitDeclaration", results = {
             @Result(name = "success", location = "/pages/declarationManage/unit_declaration_list.jsp"),
@@ -489,8 +506,10 @@ public class DeclarationAction extends BaseAction {
 
     }
 
+
     /**
      * 全校SRTP项目申报列表   教务处查看
+     *
      * @return
      * @throws Exception
      */
@@ -524,7 +543,7 @@ public class DeclarationAction extends BaseAction {
 
             totalNumber = this.declarationService.findSchoolDeclarationCount(proName, jqYear, jqQici, checkState, college);
             pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.findSchoolDeclaration(proName, jqYear, jqQici, checkState, college, pageBean);
+            declarations = declarationService.findSchoolDeclaration(proName, jqYear, jqQici, checkState, college, pageBean);
             totalPage = pageBean.getTotalPage();
             getJieQiAndPro();
             return SUCCESS;
@@ -532,6 +551,27 @@ public class DeclarationAction extends BaseAction {
             return ERROR;
         }
     }
+
+
+    /**
+     * 教务处查看申报结果列表
+     */
+    @Action(value = "ListSchoolDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/school_declaration_list.jsp")
+    })
+    public String listSchoolDeclaration() throws Exception {
+        try {
+            totalNumber = this.declarationService.getSchoolDeclarationCount("06", "06");
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.getSchoolDeclaration("06", "06", pageBean);
+            totalPage = pageBean.getTotalPage();
+            getJieQiAndPro();
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
 
     /**
      * 在分派评审专家页面上查询申报
@@ -561,27 +601,6 @@ public class DeclarationAction extends BaseAction {
             return ERROR;
         }
     }
-
-
-    /**
-     * 生成教务处申报结果列表页面
-     */
-    @Action(value = "ListSchoolDeclaration", results = {
-            @Result(name = "success", location = "/pages/declarationManage/school_declaration_list.jsp")
-    })
-    public String listSchoolDeclaration() throws Exception {
-        try {
-            totalNumber = this.declarationService.getSchoolDeclarationCount("06", "06");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getSchoolDeclaration("06", "06", pageBean);
-            totalPage = pageBean.getTotalPage();
-            getJieQiAndPro();
-            return SUCCESS;
-        } catch (Exception e) {
-            return ERROR;
-        }
-    }
-
 
 
     //学校申报列表的年份和期次
@@ -637,9 +656,9 @@ public class DeclarationAction extends BaseAction {
     }
 
 
-
     /**
      * 网评
+     *
      * @return
      * @throws Exception
      */
@@ -660,7 +679,28 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
+     * 准备编辑公告
+     *
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "PreUpdateDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/declaration_edit.jsp")
+    })
+    public String preUpdateDeclaration() throws Exception {
+        try {
+            declaration = declarationService.getTDeclaration(Id);
+            attachments = declarationService.getAttachmentByDeclarId(Id);
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
+
+    /**
      * 更新申报
+     *
      * @return
      * @throws Exception
      */
@@ -695,6 +735,7 @@ public class DeclarationAction extends BaseAction {
                             tAttachment.setFileSize(new Double(files[i].length()));
                             tAttachment.setFileUrl(fileUris.get(i));
                             tAttachment.setTUser(user);
+                            tAttachment.setIsdeleted("N");
                             newAttachments.add(tAttachment);
                         }
                         this.declaration = this.declarationService
@@ -715,16 +756,54 @@ public class DeclarationAction extends BaseAction {
         }
     }
 
+    /**
+     * 查看申报详情
+     *
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "ViewDeclaration", results = {
+            @Result(name = "success", location = "/pages/declarationManage/declaration_view.jsp")
+    })
+    public String ViewDeclaration() throws Exception {
+        try {
+            declaration = declarationService.getTDeclaration(Id);
+            attachments = declarationService.getAttachmentByDeclarId(Id);
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
 
     /**
-     * 删除申报
+     * 删除个人申报
+     *
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "DeleteDeclaration", results = {
+            @Result(name = "success", type = "redirect", location = "ListDeclaration")
+    })
+    public String deleteDeclaration() throws Exception {
+        try {
+            this.declarationService.deleteTDeclaration(Id);
+            return SUCCESS;
+        } catch (Exception e) {
+            return ERROR;
+        }
+    }
+
+    /**
+     * 删除学院申报
+     *
      * @return
      * @throws Exception
      */
     @Action(value = "DeleteUnitDeclaration", results = {
             @Result(name = "success", type = "redirect", location = "ListUnitDeclaration")
     })
-    public String deleteDeclaration() throws Exception {
+    public String deleteUnitDeclaration() throws Exception {
         try {
             this.declarationService.deleteTDeclaration(Id);
             return SUCCESS;
@@ -736,6 +815,7 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 下载申报附件
+     *
      * @return
      * @throws Exception
      */

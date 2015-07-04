@@ -113,9 +113,9 @@
 						    
 						</s:if>
 						<s:else>
-						    <s:text name="global.format.date">
-							<s:param value="#listDeclaration.declTime"/>
-							</s:text>
+						    <%--<s:text  format="global.format.date">--%>
+							<s:date name="#listDeclaration.declTime" format="yyyy-MM-dd"/>
+							<%--</s:text>--%>
 						</s:else>
 						</td>
 						<td >
@@ -131,17 +131,17 @@
 						</td>
 						<td bgcolor="#eef7ff" >
 						
-						<s:a href="ViewDeclaration?id=%{#listDeclaration.declarId}">
+						<s:a href="ViewDeclaration?Id=%{#listDeclaration.declarId}">
 						<img src="images/shenbiaoliebiao_icon1.gif" alt="查看" />
 						</s:a>
 						<s:if test="%{#listDeclaration.checkState==01}">
-						<s:a href="PreUpdateDeclaration?id=%{#listDeclaration.declarId}">
+						<s:a href="PreUpdateDeclaration?Id=%{#listDeclaration.declarId}">
 						<img src="images/gonggaoweihu_icon3.gif" alt="编辑" />
 						</s:a>
-						<s:a href="DeleteDeclaration?id=%{#listDeclaration.declarId}">
+						<s:a href="DeleteDeclaration?Id=%{#listDeclaration.declarId}">
 						<img src="images/gonggaoweihu_icon4.gif" alt="删除" />
 						</s:a>
-						<s:a href="CommitSavedDeclaration?id=%{#listDeclaration.declarId}">
+						<s:a href="CommitSavedDeclaration?Id=%{#listDeclaration.declarId}">
 						<img src="images/tj.gif" alt="提交" />
 						</s:a>
 						</s:if>

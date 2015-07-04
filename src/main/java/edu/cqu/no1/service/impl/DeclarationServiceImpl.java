@@ -15,6 +15,7 @@ import edu.cqu.no1.util.PageBean;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -79,37 +80,29 @@ public class DeclarationServiceImpl implements DeclarationService {
         return this.teacherDAO.findTeachersByName(names);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TDeclaration addDeclaration(List<TAttachment> tAttachments, TDeclaration declaration, String groupCodes, String teacherCodes, String groupWork,
                                        String projectFund) {
         this.tempEmailRecivers = new ArrayList<TTempEmailReciver>();
-        Session session = this.tDeclarationDAO.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            transaction.begin();
-            TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
-            declaration.setTJieqi(tJieqi);
-            setGroup(declaration, groupCodes, tJieqi);
-            setTeacherCodes(declaration, teacherCodes, tJieqi);
-            declaration.setTDeclJobs(generateGroupWork(groupWork, declaration));
-            declaration.setTDeclFunds(generateProjectFund(projectFund, declaration));
-            this.tDeclarationDAO.save(declaration);
-            TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("1");
-            for (TAttachment tAttachment : tAttachments) {
-                tAttachment.setTAttchmentType(tAttchmentType);
-                tAttachment.setObjectCode(declaration.getDeclarId());
-                this.tAttachmentDAO.save(tAttachment);
-            }
-            for (TTempEmailReciver tempEmailReciver : tempEmailRecivers) {
-                this.tempEmailReciverDAO.save(tempEmailReciver);
-            }
-            transaction.commit();
-            return declaration;
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
-            return null;
+        TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
+        declaration.setTJieqi(tJieqi);
+        declaration.setIsdeleted("N");
+        setGroup(declaration, groupCodes, tJieqi);
+        setTeacherCodes(declaration, teacherCodes, tJieqi);
+        declaration.setTDeclJobs(generateGroupWork(groupWork, declaration));
+        declaration.setTDeclFunds(generateProjectFund(projectFund, declaration));
+        this.tDeclarationDAO.save(declaration);
+        TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("1");
+        for (TAttachment tAttachment : tAttachments) {
+            tAttachment.setTAttchmentType(tAttchmentType);
+            tAttachment.setObjectCode(declaration.getDeclarId());
+            this.tAttachmentDAO.save(tAttachment);
         }
+        for (TTempEmailReciver tempEmailReciver : tempEmailRecivers) {
+            this.tempEmailReciverDAO.save(tempEmailReciver);
+        }
+        return declaration;
     }
 
     @SuppressWarnings("unchecked")
@@ -118,12 +111,16 @@ public class DeclarationServiceImpl implements DeclarationService {
         groupWork = groupWork.replaceAll("\t|\r|\n", "");
         String[] groups = groupWork.split(",");
         for (String group : groups) {
+            if (group.equals("")) {
+                continue;
+            }
             String[] works = group.split(":");
             TDeclJob declJob = new TDeclJob();
             TStudent student = this.tStudentDAO.findById(works[0]);
             declJob.setTStudent(student);
             declJob.setJobContent(works[1]);
             declJob.setTDeclaration(declaration);
+            declJob.setIsdeleted("N");
             groupWorkSet.add(declJob);
         }
         return groupWorkSet;
@@ -135,6 +132,9 @@ public class DeclarationServiceImpl implements DeclarationService {
         projectFund = projectFund.replaceAll("\t|\r|\n", "");
         String[] funds = projectFund.split(",");
         for (String fund : funds) {
+            if (fund.equals("") || fund.contains("undefined")) {
+                continue;
+            }
             String[] items = fund.split(":");
             TDeclFund tDeclFund = new TDeclFund();
             tDeclFund.setSerialNum(items[0]);
@@ -238,52 +238,45 @@ public class DeclarationServiceImpl implements DeclarationService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TDeclaration updateDeclaration(List<TAttachment> tAttachments, TUser user, TDeclaration declaration,
                                           String groupCodes, String teacherCodes, String groupWork,
                                           String projectFund) {
         this.tempEmailRecivers = new ArrayList<TTempEmailReciver>();
-        Session session = this.tDeclarationDAO.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+        TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
+        declaration.setTJieqi(tJieqi);
+        declaration.setDeclTime(new Timestamp(System.currentTimeMillis()));
+        declaration.setCheckState("01");
+        declaration.setIsdeleted("N");
+        setGroup(declaration, groupCodes, tJieqi);
+        setTeacherCodes(declaration, teacherCodes, tJieqi);
         try {
-            transaction.begin();
-            TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
-            declaration.setTJieqi(tJieqi);
-            declaration.setDeclTime((Timestamp) new Date());
-            declaration.setCheckState("01");
-            declaration.setIsdeleted("N");
-            setGroup(declaration, groupCodes, tJieqi);
-            setTeacherCodes(declaration, teacherCodes, tJieqi);
             this.tDeclFundDAO.deleteFundByDeclId(declaration.getDeclarId());
             this.tDeclJobDAO.deleteJobByDeclId(declaration.getDeclarId());
-            declaration.setTDeclJobs(generateGroupWork(groupWork, declaration));
-            declaration.setTDeclFunds(generateProjectFund(projectFund, declaration));
-            this.tDeclarationDAO.merge(declaration);
-            TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("1");
-            this.tAttachmentDAO.deleteTAttachmentsByObjectCode(declaration.getDeclarId());
-            for (TAttachment newTAttach : tAttachments) {
-                newTAttach.setTAttchmentType(tAttchmentType);
-                newTAttach.setObjectCode(declaration.getDeclarId());
-                this.tAttachmentDAO.save(newTAttach);
-            }
-            transaction.commit();
-            return declaration;
         } catch (Exception e) {
             e.printStackTrace();
-            transaction.rollback();
-            return null;
         }
+        declaration.setTDeclJobs(generateGroupWork(groupWork, declaration));
+        declaration.setTDeclFunds(generateProjectFund(projectFund, declaration));
+        this.tDeclarationDAO.merge(declaration);
+        TAttchmentType tAttchmentType = this.tAttchmentTypeDAO.findById("1");
+        this.tAttachmentDAO.deleteTAttachmentsByObjectCode(declaration.getDeclarId());
+        for (TAttachment newTAttach : tAttachments) {
+            newTAttach.setTAttchmentType(tAttchmentType);
+            newTAttach.setObjectCode(declaration.getDeclarId());
+            this.tAttachmentDAO.save(newTAttach);
+        }
+        return declaration;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TDeclaration updateDeclaration(TDeclaration declaration,
                                           String groupCodes, String teacherCodes, String groupWork,
                                           String projectFund) {
         this.tempEmailRecivers = new ArrayList<TTempEmailReciver>();
-        Session session = this.tDeclarationDAO.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            transaction.begin();
             TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
             declaration.setTJieqi(tJieqi);
             declaration.setDeclTime((Timestamp) new Date());
@@ -296,11 +289,9 @@ public class DeclarationServiceImpl implements DeclarationService {
             declaration.setTDeclJobs(generateGroupWork(groupWork, declaration));
             declaration.setTDeclFunds(generateProjectFund(projectFund, declaration));
             this.tDeclarationDAO.merge(declaration);
-            transaction.commit();
             return declaration;
         } catch (Exception e) {
             e.printStackTrace();
-            transaction.rollback();
             return null;
         }
     }

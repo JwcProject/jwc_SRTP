@@ -171,9 +171,7 @@
 						    
 						</s:if>
 						<s:else>
-						    <s:text name="global.format.date">
-							<s:param value="#declarations.declTime"/>
-							</s:text>
+							<s:date name="#declarations.declTime" format="yyyy-MM-dd"/>
 						</s:else>
 						</td>
 						<td >

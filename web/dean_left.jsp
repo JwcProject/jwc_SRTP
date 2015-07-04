@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <div class="menu_body">
                   
                   <dd><a href="<%=path%>/SchoolDeclaration">申报列表</a></dd>
-                  <dd><a href="<%=path%>/ListSchoolDeclaration">结果录入</a></dd>
+                  <dd><a href="<%=path%>/ListSchoolDeclaration">申报结果列表</a></dd>
                   
                   </div>
               </dl>

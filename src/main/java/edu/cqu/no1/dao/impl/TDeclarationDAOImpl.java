@@ -1014,10 +1014,14 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
     public List findAll(PageBean pageBean, String studentId) {
         log.debug("finding all TDeclaration instances");
         try {
-            String hql = "from TDeclaration where isdeleted = 'N' and" +
-                    " TStudentByMember1Code.studentNumber = :code" +
-                    " or TStudentByLeaderCode.studentNumber = :code" +
-                    " or TStudentByMember2Code.studentNumber = :code";
+            String hql = "from TDeclaration as d " +
+                    "left join d.TStudentByLeaderCode as s0 " +
+                    "left join d.TStudentByMember1Code as s1 " +
+                    "left join d.TStudentByMember2Code as s2 " +
+                    "where d.isdeleted = 'N' and" +
+                    " (s0.studentNumber = :code" +
+                    " or s1.studentNumber = :code" +
+                    " or s2.studentNumber = :code)";
 
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", studentId);
@@ -1035,10 +1039,14 @@ public class TDeclarationDAOImpl extends BaseDaoImpl<TDeclaration> implements TD
     public int getAllTDeclarationCount(String studentId) {
         log.debug("finding all TDeclaration counts");
         try {
-            String hql = "select count(*) from TDeclaration where isdeleted = 'N' and" +
-                    " TStudentByMember1Code.studentNumber = :code" +
-                    " or TStudentByLeaderCode.studentNumber = :code" +
-                    " or TStudentByMember2Code.studentNumber = :code";
+            String hql = "select count(*) from TDeclaration as d " +
+                    "left join d.TStudentByLeaderCode as s0 " +
+                    "left join d.TStudentByMember1Code as s1 " +
+                    "left join d.TStudentByMember2Code as s2 " +
+                    "where d.isdeleted = 'N' and" +
+                    " (s0.studentNumber = :code" +
+                    " or s1.studentNumber = :code" +
+                    " or s2.studentNumber = :code)";
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", studentId);
             List tmpList = query.list();

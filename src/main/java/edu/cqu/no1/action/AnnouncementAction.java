@@ -168,6 +168,38 @@ public class AnnouncementAction extends BaseAction {
         }
     }
 
+    /**
+     * 查询登录页面教务处公告
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "findLoginDeanAnnoun", results = {
+            @Result(name = "success", type = "json", params = {"contentType", "text/html", "root", "listAnnouncement"}),
+    })
+    public String queryLoginDeanAnnoun() throws Exception {
+        try {
+
+            announTypeName = "教务处公告";
+
+            this.totalNumber = this.announcementService.querySchoolAnnounCount(
+                    announTitle, checkState, publishTime, publisherName, announTypeName);
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            listAnnouncement = this.announcementService
+                    .querySchoolAnnoun(announTitle, checkState, publishTime, publisherName,
+                            announTypeName, pageBean);
+            totalPage = pageBean.getTotalPage();
+
+            return SUCCESS;
+
+        } catch (Exception e) {
+            System.out.println("query StuTea Announcement exception: " + e);
+            throw e;
+        }
+    }
+
+
+
+
 
     /**
      * 查询全校公告
@@ -606,6 +638,11 @@ public class AnnouncementAction extends BaseAction {
     }
 
 
+    /**
+     * 查看登录页面的公告详情
+     * @return
+     * @throws Exception
+     */
     @Action(value = "ViewLoginAnnouncement", results = {
             @Result(name = "success", location = "/pages/announManage/announ_login_view.jsp")
     })
