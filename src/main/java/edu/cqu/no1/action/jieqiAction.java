@@ -44,7 +44,8 @@ public class jieqiAction extends BaseAction {
     private int pageCapacity = 14; // 每页显示条数
 
     @Action(value = "ListAllJieqi", results = {
-            @Result(name = "success", location = "/pages/systemManage/jieqiManage/jieqi_list.jsp")
+            @Result(name = SUCCESS, location = "/pages/systemManage/jieqiManage/jieqi_list.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
     })
     public String findAllJieQis() throws Exception {
         try {

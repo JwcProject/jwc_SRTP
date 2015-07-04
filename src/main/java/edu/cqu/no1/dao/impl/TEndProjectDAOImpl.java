@@ -81,8 +81,8 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
 
     public int getEndProjectCountByMutiProperty(EndProjectProperty properties) {
         Criteria criteria = getCriteriaByByMutiProperty(properties);
-        int rowCount = (Integer) criteria.setProjection(Projections.rowCount())
-                .uniqueResult();
+        int rowCount = ((Long)criteria.setProjection(Projections.rowCount())
+                .uniqueResult()).intValue();
         criteria.setProjection(null);
         return rowCount;
     }
@@ -120,7 +120,7 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
         Criteria tempCriteria = criteria.createCriteria("TProject", "p");
         tempCriteria.createCriteria("TUnit", "u");
         tempCriteria.createCriteria("TStudentByProjectLeader", "s")
-                .createCriteria("TProfession", "f");
+                .createCriteria("TProfessionByProfessionId", "f");
         criteria.createCriteria("TJieqi", "j");
         if (properties != null) {
             if (properties.getEndprojectScore() != null && !"".equals(properties.getEndprojectScore().trim())

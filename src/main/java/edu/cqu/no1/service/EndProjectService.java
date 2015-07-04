@@ -57,7 +57,7 @@ public interface EndProjectService {
     /**
      * lsp
      */
-    List<BigDecimal> getAllJieQiYear();
+    List getAllJieQiYear();
 
     List<TJieqi> getJieqisOfYear(String year);
 

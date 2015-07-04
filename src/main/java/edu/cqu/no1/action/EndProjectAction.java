@@ -12,8 +12,10 @@ import edu.cqu.no1.service.JieQiService;
 import edu.cqu.no1.service.ProjectService;
 import edu.cqu.no1.util.FileUtility;
 import edu.cqu.no1.util.PageBean;
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -93,17 +95,27 @@ public class EndProjectAction extends BaseAction {
     private Boolean typeIned;
     private String lastScore;
 
+    @Action(value = "secondReviewResultTypeIn",results = {
+            @Result(name = SUCCESS,type = "json",params = {"root","ids","excludeNullProperties","true"})
+    })
     public String secondReviewResultTypeIn() {
         this.endProjectService.secondReviewResultTypeIn(ids, lastScore);
         return SUCCESS;
     }
 
+    @Action(value = "preSecReviewResultTypeIn",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/secondReview_result_typein.jsp"),
+            @Result(name = ERROR,location = "db_err.jsp")
+    })
     public String preSecReviewResultTypeIn() {
         getYearAndQicis();
         getAllColleges();
         return SUCCESS;
     }
 
+    @Action(value = "listSecReviewResultEndPro",results = {
+            @Result(name = SUCCESS,type = "json",params = {"includeProperties","endProjectForDispatch.*,totalNumber","excludeNullProperties","true"})
+    })
     public String listSecReviewResultEndPro() {
         try {
             if (getSessionUser() == null) {
@@ -121,6 +133,9 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "dispatchExperTeacher",results = {
+            @Result(name = SUCCESS,type = "json",params = {"root","ids","excludeNullProperties","true"})
+    })
     public String dispatchExperTeacher() {
         try {
             this.endProjectService.dispatchExperTeacher(ids, tids);
@@ -130,6 +145,9 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "deleteExpertTeacher",results = {
+            @Result(name = SUCCESS,type="json",params = {"root","ids","excludeNullProperties","true"})
+    })
     public String deleteExpertTeacher() {
         try {
             this.endProjectService.deleteExpertTeacher(ids);
@@ -139,6 +157,9 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "addExpertTeacher",results = {
+            @Result(name = SUCCESS,type="json",params = {"root","teaCode","excludeNullProperties","true"})
+    })
     public String addExpertTeacher() {
         try {
 //			System.out.println("teaCode: " + teaCode);
@@ -152,6 +173,9 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "listExpertTeachers",results = {
+            @Result(name = SUCCESS,type = "json",params = {"includeProperties","expertTeachers.*,totalNumber","excludeNullProperties","true"})
+    })
     public String listExpertTeachers() {
         totalNumber = this.endProjectService.getExpTeaCountByQici(jieQiId, "03");
         pageBean = new PageBean(page, totalNumber, rows);
@@ -160,20 +184,33 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "preDispatchExpForSecReview",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/dispatch_expert.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String preDispatchExpForSecReview() {
         getYearAndQicis();
         getAllColleges();
         return SUCCESS;
     }
 
+    /**
+     * 第二次审核创建专家团队
+     * @return
+     */
+    @Action(value = "preCreateExpForSecReview",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/create_expert_secloudReview.jsp")
+    })
     public String preCreateExpForSecReview() {
         getYearAndQicis();
+
         return SUCCESS;
     }
 
     private void getYearAndQicis() {
-        List<BigDecimal> list = this.endProjectService.getAllJieQiYear();
-        for (BigDecimal year : list) {
+        List list = this.endProjectService.getAllJieQiYear();
+        for (int i=0;i<list.size();i++) {
+            BigDecimal year=new BigDecimal((Integer)list.get(i));
             allYears.add(new JieQiYear(year.toString(), year.toString()));
             List<TJieqi> jieqis = this.endProjectService.getJieqisOfYear(year
                     .toString());
@@ -189,6 +226,9 @@ public class EndProjectAction extends BaseAction {
         colleges.add(0, temp);
     }
 
+    @Action(value = "listEndProjectForSecReview",results = {
+            @Result(name = SUCCESS,type = "json",params = {"includeProperties","endProjectForDispatch.*,totalNumber","excludeNullProperties","true"})
+    })
     public String listEndProjectForSecReview() {
         try {
             totalNumber = this.endProjectService.getEndProjectCountForSecReview(properties);
@@ -202,6 +242,9 @@ public class EndProjectAction extends BaseAction {
         return SUCCESS;
     }
 
+    @Action(value = "listEndProjects",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/EndProject_list.jsp")
+    })
     public String listEndProjects() throws IOException {
         try {
             if (getSessionUser() == null) {
@@ -232,14 +275,15 @@ public class EndProjectAction extends BaseAction {
     }
 
     private void findYearsAndQicis() {
-        List<BigDecimal> list = this.endProjectService.getAllJieQiYear();
+        List list = this.endProjectService.getAllJieQiYear();
         JieQiYear tempYear = new JieQiYear("0", "所有");
         allYears.add(tempYear);
         TJieqi tempJieqi = new TJieqi();
         tempJieqi.setJqId("0");
         tempJieqi.setQici("所有");
         qicis.put("0", Arrays.asList(new TJieqi[]{tempJieqi}));
-        for (BigDecimal year : list) {
+        for (int i=0;i<list.size();i++) {
+            BigDecimal year=new BigDecimal((Integer)list.get(i));
             allYears.add(new JieQiYear(year.toString(), year.toString()));
             List<TJieqi> jieqis = this.endProjectService.getJieqisOfYear(year
                     .toString());
@@ -254,6 +298,11 @@ public class EndProjectAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value="PreEndProjectRequest",results = {
+            @Result(name = SUCCESS,location ="/pages/endprojectManage/endproject_request.jsp"),
+            @Result(name=MESSAGE,location = "message_info.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String preEndProjectRequest() throws Exception {
         try {
             if (getSessionUser() == null) {
@@ -293,6 +342,10 @@ public class EndProjectAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "PreOrganizeEndprojectReview",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/organize_endproject_review.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String preOrganizeEndprojectReview() throws Exception {
         try {
             TUser user = getSessionUser();
@@ -330,6 +383,10 @@ public class EndProjectAction extends BaseAction {
      * @throws Exception
      * @authoy lzh
      */
+    @Action(value = "AddEndprojectRequest",results = {
+            @Result(name = SUCCESS,type = "redirect",location = "PreMyEndProjects"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String addEndprojectRequest() throws Exception {
         try {
             TUser user = getSessionUser();
@@ -426,6 +483,10 @@ public class EndProjectAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "PreMyEndProjects",results = {
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/my_endprojects.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String preMyEndProjects() throws Exception {
         try {
             user = getSessionUser();
@@ -448,6 +509,10 @@ public class EndProjectAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "preUnitTeaAddEndProCom",results = {
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endpro_review_opinion.jsp"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String endProjectDetail() throws Exception {
         try {
             user = getSessionUser();
@@ -485,6 +550,10 @@ public class EndProjectAction extends BaseAction {
      * @return
      * @throws Exception
      */
+    @Action(value = "UnitTeaAddEndProCom",results = {
+            @Result(name = SUCCESS,type = "redirect",location = "PreEndProResultTypeIn"),
+            @Result(name=ERROR,location = "db_err.jsp")
+    })
     public String unitTeaAddEndProCom() throws Exception {
         try {
             user = getSessionUser();
