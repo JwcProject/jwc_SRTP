@@ -6,63 +6,8 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>学院公告</title>
-    <link href="<%=path%>/css/css1.css" rel="stylesheet" type="text/css"/>
-    <link href="<%=path%>/css/Pager.css" rel="stylesheet" type="text/css"/>
-
-
-    <link href="<%=path%>/style/jquery.datepick.css" rel="stylesheet" type="text/css"/>
-    <link href="<%=path%>/js/themes/default/easyui.css" rel="stylesheet" type="text/css"/>
-    <link href="<%=path%>/js/themes/icon.css" rel="stylesheet" type="text/css"/>
-    <!--这个js是用来控制页面中出现png图片能兼容浏览区-->
-
-</head>
-<body>
-<div id="container">
-
-    <jsp:include page="../../header.jsp"></jsp:include>
-    <!--  此处显示 id "maincontent" 的内容-->
-    <div id="maincontent" class="h645">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-
-                <!--  左边区域-->
-
-                <s:if test="null!=#session.user">
-                    <s:if test="%{#session.user.userType == '00'}">
-                        <jsp:include page="../../dean_leader_left.jsp"></jsp:include>
-                    </s:if>
-                    <s:elseif test="%{#session.user.userType == '01'}">
-                        <jsp:include page="../../dean_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '02'}">
-                        <jsp:include page="../../teacher_leader_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '03'}">
-                        <jsp:include page="../../teacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '04'}">
-                        <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '05'}">
-                        <jsp:include page="../../commonTeacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '06'}">
-                        <jsp:include page="../../student_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '07'}">
-                        <jsp:include page="../../student_member_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '08'}">
-                        <jsp:include page="../../student_leader_left.jsp"></jsp:include>
-                    </s:elseif>
-                </s:if>
-                <s:else>
-                    <jsp:forward page="../../login.jsp"></jsp:forward>
-                </s:else>
                 <!--中间区域-->
                 <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                     style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
@@ -176,15 +121,6 @@
 
             </tr>
         </table>
-    </div>
-    <jsp:include page="../../footer.jsp"></jsp:include>
-</div>
-
-<script src="<%=path%>/js/jquery.pager.js" type="text/javascript"></script>
-<script type="text/javascript" src="<%=path%>/js/iepngfix_tilebg.js"></script>
-<script type="text/javascript" src="<%=path%>/js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="<%=path%>/js/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="<%=path%>/js/annoument.js"></script>
 <script type="text/javascript" language="javascript">
     $(document).ready(function () {
         var page = $("#pages")[0].value;
@@ -224,5 +160,3 @@
         }
     }
 </script>
-</body>
-</html>
