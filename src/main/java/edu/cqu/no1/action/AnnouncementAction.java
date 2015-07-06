@@ -5,7 +5,6 @@ import edu.cqu.no1.domain.TAttachment;
 import edu.cqu.no1.domain.TAnnounType;
 import edu.cqu.no1.domain.TUser;
 import edu.cqu.no1.service.AnnouncementService;
-import edu.cqu.no1.service.RoleService;
 import edu.cqu.no1.util.FileUtility;
 import edu.cqu.no1.util.PageBean;
 import org.apache.struts2.convention.annotation.Action;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,8 +31,6 @@ public class AnnouncementAction extends BaseAction {
 
     @Resource
     private AnnouncementService announcementService;
-    @Resource
-    private RoleService roleService;
 
     private TAnnouncement announcement;
     private List<TAnnouncement> listAnnouncement;
@@ -864,14 +860,6 @@ public class AnnouncementAction extends BaseAction {
 
     public void setAnnouncementService(AnnouncementService announcementService) {
         this.announcementService = announcementService;
-    }
-
-    public RoleService getRoleService() {
-        return roleService;
-    }
-
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
     }
 
     public TAnnouncement getAnnouncement() {

@@ -58,19 +58,15 @@
                 <value>edu.cqu.no1.domain.TJieqi</value>
                 <value>edu.cqu.no1.domain.TJournal</value>
                 <value>edu.cqu.no1.domain.TJournalAct</value>
-                <value>edu.cqu.no1.domain.TPermission</value>
                 <value>edu.cqu.no1.domain.TProfession</value>
                 <value>edu.cqu.no1.domain.TProject</value>
                 <value>edu.cqu.no1.domain.TProjectChange</value>
                 <value>edu.cqu.no1.domain.TProjectChangeContent</value>
-                <value>edu.cqu.no1.domain.TRole</value>
-                <value>edu.cqu.no1.domain.TRolePermission</value>
                 <value>edu.cqu.no1.domain.TStudent</value>
                 <value>edu.cqu.no1.domain.TTeacher</value>
                 <value>edu.cqu.no1.domain.TTempEmailReciver</value>
                 <value>edu.cqu.no1.domain.TUnit</value>
                 <value>edu.cqu.no1.domain.TUser</value>
-                <value>edu.cqu.no1.domain.TUserRole</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
                 <value>edu.cqu.no1.domain.TEndProjectJob</value>
             </list>

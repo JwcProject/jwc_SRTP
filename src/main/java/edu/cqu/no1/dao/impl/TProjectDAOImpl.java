@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
     public static final String PROJECT_SCORE = "projectScore";
     public static final String ISDELETED = "isdeleted";
 
+    @Transactional(rollbackFor = Exception.class)
     public void createProject(String jqId) {
         log.debug("add TProject");
         try {
@@ -107,10 +109,7 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
                     " where d.TJieqi.jqId = :jqId and d.checkState = '09'";
             Session session =  this.getSessionFactory().getCurrentSession();
 
-            Transaction transaction = session.getTransaction();
             try {
-
-                transaction.begin();
 
                 Query query1 = session.createQuery(hql1);
                 query1.setString("jqId", jqId);
@@ -151,13 +150,12 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
                 sQuery1.executeUpdate();
                 sQuery2.executeUpdate();
 
-                transaction.commit();
 
             } catch (Exception e1) {
                 e1.printStackTrace();
-                transaction.rollback();
             }
         } catch (RuntimeException e2) {
+            e2.printStackTrace();
             log.debug("add TProject failed");
             throw e2;
         }

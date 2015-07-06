@@ -569,7 +569,7 @@ public class DeclarationAction extends BaseAction {
     @Action(value = "ListSchoolDeclResult", results = {
             @Result(name = "success", location = "/pages/declarationManage/school_declaration_list.jsp")
     })
-    public String listSchoolDeclaration() throws Exception {
+    public String listSchoolDeclResult() throws Exception {
         try {
             totalNumber = this.declarationService.getSchoolDeclarationCount("06", "06");
             pageBean = new PageBean(page, totalNumber, pageCapacity);
@@ -779,6 +779,7 @@ public class DeclarationAction extends BaseAction {
                         this.declarationService.updateTDeclaration(declaration);
                     }
                 }
+                //创建项目
                 this.projectService.creatProject(jqId);
 
             }
@@ -794,6 +795,7 @@ public class DeclarationAction extends BaseAction {
                 }
             }
         } catch (Exception e) {
+
         }
     }
 
