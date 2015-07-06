@@ -6,7 +6,6 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
-    <div id="maincontent" class="h645">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <!--中间区域-->
@@ -47,4 +46,3 @@
                 </td>
             </tr>
         </table>
-    </div>

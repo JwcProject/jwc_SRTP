@@ -201,7 +201,7 @@
 
     function query() {
         $("#pages")[0].value = 1;
-        document.queyForm.action = "<%=basePath%>FindSchoolDeclarationCheck";
+        document.queyForm.action = "<%=path%>/FindSchoolDeclarationCheck";
         document.queyForm.submit();
     }
 

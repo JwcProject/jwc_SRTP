@@ -238,7 +238,7 @@ function changePage(pageclickednumber){
 function query()
 {
     $("#pages")[0].value = 1;
-	document.queyForm.action="<%=basePath%>FindSchoolDeclaration";
+	document.queyForm.action="<%=path%>/FindSchoolDeclaration";
 	document.queyForm.submit();
 }       
        

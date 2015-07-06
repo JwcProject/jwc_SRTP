@@ -34,7 +34,8 @@
         </div>
         <div>
             <label>公告附件：</label>
-            <input type="file" name="files"/>(支持doc|pdf|docx|txt|html|htm|jpg|jpeg|gif|bmp|rar|xlsx|xls格式，最大附件数：5)
+            <input type="file" name="files"/><br>
+            (支持doc|pdf|docx|txt|html|htm|jpg|jpeg|gif|bmp|rar|xlsx|xls格式，最大附件数：5)
         </div>
         <div>
             <input id="mycommit" type="button" value="发布" onclick="commit();"/>
