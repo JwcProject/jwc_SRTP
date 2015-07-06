@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <dd><a href="<%=path%>/ListHistoryExpert">申报历史专家库</a></dd>
                      <dd><a href="<%=path%>/PreAssignExpert">分派申报专家</a></dd>
                      <dd><a href="<%=path%>/PreOrganizeReview">组织申报评审</a></dd>
-                     <dd><a href="<%=path%>/PreResultTypeIn">申报结果录入</a></dd>
+                     <dd><a href="<%=path%>/preDeclResultTypeIn">申报结果录入</a></dd>
                      
 				  </div>
               </dl>

@@ -19,10 +19,11 @@ public interface TJieqiDAO extends BaseDao<TJieqi> {
 
     List findByIsdeleted(Object isdeleted);
 
-    TJieqi getJieqiNow();
+    //获取当前申报届期
+    TJieqi getDeclJieqiNow();
 
-    // 获取当前结题届期
-    TJieqi getCurrentJieqi();
+    //获取当前结题届期
+    TJieqi getEndJieqiNow();
 
     List getJieqiByYear(String year);
 

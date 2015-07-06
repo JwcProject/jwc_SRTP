@@ -27,41 +27,43 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     public static final String SECONDARY_RESPONDENT = "secondaryRespondent";
     public static final String ISDELETED = "isdeleted";
 
+
+    @Override
     public List findByJqName(Object jqName) {
         return findByProperty(JQ_NAME, jqName);
     }
 
+    @Override
     public List findByQici(Object qici) {
         return findByProperty(QICI, qici);
     }
 
+    @Override
     public List findBySecondaryAssessment(Object secondaryAssessment) {
         return findByProperty(SECONDARY_ASSESSMENT, secondaryAssessment);
     }
 
+    @Override
     public List findBySecondaryRespondent(Object secondaryRespondent) {
         return findByProperty(SECONDARY_RESPONDENT, secondaryRespondent);
     }
 
+    @Override
     public List findByIsdeleted(Object isdeleted) {
         return findByProperty(ISDELETED, isdeleted);
     }
 
+
     public static TJieqiDAO getFromApplicationContext(ApplicationContext ctx) {
         return (TJieqiDAO) ctx.getBean("TJieqiDAO");
     }
-    /**
-     * lsp 根据当前时间获取届期（当前申报的）
-     */
-    public TJieqi getJieqiNow(){
+
+
+    //获取当前申报届期
+    @Override
+    public TJieqi getDeclJieqiNow(){
         log.debug("getJieqiNow");
         try {
-//			String queryString = "from TJieqi as model where SYSDATE between model.startOn and model.endOn";
-//			List list = getHibernateTemplate().find(queryString);
-//			if (list != null && list.size() > 0) {
-//				return (TJieqi) list.get(0);
-//			}
-//			return null;
             String queString ="From TJieqi T where T.isdeleted='N' and T.declarationState='01'";
             Query query =getSessionFactory().getCurrentSession().createQuery(queString);
             List tmpList = query.list();
@@ -74,17 +76,13 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
             throw re;
         }
     }
-    // 获取当前结题届期
 
-    public TJieqi getCurrentJieqi(){
+
+    // 获取当前结题届期
+    @Override
+    public TJieqi getEndJieqiNow(){
         log.debug("getJieqi");
         try {
-//			String queryString = "from TJieqi as model where SYSDATE between model.startOn and model.jtEndOn";
-//			List list = getHibernateTemplate().find(queryString);
-//			if (list != null && list.size() > 0) {
-//				return (TJieqi) list.get(0);
-//			}
-//			return null;
             String queString ="From TJieqi T where T.isdeleted='N' and T.endprojectState='01'";
             Query query =getSessionFactory().getCurrentSession().createQuery(queString);
             List tmpList = query.list();
@@ -98,14 +96,14 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
         }
     }
 
+
     /**
      *
      *根据年份获取届期
-     *authoy lzh
      *@param year
      *@return
      */
-
+    @Override
     public List getJieqiByYear(String year){
         log.debug("get Jieqi By year");
         try {
@@ -120,6 +118,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     }
 
 
+    @Override
     public List<Integer> findAllYears(){
         log.debug("get all years from jieqi");
         try {
@@ -133,7 +132,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     }
 
     //获取未分派的专家库的年份
-
+    @Override
     public List findUnassignYears(){
         log.debug("find unassign years");
         try {
@@ -147,6 +146,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     }
 
 
+    @Override
     public List findAllJieqis(String jqName, String jqYear, String jqQici, PageBean pageBean){
         log.debug("find all jieqis");
         try {
@@ -184,6 +184,7 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
     }
 
 
+    @Override
     public int findAllJieqisCount(String jqName, String jqYear, String jqQici){
         log.debug("find all jieqis count");
         try {

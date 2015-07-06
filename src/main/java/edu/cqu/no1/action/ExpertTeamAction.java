@@ -154,8 +154,7 @@ public class ExpertTeamAction extends BaseAction {
      * TODO 列出学院所有结题的专家团队 02为结题的专家团队
      */
     @Action(value = "FindEndproExpTeam",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_expert_team_list.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_expert_team_list.jsp")
     })
     public String findEndproExpTeam() throws Exception {
         try {
@@ -184,7 +183,6 @@ public class ExpertTeamAction extends BaseAction {
     @SuppressWarnings("unchecked")
     @Action(value = "PreCreateEndProExpertTeam",results = {
             @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_create_expert.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp"),
             @Result(name= "hadValue",location = "/pages/expertTeam/expert_had_existed.jsp")
     })
     public String preCreateEndProExpertTeam() throws Exception {
@@ -196,7 +194,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             /*********************************************************************
              * 判断当前届期是否存在有效的结题专家库，提示用户是否继续创建
              *********************************************************************/
@@ -223,8 +221,7 @@ public class ExpertTeamAction extends BaseAction {
 
     @SuppressWarnings("unchecked")
     @Action(value = "ConfirmCreateEndProExpertTeam",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_create_expert.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_create_expert.jsp")
     })
     public String confirmCreateEndProExpertTeam() throws Exception {
         try {
@@ -235,7 +232,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
@@ -302,8 +299,7 @@ public class ExpertTeamAction extends BaseAction {
      */
     @SuppressWarnings("unchecked")
     @Action(value = "PreAssignEndProExpert",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_assign_expert.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_assign_expert.jsp")
     })
     public String preAssignEndProExpert() throws Exception {
         try {
@@ -314,7 +310,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
@@ -400,7 +396,7 @@ public class ExpertTeamAction extends BaseAction {
                 }
                 // 本期次专家团队，02为结题的专家团队
                 // 获取当前届期
-                TJieqi jieqi = this.jieQiService.findJieQiNow();
+                TJieqi jieqi = this.jieQiService.findEndJieQiNow();
                 expertTeachers = this.expertTeacherService
                         .findAssignedExpertTeachers(jieqi.getJqId(), "02",
                                 teaCode);
@@ -418,8 +414,7 @@ public class ExpertTeamAction extends BaseAction {
      */
     @SuppressWarnings("unchecked")
     @Action(value = "QueryEndProScoreTypeIn",results = {
-            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_result_typein.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_result_typein.jsp")
     })
     public String queryEndProScoreTypeIn() throws Exception {
         try {
@@ -430,7 +425,7 @@ public class ExpertTeamAction extends BaseAction {
 
                 teaCode = user.getUserId();
                 // 获取当前届期
-                TJieqi jieqi = this.jieQiService.findJieQiNow();
+                TJieqi jieqi = this.jieQiService.findEndJieQiNow();
                 String year = jieqi.getJqYear().toString();
                 jieQiYears = new ArrayList<JieQiYear>();
                 jieQiYears.add(new JieQiYear(year, year));
@@ -486,8 +481,7 @@ public class ExpertTeamAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "ListEndProHistoryExpert",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/unit_endproject_history_expert.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/unit_endproject_history_expert.jsp")
     })
     public String listEndProHistoryExpert() throws Exception {
         try {
@@ -514,8 +508,7 @@ public class ExpertTeamAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "FindEndProHistoryExpert",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/unit_endproject_history_expert.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/unit_endproject_history_expert.jsp")
     })
     public String findEndProHistoryExpert() throws Exception {
         try {
@@ -556,7 +549,7 @@ public class ExpertTeamAction extends BaseAction {
             List<TExpertTeacher> tExpertTeacher = new ArrayList<TExpertTeacher>();
 
             // 获取当前结题届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             // 获取当前届期对应的专家库
             List<TExpertLib> tmpList = this.expertTeacherService.findUnitExpertLibByJqid(jieqi.getJqId(), "02", user.getUserId());
             if (null != tmpList && tmpList.size() > 0) {
@@ -591,8 +584,7 @@ public class ExpertTeamAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "PreEndProResultTypeIn",results = {
-            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_result_typein.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_result_typein.jsp")
     })
     public String preEndProResultTypeIn() throws Exception {
         try {
@@ -606,7 +598,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
@@ -664,8 +656,7 @@ public class ExpertTeamAction extends BaseAction {
      * @return
      */
     @Action(value = "PreEndProScoreAudit",results = {
-            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_score_audit.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/endproject_score_audit.jsp")
     })
     public String preEndProScoreAudit() {
         try {
@@ -680,7 +671,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
@@ -732,8 +723,7 @@ public class ExpertTeamAction extends BaseAction {
      */
     @Action(value = "PreMyEndProReview",results = {
             @Result(name = SUCCESS,location = "/pages/expertTeam/my_endproject_review.jsp"),
-            @Result(name=MESSAGE,location = "message_info.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name=MESSAGE,location = "/message_info.jsp")
     })
     public String preMyEndProReview() throws Exception {
         try {
@@ -744,7 +734,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teacherCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             Date now = new Date();
             if (jieqi == null) {
                 messageInfo = "当前时间不是可以进行网评的时间段";
@@ -789,8 +779,7 @@ public class ExpertTeamAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "FindEndProComById",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_online_comments.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endproject_online_comments.jsp")
     })
     public String findEndProComById() throws Exception {
         try {
@@ -817,8 +806,7 @@ public class ExpertTeamAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "AddEndProComment",results = {
-            @Result(name = SUCCESS,type = "redirect",location = "PreMyEndProReview"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,type = "redirect",location = "PreMyEndProReview")
     })
     public String addEndProComment() throws Exception {
         try {
@@ -847,8 +835,7 @@ public class ExpertTeamAction extends BaseAction {
      */
     @SuppressWarnings("unchecked")
     @Action(value = "PreUpdateEndProExpTea",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/update_endproject_expert_team.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/update_endproject_expert_team.jsp")
     })
     public String preUpdateEndProExpTea() throws Exception {
         try {
@@ -923,7 +910,7 @@ public class ExpertTeamAction extends BaseAction {
             }
 
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
             /*********************************************************************
              * 判断当前届期是否存在有效的结题专家库，提示用户是否继续创建
              *********************************************************************/
@@ -966,7 +953,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
@@ -994,51 +981,7 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-    /**
-     * TODO 结果录入页面生成
-     */
-    @Action(value = "PreResultTypeIn", results = {
-            @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp"),
-            @Result(name = "message", location = "/message_info.jsp")
-    })
-    public String listResultTypeIn() throws Exception {
-        try {
-            // page = 1;
-            user = getSessionUser();
-            if (user == null) {
-                toLogin();
-            }
-            teacherCode = user.getUserId();
-            // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
 
-            if (null == jieqi) {
-                messageInfo = "当前时间不是可以进行结果录入的时间段";
-                return MESSAGE;
-            }
-
-            String year = jieqi.getJqYear().toString();
-            jieQiYears = new ArrayList<JieQiYear>();
-            jieQiYears.add(new JieQiYear(year, year));
-            List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
-            tmpJieqis.add(jieqi);
-            qicis.put(year.toString(), tmpJieqis);
-            // 专业
-            professions = this.professionService
-                    .findTProfessionsByTeaCode(teacherCode);
-            // 结果录入页面，获取状态为03，已经分派专家的申报
-            this.totalNumber = this.declarationService.getUnitDeclarationCount(
-                    teacherCode, "03", "03");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getUnitDeclaration(
-                    teacherCode, "03", "03", pageBean);
-            totalPage = pageBean.getTotalPage();
-            return SUCCESS;
-        } catch (Exception e) {
-            // TODO: handle exception
-            return ERROR;
-        }
-    }
 
 
     /**
@@ -1084,143 +1027,11 @@ public class ExpertTeamAction extends BaseAction {
     }
 
 
-    /**
-     * 学院主管教师审核申报
-     */
-    @Action(value = "ResultTypeInSubmit")
-    public void unitCheck() {
-        try {
-            String state = checkState;
-            if (state.equals("yes")) {
-                for (String project : checkProjects) {
-                    TDeclaration declaration = this.declarationService
-                            .getTDeclaration(project);
-                    // 设置申报的状态为学院评审通过
-                    declaration.setCheckState("05");
-                    declaration.setReviewResult("01");// 设置评审结果为待审核
-                    this.declarationService.updateTDeclaration(declaration);
-                }
-            }
-            if (state.equals("no")) {
-                for (String project : checkProjects) {
-                    TDeclaration declaration = this.declarationService
-                            .getTDeclaration(project);
-                    // 设置申报的状态为学院评审通过
-                    declaration.setCheckState("04");
-                    declaration.setReviewResult("02");// 设置评审结果为不通过
-                    this.declarationService.updateTDeclaration(declaration);
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
 
 
-    @Action(value = "UnitAudit")
-    /**
-     * 学院领导审核
-     */
-    public void unitAudit() {
-        try {
-            //System.out.println("dkkdk");
-            for (String project : checkProjects) {
-                TDeclaration declaration = this.declarationService
-                        .getTDeclaration(project);
-                // 设置申报的状态为学院评审通过
-                declaration.setCheckState("06");
-                this.declarationService.updateTDeclaration(declaration);
-            }
-        } catch (Exception e) {
-        }
-    }
 
 
-    @Action(value = "SchoolCheck")
-    /**
-     * 教务处主管教师审核申报
-     */
-    public void schoolCheck() {
-        try {
-            String state = checkState;
-            String jqId = this.jieQiService.findCurrentJieQi().getJqId();
-            if (state.equals("yes")) {
-                for (String project : checkProjects) {
-                    TDeclaration declaration = this.declarationService
-                            .getTDeclaration(project);
-                    // 设置申报的状态为学院评审通过
-                    if (declaration.getCheckState().equals("06")) {
-                        declaration.setCheckState("08");
-                        declaration.setReviewResult("03");
-                        this.declarationService.updateTDeclaration(declaration);
-                    }
-                }
-                this.projectService.creatProject(jqId);
 
-            }
-            if (state.equals("no")) {
-                for (String project : checkProjects) {
-                    TDeclaration declaration = this.declarationService
-                            .getTDeclaration(project);
-                    // 设置申报的状态为学院评审通过
-                    if (declaration.getCheckState().equals("06"))
-                        declaration.setCheckState("07");
-                    declaration.setReviewResult("02");
-                    this.declarationService.updateTDeclaration(declaration);
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
-
-
-    /**
-     * 获取学院评审通过的申报
-     */
-    @Action(value = "UnitResultAudit", results = {
-            @Result(name = "success", location = "/pages/declarationManage/result_audit.jsp"),
-            @Result(name = "message", location = "message_info.jsp")
-    })
-    public String unitResultAudit() {
-        try {
-            // 主管教师教职工号
-            user = getSessionUser();
-            // 获取所在学院
-            tunit = getSessionUnit();
-            if (user == null || null == tunit) {
-                toLogin();
-            }
-            teaCode = user.getUserId();
-
-
-            // 申报的状态
-            // checkState="05";
-
-            // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
-            if (null == jieqi) {
-                messageInfo = "当前时间不是可以进行结果审核的时间段";
-                return MESSAGE;
-            }
-
-            String year = jieqi.getJqYear().toString();
-            jieQiYears = new ArrayList<JieQiYear>();
-            jieQiYears.add(new JieQiYear(year, year));
-            List<TJieqi> tmpJieqis = new ArrayList<TJieqi>();
-            tmpJieqis.add(jieqi);
-            qicis.put(year.toString(), tmpJieqis);
-            professions = this.professionService
-                    .findTProfessionsByTeaCode(teaCode);
-
-            this.totalNumber = this.declarationService.getUnitDeclarationCount(
-                    teaCode, "03", "05");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getUnitDeclaration(teaCode,
-                    "03", "05", pageBean);
-            return SUCCESS;
-        } catch (Exception e) {
-            return ERROR;
-        }
-    }
 
     /**
      * 添加一个教师
@@ -1329,7 +1140,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teaCode = user.getUserId();
 
-            TJieqi jieqi = jieQiService.findCurrentJieQi();
+            TJieqi jieqi = jieQiService.findDeclJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));
@@ -1426,7 +1237,7 @@ public class ExpertTeamAction extends BaseAction {
             }
 
             // 获取当前申报届期
-            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
             // 获取当前届期对应的专家库
             List<TExpertLib> tmpList = this.expertTeacherService.findUnitExpertLibByJqid(jieqi.getJqId(), "01", user.getUserId());
             if (null != tmpList && tmpList.size() > 0) {
@@ -1497,11 +1308,11 @@ public class ExpertTeamAction extends BaseAction {
 
 
     /**
-     * TODO 生成我的评审的页面
+     * 评审专家生成我的评审的页面
      */
     @Action(value = "PreMyReview", results = {
             @Result(name = "success", location = "/pages/expertTeam/my_review.jsp"),
-            @Result(name = "message", location = "message_info.jsp")
+            @Result(name = "message", location = "/message_info.jsp")
     })
     public String preMyReview() throws Exception {
         try {
@@ -1513,16 +1324,16 @@ public class ExpertTeamAction extends BaseAction {
             }
             teacherCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
             Date now = new Date();
             if (jieqi == null) {
-                messageInfo = "当前时间不是可以进行网评的时间段";
+                messageInfo = "非网评时间段";
                 return "message";
             } else {
-                Date jtStart = jieqi.getStartOn();
-                Date jtEnd = jieqi.getEndOn();
-                if (now.getTime() < jtStart.getTime() || now.getTime() > jtEnd.getTime()) {
-                    messageInfo = "当前时间不是可以进行网评的时间段";
+                Date startOn = jieqi.getStartOn();
+                Date endOn = jieqi.getEndOn();
+                if (now.getTime() < startOn.getTime() || now.getTime() > endOn.getTime()) {
+                    messageInfo = "非网评时间段";
                     return "message";
                 }
             }
@@ -1538,7 +1349,6 @@ public class ExpertTeamAction extends BaseAction {
             // 结果录入页面，获取状态为03，已经分派专家的申报
             this.totalNumber = this.declarationService
                     .getReviewTeaDeclarationCount(teacherCode);
-            // totalNumber=1;
             pageBean = new PageBean(page, totalNumber, pageCapacity);
             listTDeclComment = this.declarationService.getReviewTeaDeclaration(
                     teacherCode, pageBean);
@@ -1566,7 +1376,7 @@ public class ExpertTeamAction extends BaseAction {
             }
             teacherCode = user.getUserId();
             // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
             if (jieqi == null) {
                 messageInfo = "当前时间不是可以进行网评的时间段";
                 return "message";
@@ -1703,12 +1513,12 @@ public class ExpertTeamAction extends BaseAction {
 
 
     /**
-     * 评审意见
+     * 评审教师提交评审意见
      */
-    @Action(value = "ReviewOpinion", results = {
-            @Result(name = "success", type = "redirect", location = "PreResultTypeIn")
+    @Action(value = "saveReviewOpinion", results = {
+            @Result(name = "success", type = "redirect", location = "/preDeclResultTypeIn")
     })
-    public String reviewOpinion() throws Exception {
+    public String saveReviewOpinion() throws Exception {
         try {
             user = getSessionUser();
             if (user == null) {
@@ -1741,7 +1551,7 @@ public class ExpertTeamAction extends BaseAction {
             // TDeclaration tDeclaration =
             // this.declarationService.getTDeclaration(Id);
             // 届期
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             if (jieqi == null) {
                 messageInfo = "当前时间不是可以进行网评的时间段";
                 return MESSAGE;

@@ -33,6 +33,8 @@ public class DeclarationAction extends BaseAction {
     private ProfessionService professionService;
     @Resource
     private JieQiService jieQiService;
+    @Resource
+    private ProjectService projectService;
 
     private TDeclaration declaration;
     private List<TStudent> students = new ArrayList<TStudent>();
@@ -56,6 +58,8 @@ public class DeclarationAction extends BaseAction {
     private File[] files;
     private String[] filesContentType;
     private String[] filesFileName;
+
+    private String[] checkProjects;// 申报ID
 
     //信息提示
     private String messageInfo;
@@ -173,7 +177,7 @@ public class DeclarationAction extends BaseAction {
             } else {
                 String stuNumber = user.getUserId();
                 //判断是否在申请申报的时间内
-                TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+                TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
                 if (jieqi == null) {
                     messageInfo = "当前时间不能够申报项目！";
                     return MESSAGE;
@@ -195,26 +199,32 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * 生成审核结果录入页面
+     * 申报结果录入页面生成
      */
-    @Action(value = "PreResultTypeIn", results = {
-            @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp")
+    @Action(value = "preDeclResultTypeIn", results = {
+            @Result(name = "success", location = "/pages/declarationManage/result_typein.jsp"),
+            @Result(name = "message", location = "/message_info.jsp")
     })
-    public String preResultTypeIn() {
+    public String preDeclResultTypeIn() throws Exception {
         try {
             TUser user = getSessionUser();
-            if (user == null || user.getUserId() == null
-                    || user.getUserId().equals("")) {
+            if (user == null) {
                 toLogin();
             }
+            String teacherCode = user.getUserId();
+            // 获取当前届期
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
 
-            getJieQiAndPro(user.getUserId());
-            String teaCode = user.getUserId();
-            totalNumber = this.declarationService.getUnitDeclarationCount(teaCode, "03", "03");
+            if (null == jieqi) {
+                messageInfo = "当前时间不是可以进行结果录入的时间段";
+                return MESSAGE;
+            }
+            getJieQiAndPro(teacherCode);
+            //获取状态为03，已经分派专家的申报
+            this.totalNumber = this.declarationService.getUnitDeclarationCount(teacherCode, "03", "03");
             pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getUnitDeclaration(teaCode, "03", "03", pageBean);
+            declarations = this.declarationService.getUnitDeclaration(teacherCode, "03", "03", pageBean);
             totalPage = pageBean.getTotalPage();
-
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -513,7 +523,7 @@ public class DeclarationAction extends BaseAction {
      * @return
      * @throws Exception
      */
-    @Action(value = "SchoolDeclaration", results = {
+    @Action(value = "ListSchoolDecl", results = {
             @Result(name = "success", location = "/pages/declarationManage/schoolDeclaration.jsp")
     })
     public String schoolDeclaration() throws Exception {
@@ -556,7 +566,7 @@ public class DeclarationAction extends BaseAction {
     /**
      * 教务处查看申报结果列表
      */
-    @Action(value = "ListSchoolDeclaration", results = {
+    @Action(value = "ListSchoolDeclResult", results = {
             @Result(name = "success", location = "/pages/declarationManage/school_declaration_list.jsp")
     })
     public String listSchoolDeclaration() throws Exception {
@@ -588,7 +598,7 @@ public class DeclarationAction extends BaseAction {
                 toLogin();
             }
             String teaCode = tUser.getUserId();
-            TJieqi jieqi = this.jieQiService.findCurrentJieQi();
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
             this.totalNumber = this.declarationService.findUnitDeclarationsCount(teaCode, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName);
             pageBean = new PageBean(page, totalNumber, pageCapacity);
             declarations = this.declarationService.findUnitDeclarations(teaCode, jqYear, jqQici, profession, studentNums, checkState, proSerial, proName, pageBean);
@@ -658,7 +668,6 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 网评
-     *
      * @return
      * @throws Exception
      */
@@ -679,7 +688,159 @@ public class DeclarationAction extends BaseAction {
 
 
     /**
-     * 准备编辑公告
+     * 生成申报结果录入页面
+     */
+    @Action(value = "preDeclReviewOpinion", results = {
+            @Result(name = "success", location = "/pages/expertTeam/decl_review_opinion.jsp")
+    })
+    public String preDeclReviewOpinion() throws Exception {
+        try {
+            TUser user = getSessionUser();
+            if (user == null) {
+                toLogin();
+            }
+            declaration = this.declarationService
+                    .getTDeclaration(Id);
+            attachments = declarationService.getAttachmentByDeclarId(Id);
+            return SUCCESS;
+        } catch (Exception e) {
+            System.out.println("add review opinion falie " + e);
+            return ERROR;
+        }
+    }
+
+
+    /**
+     * 学院主管教师审核申报
+     */
+    @Action(value = "ResultTypeInSubmit")
+    public void unitCheck() {
+        try {
+            String state = checkState;
+            if (state.equals("yes")) {
+                for (String project : checkProjects) {
+                    TDeclaration declaration = this.declarationService
+                            .getTDeclaration(project);
+                    // 设置申报的状态为学院评审通过
+                    declaration.setCheckState("05");
+                    declaration.setReviewResult("01");// 设置评审结果为待审核
+                    this.declarationService.updateTDeclaration(declaration);
+                }
+            }
+            if (state.equals("no")) {
+                for (String project : checkProjects) {
+                    TDeclaration declaration = this.declarationService
+                            .getTDeclaration(project);
+                    // 设置申报的状态为学院评审不通过
+                    declaration.setCheckState("04");
+                    declaration.setReviewResult("02");// 设置评审结果为不通过
+                    this.declarationService.updateTDeclaration(declaration);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+
+    @Action(value = "UnitAudit")
+    /**
+     * 学院领导审核
+     */
+    public void unitAudit() {
+        try {
+            for (String project : checkProjects) {
+                TDeclaration declaration = this.declarationService
+                        .getTDeclaration(project);
+                // 设置申报的状态为学院评审通过
+                declaration.setCheckState("06");
+                this.declarationService.updateTDeclaration(declaration);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+
+    @Action(value = "SchoolCheck")
+    /**
+     * 教务处主管教师审核申报
+     */
+    public void schoolCheck() {
+        try {
+            String state = checkState;
+            String jqId = this.jieQiService.findDeclJieQiNow().getJqId();
+            if (state.equals("yes")) {
+                for (String project : checkProjects) {
+                    TDeclaration declaration = this.declarationService
+                            .getTDeclaration(project);
+                    // 设置申报的状态为学校审核通过
+                    if (declaration.getCheckState().equals("06")) {
+                        declaration.setCheckState("08");
+                        declaration.setReviewResult("03");
+                        this.declarationService.updateTDeclaration(declaration);
+                    }
+                }
+                this.projectService.creatProject(jqId);
+
+            }
+            if (state.equals("no")) {
+                for (String project : checkProjects) {
+                    TDeclaration declaration = this.declarationService
+                            .getTDeclaration(project);
+                    // 设置申报的状态为学校审核不通过
+                    if (declaration.getCheckState().equals("06"))
+                        declaration.setCheckState("07");
+                    declaration.setReviewResult("02");
+                    this.declarationService.updateTDeclaration(declaration);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 学院领导获取学院主管教师评审通过的申报
+     */
+    @Action(value = "UnitResultAudit", results = {
+            @Result(name = "success", location = "/pages/declarationManage/result_audit.jsp"),
+            @Result(name = "message", location = "message_info.jsp")
+    })
+    public String unitResultAudit() {
+        try {
+            // 主管教师教职工号
+            TUser user = getSessionUser();
+            // 获取所在学院
+            TUnit tunit = getSessionUnit();
+            if (user == null || null == tunit) {
+                toLogin();
+            }
+            String teaCode = user.getUserId();
+
+
+            // 申报的状态
+            // checkState="05";
+
+            // 获取当前届期
+            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
+            if (null == jieqi) {
+                messageInfo = "非结果审核时间段";
+                return MESSAGE;
+            }
+
+            getJieQiAndPro(teaCode);
+
+            this.totalNumber = this.declarationService.getUnitDeclarationCount(teaCode, "03", "05");
+            pageBean = new PageBean(page, totalNumber, pageCapacity);
+            declarations = this.declarationService.getUnitDeclaration(teaCode, "03", "05", pageBean);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+
+    /**
+     * 准备编辑申报
      *
      * @return
      * @throws Exception
@@ -1191,6 +1352,34 @@ public class DeclarationAction extends BaseAction {
 
     public String getMessageInfo() {
         return messageInfo;
+    }
+
+    public DeclarationService getDeclarationService() {
+        return declarationService;
+    }
+
+    public ProfessionService getProfessionService() {
+        return professionService;
+    }
+
+    public JieQiService getJieQiService() {
+        return jieQiService;
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
+    }
+
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
+    }
+
+    public String[] getCheckProjects() {
+        return checkProjects;
+    }
+
+    public void setCheckProjects(String[] checkProjects) {
+        this.checkProjects = checkProjects;
     }
 
     public void setMessageInfo(String messageInfo) {

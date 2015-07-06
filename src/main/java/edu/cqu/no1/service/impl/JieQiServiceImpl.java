@@ -51,17 +51,15 @@ public class JieQiServiceImpl implements JieQiService {
      * @see com.isse.service.JieQiService#findCurrentJieQi()
 	 */
 
-    /**
-     * lsp 根据当前时间获取届期（当前申报的）
-     */
+
     @Override
-    public TJieqi findCurrentJieQi() {
-        return this.tJieqiDAO.getJieqiNow();
+    public TJieqi findDeclJieQiNow() {
+        return this.tJieqiDAO.getDeclJieqiNow();
     }
 
-    // 获取当前结题届期
-    public TJieqi findJieQiNow() {
-        return this.tJieqiDAO.getCurrentJieqi();
+    @Override
+    public TJieqi findEndJieQiNow() {
+        return this.tJieqiDAO.getEndJieqiNow();
     }
 
     /* (non-Javadoc)

@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	    function save(){
 	    //alert("ss");
-	document.reviewOpinion.action="<%=basePath%>ReviewOpinion";
+	document.reviewOpinion.action="<%=basePath%>saveReviewOpinion";
 	document.reviewOpinion.submit();
 	    }
 	    

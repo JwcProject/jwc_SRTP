@@ -310,7 +310,7 @@ public class EndProjectAction extends BaseAction {
             }
             // 项目组长的学号
             studentNumber = getSessionUser().getUserId();
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             Date now = new Date();
             if (jieqi == null) {
                 messageInfo = "当前时间不是可以申请结题的时间段";
@@ -353,7 +353,7 @@ public class EndProjectAction extends BaseAction {
                     || user.getUserId().equals("")) {
                 toLogin();
             }
-            TJieqi jieqi = this.jieQiService.findJieQiNow();
+            TJieqi jieqi = this.jieQiService.findEndJieQiNow();
             String year = jieqi.getJqYear().toString();
             jieQiYears = new ArrayList<JieQiYear>();
             jieQiYears.add(new JieQiYear(year, year));

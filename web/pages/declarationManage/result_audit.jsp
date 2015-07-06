@@ -299,7 +299,6 @@ function query()
 }
 
 	function audit() {
-		 alert("dd");
 		var dataForm = $('#proForm').serialize();
 
 		jQuery.ajax({
@@ -327,9 +326,9 @@ function query()
 						+ "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumber=" + studentNumber
 						+ "&profession=" + profession + "&jqYear=" + jqYear
 						+ "&jqQici=" + jqQici;*/
-				location = "QueryResultAudit?"+$('#queyForm').serialize();
-				
-				
+//				location = "/QueryResultAudit?"+$('#queyForm').serialize();
+
+                location = "/ListUnitDeclaration";
 			}
 		});
 	}

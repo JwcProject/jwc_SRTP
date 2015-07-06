@@ -13,13 +13,15 @@ import java.util.List;
  */
 
 public interface JieQiService {
+
+
     public TJieqi findTJieqiByQici(String qici);
 
     // 获取当前申报届期
-    public TJieqi findCurrentJieQi();
+    public TJieqi findDeclJieQiNow();
 
     // 获取当前结题届期
-    public TJieqi findJieQiNow();
+    public TJieqi findEndJieQiNow();
 
     public List<BigDecimal> findUnassignYears();
 

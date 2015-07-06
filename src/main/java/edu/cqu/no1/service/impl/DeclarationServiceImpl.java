@@ -85,7 +85,7 @@ public class DeclarationServiceImpl implements DeclarationService {
     public TDeclaration addDeclaration(List<TAttachment> tAttachments, TDeclaration declaration, String groupCodes, String teacherCodes, String groupWork,
                                        String projectFund) {
         this.tempEmailRecivers = new ArrayList<TTempEmailReciver>();
-        TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
+        TJieqi tJieqi = this.tJieqiDAO.getDeclJieqiNow();
         declaration.setTJieqi(tJieqi);
         declaration.setIsdeleted("N");
         setGroup(declaration, groupCodes, tJieqi);
@@ -244,7 +244,7 @@ public class DeclarationServiceImpl implements DeclarationService {
                                           String groupCodes, String teacherCodes, String groupWork,
                                           String projectFund) {
         this.tempEmailRecivers = new ArrayList<TTempEmailReciver>();
-        TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
+        TJieqi tJieqi = this.tJieqiDAO.getDeclJieqiNow();
         declaration.setTJieqi(tJieqi);
         declaration.setDeclTime(new Timestamp(System.currentTimeMillis()));
         declaration.setCheckState("01");
@@ -277,7 +277,7 @@ public class DeclarationServiceImpl implements DeclarationService {
                                           String projectFund) {
         this.tempEmailRecivers = new ArrayList<TTempEmailReciver>();
         try {
-            TJieqi tJieqi = this.tJieqiDAO.getJieqiNow();
+            TJieqi tJieqi = this.tJieqiDAO.getDeclJieqiNow();
             declaration.setTJieqi(tJieqi);
             declaration.setDeclTime((Timestamp) new Date());
             declaration.setCheckState("01");

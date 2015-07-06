@@ -188,12 +188,12 @@
 						</td>
 						<td  >
 						<s:if test="#declarations.reviewOpinion !=null">
-						<s:a href="DeclReviewOpinion?id=%{#declarations.declarId}"  >
+						<s:a href="/preDeclReviewOpinion?Id=%{#declarations.declarId}"  >
 						<img src="images/edit.gif" alt="编辑" />
 						</s:a>
 						</s:if>
 						<s:else>
-						<s:a href="DeclReviewOpinion?id=%{#declarations.declarId}" >
+						<s:a href="/preDeclReviewOpinion?Id=%{#declarations.declarId}" >
 						<img src="images/tianjia.gif" alt="添加" />
 						</s:a>
 						</s:else>
@@ -211,7 +211,7 @@
 		<ul>
 		<li><a  onclick="audit('yes');"><img src="images/jieguo_anniu1.gif" alt="审核通过" /></a></li>
 		<li><a  onclick="audit('no');"><img src="images/jieguo_anniu2.gif" alt="审核不通过" /></a></li>
-		<li><a  onclick="seeForm();"><img src="images/jieguo_anniu3.gif" alt="查看表彰" /></a></li>
+		<li><a  onclick="seeForm();"><img src="images/jieguo_anniu3.gif" alt="查看表单" /></a></li>
 		<li><a ><img src="images/jieguo_anniu4.gif" alt="取消" /></a></li>	
 		</ul>
 		 
@@ -277,7 +277,7 @@ function audit(state){
        // alert(state);
 	    var dataForm = $('#resultTypeIn').serialize() + "&checkState=" + state;
 		jQuery.ajax({
-			url : 'ResultTypeInSubmit',
+			url : '/ResultTypeInSubmit',
 			data : dataForm,
 			contentType : "application/x-www-form-urlencoded; charset=utf-8",
 			type : "POST",
