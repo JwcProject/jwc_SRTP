@@ -29,7 +29,6 @@ public class TUser implements java.io.Serializable {
 	private String userState;
 	private String userType;
 	private String previousType;
-	private Set<TUserRole> TUserRoles = new HashSet<TUserRole>(0);
 	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
 	private Set<TAttachment> TAttachments = new HashSet<TAttachment>(0);
 	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
@@ -40,24 +39,6 @@ public class TUser implements java.io.Serializable {
 	public TUser() {
 	}
 
-	/** full constructor */
-	public TUser(String isdeleted, String userIntroduction, String userName,
-			String userPassword, String userState, String userType,
-			String previousType, Set<TUserRole> TUserRoles,
-			Set<TJournal> TJournals, Set<TAttachment> TAttachments,
-			Set<TStudent> TStudents) {
-		this.isdeleted = isdeleted;
-		this.userIntroduction = userIntroduction;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.userState = userState;
-		this.userType = userType;
-		this.previousType = previousType;
-		this.TUserRoles = TUserRoles;
-		this.TJournals = TJournals;
-		this.TAttachments = TAttachments;
-		this.TStudents = TStudents;
-	}
 
 	// Property accessors
 	@GenericGenerator(name = "generator", strategy = "uuid")
@@ -133,15 +114,6 @@ public class TUser implements java.io.Serializable {
 
 	public void setPreviousType(String previousType) {
 		this.previousType = previousType;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")
-	public Set<TUserRole> getTUserRoles() {
-		return this.TUserRoles;
-	}
-
-	public void setTUserRoles(Set<TUserRole> TUserRoles) {
-		this.TUserRoles = TUserRoles;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")

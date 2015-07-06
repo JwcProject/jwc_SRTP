@@ -21,20 +21,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void creatProject(String jqId) {
-        //Session session = this.tProjectDAO.getSessionFactory().getCurrentSession();
-        //Transaction transaction = session.beginTransaction();
         try {
-            //transaction.begin();
             this.tProjectDAO.createProject(jqId);
-
-            //transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            //throw e;
-            //transaction.rollback();
         }
-
-
     }
 
     //获取学院项目列表
