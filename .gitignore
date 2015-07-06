@@ -3,5 +3,5 @@
 /target/
 /.idea/
 /out/
-/src/main/resources/applicationContext.xml
 /classes/
+/src/main/resources/applicationContext.xml/classes/
