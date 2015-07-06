@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib uri="/struts-tags" prefix="s" %>
+﻿<%@ taglib uri="/struts-tags" prefix="s" %>
 
 <%
     String path = request.getContextPath();
@@ -7,7 +6,6 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>个人公告</title>
@@ -18,56 +16,20 @@
     <link href="<%=path%>/style/jquery.datepick.css" rel="stylesheet" type="text/css"/>
     <link href="<%=path%>/js/themes/default/easyui.css" rel="stylesheet" type="text/css"/>
     <link href="<%=path%>/js/themes/icon.css" rel="stylesheet" type="text/css"/>
-    <!--这个js是用来控制页面中出现png图片能兼容浏览区-->
 
 
 </head>
 <body>
 <div id="container">
-
-    <jsp:include page="../../header.jsp"></jsp:include>
     <!--  此处显示 id "maincontent" 的内容-->
     <div id="maincontent" class="h645">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
 
-                <!--  左边区域-->
-                <s:if test="null!=#session.user">
-                    <s:if test="%{#session.user.userType == '00'}">
-                        <jsp:include page="../../dean_leader_left.jsp"></jsp:include>
-                    </s:if>
-                    <s:elseif test="%{#session.user.userType == '01'}">
-                        <jsp:include page="../../dean_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '02'}">
-                        <jsp:include page="../../teacher_leader_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '03'}">
-                        <jsp:include page="../../teacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '04'}">
-                        <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '05'}">
-                        <jsp:include page="../../commonTeacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '06'}">
-                        <jsp:include page="../../student_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '07'}">
-                        <jsp:include page="../../student_member_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '08'}">
-                        <jsp:include page="../../student_leader_left.jsp"></jsp:include>
-                    </s:elseif>
-                </s:if>
-                <s:else>
-                    <jsp:forward page="../../login.jsp"></jsp:forward>
-                </s:else>
                 <!--中间区域-->
                 <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                     style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
-                    <div class="midbox">
+                    <div>
                         <div class="midbox_gg">
                             <div class="ggwh">公告维护</div>
                         </div>
@@ -188,20 +150,6 @@
                             </table>
                         </div>
                         <div class="xia_x">
-                            <!--
-                            <ul>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon5.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon6.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon7.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon8.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon9.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon10.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon11.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon12.gif" alt="首页" /></a></li>
-                            <li><a href="#" ><img src="images/gonggaoweihu_icon13.gif" alt="首页" /></a></li>
-
-                            </ul>
-                             -->
                             <div id="pager">
                             </div>
                         </div>
@@ -212,7 +160,6 @@
             </tr>
         </table>
     </div>
-    <jsp:include page="../../footer.jsp"></jsp:include>
 </div>
 
 <script type="text/javascript" src="<%=path%>/js/iepngfix_tilebg.js"></script>
@@ -244,10 +191,6 @@
     }
 
     function queryPersonalAnnoun() {
-        //$("#pages")[0].value = 1;
-        //alert("aaa");
-        //var publishTime = $("#publishTime").datebox("getValue");
-        //alert(publishTime);
         document.queryForm.action = "<%=basePath%>findStuTeaAnnoun";
         document.queryForm.submit();
     }
@@ -280,4 +223,3 @@
     }
 </script>
 </body>
-</html>
