@@ -275,4 +275,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public TUser attachUser(TUser tUser) {
+        return tUserDAO.attachDirty(tUser);
+    }
+
 }

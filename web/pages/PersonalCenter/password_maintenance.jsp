@@ -133,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <div style="display: block;margin-top: 10px;">
                      <div class="line_box">
                         <div class="line_box_left" align="right">姓名</div>
-                        <div class="line_box_right"><s:property value="#session.user.userName"/></div>
+                        <div class="line_box_right"><s:property value="#session.user.username"/></div>
                      </div>
                      <div class="line_box">
                         <div class="line_box_left" align="right">学号</div>

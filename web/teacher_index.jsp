@@ -5,40 +5,14 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>教师首页</title>
-<link href="<%=path%>/css/css1.css" rel="stylesheet" type="text/css" />
-<!--这个js是用来控制页面中出现png图片能兼容浏览区-->
-<script type="text/javascript" src="<%=path%>/js/iepngfix_tilebg.js"></script>
-</head>
+
 <body>
 <div id="container">
-  <jsp:include page="header.jsp"></jsp:include>
   <!--  此处显示 id "maincontent" 的内容-->
   <div id="maincontent" class="h645">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <!--  左边区域-->
-        <s:if test="null!=#session.user">
-          	<s:if test="%{#session.user.userRole == '02'}">
-		  		<jsp:include page="teacher_leader_left.jsp"></jsp:include>
-		  	</s:if>
-		    <s:elseif test="%{#session.user.userRole == '03'}">
-		   		<jsp:include page="teacher_left.jsp"></jsp:include>
-		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '04'}">
-		    	<jsp:include page="reviewTeacher_left.jsp"></jsp:include>
-		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '05'}">
-		   		<jsp:include page="commonTeacher_left.jsp"></jsp:include>
-		    </s:elseif>
-		   </s:if>
-		   <s:else>
-		   		<jsp:forward  page="login.jsp"></jsp:forward>
-		   </s:else>
         <!--中间区域-->
         <td width="88%" valign="top"  style="padding-top:10px; padding-left:4px;" ><!-- 公告区域-->
           
@@ -116,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></a></td>
+                <td></td>
               </tr>
             </table>
           </div>
@@ -149,21 +123,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="xm_lb">
               <dl>
-                <dt><a href="#"><b>。软件学院2013年SRTP测试</b></a>
+                <li><a href="#"><b>。软件学院2013年SRTP测试</b></a>
                   </li>
-                <dd><a href="#">软件学院2013年SRTP测试项目软件学院2013年SRTP测试...</a>
-                  </li>
-              </dl>
-              <dl>
-                <dt><a href="#"><b>。软件学院2013年SRTP测试</b></a>
-                  </li>
-                <dd><a href="#">软件学院2013年SRTP测试项目软件学院2013年SRTP测试...</a>
+                <li><a href="#">软件学院2013年SRTP测试项目软件学院2013年SRTP测试...</a>
                   </li>
               </dl>
               <dl>
-                <dt><a href="#"><b>。软件学院2013年SRTP测试</b></a>
+                <li><a href="#"><b>。软件学院2013年SRTP测试</b></a>
                   </li>
-                <dd><a href="#">软件学院2013年SRTP测试项目软件学院2013年SRTP测试...</a>
+                <li><a href="#">软件学院2013年SRTP测试项目软件学院2013年SRTP测试...</a>
+                  </li>
+              </dl>
+              <dl>
+                <li><a href="#"><b>。软件学院2013年SRTP测试</b></a>
+                  </li>
+                <li><a href="#">软件学院2013年SRTP测试项目软件学院2013年SRTP测试...</a>
                   </li>
               </dl>
             </div>
@@ -200,12 +174,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tr>
     </table>
   </div>
-  <jsp:include page="footer.jsp"></jsp:include>
 </div>
+</body>
+<head>
 <script type="text/javascript">
        $(document).ready(function(){
 	       $("#Left_menu .menu_body:eq(0)").show();
        });
 </script>
-</body>
-</html>
+</head>

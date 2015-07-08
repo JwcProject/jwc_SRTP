@@ -104,7 +104,7 @@
     				</s:else>
                       <!--  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">-->
                         <td style="padding-left:10px" class="NoNewline"><s:property value="#listJournalActs.userId" /></td>
-                        <td ><s:property value="#listJournalActs.TJournal.userName" />&nbsp; </td>
+                        <td ><s:property value="#listJournalActs.TJournal.username" />&nbsp; </td>
                         <td ><s:property value="#listJournalActs.TJournal.journalLoginip" />&nbsp;</td>
 						<td >
 						 <s:if test="null==#listJournalActs.TJournal.journalLogintime||#listJournalActs.TJournal.journalLogintime.isEmpty()">  

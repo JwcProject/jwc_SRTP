@@ -53,7 +53,7 @@
 		<tr >
 		  <td align="right" style="font-size: 18px">昵称:</td>
 		  <td align="left" style="width:305px">
-		  <input type="text" name="user.userName" id="text_fabu" style="width: 300px;font-size: 18px" datatype="*"
+		  <input type="text" name="user.username" id="text_fabu" style="width: 300px;font-size: 18px" datatype="*"
 												nullmsg="请输入昵称" />
 		  </td>
 		  <td>

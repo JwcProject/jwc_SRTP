@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td width="50" align="center">用户id </td>
 								<td><input type="text" name="userId"/></td>
 								<td width="100"  align="center">用户名</td>
-								<td><input type="text" name="userName"/></td>
+								<td><input type="text" name="username"/></td>
 								<td width="65" align="center">登录ip</td>
 								<td><input type="text" name="journalLoginip"/></td>
 								<td width="65" align="center">登录时间</td>
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<s:property value="#listJournals.TUser.userId" />
 								</td>
 								<td align="center">
-								    <s:property value="#listJournals.userName"/>
+								    <s:property value="#listJournals.username"/>
 								</td>
 								<td align="center">
 									<s:property value="#listJournals.journalLoginip" />

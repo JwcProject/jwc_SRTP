@@ -299,14 +299,21 @@
       $(target).addClass('visible');//show target
     });
 
+    map = {
+      "<%=basePath%>user/login": "login"
+    }
+
     //login-form
     $('#login-submit').click(function (event) {
       event.preventDefault();
 
       var login_form = $('#login-form');
+
+      console.log(login_form.attr('action'));
+
       $.ajax({
         type: login_form.attr('method'),
-        url: login_form.attr('action'),
+        url: map[login_form.attr('action')],
         data: login_form.serialize(),
         success: function (data) {
           $('#login-form + div').remove();
@@ -332,7 +339,7 @@
             '登陆成功，即将为您跳转' +
             '</div>');
             setTimeout(function () {
-              location.href = '<%=basePath%>main';
+              location.href = '<%=basePath%>index';
             }, 1000);
           } else if (result == "passwordWorry") {
             login_form.after('<div class="alert alert-block alert-danger fade in">' +
@@ -369,6 +376,7 @@
         }
       });
     });
+
 
     //reset-password-form
     $('#reset-password-submit').click(function (event) {

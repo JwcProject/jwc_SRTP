@@ -53,7 +53,7 @@
 		</span>
 		</p>
 		<p style="clear:left">昵称：
-		<input type="text" name="user.userName" id="text_fabu" value="<s:property value="user.userName" />" style="width: 300px;" datatype="*"
+		<input type="text" name="user.username" id="text_fabu" value="<s:property value="user.username" />" style="width: 300px;" datatype="*"
 												nullmsg="请输入公告名称" />
 		</p>
 		<p style="float:left;" >

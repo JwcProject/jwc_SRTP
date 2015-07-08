@@ -51,7 +51,7 @@
 		
 		<li>
 		<p>昵称:
-		<s:textfield name="userName" id="userName" style="width:84px;height:12px"/>
+		<s:textfield name="username" id="username" style="width:84px;height:12px"/>
 		</p>
 		</li>
 		
@@ -113,7 +113,7 @@
     				</s:else>
                       <!--  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">-->
                         <td style="padding-left:10px" class="NoNewline"><s:property value="#listJournals.TUser.userId" /></td>
-                        <td ><s:property value="#listJournals.userName" />&nbsp; </td>
+                        <td ><s:property value="#listJournals.username" />&nbsp; </td>
                         <td ><s:property value="#listJournals.journalLoginip" />&nbsp;</td>
 						<td >
 						 <s:if test="null==#listJournals.journalLogintime||#listJournals.journalLogintime.isEmpty()">  
@@ -185,11 +185,11 @@
 
 function changePage(pageclickednumber){
      var userId = $("#userId")[0].value;
-     var userName = $("#userName")[0].value;
+     var username = $("#username")[0].value;
      var journalLoginip = $("#journalLoginip")[0].value;
      var journalLogintime = $("#journalLogintime")[0].value;
      var journalQuitime = $("#journalQuitime")[0].value;
-	  location="ListSelectedJournal?page="+pageclickednumber+"&userId="+userId+"&userName="+userName+"&journalLoginip="+journalLoginip+"&journalLogintime="+journalLogintime+"&journalQuitime="+journalQuitime;
+	  location="ListSelectedJournal?page="+pageclickednumber+"&userId="+userId+"&username="+username+"&journalLoginip="+journalLoginip+"&journalLogintime="+journalLogintime+"&journalQuitime="+journalQuitime;
 	}
 
 function query()

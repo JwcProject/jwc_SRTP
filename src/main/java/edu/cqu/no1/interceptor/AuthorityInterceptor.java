@@ -3,11 +3,13 @@ package edu.cqu.no1.interceptor;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import edu.cqu.no1.domain.TAuthority;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,9 +31,7 @@ public class AuthorityInterceptor extends AbstractInterceptor {
         if (session.get("user") == null || session.get("authorities") == null || session.get("role") == null)
             return ActionSupport.LOGIN;
 
-//        for (Authority a : (List<Authority>) session.get("authorities")) {
-//            System.out.println(a);
-//        }
+
 //        String uri = request.getRequestURI();
 //        ActionContext actionContext = invocation.getInvocationContext();
 

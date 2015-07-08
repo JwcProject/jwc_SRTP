@@ -17,11 +17,12 @@
     <constant name="struts.objectFactory" value="spring"/>
 
     <!-- 是否支持action name中存在斜杠-->
-    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <!--<constant name="struts.enable.SlashesInActionNames" value="true"/>-->
 
     <package name="base" extends="json-default,struts-default">
         <!-- 这里可以设置一些全局的返回值映射关系等 -->
         <global-results>
+            <result name="db_error" type="redirect">/db_err.jsp</result>
             <result name="error" type="redirect">/db_err.jsp</result>
             <result name="login" type="redirect">/login.jsp</result>
         </global-results>

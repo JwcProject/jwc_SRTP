@@ -96,6 +96,54 @@ public class DeclarationAction extends BaseAction {
     private String addStudentNumber;
     private String result;
 
+    /**
+     * 我的申报分类
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "sortMyDeclaration",results = {
+            @Result(name = "teacher", location = "/ListTeaPersonalDeclaration",type="redirect"),
+            @Result(name = "student", location = "/ListDeclaration",type="redirect")
+    })
+    public String sortMyDeclaration() throws Exception{
+
+        int role=Integer.parseInt(getSessionUser().getUserType());
+        switch (role){
+            case 4:
+            case 5:
+                return "teacher";
+            case 6:
+            case 7:
+            case 8:
+                return "student";
+            default:
+                return ERROR;
+        }
+    }
+
+    /**
+     * 申报列表分类
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "sortDeclarationList",results = {
+            @Result(name = "unit", location = "/ListUnitDeclaration",type="redirect"),
+            @Result(name = "dean", location = "/ListSchoolDecl",type="redirect")
+    })
+    public String sortDeclarationList() throws Exception{
+
+        int role=Integer.parseInt(getSessionUser().getUserType());
+        switch (role){
+            case 2:
+            case 3:
+                return "unit";
+            case 0:
+            case 1:
+                return "dean";
+            default:
+                return ERROR;
+        }
+    }
 
     /**
      * 填写申报页面 根据学好找学生

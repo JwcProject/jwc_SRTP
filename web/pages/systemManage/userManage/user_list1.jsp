@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td width="50" align="center">登录名</td>
 								<td><s:textfield  name="userId" value="%{userId}"/></td>
 								<td width="100"  align="center">昵称</td>
-								<td><s:textfield  name="userName" value="%{userName}"/></td>
+								<td><s:textfield  name="username" value="%{username}"/></td>
 								<td width="65" align="center">用户类型</td>
 								<td><s:select name="userRole"
 										list="#{'00':'不限','01':'教师','02':'学生','03':'管理员'}" headerKey="00" ></s:select></td>
@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<s:property value="#listUsers.userId" />
 								</td>
 								<td align="center">
-									<s:property value="#listUsers.userName" />
+									<s:property value="#listUsers.username" />
 								</td>
 								<td align="center">
 									 <s:if test="%{#listUsers.userIntroduction.length()>10}">

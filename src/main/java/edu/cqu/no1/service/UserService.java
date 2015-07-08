@@ -61,4 +61,5 @@ public interface UserService {
 
     int resetPassword(String username, String email);
 
+    TUser attachUser(TUser tUser);
 }

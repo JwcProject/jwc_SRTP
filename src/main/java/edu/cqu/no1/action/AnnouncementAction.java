@@ -72,6 +72,40 @@ public class AnnouncementAction extends BaseAction {
     private String[] filesContentType;
     private String[] filesFileName;
 
+    /**
+     * 用户公告分类
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "sortUserAnnouncement",results = {
+            @Result(name="school",location = "/findSchoolAnnoun",type="redirect"),
+            @Result(name="unit",location = "/findUnitAnnoun",type="redirect"),
+            @Result(name="dean",location = "/findDeanAnnoun",type="redirect"),
+            @Result(name="stuTea",location = "/findStuTeaAnnoun",type="redirect")
+    })
+    public String sortUserAnnouncement() throws Exception{
+        tUser = getSessionUser();
+        if (tUser == null) {
+            toLogin();
+        }
+
+        int role=Integer.parseInt(tUser.getUserType());
+        switch (role){
+            case 0:
+            case 1:
+                return "school";
+            case 2:
+            case 3:
+                return "unit";
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                return "stuTea";
+        }
+        return SUCCESS;
+    }
 
     /**
      * 查询学生老师个人公告

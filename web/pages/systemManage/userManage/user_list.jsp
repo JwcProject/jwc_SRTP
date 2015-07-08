@@ -49,7 +49,7 @@
 		
 		<li>
 		<p>昵称:
-		<s:textfield name="userName" id="userName" value="%{userName}" style="width:86px;height:14px"/> 
+		<s:textfield name="username" id="username" value="%{username}" style="width:86px;height:14px"/>
 		</p>
 		</li>
 		
@@ -104,7 +104,7 @@
     				</s:else>
                       <!--  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">-->
                         <td style="padding-left:10px" class="NoNewline"><s:property value="#listUsers.userId" /></td>
-                        <td ><s:property value="#listUsers.userName" />&nbsp; </td>
+                        <td ><s:property value="#listUsers.username" />&nbsp; </td>
                         <td >
                          <s:if test="%{#listUsers.userIntroduction.length()>10}">
 								              <s:property value="%{#listUsers.userIntroduction.substring(0,10)+'...'}" escape="#onlineList.frmTitle"/>
@@ -212,10 +212,10 @@
 function changePage(pageclickednumber){
      //alert(pageclickednumber);
      var userId = $("#userId")[0].value;
-	 var userName = $("#userName")[0].value;
+	 var username = $("#username")[0].value;
 	 var userRole = $("#userRole")[0].value;
 	 var userState = $("#userState")[0].value;
-	 location="QueryUser?page="+pageclickednumber+"&userId="+userId+"&userName="+userName+"&userRole="+userRole+"&userState="+userState;
+	 location="QueryUser?page="+pageclickednumber+"&userId="+userId+"&username="+username+"&userRole="+userRole+"&userState="+userState;
 	}
  
 function query()

@@ -34,7 +34,7 @@
 	    </div>
 		<div class="ggzs_wz">
 		<p>登录名：<s:property value="user.userId" /></p>
-		<p>昵称：<s:property value="user.userName" /></p>
+		<p>昵称：<s:property value="user.username" /></p>
 		<p>用户类型：
           <s:if test="user.userRole=='00'">
 											教务处领导

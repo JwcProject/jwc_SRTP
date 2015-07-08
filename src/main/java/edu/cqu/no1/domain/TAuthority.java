@@ -98,4 +98,13 @@ public class TAuthority implements java.io.Serializable {
 		this.TRoleAuthorities = TRoleAuthorities;
 	}
 
+	@Override
+	public String toString() {
+		return "TAuthority{" +
+				"id='" + id + '\'' +
+				", path='" + path + '\'' +
+				", name='" + name + '\'' +
+				", desc='" + desc + '\'' +
+				'}';
+	}
 }

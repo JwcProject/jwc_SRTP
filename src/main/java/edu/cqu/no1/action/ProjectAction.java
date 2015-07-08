@@ -60,6 +60,55 @@ public class ProjectAction extends BaseAction {
     private int totalNumber = 0; // 总数据条数
     private int pageCapacity = 14; // 每页显示条数
 
+    /**
+     * 项目列表分类
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "SortProjectList",results = {
+            @Result(name = "unit", location = "/ListProjectByUnitTeaCode",type="redirect"),
+            @Result(name = "dean", location = "/ListSchoolProject",type="redirect")
+    })
+    public String sortProjectList() throws Exception{
+
+        int role=Integer.parseInt(getSessionUser().getUserType());
+        switch (role){
+            case 2:
+            case 3:
+                return "unit";
+            case 0:
+            case 1:
+                return "dean";
+            default:
+                return ERROR;
+        }
+    }
+
+    /**
+     * 我的项目分类
+     * @return
+     * @throws Exception
+     */
+    @Action(value = "SortMyProject",results = {
+            @Result(name = "teacher", location = "/ListTeaPersonalProject",type="redirect"),
+            @Result(name = "student", location = "/ListStuPersonalProject",type="redirect")
+    })
+    public String sortMyProject() throws Exception{
+
+        int role=Integer.parseInt(getSessionUser().getUserType());
+        switch (role){
+            case 4:
+            case 5:
+                return "teacher";
+            case 6:
+            case 7:
+            case 8:
+                return "student";
+            default:
+                return ERROR;
+        }
+    }
+
 
     @Action(value = "ListProjectByUnitTeaCode", results = {
             @Result(name = "success", location = "/pages/projectManage/unit_project_list.jsp")

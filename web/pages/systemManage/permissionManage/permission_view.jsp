@@ -55,7 +55,7 @@
 		</tr >
 		<tr style="border-bottom: 1px solid #dcdcdc">
 		  <td align="center">昵称：</td>
-		  <td align="left"><s:property value="user.userName" /></td>
+		  <td align="left"><s:property value="user.username" /></td>
 		</tr>
 		<tr style="border-bottom: 1px solid #dcdcdc">
 		   <td align="center">用户类型</td>

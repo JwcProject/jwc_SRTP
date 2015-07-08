@@ -47,7 +47,7 @@
 									昵称
 								</td>
 								<td align="left" width="15%">
-									<s:property value="user.userName" />
+									<s:property value="user.username" />
 								</td>
 							</tr>
 							<tr>

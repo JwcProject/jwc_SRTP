@@ -49,7 +49,7 @@
 									<font color="red">*</font>
 								</td>
 								<td align="left" width="15%">
-									<s:textfield name="user.userName"></s:textfield>
+									<s:textfield name="user.username"></s:textfield>
 								</td>
 							</tr>
 							<tr>

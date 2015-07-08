@@ -1,4 +1,4 @@
-<%@ page import="edu.cqu.no1.domain.Authority" %>
+<%@ page import="edu.cqu.no1.domain.TAuthority" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -53,7 +53,7 @@
   <!-- /.sidebar-shortcuts -->
 
   <ul class="nav nav-list">
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^announcement[A-Za-z0-9_/]*")) {
     %>
 
@@ -68,7 +68,7 @@
       <b class="arrow"></b>
 
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("announcement/mine")) {
         %>
         <li class="active">
@@ -80,7 +80,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("announcement/student")) {
         %>
         <li class="">
@@ -92,7 +92,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("announcement/teacher")) {
         %>
         <li class="">
@@ -104,7 +104,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("announcement/leader")) {
         %>
         <li class="">
@@ -116,7 +116,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("announcement/maintain")) {
         %>
         <li class="">
@@ -136,7 +136,7 @@
       }
     %>
 
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^declare[A-Za-z0-9_/]*")) {
     %>
     <li class="">
@@ -149,7 +149,7 @@
 
       <b class="arrow"></b>
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/mine")) {
         %>
         <li class="">
@@ -160,7 +160,7 @@
         <%
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/apply")) {
         %>
         <li class="">
@@ -171,7 +171,7 @@
         <%
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/list")) {
         %>
         <li class="">
@@ -183,7 +183,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/review/mine")) {
         %>
         <li class="">
@@ -195,7 +195,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/expert/create")) {
         %>
         <li class="">
@@ -207,7 +207,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/expert/list")) {
         %>
         <li class="">
@@ -219,7 +219,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/expert/history")) {
         %>
         <li class="">
@@ -231,7 +231,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/expert/distribute")) {
         %>
         <li class="">
@@ -243,7 +243,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/review/organize")) {
         %>
         <li class="">
@@ -255,7 +255,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/result/input")) {
         %>
         <li class="">
@@ -267,7 +267,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("declare/result/review")) {
         %>
         <li class="">
@@ -288,7 +288,7 @@
       }
     %>
 
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^project[A-Za-z0-9_/]*")) {
     %>
     <li class="">
@@ -302,7 +302,7 @@
       <b class="arrow"></b>
 
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("project/mine")) {
         %>
         <li class="">
@@ -314,7 +314,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("project/list")) {
         %>
         <li class="">
@@ -334,7 +334,7 @@
       }
     %>
 
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^final[A-Za-z0-9_/]*")) {
     %>
 
@@ -348,7 +348,7 @@
 
       <b class="arrow"></b>
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/mine")) {
         %>
         <li class="">
@@ -360,7 +360,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/apply")) {
         %>
         <li class="">
@@ -372,7 +372,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/list")) {
         %>
         <li class="">
@@ -384,7 +384,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/review/mine")) {
         %>
         <li class="">
@@ -396,7 +396,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/review/organize")) {
         %>
         <li class="">
@@ -408,7 +408,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/expert/list")) {
         %>
         <li class="">
@@ -420,7 +420,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/expert/create")) {
         %>
         <li class="">
@@ -432,7 +432,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/expert/history")) {
         %>
         <li class="">
@@ -444,7 +444,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/expert/distribute")) {
         %>
         <li class="">
@@ -456,7 +456,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/result/input")) {
         %>
         <li class="">
@@ -468,7 +468,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("final/result/review")) {
         %>
         <li class="">
@@ -488,7 +488,7 @@
       }
     %>
 
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^statistic[A-Za-z0-9_/]*")) {
     %>
     <li class="">
@@ -502,7 +502,7 @@
       <b class="arrow"></b>
 
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("statistic/grade")) {
         %>
         <li class="">
@@ -514,7 +514,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("statistic/index")) {
         %>
         <li class="">
@@ -533,7 +533,7 @@
         }
       }
     %>
-    <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
       if (authority.getPath().equals("knowledge")) {
     %>
     <li class="">
@@ -549,7 +549,7 @@
         }
       }%>
 
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^system[A-Za-z0-9_/]*")) {
     %>
     <li class="">
@@ -562,7 +562,7 @@
 
       <b class="arrow"></b>
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("system/role")) {
         %>
         <li class="">
@@ -574,7 +574,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("system/authority")) {
         %>
         <li class="">
@@ -586,7 +586,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("system/user")) {
         %>
         <li class="">
@@ -598,7 +598,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("system/period")) {
         %>
         <li class="">
@@ -610,7 +610,7 @@
               break;
             }
           }%>
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
           if (authority.getPath().equals("system/journal")) {
         %>
         <li class="">
@@ -630,7 +630,7 @@
       }
     %>
 
-    <% for (Authority a : (List<Authority>) session.getAttribute("authorities")) {
+    <% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
       if (a.getPath().matches("^user[A-Za-z0-9_/]*")) {
     %>
 
@@ -644,7 +644,7 @@
 
       <b class="arrow"></b>
       <ul class="submenu">
-        <% for (Authority authority : (List<Authority>) session.getAttribute("authorities")) {
+        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
 
           if (authority.getPath().equals("user/modify")) {
         %>

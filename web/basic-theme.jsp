@@ -1,3 +1,5 @@
+<%@ page import="edu.cqu.no1.domain.TAuthority" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: zl
@@ -57,6 +59,28 @@
   <script src="<%=basePath%>assets/js/respond.min.js"></script>
   <![endif]-->
 
+  <!--[if !IE]> -->
+  <script type="text/javascript">
+    window.jQuery || document.write("<script src='<%=basePath%>assets/js/jquery.min.js'>" + "<" + "/script>");
+  </script>
+  <!-- <![endif]-->
+
+  <!--[if IE]>
+  <script type="text/javascript">
+    window.jQuery || document.write("<script src='<%=basePath%>assets/js/jquery1x.min.js'>" + "<" + "/script>");
+  </script>
+  <![endif]-->
+
+  <script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='<%=basePath%>assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+  </script>
+
+  <script src="<%=basePath%>ueditor/ueditor.config.js"></script>
+  <script src="<%=basePath%>ueditor/ueditor.all.js"></script>
+
+  <script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
+
+
 </head>
 <body class="no-skin">
 <s:include value="navbar.jsp"/>
@@ -85,7 +109,9 @@
     <!-- /section:basics/content.breadcrumbs -->
     <div class="page-content">
       <s:include value="settings-box.jsp"/>
-      <decortor:body/>
+      <div class="content-body">
+        <decortor:body/>
+      </div>
     </div>
     <!-- /.page-content -->
   </div>
@@ -99,22 +125,6 @@
 
 <!-- basic scripts -->
 
-<!--[if !IE]> -->
-<script type="text/javascript">
-  window.jQuery || document.write("<script src='<%=basePath%>assets/js/jquery.min.js'>" + "<" + "/script>");
-</script>
-<!-- <![endif]-->
-
-<!--[if IE]>
-<script type="text/javascript">
-  window.jQuery || document.write("<script src='<%=basePath%>assets/js/jquery1x.min.js'>" + "<" + "/script>");
-</script>
-<![endif]-->
-
-<script type="text/javascript">
-  if ('ontouchstart' in document.documentElement) document.write("<script src='<%=basePath%>assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-</script>
-<script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
 
 <!-- page specific plugin scripts -->
 
@@ -186,13 +196,70 @@
         );
       }
 
+      var map={
+        'announcement/mine'        :'sortUserAnnouncement',
+        'announcement/student'     :'pages/announManage/announ_commit.jsp',
+        'announcement/teacher'     :'pages/announManage/announ_commit.jsp',
+        'announcement/lead'        :'pages/announManage/announ_commit.jsp',
+        'announcement/maintain'    :'sortUserAnnouncement',
+        'declare/mine'             :'sortMyDeclaration',
+        'declare/apply'            :'preAddDeclaration',
+        'declare/list'             :'sortDeclarationList',
+        'declare/review/mine'      :'PreMyReview',
+        'declare/expert/create'    :'PreCreateExpert',
+        'declare/expert/list'      :'ListUnitExperTeam',
+        'declare/expert/history'   :'ListHistoryExpert',
+        'declare/expert/distribute':'PreAssignExpert',
+        'declare/review/organize'  :'PreOrganizeReview',
+        'declare/result/input'     :'preDeclResultTypeIn',
+        'declare/result/review'    :'UnitResultAudit',
+        'project/mine'             :'SortMyProject',
+        'project/list'             :'SortProjectList',
+        'final/mine'               :'PreMyEndProjects',
+        'final/apply'              :'PreEndProjectRequest',
+        'final/list'               :'listEndProjects',
+        'final/review/mine'        :'PreMyReview',
+        'final/review/organize'    :'PreOrganizeEndprojectReview',
+        'final/expert/create'      :'PreCreateEndProExpertTeam',
+        'final/expert/list'        :'FindEndproExpTeam',
+        'final/expert/history'     :'ListEndProHistoryExpert',
+        'final/expert/distribute'  :'PreAssignEndProExpert',
+        'final/result/input'       :'PreEndProResultTypeIn',
+        'final/result/review'      :'PreEndProScoreAudit',
+        'statistic/grade'          :'Statistic/ListSchoolProjectScore',
+        'statistic/index'          :'Statistic/SchoolResultDistribut',
+        'knowledge'                :'#',
+        'system/t_authority'       :'ListPermission',
+        'system/t_role'            :'ListRole',
+        'system/user'              :'ListUser',
+        'system/period'            :'ListAllJieqi',
+        'system/journal'           :'ListJournal',
+        'user/modify'              :'findUserInfo'
+      };
+
       $.ajax({
         method: 'get',
-        url: '<%=basePath%>' + url,
+        url: '<%=basePath%>' + map[url],
         success: function (data) {
+          console.log('ajax success!');
           //返回的是网页
           if (typeof(data) == "string") {
-            //TODO:
+            $('div.content-body').html(data);
+            $('div.content-body a').click(function (event) {
+              event.preventDefault();
+              $.ajax({
+                method: 'get',
+                url: $(this).attr('href'),
+                success: function (data) {
+                  $('div.content-body').html(data);
+                },
+                error: function () {
+                  $('div.content-body').html('数据库错误，请稍后再试');
+                }
+              });
+
+              //TODO: form
+            });
           }
           //返回的是json
           else {
@@ -207,53 +274,12 @@
     };
     window.onhashchange();
   })
-  //  //绑定sidebar点击函数
-  //  $(function () {
-  //
-  //    $('.nav-list  .submenu > li > a ').click(function () {
-  //
-  //      $('.nav-list > li').removeClass('active');
-  //
-  //      $('.nav-list .submenu > li').removeClass('active');
-  //
-  //      var $li = $(this).parent();
-  //      $li.addClass('active');
-  //      $li.parent().parent().addClass('active');
-  //    })
-  //
-  //    $('.nav-list > li >a').click(function () {
-  //
-  //      if ($(this).hasClass('dropdown-toggle')) {
-  //        return;
-  //      }
-  //      $('.nav-list > li').removeClass('active');
-  //
-  //      $('.nav-list .submenu > li').removeClass('active');
-  //      $(this).parent().addClass('active');
-  //    })
-  //
-  //  })
-  //  $(function () {
-  //    var url = window.location.href;
-  //    var index = url.indexOf("#");
-  //    if (index < 0) {
-  //      return;
-  //    }
-  //    url = url.substring(index + 1);
-  //    if (url == "") {
-  //      return;
-  //    }
-  //    var $nav_a = $('.nav-list > li > a[href="#' + url + '"]');
-  //
-  //    $nav_a.click();
-  //    var $submenu_a = $('.nav-list  .submenu > li > a[href="#' + url + '"]');
-  //    $submenu_a.click();
-  //    if ($nav_a.size() == 0) {
-  //      $submenu_a.parent().parent().parent().addClass('open');
-  //    }
-  //
-  //  })
+
 </script>
 <decortor:head/>
+
+<% for (TAuthority a : (List<TAuthority>) session.getAttribute("authorities")) {
+  System.out.println(a);
+}%>
 </body>
 </html>

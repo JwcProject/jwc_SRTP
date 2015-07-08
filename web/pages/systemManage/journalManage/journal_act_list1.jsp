@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<s:property value="#listJournalActs.userId" />
 								</td>
 								<td align="center">
-								    <s:property value="#listJournalActs.TJournal.userName"/>
+								    <s:property value="#listJournalActs.TJournal.username"/>
 								</td>
 								<td align="center">
 									<s:property value="#listJournalActs.TJournal.journalLoginip" />

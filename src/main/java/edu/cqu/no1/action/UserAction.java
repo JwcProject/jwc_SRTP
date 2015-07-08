@@ -47,7 +47,7 @@ public class UserAction extends BaseAction implements SessionAware {
     private String id;
 
     private String userId;
-    private String userName;
+    private String username;
     private String userRole;
     private String userState;
     private String validateCode;
@@ -90,12 +90,12 @@ public class UserAction extends BaseAction implements SessionAware {
         this.session = session;
     }
 
-    @Action(value = "login", results = {
-            @Result(name = SUCCESS, type = "json")
+    @Action(value = "/login", results = {
+            @Result(name = SUCCESS, type = "json", params = {"includeProperties", "result"})
     })
     public String login() {
         result = ERROR;
-        switch (userService.checkUser(userName, password)) {
+        switch (userService.checkUser(username, password)) {
             case UserService.SUCCESS:
                 TUser user = userService.getUser();
                 session.put("user", user);
@@ -127,7 +127,7 @@ public class UserAction extends BaseAction implements SessionAware {
     public String register() {
         TUser user = new TUser();
         user.setPassword(password);
-        user.setUsername(userName);
+        user.setUsername(username);
         user.setEmail(email);
         result = ERROR;
         switch (userService.registerUser(user)) {
@@ -147,9 +147,9 @@ public class UserAction extends BaseAction implements SessionAware {
 
     @Action(value = "logout")
     public String logout() {
-        session.remove("user");
-        session.remove("role");
-        session.remove("authorities");
+        TUser user= (TUser) session.get("user");
+        userService.changeLoginState(user.getUserId(), "NN");
+        session.clear();
         return LOGIN;
     }
 
@@ -159,7 +159,7 @@ public class UserAction extends BaseAction implements SessionAware {
     public String resetPassword() {
         result = ERROR;
 
-        switch (userService.resetPassword(userName, email)) {
+        switch (userService.resetPassword(username, email)) {
             case UserService.SUCCESS:
                 result = SUCCESS;
                 break;
@@ -229,6 +229,37 @@ public class UserAction extends BaseAction implements SessionAware {
         return SUCCESS;
     }
 
+    @Action(value = "index", results = {
+            @Result(name = "login", location = "/login.jsp"),
+            @Result(name = "student", location = "/student_index.jsp"),
+            @Result(name = "teacher", location = "/teacher_index.jsp"),
+            @Result(name = "jiaowuchu", location = "/dean_index.jsp")
+    })
+    public String index() throws Exception {
+        TUser user= (TUser) session.get("user");
+        userService.attachUser(user);
+
+        userService.changeLoginState(user.getUserId(), "YY");
+        String userType = user.getUserType();
+        TUnit unit = userService.getUnitByUserId(user.getUserId(), userType);
+        session.put("unit", unit);
+
+        if ("06".equals(userType) || "07".equals(userType) || "08".equals(userType)) {
+            deanAnnounList = listIndexDeanAnnouncement();
+            unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
+            commonAnnounList = listCommonAnnouncement();
+            return "student";
+        } else if ("02".equals(userType) || "03".equals(userType) || "04".equals(userType) || "05".equals(userType)) {
+            expertTeachers = listHistoryExpert(user.getUserId());
+            projects = listProjectByTeaCode(user.getUserId());
+            return "teacher";
+        } else if ("01".equals(userType) || "00".equals(userType)) {
+            deanAnnounList = listIndexDeanAnnouncement();
+            return "jiaowuchu";
+        } else {
+            return ERROR;
+        }
+    }
 
     @Action(value = "userLogin", results = {
             @Result(name = "login", location = "/login.jsp"),
@@ -254,7 +285,9 @@ public class UserAction extends BaseAction implements SessionAware {
             request.setAttribute("msg", "用户名或密码错误！");
             return "login";
         }
+
         session.put("user", user);
+
         userService.changeLoginState(user.getUserId(), "YY");
         request.setAttribute("msg", "登录成功!");
         String userType = user.getUserType();
@@ -349,7 +382,7 @@ public class UserAction extends BaseAction implements SessionAware {
 
 			/*System.out.println("getUserId: " + this.getUserId());
             System.out.println("\n getUserType: " + this.getUsertype());
-			System.out.println("\n getUser: " + this.getSessionUser().getUserName());*/
+			System.out.println("\n getUser: " + this.getSessionUser().getUsername());*/
 
             return SUCCESS;
         } catch (Exception e) {
@@ -365,12 +398,12 @@ public class UserAction extends BaseAction implements SessionAware {
     })
     public String queryUser() throws Exception {
         try {
-            this.totalNumber = this.userService.getTUserCountByMutiProperty(userId, userName, userRole, userState);
+            this.totalNumber = this.userService.getTUserCountByMutiProperty(userId, username, userRole, userState);
 
             // 构造分页对象
             pageBean = new PageBean(page, totalNumber, pageCapacity);
 
-            listUsers = this.userService.getTUserByMutiProperty(userId, userName, userRole, userState, pageBean);
+            listUsers = this.userService.getTUserByMutiProperty(userId, username, userRole, userState, pageBean);
 
             totalPage = this.pageBean.getTotalPage();
 
@@ -576,12 +609,12 @@ public class UserAction extends BaseAction implements SessionAware {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserType() {
