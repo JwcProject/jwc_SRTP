@@ -104,13 +104,13 @@ public class TJieqiDAOImpl extends BaseDaoImpl<TJieqi> implements TJieqiDAO {
      *@return
      */
     @Override
-    public List getJieqiByYear(String year){
+    public List<TJieqi> getJieqiByYear(String year){
         log.debug("get Jieqi By year");
         try {
-            String queryString ="select t.* from T_Jieqi t where t.JQ_YEAR=:jqYear order by t.START_ON desc";
-            SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-            sqlQuery.setString("jqYear", year);
-            return sqlQuery.addEntity(TJieqi.class).list();
+            String queryString ="from TJieqi t where t.jqYear=:year order by t.startOn desc";
+            Query query = getSessionFactory().getCurrentSession().createQuery(queryString);
+            query.setString("year", year);
+            return query.list();
         } catch (RuntimeException e) {
             log.error("get jieqi by year tjieqi failed "+e);
             throw e;
