@@ -19,15 +19,15 @@ public interface TUserDAO extends BaseDao<TUser> {
 
     List<TUser> findByIsdeleted(Object isdeleted);
 
-    List<TUser> findByUserType(Object userType);
+    List<TUser> findByUserRole(Object userRole);
 
     int getAllTUserCount();
 
     List findAll(PageBean pageBean);
 
-    int getTUserCountByMutiProperty(String userId, String userName, String userType, String userState);
+    int getTUserCountByMutiProperty(String userId, String userName, String userRole, String userState);
 
-    List getTUserByMutiProperty(String userId, String userName, String userType, String userState, PageBean pageBean);
+    List getTUserByMutiProperty(String userId, String userName, String userRole, String userState, PageBean pageBean);
 
     List findByUserIdAndPwd(String userId, String password);
 }

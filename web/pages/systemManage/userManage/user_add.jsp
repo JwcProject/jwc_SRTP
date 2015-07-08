@@ -83,7 +83,7 @@
 		<tr >
 		   <td align="right" style="font-size: 18px">用户类型:</td>
 		   <td align="left">
-		   <s:radio name="user.userType" cssStyle="font-size:18px" list="#{'00':'教务处领导','01':'教务处主管教师','02':'学院领导','03':'学院主管教师','05':'普通教师','06':'学生'}" value="'06'" ></s:radio>
+		   <s:radio name="user.userRole" cssStyle="font-size:18px" list="#{'00':'教务处领导','01':'教务处主管教师','02':'学院领导','03':'学院主管教师','05':'普通教师','06':'学生'}" value="'06'" ></s:radio>
 		   </td>
 		   <td>
 		     <span class="Validform_checktip" id="checkSpan" ></span>

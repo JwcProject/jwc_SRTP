@@ -251,20 +251,20 @@ public class EndProjectAction extends BaseAction {
                 toLogin();
             } else {
                 user = getSessionUser();
-                //System.out.println(user.getUserType());
+                //System.out.println(user.getUserRole());
                 totalNumber = this.endProjectService.getEndProjectCountByMutiProperty(user, properties);
                 pageBean = new PageBean(page, totalNumber, rows);
                 endProjects = this.endProjectService.getEndProjectsByMutiProperty(user, properties, pageBean);
                 totalPage = pageBean.getTotalPage();
                 findYearsAndQicis();
-                if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {
+                if ("02".equals(user.getUserRole()) || "03".equals(user.getUserRole())) {
                     professions = this.endProjectService.getProfessionsByTeacherId(user.getUserId());
                     TProfession temp = new TProfession();
                     temp.setProfessionId("0");
                     temp.setProfessionName("所有");
                     professions.add(0, temp);
                 }
-                if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
+                if ("00".equals(user.getUserRole()) || "01".equals(user.getUserRole())) {
                     getAllColleges();
                 }
             }

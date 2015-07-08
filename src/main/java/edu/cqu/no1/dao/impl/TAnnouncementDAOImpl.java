@@ -490,7 +490,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
             String queryStr = "from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
                     "(select tt.teaCode from TTeacher tt where tt.TUnit.unitId = " +
                     "(select s.TUnit.unitId from TStudent s where s.TUser.userId =:unitStuCode) " +
-                    "and tt.teaCode in (select u.userId from TUser u where u.userType = '02' or u.userType = '03'))";
+                    "and tt.teaCode in (select u.userId from TUser u where u.userRole = '02' or u.userRole = '03'))";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 queryStr += " and t.announTitle like :announTitle";
             }
@@ -524,7 +524,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
             String queryStr = "select count(*) from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
                     "(select tt.teaCode from TTeacher tt where tt.TUnit.unitId = " +
                     "(select s.TUnit.unitId from TStudent s where s.TUser.userId =:unitStuCode) " +
-                    "and tt.teaCode in (select u.userId from TUser u where u.userType = '02' or u.userType = '03'))";
+                    "and tt.teaCode in (select u.userId from TUser u where u.userRole = '02' or u.userRole = '03'))";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 queryStr += " and t.announTitle like :announTitle";
             }
@@ -567,7 +567,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         log.debug("finding common student and teacher TAnnouncement instances by pageBeanun");
         try {
             String queryStr = "from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
-                    "(select u.userId from TUser u where u.userType = '04' or u.userType = '05' or u.userType = '06' or u.userType = '07' or u.userType = '08')";
+                    "(select u.userId from TUser u where u.userRole = '04' or u.userRole = '05' or u.userRole = '06' or u.userRole = '07' or u.userRole = '08')";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 queryStr += " and t.announTitle like :announTitle";
             }
@@ -609,7 +609,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         log.debug("finding common student and teacher TAnnouncement count instances by pageBeanun");
         try {
             String queryStr = "select count(*) from TAnnouncement t where t.isdeleted = 'N' and t.publishState = 'Y' and t.publisherCode in " +
-                    "(select u.userId from TUser u where u.userType = '04' or u.userType = '05' or u.userType = '06' or u.userType = '07' or u.userType = '08')";
+                    "(select u.userId from TUser u where u.userRole = '04' or u.userRole = '05' or u.userRole = '06' or u.userRole = '07' or u.userRole = '08')";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 queryStr += " and t.announTitle like :announTitle";
             }

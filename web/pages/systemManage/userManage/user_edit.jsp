@@ -62,7 +62,7 @@
 		   <td align="right" style="font-size: 18px">用户类型:</td>
 		   <td align="left">
 		   <s:select list="#{'00':'教务处领导','01':'教务处主管教师','02':'学院领导','03':'学院主管教师','04':'评审教师','05':'普通教师','06':'普通学生','05':'项目成员','05':'项目组长'}"
-		  name="user.userType" id="select" cssStyle="width:300px;height:30px;font-size: 18px;color:rgb(89,89,89)"></s:select>
+		  name="user.userRole" id="select" cssStyle="width:300px;height:30px;font-size: 18px;color:rgb(89,89,89)"></s:select>
 		   </td>
 		</tr>
 		

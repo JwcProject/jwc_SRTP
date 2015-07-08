@@ -83,31 +83,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <tr>
        <!--  左边区域-->
        <s:if test="null!=#session.user">
-            <s:if test="%{#session.user.userType == '00'}">
+            <s:if test="%{#session.user.userRole == '00'}">
 		  		<jsp:include page="../../dean_leader_left.jsp"></jsp:include>
 		  	</s:if>
-		  	<s:elseif test="%{#session.user.userType == '01'}">
+		  	<s:elseif test="%{#session.user.userRole == '01'}">
 		    	<jsp:include page="../../dean_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userType == '02'}">
+		    <s:elseif test="%{#session.user.userRole == '02'}">
 		  		<jsp:include page="../../teacher_leader_left.jsp"></jsp:include>
 		  	</s:elseif>
-		    <s:elseif test="%{#session.user.userType == '03'}">
+		    <s:elseif test="%{#session.user.userRole == '03'}">
 		   		<jsp:include page="../../teacher_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userType == '04'}">
+		    <s:elseif test="%{#session.user.userRole == '04'}">
 		    	<jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userType == '05'}">
+		    <s:elseif test="%{#session.user.userRole == '05'}">
 		   		<jsp:include page="../../commonTeacher_left.jsp"></jsp:include>
 		    </s:elseif>
-          	<s:elseif test="%{#session.user.userType == '06'}">
+          	<s:elseif test="%{#session.user.userRole == '06'}">
 		  		<jsp:include page="../../student_left.jsp"></jsp:include>
 		  	</s:elseif>
-		    <s:elseif test="%{#session.user.userType == '07'}">
+		    <s:elseif test="%{#session.user.userRole == '07'}">
 		    	<jsp:include page="../../student_member_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userType == '08'}">
+		    <s:elseif test="%{#session.user.userRole == '08'}">
 		   		<jsp:include page="../../student_leader_left.jsp"></jsp:include>
 		    </s:elseif>
 		   </s:if>
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="line_box_left" align="right">学号</div>
                         <div class="line_box_right"><s:property value="#session.user.userId"/></div>
                      </div>
-                     <s:if test="%{#session.user.userType == '06' || #session.user.userType == '07' || #session.user.userType == '08'}">                    
+                     <s:if test="%{#session.user.userRole == '06' || #session.user.userRole == '07' || #session.user.userRole == '08'}">
                      <div class="line_box">
                         <div class="line_box_left" align="right">学院</div>
                         <div class="line_box_right"><s:property value="%{student.TUnit.unitName}"/></div>

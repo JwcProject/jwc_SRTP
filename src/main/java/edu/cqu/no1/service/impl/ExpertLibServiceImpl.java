@@ -64,7 +64,7 @@ public class ExpertLibServiceImpl implements ExpertLibService {
             this.tTempEmailReciverDAO.save(tTempEmailReciver);
 
         }
-        this.tExpertTeacherDAO.changeReviewUserType(tExpertLib.getLibId(), "04");
+        this.tExpertTeacherDAO.changeReviewUserRole(tExpertLib.getLibId(), "04");
 
     }
 
@@ -95,7 +95,7 @@ public class ExpertLibServiceImpl implements ExpertLibService {
         tExpertLib.setIsdeleted("Y");
         this.tExpertLibDAO.merge(tExpertLib);
         //恢复用户类型(之前已经修改为评审专家类型04)
-        this.tExpertTeacherDAO.rollBackUserType(tExpertLib.getLibId());
+        this.tExpertTeacherDAO.rollBackUserRole(tExpertLib.getLibId());
 
         List<TExpertTeacher> expertTeacherList = this.tExpertTeacherDAO.getExpetTeachersByExpertLib(tExpertLib.getLibId());
         for (int i = 0; i < expertTeacherList.size(); i++) {

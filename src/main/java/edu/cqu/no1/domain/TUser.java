@@ -27,7 +27,7 @@ public class TUser implements java.io.Serializable {
 	private String userName;
 	private String userPassword;
 	private String userState;
-	private String userType;
+	private String userRole;
 	private String previousType;
 	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
 	private Set<TAttachment> TAttachments = new HashSet<TAttachment>(0);
@@ -98,13 +98,13 @@ public class TUser implements java.io.Serializable {
 		this.userState = userState;
 	}
 
-	@Column(name = "user_type", length = 2)
-	public String getUserType() {
-		return this.userType;
+	@Column(name = "user_role", length = 2)
+	public String getUserRole() {
+		return this.userRole;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
 	@Column(name = "previous_type", length = 2)

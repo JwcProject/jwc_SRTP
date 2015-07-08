@@ -386,7 +386,7 @@ public class ExpertTeamAction extends BaseAction {
                         .getEndProjectsByMutiProperty(user, property, pageBean);
                 totalPage = pageBean.getTotalPage();
                 findYearsAndQicis();
-                if ("01".equals(user.getUserType())) {
+                if ("01".equals(user.getUserRole())) {
                     professions = this.endProjectService
                             .getProfessionsByTeacherId(user.getUserId());
                     TProfession temp = new TProfession();
@@ -441,7 +441,7 @@ public class ExpertTeamAction extends BaseAction {
                 endProjects = this.endProjectService.getEndProjectsByMutiProperty(user, property, pageBean);
                 totalPage = pageBean.getTotalPage();
                 //findYearsAndQicis();
-                if ("01".equals(user.getUserType())) {
+                if ("01".equals(user.getUserRole())) {
                     professions = this.endProjectService.getProfessionsByTeacherId(user.getUserId());
                     TProfession temp = new TProfession();
                     temp.setProfessionId("0");
@@ -1074,7 +1074,7 @@ public class ExpertTeamAction extends BaseAction {
             TUser tUser = new TUser();
             tUser.setUserId(teacherCode);
             tUser.setUserName(teacherName);
-            tUser.setUserType("04");
+            tUser.setUserRole("04");
             tUser.setUserPassword("c4ca4238a0b923820dcc509a6f75849b");
 
             this.teacherService.addUsers(tUser);

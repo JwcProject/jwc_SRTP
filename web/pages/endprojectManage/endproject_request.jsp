@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
 
 		   <s:if test="null!=#session.user">
-          	<s:if test="%{#session.user.userType == '08'}">
+          	<s:if test="%{#session.user.userRole == '08'}">
 		  		<jsp:include page="../../student_leader_left.jsp"></jsp:include>
 		  	</s:if>
 		    

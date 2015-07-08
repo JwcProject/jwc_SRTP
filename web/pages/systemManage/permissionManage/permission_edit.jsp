@@ -63,7 +63,7 @@
 		</p>
 		<p >用户类型：
 		 <s:select list='#{"01":"教师","02":"学生","03":"管理员"}'
-		  name="user.userType" id="user.userType" ></s:select>
+		  name="user.userRole" id="user.userRole" ></s:select>
         </p>
         <p style="float:left;" >
 		<span class="Validform_checktip" id="checkSpan">

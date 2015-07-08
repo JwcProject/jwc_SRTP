@@ -35,16 +35,16 @@
           左边区域
         
 		  -->
-		  <s:if test="%{user.userType =='08'}">
+		  <s:if test="%{user.userRole =='08'}">
 	         <jsp:include page="../../student_leader_left.jsp"></jsp:include>	
 		  </s:if>
-		   <s:elseif test="%{user.userType =='07'}">
+		   <s:elseif test="%{user.userRole =='07'}">
 	         <jsp:include page="../../student_member_left.jsp"></jsp:include>	
 		  </s:elseif>
-		  <s:elseif test="%{user.userType =='04'}">
+		  <s:elseif test="%{user.userRole =='04'}">
 	         <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>	
 		  </s:elseif>
-		  <s:elseif test="%{user.userType =='05'}">
+		  <s:elseif test="%{user.userRole =='05'}">
 	         <jsp:include page="../../commonTeacher_left.jsp"></jsp:include>	
 		  </s:elseif>
 		  <s:else>

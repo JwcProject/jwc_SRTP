@@ -40,14 +40,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  
         <!--  左边区域-->
         <s:if test="null!=#session.user">
-          	<s:if test="%{#session.user.userType == '06'}">
+          	<s:if test="%{#session.user.userRole == '06'}">
 		  		<jsp:include page="../../student_left.jsp"></jsp:include>
 		  	</s:if>
 		     
-		    <s:elseif test="%{#session.user.userType == '07'}">
+		    <s:elseif test="%{#session.user.userRole == '07'}">
 		    	<jsp:include page="../../student_member_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userType == '08'}">
+		    <s:elseif test="%{#session.user.userRole == '08'}">
 		   		<jsp:include page="../../student_leader_left.jsp"></jsp:include>
 		    </s:elseif>
 		   </s:if>

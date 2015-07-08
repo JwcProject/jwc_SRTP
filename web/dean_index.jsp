@@ -23,10 +23,10 @@
             <tr>
                 <!--  左边区域-->
                 <s:if test="null!=#session.user">
-                    <s:if test="%{#session.user.userType == '00'}">
+                    <s:if test="%{#session.user.userRole == '00'}">
                         <jsp:include page="dean_leader_left.jsp"></jsp:include>
                     </s:if>
-                    <s:elseif test="%{#session.user.userType == '01'}">
+                    <s:elseif test="%{#session.user.userRole == '01'}">
                         <jsp:include page="dean_left.jsp"></jsp:include>
                     </s:elseif>
                 </s:if>

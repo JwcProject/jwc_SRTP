@@ -40,7 +40,7 @@ public class UserAction extends BaseAction {
 
     private String userId;
     private String userName;
-    private String userType;
+    private String userRole;
     private String userState;
     private String validateCode;
     private String password;
@@ -101,8 +101,8 @@ public class UserAction extends BaseAction {
                     || user.getUserId().equals("")) {
                 toLogin();
             } else {
-                System.out.println("060708".indexOf(user.getUserType().trim()));
-                if ("060708".indexOf(user.getUserType().trim()) >= 0) {
+                System.out.println("060708".indexOf(user.getUserRole().trim()));
+                if ("060708".indexOf(user.getUserRole().trim()) >= 0) {
                     student = this.userService.getStudentByUserId(user.getUserId());
                 } else {
                     teacher = this.userService.getTeacherByUserId(user.getUserId());
@@ -142,20 +142,20 @@ public class UserAction extends BaseAction {
         session.put("user", user);
         userService.changeLoginState(user.getUserId(), "YY");
         request.setAttribute("msg", "登录成功!");
-        String uType = user.getUserType();
-        TUnit unit = userService.getUnitByUserId(user.getUserId(), uType);
+        String uRole = user.getUserRole();
+        TUnit unit = userService.getUnitByUserId(user.getUserId(), uRole);
         session.put("unit", unit);
 
-        if ("06".equals(uType) || "07".equals(uType) || "08".equals(uType)) {
+        if ("06".equals(uRole) || "07".equals(uRole) || "08".equals(uRole)) {
             deanAnnounList = listIndexDeanAnnouncement();
             unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
             commonAnnounList = listCommonAnnouncement();
             return "student";
-        } else if ("02".equals(uType) || "03".equals(uType) || "04".equals(uType) || "05".equals(uType)) {
+        } else if ("02".equals(uRole) || "03".equals(uRole) || "04".equals(uRole) || "05".equals(uRole)) {
             expertTeachers = listHistoryExpert(user.getUserId());
             projects = listProjectByTeaCode(user.getUserId());
             return "teacher";
-        } else if ("01".equals(uType) || "00".equals(uType)) {
+        } else if ("01".equals(uRole) || "00".equals(uRole)) {
             deanAnnounList = listIndexDeanAnnouncement();
             return "jiaowuchu";
         } else {
@@ -194,17 +194,17 @@ public class UserAction extends BaseAction {
             if (user == null) {
                 toLogin();
             }
-            String uType = user.getUserType();
-            if ("06".equals(uType) || "07".equals(uType) || "08".equals(uType)) {
+            String uRole = user.getUserRole();
+            if ("06".equals(uRole) || "07".equals(uRole) || "08".equals(uRole)) {
                 deanAnnounList = listIndexDeanAnnouncement();
                 unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
                 commonAnnounList = listCommonAnnouncement();
                 return "student";
-            } else if ("02".equals(uType) || "03".equals(uType) || "04".equals(uType) || "05".equals(uType)) {
+            } else if ("02".equals(uRole) || "03".equals(uRole) || "04".equals(uRole) || "05".equals(uRole)) {
                 expertTeachers = listHistoryExpert(user.getUserId());
                 projects = listProjectByTeaCode(user.getUserId());
                 return "teacher";
-            } else if ("01".equals(uType) || "00".equals(uType)) {
+            } else if ("01".equals(uRole) || "00".equals(uRole)) {
                 deanAnnounList = listIndexDeanAnnouncement();
                 return "jiaowuchu";
             } else {
@@ -233,7 +233,7 @@ public class UserAction extends BaseAction {
             totalPage = this.pageBean.getTotalPage();
 
 			/*System.out.println("getUserId: " + this.getUserId());
-            System.out.println("\n getUserType: " + this.getUsertype());
+            System.out.println("\n getUserRole: " + this.getUsertype());
 			System.out.println("\n getUser: " + this.getSessionUser().getUserName());*/
 
             return SUCCESS;
@@ -250,12 +250,12 @@ public class UserAction extends BaseAction {
     })
     public String queryUser() throws Exception {
         try {
-            this.totalNumber = this.userService.getTUserCountByMutiProperty(userId, userName, userType, userState);
+            this.totalNumber = this.userService.getTUserCountByMutiProperty(userId, userName, userRole, userState);
 
             // 构造分页对象
             pageBean = new PageBean(page, totalNumber, pageCapacity);
 
-            listUsers = this.userService.getTUserByMutiProperty(userId, userName, userType, userState, pageBean);
+            listUsers = this.userService.getTUserByMutiProperty(userId, userName, userRole, userState, pageBean);
 
             totalPage = this.pageBean.getTotalPage();
 
@@ -469,12 +469,12 @@ public class UserAction extends BaseAction {
         this.userName = userName;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public String getUserState() {

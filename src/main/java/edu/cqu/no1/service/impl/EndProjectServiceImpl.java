@@ -302,11 +302,11 @@ public class EndProjectServiceImpl implements EndProjectService {
     @Override
     public List<TEndProject> getEndProjectsByMutiProperty(TUser user,
                                                           EndProjectProperty properties, PageBean pageBean) {
-        if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
+        if ("00".equals(user.getUserRole()) || "01".equals(user.getUserRole())) {
             //properties.setEndprojectState("04");
             return this.endProjectDAO.getEndProjectsByMutiProperty(properties, pageBean);
         }
-        if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {
+        if ("02".equals(user.getUserRole()) || "03".equals(user.getUserRole())) {
             properties.setUnitId(this.unitDAO.getUnitByTeacherId(user.getUserId()).getUnitId());
             return this.endProjectDAO.getEndProjectsByMutiProperty(properties, pageBean);
         }
@@ -316,11 +316,11 @@ public class EndProjectServiceImpl implements EndProjectService {
     @Override
     public int getEndProjectCountByMutiProperty(TUser user,
                                                 EndProjectProperty properties) {
-        if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
+        if ("00".equals(user.getUserRole()) || "01".equals(user.getUserRole())) {
             //properties.setEndprojectState("04");
             return this.endProjectDAO.getEndProjectCountByMutiProperty(properties);
         }
-        if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {
+        if ("02".equals(user.getUserRole()) || "03".equals(user.getUserRole())) {
             properties.setUnitId(this.unitDAO.getUnitByTeacherId(user.getUserId()).getUnitId());
             return this.endProjectDAO.getEndProjectCountByMutiProperty(properties);
         }

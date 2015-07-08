@@ -26,7 +26,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     public static final String USER_STATE = "userState";
     public static final String USER_INTRODUCTION = "userIntroduction";
     public static final String ISDELETED = "isdeleted";
-    public static final String USER_TYPE = "userType";
+    public static final String USER_TYPE = "userRole";
 
     public List<TUser> findByUserName(Object userName) {
         return findByProperty(USER_NAME, userName);
@@ -48,8 +48,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    public List<TUser> findByUserType(Object userType) {
-        return findByProperty(USER_TYPE, userType);
+    public List<TUser> findByUserRole(Object userRole) {
+        return findByProperty(USER_TYPE, userRole);
     }
 
     public int getAllTUserCount() {
@@ -89,7 +89,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     }
 
 
-    public int getTUserCountByMutiProperty(String userId, String userName, String userType, String userState)
+    public int getTUserCountByMutiProperty(String userId, String userName, String userRole, String userState)
     {
         log.debug("finding all getTUserCountByMutiProperty");
         try {
@@ -108,8 +108,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             }
 
-            if(null != userType && !userType.equals("ALL")) {
-                queryStr += " and model.userType = :userType";
+            if(null != userRole && !userRole.equals("ALL")) {
+                queryStr += " and model.userRole = :userRole";
 
             }
 
@@ -131,8 +131,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             }
 
-            if(null != userType && !userType.equals("ALL")) {
-                query.setString("userType", userType);
+            if(null != userRole && !userRole.equals("ALL")) {
+                query.setString("userRole", userRole);
             }
 
             if(null != userState && !userState.equals("00")) {
@@ -154,7 +154,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         }
     }
 
-    public List getTUserByMutiProperty(String userId, String userName, String userType, String userState, final PageBean pageBean) {
+    public List getTUserByMutiProperty(String userId, String userName, String userRole, String userState, final PageBean pageBean) {
         log.debug("finding all getTUserCountByMutiProperty");
         try {
 
@@ -170,8 +170,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             }
 
-            if(null != userType && !userType.equals("ALL")) {
-                queryStr += " and model.userType = :userType";
+            if(null != userRole && !userRole.equals("ALL")) {
+                queryStr += " and model.userRole = :userRole";
             }
 
             if(null != userState && !userState.equals("00")) {
@@ -191,8 +191,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
                 query.setString("userName", "%"+userName+"%");
             }
 
-            if(null != userType && !userType.equals("ALL")) {
-                query.setString("userType", userType);
+            if(null != userRole && !userRole.equals("ALL")) {
+                query.setString("userRole", userRole);
             }
 
             if(null != userState && !userState.equals("00")) {
