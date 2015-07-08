@@ -7,7 +7,6 @@
 
 <div id="container">
 
-    <jsp:include page="../../../header.jsp"></jsp:include>
     <div id="maincontent" class="h645">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
