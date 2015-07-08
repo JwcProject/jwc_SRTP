@@ -196,82 +196,84 @@
         );
       }
 
-      var map={
-        'announcement/mine'        :'sortUserAnnouncement',
-        'announcement/student'     :'pages/announManage/announ_commit.jsp',
-        'announcement/teacher'     :'pages/announManage/announ_commit.jsp',
-        'announcement/lead'        :'pages/announManage/announ_commit.jsp',
-        'announcement/maintain'    :'sortUserAnnouncement',
-        'declare/mine'             :'sortMyDeclaration',
-        'declare/apply'            :'preAddDeclaration',
-        'declare/list'             :'sortDeclarationList',
-        'declare/review/mine'      :'PreMyReview',
-        'declare/expert/create'    :'PreCreateExpert',
-        'declare/expert/list'      :'ListUnitExperTeam',
-        'declare/expert/history'   :'ListHistoryExpert',
-        'declare/expert/distribute':'PreAssignExpert',
-        'declare/review/organize'  :'PreOrganizeReview',
-        'declare/result/input'     :'preDeclResultTypeIn',
-        'declare/result/review'    :'UnitResultAudit',
-        'project/mine'             :'SortMyProject',
-        'project/list'             :'SortProjectList',
-        'final/mine'               :'PreMyEndProjects',
-        'final/apply'              :'PreEndProjectRequest',
-        'final/list'               :'listEndProjects',
-        'final/review/mine'        :'PreMyReview',
-        'final/review/organize'    :'PreOrganizeEndprojectReview',
-        'final/expert/create'      :'PreCreateEndProExpertTeam',
-        'final/expert/list'        :'FindEndproExpTeam',
-        'final/expert/history'     :'ListEndProHistoryExpert',
-        'final/expert/distribute'  :'PreAssignEndProExpert',
-        'final/result/input'       :'PreEndProResultTypeIn',
-        'final/result/review'      :'PreEndProScoreAudit',
-        'statistic/grade'          :'Statistic/ListSchoolProjectScore',
-        'statistic/index'          :'Statistic/SchoolResultDistribut',
-        'knowledge'                :'#',
-        'system/t_authority'       :'ListPermission',
-        'system/t_role'            :'ListRole',
-        'system/user'              :'ListUser',
-        'system/period'            :'ListAllJieqi',
-        'system/journal'           :'ListJournal',
-        'user/modify'              :'findUserInfo'
+      var map = {
+        'announcement/mine': 'sortUserAnnouncement',
+        'announcement/student': 'pages/announManage/announ_commit.jsp',
+        'announcement/teacher': 'pages/announManage/announ_commit.jsp',
+        'announcement/lead': 'pages/announManage/announ_commit.jsp',
+        'announcement/maintain': 'sortUserAnnouncement',
+        'declare/mine': 'sortMyDeclaration',
+        'declare/apply': 'preAddDeclaration',
+        'declare/list': 'sortDeclarationList',
+        'declare/review/mine': 'PreMyReview',
+        'declare/expert/create': 'PreCreateExpert',
+        'declare/expert/list': 'ListUnitExperTeam',
+        'declare/expert/history': 'ListHistoryExpert',
+        'declare/expert/distribute': 'PreAssignExpert',
+        'declare/review/organize': 'PreOrganizeReview',
+        'declare/result/input': 'preDeclResultTypeIn',
+        'declare/result/review': 'UnitResultAudit',
+        'project/mine': 'SortMyProject',
+        'project/list': 'SortProjectList',
+        'final/mine': 'PreMyEndProjects',
+        'final/apply': 'PreEndProjectRequest',
+        'final/list': 'listEndProjects',
+        'final/review/mine': 'PreMyReview',
+        'final/review/organize': 'PreOrganizeEndprojectReview',
+        'final/expert/create': 'PreCreateEndProExpertTeam',
+        'final/expert/list': 'FindEndproExpTeam',
+        'final/expert/history': 'ListEndProHistoryExpert',
+        'final/expert/distribute': 'PreAssignEndProExpert',
+        'final/result/input': 'PreEndProResultTypeIn',
+        'final/result/review': 'PreEndProScoreAudit',
+        'statistic/grade': 'Statistic/ListSchoolProjectScore',
+        'statistic/index': 'Statistic/SchoolResultDistribut',
+        'knowledge': '#',
+        'system/t_authority': 'ListPermission',
+        'system/t_role': 'ListRole',
+        'system/user': 'ListUser',
+        'system/period': 'ListAllJieqi',
+        'system/journal': 'ListJournal',
+        'user/modify': 'findUserInfo'
       };
+      if (map[url] != "#") {
+        $.ajax({
+          method: 'get',
+          url: '<%=basePath%>' + map[url],
+          success: function (data) {
+            console.log('ajax success!');
+            //返回的是网页
+            if (typeof(data) == "string") {
+              $('div.content-body').html(data);
+              $('div.content-body a').click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                  method: 'get',
+                  url: $(this).attr('href'),
+                  success: function (data) {
+                    $('div.content-body').html(data);
+                  },
+                  error: function () {
+                    $('div.content-body').html('数据库错误，请稍后再试');
+                  }
+                });
 
-      $.ajax({
-        method: 'get',
-        url: '<%=basePath%>' + map[url],
-        success: function (data) {
-          console.log('ajax success!');
-          //返回的是网页
-          if (typeof(data) == "string") {
-            $('div.content-body').html(data);
-            $('div.content-body a').click(function (event) {
-              event.preventDefault();
-              $.ajax({
-                method: 'get',
-                url: $(this).attr('href'),
-                success: function (data) {
-                  $('div.content-body').html(data);
-                },
-                error: function () {
-                  $('div.content-body').html('数据库错误，请稍后再试');
-                }
+                //TODO: form
               });
-
-              //TODO: form
-            });
-          }
-          //返回的是json
-          else {
+            }
+            //返回的是json
+            else {
+              //TODO:
+            }
+          },
+          error: function () {
             //TODO:
+            throw new Error("service response error");
           }
-        },
-        error: function () {
-          //TODO:
-          throw new Error("service response error");
-        }
-      })
+        });
+      }
     };
+
     window.onhashchange();
   })
 

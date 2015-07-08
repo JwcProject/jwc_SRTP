@@ -6,50 +6,14 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>我的结题</title>
-<link href="<%=path%>/css/css1.css" rel="stylesheet" type="text/css" />
-<link href="<%=path%>/css/Pager.css" rel="stylesheet" type="text/css" />
-<!--这个js是用来控制页面中出现png图片能兼容浏览区-->
-<script src="<%=path%>/js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/jquery.pager.js" type="text/javascript"></script>
-<script type="text/javascript" src="<%=path%>/js/iepngfix_tilebg.js"></script>
-<script type="text/javascript" language="javascript">
-  
-  </script>
-    
-</head>
-<body>
 <div id="container">
 
-  <jsp:include page="../../header.jsp"></jsp:include>
   <!--  此处显示 id "maincontent" 的内容-->
   <div id="maincontent" class="h645">
  
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-      <!--
-	  
-          左边区域
-        
-		  -->
-		  <s:if test="%{user.userRole =='08'}">
-	         <jsp:include page="../../student_leader_left.jsp"></jsp:include>	
-		  </s:if>
-		   <s:elseif test="%{user.userRole =='07'}">
-	         <jsp:include page="../../student_member_left.jsp"></jsp:include>	
-		  </s:elseif>
-		  <s:elseif test="%{user.userRole =='04'}">
-	         <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>	
-		  </s:elseif>
-		  <s:elseif test="%{user.userRole =='05'}">
-	         <jsp:include page="../../commonTeacher_left.jsp"></jsp:include>	
-		  </s:elseif>
-		  <s:else>
-		     <jsp:forward page="../../login.jsp" ></jsp:forward>
-		  </s:else>
+
         <!--中间区域-->
         <td width="88%" valign="top"  style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc" bordercolor="#f4f3f1"  >
 		<div class="midbox">
@@ -158,8 +122,5 @@
 	</table>
 	
   </div>
-  <jsp:include page="../../footer.jsp"></jsp:include>
 </div>
 <script type="text/javascript" src="<%=path%>/js/endproject.js"></script>
-</body>
-</html>
