@@ -6,17 +6,6 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>我的结题评审</title>
-<link href="<%=path%>/css/css1.css" rel="stylesheet" type="text/css" />
-<link href="<%=path%>/css/Pager.css" rel="stylesheet" type="text/css" />
-<!--这个js是用来控制页面中出现png图片能兼容浏览区-->
-<script src="<%=path%>/js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/jquery.pager.js" type="text/javascript"></script>
-<script type="text/javascript" src="<%=path%>/js/iepngfix_tilebg.js"></script>
-
 <script type="text/javascript" language="javascript">
 
         $(document).ready(function() {
@@ -58,10 +47,7 @@ function query()
        
     </script>
 
-</head>
-<body>
 <div id="container">
-  <jsp:include page="../../header.jsp" ></jsp:include>
   <!--  此处显示 id "maincontent" 的内容-->
   <div id="maincontent" class="h645">
   <s:form action="" method="post" name="queyForm"
@@ -69,8 +55,6 @@ function query()
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
 	  
-        <!--  左边区域-->
-		 <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>
         <!--中间区域-->
         <td width="88%" valign="top"  style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc" bordercolor="#f4f3f1"  >
 		<div class="midbox">
@@ -80,26 +64,6 @@ function query()
 		<div class="xia_left">
 		<table>
 		<ul>
-		<!--  
-		<li>
-		<p>年度
-			<select name="select_sq" id="select_sq" class="select_sq">
-			<option>请选择------</option>
-			<option>2013年</option>
-			</select>
-		</p>
-		</li>
-		
-		<li>
-		<p>期数
-			<select name="select_sq" id="select_sq" class="select_sq">
-			<option>请选择------</option>
-			<option>第一期</option>
-			</select>
-		</p>
-		</li>
-		-->
-		
 		<li>
 		<div class="douselect">
 		<p>期次:
@@ -111,10 +75,6 @@ function query()
 		</p>
 		</div>
 		</li>
-		
-		
-		
-		
 		<li>
 		<p>项目名称:
 		<s:textfield name="proName" id="proName" style="width:88px;height:14px" /> 
@@ -125,7 +85,6 @@ function query()
 		
 		<li>
 		<p>专业:
-			<!--
 			<select name="select_sq" id="select_sq" class="select_sq">
 			<option>请选择------</option>
 			<option>软件工程</option>
@@ -256,8 +215,4 @@ function query()
 	</table>
 	</s:form>
   </div>
-<jsp:include page="../../footer.jsp"></jsp:include>
 </div>
-<script type="text/javascript" src="<%=path%>/js/endproject.js"></script>
-</body>
-</html>
