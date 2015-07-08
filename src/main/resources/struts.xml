@@ -16,6 +16,9 @@
     <!-- 指定由spring负责action对象的创建-->
     <constant name="struts.objectFactory" value="spring"/>
 
+    <!-- 是否支持action name中存在斜杠-->
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+
     <package name="base" extends="json-default,struts-default">
         <!-- 这里可以设置一些全局的返回值映射关系等 -->
         <global-results>
