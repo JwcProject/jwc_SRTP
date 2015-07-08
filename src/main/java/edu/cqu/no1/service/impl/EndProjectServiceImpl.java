@@ -1,9 +1,7 @@
 package edu.cqu.no1.service.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.cqu.no1.dao.*;
 import edu.cqu.no1.datamodel.EndProject;
 import edu.cqu.no1.datamodel.EndProjectProperty;
@@ -302,11 +300,11 @@ public class EndProjectServiceImpl implements EndProjectService {
     @Override
     public List<TEndProject> getEndProjectsByMutiProperty(TUser user,
                                                           EndProjectProperty properties, PageBean pageBean) {
-        if ("00".equals(user.getUserRole()) || "01".equals(user.getUserRole())) {
+        if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
             //properties.setEndprojectState("04");
             return this.endProjectDAO.getEndProjectsByMutiProperty(properties, pageBean);
         }
-        if ("02".equals(user.getUserRole()) || "03".equals(user.getUserRole())) {
+        if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {
             properties.setUnitId(this.unitDAO.getUnitByTeacherId(user.getUserId()).getUnitId());
             return this.endProjectDAO.getEndProjectsByMutiProperty(properties, pageBean);
         }
@@ -316,11 +314,11 @@ public class EndProjectServiceImpl implements EndProjectService {
     @Override
     public int getEndProjectCountByMutiProperty(TUser user,
                                                 EndProjectProperty properties) {
-        if ("00".equals(user.getUserRole()) || "01".equals(user.getUserRole())) {
+        if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
             //properties.setEndprojectState("04");
             return this.endProjectDAO.getEndProjectCountByMutiProperty(properties);
         }
-        if ("02".equals(user.getUserRole()) || "03".equals(user.getUserRole())) {
+        if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {
             properties.setUnitId(this.unitDAO.getUnitByTeacherId(user.getUserId()).getUnitId());
             return this.endProjectDAO.getEndProjectCountByMutiProperty(properties);
         }

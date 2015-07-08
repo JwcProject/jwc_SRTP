@@ -83,7 +83,7 @@ public class TJieqi implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "jq_id", unique = true, nullable = false, length = 32)
+	@Column(name = "jq_id", unique = true, nullable = false, length = 36)
 	public String getJqId() {
 		return this.jqId;
 	}

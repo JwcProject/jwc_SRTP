@@ -31,9 +31,9 @@ public class TStudent implements java.io.Serializable {
 	private TUnit TUnit;
 	private String isdeleted;
 	private String studentAge;
+	private String studentEmail;
 	private Timestamp studentBirthday;
 	private String studentDegree;
-	private String studentEmail;
 	private String studentName;
 	private String studentNumber;
 	private String studentRemark;
@@ -60,10 +60,10 @@ public class TStudent implements java.io.Serializable {
 	/** full constructor */
 	public TStudent(TUser TUser, TProfession TProfessionByProProfessionId,
 			TProfession TProfessionByProfessionId, TUnit TUnit,
-			String isdeleted, String studentAge, Timestamp studentBirthday,
-			String studentDegree, String studentEmail, String studentName,
-			String studentNumber, String studentRemark, String studentSex,
-			String studentTelphone,
+			String isdeleted, String studentAge, String studentEmail,
+			Timestamp studentBirthday, String studentDegree,
+			String studentName, String studentNumber, String studentRemark,
+			String studentSex, String studentTelphone,
 			Set<TDeclaration> TDeclarationsForLeaderCode,
 			Set<TDeclaration> TDeclarationsForMember1Code,
 			Set<TProject> TProjectsForProjectUser1,
@@ -77,9 +77,9 @@ public class TStudent implements java.io.Serializable {
 		this.TUnit = TUnit;
 		this.isdeleted = isdeleted;
 		this.studentAge = studentAge;
+		this.studentEmail = studentEmail;
 		this.studentBirthday = studentBirthday;
 		this.studentDegree = studentDegree;
-		this.studentEmail = studentEmail;
 		this.studentName = studentName;
 		this.studentNumber = studentNumber;
 		this.studentRemark = studentRemark;
@@ -99,7 +99,7 @@ public class TStudent implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "student_id", unique = true, nullable = false, length = 32)
+	@Column(name = "student_id", unique = true, nullable = false, length = 36)
 	public String getStudentId() {
 		return this.studentId;
 	}
@@ -168,6 +168,15 @@ public class TStudent implements java.io.Serializable {
 		this.studentAge = studentAge;
 	}
 
+	@Column(name = "student_email", length = 100)
+	public String getStudentEmail() {
+		return this.studentEmail;
+	}
+
+	public void setStudentEmail(String studentEmail) {
+		this.studentEmail = studentEmail;
+	}
+
 	@Column(name = "student_birthday", length = 19)
 	public Timestamp getStudentBirthday() {
 		return this.studentBirthday;
@@ -184,15 +193,6 @@ public class TStudent implements java.io.Serializable {
 
 	public void setStudentDegree(String studentDegree) {
 		this.studentDegree = studentDegree;
-	}
-
-	@Column(name = "student_email", length = 100)
-	public String getStudentEmail() {
-		return this.studentEmail;
-	}
-
-	public void setStudentEmail(String studentEmail) {
-		this.studentEmail = studentEmail;
 	}
 
 	@Column(name = "student_name", length = 50)

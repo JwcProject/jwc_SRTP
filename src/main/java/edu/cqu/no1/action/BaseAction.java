@@ -27,7 +27,7 @@ abstract public class BaseAction extends ActionSupport {
     public String getUsertype() throws IOException {
         TUser tuser = (TUser) ActionContext.getContext().getSession().get("user");
         if (null != tuser) {
-            String userRole = tuser.getUserRole();
+            String userRole = tuser.getUserType();
             return userRole;
         } else {
             return null;

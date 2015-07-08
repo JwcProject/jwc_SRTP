@@ -220,7 +220,7 @@ public class AnnouncementAction extends BaseAction {
             listAnnouncement = this.announcementService.querySchoolAnnoun(announTitle, checkState, publishTime, publisherName, announTypeName, pageBean);
             totalPage = pageBean.getTotalPage();
 
-            String userRole = tUser.getUserRole();
+            String userRole = tUser.getUserType();
             if (userRole.equals("00") || userRole.equals("02"))
                 return "successLeader";
             return "successTea";
@@ -278,8 +278,8 @@ public class AnnouncementAction extends BaseAction {
 
             //String roleName = this.roleService.findRoleNameByUserId(tUser.getUserId());
             announcement.setPublisherCode(tUser.getUserId());
-            announcement.setPublisherName(tUser.getUserName());
-            String userRole = tUser.getUserRole();
+            announcement.setPublisherName(tUser.getUsername());
+            String userRole = tUser.getUserType();
             announcement.setPublisherRole(userRole);
             announcement.setIsdeleted("N");
             if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
@@ -346,9 +346,9 @@ public class AnnouncementAction extends BaseAction {
                 toLogin();
             }
             announcement.setPublisherCode(tUser.getUserId());
-            announcement.setPublisherName(tUser.getUserName());
+            announcement.setPublisherName(tUser.getUsername());
             //String roleName = this.roleService.findRoleNameByUserId(tUser.getUserId());
-            String userRole = tUser.getUserRole();
+            String userRole = tUser.getUserType();
             announcement.setPublisherRole(userRole);
             if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学生公告");
@@ -438,7 +438,7 @@ public class AnnouncementAction extends BaseAction {
                 toLogin();
             }
             announcement.setPublisherCode(tUser.getUserId());
-            String userRole = tUser.getUserRole();
+            String userRole = tUser.getUserType();
             announcement.setPublisherRole(userRole);
             announcement.setIsdeleted("N");
 
@@ -502,7 +502,7 @@ public class AnnouncementAction extends BaseAction {
             if (null == tUser) {
                 toLogin();
             }
-            String userRole = tUser.getUserRole();
+            String userRole = tUser.getUserType();
             if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
                 announcement.setCheckState("CY");
                 this.announcementService.updateTAnnouncement(announcement);
@@ -722,7 +722,7 @@ public class AnnouncementAction extends BaseAction {
             //String a = announcement.getTAnnounType().getAnnounTypeName();
 
 
-            String userRole = user.getUserRole();
+            String userRole = user.getUserType();
             //String roleName = this.roleService.findRoleNameByUserId(tUser.getUserId());
 
             if (userRole.equals("02") || userRole.equals("03") || userRole.equals("04") || userRole.equals("05")) {
@@ -759,7 +759,7 @@ public class AnnouncementAction extends BaseAction {
             if (null == tUser) {
                 toLogin();
             }
-            String userRole = tUser.getUserRole();
+            String userRole = tUser.getUserType();
             if (userRole.equals("02") || userRole.equals("03") || userRole.equals("04") || userRole.equals("05")) {
                 return "successUnit";
             } else if (userRole.equals("00") || userRole.equals("01")) {

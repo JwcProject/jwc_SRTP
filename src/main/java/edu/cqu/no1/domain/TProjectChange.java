@@ -66,7 +66,7 @@ public class TProjectChange implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "projectChange_id", unique = true, nullable = false, length = 32)
+	@Column(name = "projectChange_id", unique = true, nullable = false, length = 36)
 	public String getProjectChangeId() {
 		return this.projectChangeId;
 	}

@@ -47,7 +47,7 @@ public class TAchievemenType implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "achievementype_id", unique = true, nullable = false, length = 32)
+	@Column(name = "achievementype_id", unique = true, nullable = false, length = 36)
 	public String getAchievementypeId() {
 		return this.achievementypeId;
 	}

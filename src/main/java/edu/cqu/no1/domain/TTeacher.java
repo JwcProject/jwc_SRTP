@@ -27,9 +27,9 @@ public class TTeacher implements java.io.Serializable {
 	private TProfession TProfession;
 	private TUnit TUnit;
 	private String isdeleted;
+	private String teaEmail;
 	private Double teaAge;
 	private String teaCode;
-	private String teaEmail;
 	private String teaIntro;
 	private String teaName;
 	private String teaRemark;
@@ -57,7 +57,7 @@ public class TTeacher implements java.io.Serializable {
 
 	/** full constructor */
 	public TTeacher(TProfession TProfession, TUnit TUnit, String isdeleted,
-			Double teaAge, String teaCode, String teaEmail, String teaIntro,
+			String teaEmail, Double teaAge, String teaCode, String teaIntro,
 			String teaName, String teaRemark, String teaSex, String teaState,
 			String teaTele, String teaTitle,
 			Set<TDeclaration> TDeclarationsForTeacher2Code,
@@ -70,9 +70,9 @@ public class TTeacher implements java.io.Serializable {
 		this.TProfession = TProfession;
 		this.TUnit = TUnit;
 		this.isdeleted = isdeleted;
+		this.teaEmail = teaEmail;
 		this.teaAge = teaAge;
 		this.teaCode = teaCode;
-		this.teaEmail = teaEmail;
 		this.teaIntro = teaIntro;
 		this.teaName = teaName;
 		this.teaRemark = teaRemark;
@@ -94,7 +94,7 @@ public class TTeacher implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "tea_id", unique = true, nullable = false, length = 32)
+	@Column(name = "tea_id", unique = true, nullable = false, length = 36)
 	public String getTeaId() {
 		return this.teaId;
 	}
@@ -132,6 +132,15 @@ public class TTeacher implements java.io.Serializable {
 		this.isdeleted = isdeleted;
 	}
 
+	@Column(name = "tea_email", length = 50)
+	public String getTeaEmail() {
+		return this.teaEmail;
+	}
+
+	public void setTeaEmail(String teaEmail) {
+		this.teaEmail = teaEmail;
+	}
+
 	@Column(name = "tea_age")
 	public Double getTeaAge() {
 		return this.teaAge;
@@ -148,15 +157,6 @@ public class TTeacher implements java.io.Serializable {
 
 	public void setTeaCode(String teaCode) {
 		this.teaCode = teaCode;
-	}
-
-	@Column(name = "tea_email", length = 50)
-	public String getTeaEmail() {
-		return this.teaEmail;
-	}
-
-	public void setTeaEmail(String teaEmail) {
-		this.teaEmail = teaEmail;
 	}
 
 	@Column(name = "tea_intro", length = 1000)

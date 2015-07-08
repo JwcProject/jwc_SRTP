@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -66,7 +64,7 @@ public class TAnnouncement implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "announ_id", unique = true, nullable = false, length = 32)
+	@Column(name = "announ_id", unique = true, nullable = false, length = 36)
 	public String getAnnounId() {
 		return this.announId;
 	}
@@ -75,7 +73,6 @@ public class TAnnouncement implements java.io.Serializable {
 		this.announId = announId;
 	}
 
-    @JSON(serialize = false)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "announ_type_id")
 	public TAnnounType getTAnnounType() {

@@ -128,6 +128,13 @@
             <artifactId>struts2-convention-plugin</artifactId>
             <version>${org.apache.struts.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-sitemesh-plugin</artifactId>
+            <version>${org.apache.struts.version}</version>
+        </dependency>
+
         <!-- end add struts library -->
 
         <!-- xwork -->

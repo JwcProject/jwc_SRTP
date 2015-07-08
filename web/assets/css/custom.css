@@ -1,0 +1,49 @@
+.img-logo {
+    display: block;
+    margin: 0 auto;
+}
+
+.pad-xs {
+    padding: 40px;
+    padding-bottom: 0px;
+}
+
+h1.login-header {
+    color:#fff;
+    margin: .67em 0;
+    font-size: 3em;
+    font-family: "Microsoft YaHei", Î¢ÈíÑÅºÚ, "MicrosoftJhengHei", »ªÎÄÏ¸ºÚ, STHeiti, MingLiu;
+}
+
+.label-size {
+    font-size: 20px;
+}
+
+.light-login {
+    background: #428bca;
+}
+
+.login-main-container {
+    background-image: url("../fig/cloud_15.png");
+    background-repeat: no-repeat;
+    background-position: 10% 55%;
+    padding-bottom: 75px;
+    min-height: 820px;
+}
+
+.bg-primary {
+    color: #393939;
+}
+
+.login-layout .forgot-box .widget-main {
+    padding-bottom: 16px;
+}
+
+.login-layout .signup-box .widget-main {
+    padding-bottom: 16px;
+}
+
+.user-info {
+    max-width: 200px;
+}
+

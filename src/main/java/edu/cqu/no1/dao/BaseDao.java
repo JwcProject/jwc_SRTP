@@ -11,32 +11,46 @@ import java.util.List;
  */
 
 
-public interface BaseDao<T>
-{
+@Transactional
+public interface BaseDao<T> {
+
     SessionFactory getSessionFactory();
+
+    // 根据ID加载实体
+    T get(Class<T> entityClazz, Serializable id);
 
     // 保存实体
     Serializable save(T entity);
+
     // 更新实体
     void update(T entity);
-    // 根据实例删除
-    void delete(T entity);
-    // 根据ID删除
-    void delete(Serializable id);
-    // 获取所有实体
-    List<T> findAll();
 
-    boolean removeALLDeleted();
+    // 删除实体
+    void delete(T entity);
+
+    // 根据ID删除实体
+    void delete(Class<T> entityClazz, Serializable id);
+
+    // 获取所有实体
+    List<T> findAll(Class<T> entityClazz);
+
+    // 获取实体总数
+    long findCount(Class<T> entityClazz);
 
     T findById(String id);
 
     List findByExample(T instance);
 
-    List findByProperty(String propertyName, Object value);
+    List<T> findByProperty(String propertyName, Object value);
+
+    List<T> findByProperty(Class<T> entityClazz, String propertyName, Object value);
 
     T merge(T detachedInstance);
 
-    void attachDirty(T instance);
+    T attachDirty(T instance);
 
-    void attachClean(T instance);
+    T attachClean(T instance);
+
+    boolean removeALLDeleted();
+
 }

@@ -44,7 +44,7 @@ public class TAttchmentType implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "atta_type_id", unique = true, nullable = false, length = 32)
+	@Column(name = "atta_type_id", unique = true, nullable = false, length = 36)
 	public String getAttaTypeId() {
 		return this.attaTypeId;
 	}

@@ -46,7 +46,7 @@ public class TEndProjectJob implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "job_id", unique = true, nullable = false, length = 32)
+	@Column(name = "job_id", unique = true, nullable = false, length = 36)
 	public String getJobId() {
 		return this.jobId;
 	}

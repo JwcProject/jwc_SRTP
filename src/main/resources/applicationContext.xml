@@ -21,7 +21,7 @@
           p:driverClass="com.mysql.jdbc.Driver"
           p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/srtp"
           p:user="root"
-          p:password=""
+          p:password="888888"
           p:maxPoolSize="40"
           p:minPoolSize="2"
           p:initialPoolSize="2"
@@ -69,6 +69,10 @@
                 <value>edu.cqu.no1.domain.TUser</value>
                 <value>edu.cqu.no1.domain.TExpertTeacherModel</value>
                 <value>edu.cqu.no1.domain.TEndProjectJob</value>
+                <value>edu.cqu.no1.domain.TAuthority</value>
+                <value>edu.cqu.no1.domain.TRole</value>
+                <value>edu.cqu.no1.domain.TRoleAuthority</value>
+
             </list>
         </property>
         <property name="hibernateProperties">

@@ -58,7 +58,7 @@ public class TJournal implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "journal_id", unique = true, nullable = false, length = 32)
+	@Column(name = "journal_id", unique = true, nullable = false, length = 36)
 	public String getJournalId() {
 		return this.journalId;
 	}

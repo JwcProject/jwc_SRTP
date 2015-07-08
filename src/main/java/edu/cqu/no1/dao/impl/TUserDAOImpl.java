@@ -3,13 +3,18 @@ package edu.cqu.no1.dao.impl;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import edu.cqu.no1.dao.TUserDAO;
+import edu.cqu.no1.domain.TAuthority;
 import edu.cqu.no1.domain.TUser;
+import edu.cqu.no1.exception.RedundancyEmailException;
+import edu.cqu.no1.exception.RedundancyUserException;
 import edu.cqu.no1.util.PageBean;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +22,7 @@ import java.util.List;
  */
 
 @Repository
-public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
+public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO {
 
     private static final Logger log = LoggerFactory.getLogger(TUserDAO.class);
     // property constants
@@ -48,7 +53,7 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         return findByProperty(ISDELETED, isdeleted);
     }
 
-    public List<TUser> findByUserRole(Object userRole) {
+    public List<TUser> findByUserType(Object userRole) {
         return findByProperty(USER_TYPE, userRole);
     }
 
@@ -60,8 +65,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             int count = 0;
 
-            if(tmpList.size()>0) {
-                count = new Integer(""+tmpList.get(0));
+            if (tmpList.size() > 0) {
+                count = new Integer("" + tmpList.get(0));
             }
 
             return count;
@@ -89,31 +94,30 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
     }
 
 
-    public int getTUserCountByMutiProperty(String userId, String userName, String userRole, String userState)
-    {
+    public int getTUserCountByMutiProperty(String userId, String userName, String userRole, String userState) {
         log.debug("finding all getTUserCountByMutiProperty");
         try {
 
             String queryStr = new String("select count(*) from TUser as model where model.isdeleted='N'");
 
-            if(null != userId && !userId.trim().equals("")) {
+            if (null != userId && !userId.trim().equals("")) {
 
                 queryStr += " and model.userId like :userId";
 
             }
 
-            if(null != userName && !userName.trim().equals("")) {
+            if (null != userName && !userName.trim().equals("")) {
 
                 queryStr += " and model.userName like :userName";
 
             }
 
-            if(null != userRole && !userRole.equals("ALL")) {
+            if (null != userRole && !userRole.equals("ALL")) {
                 queryStr += " and model.userRole = :userRole";
 
             }
 
-            if(null != userState && !userState.equals("00")) {
+            if (null != userState && !userState.equals("00")) {
                 queryStr += " and model.userState = :userState";
 
             }
@@ -121,21 +125,21 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             Session session = getSessionFactory().getCurrentSession();
             Query query = session.createQuery(queryStr);
 
-            if(null != userId && !userId.trim().equals("")) {
-                query.setString("userId", "%"+userId+"%");
+            if (null != userId && !userId.trim().equals("")) {
+                query.setString("userId", "%" + userId + "%");
 
             }
 
-            if(null != userName && !userName.trim().equals("")) {
-                query.setString("userName", "%"+userName+"%");
+            if (null != userName && !userName.trim().equals("")) {
+                query.setString("userName", "%" + userName + "%");
 
             }
 
-            if(null != userRole && !userRole.equals("ALL")) {
+            if (null != userRole && !userRole.equals("ALL")) {
                 query.setString("userRole", userRole);
             }
 
-            if(null != userState && !userState.equals("00")) {
+            if (null != userState && !userState.equals("00")) {
                 query.setString("userState", userState);
             }
 
@@ -143,8 +147,8 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             int count = 0;
 
-            if(tmpList.size()>0) {
-                count = new Integer(""+tmpList.get(0));
+            if (tmpList.size() > 0) {
+                count = new Integer("" + tmpList.get(0));
             }
 
             return count;
@@ -160,21 +164,21 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
 
             String queryStr = new String("from TUser as model where model.isdeleted = 'N'");
 
-            if(null != userId && !userId.trim().equals("")) {
+            if (null != userId && !userId.trim().equals("")) {
                 queryStr += " and model.userId like :userId";
 
             }
 
-            if(null != userName && !userName.trim().equals("")) {
+            if (null != userName && !userName.trim().equals("")) {
                 queryStr += " and model.userName like :userName";
 
             }
 
-            if(null != userRole && !userRole.equals("ALL")) {
+            if (null != userRole && !userRole.equals("ALL")) {
                 queryStr += " and model.userRole = :userRole";
             }
 
-            if(null != userState && !userState.equals("00")) {
+            if (null != userState && !userState.equals("00")) {
                 queryStr += " and model.userState = :userState";
             }
 
@@ -183,19 +187,19 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             query.setFirstResult(pageBean.getBeginIndex());
             query.setMaxResults(pageBean.getPageCapibility());
 
-            if(null != userId && !userId.trim().equals("")) {
-                query.setString("userId", "%"+userId+"%");
+            if (null != userId && !userId.trim().equals("")) {
+                query.setString("userId", "%" + userId + "%");
             }
 
-            if(null != userName && !userName.trim().equals("")) {
-                query.setString("userName", "%"+userName+"%");
+            if (null != userName && !userName.trim().equals("")) {
+                query.setString("userName", "%" + userName + "%");
             }
 
-            if(null != userRole && !userRole.equals("ALL")) {
+            if (null != userRole && !userRole.equals("ALL")) {
                 query.setString("userRole", userRole);
             }
 
-            if(null != userState && !userState.equals("00")) {
+            if (null != userState && !userState.equals("00")) {
                 query.setString("userState", userState);
             }
 
@@ -210,10 +214,10 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
         return (TUserDAO) ctx.getBean("TUserDAO");
     }
 
-    public List findByUserIdAndPwd(String userId, String password){
+    public List findByUserIdAndPwd(String userId, String password) {
         log.debug("findByUserIdAndPwd");
         try {
-            String queryStr = "from TUser as a where a.isdeleted = 'N' and a.userId=:userId and a.userPassword =:password";
+            String queryStr = "from TUser as a where a.isdeleted = 'N' and a.userId=:userId and a.password =:password";
             Query query = getSessionFactory().getCurrentSession().createQuery(queryStr);
             query.setString("userId", userId);
             query.setString("password", password);
@@ -222,5 +226,49 @@ public class TUserDAOImpl extends BaseDaoImpl<TUser> implements TUserDAO{
             log.error("findByUserIdAndPwd failed", re);
             throw re;
         }
+    }
+
+    public TUser findByUsername(String username) throws RedundancyUserException {
+        List<TUser> users = findByProperty(TUser.class, "username", username);
+        if (users.size() == 0)
+            return null;
+        if (users.size() > 1) {
+            throw new RedundancyUserException(username + " is redundancy");
+        }
+        return attachDirty(users.get(0));
+    }
+
+    @Override
+    public TUser findByEmail(String email) throws RedundancyEmailException {
+        List<TUser> users = findByProperty(TUser.class, "email", email);
+        if (users.size() == 0)
+            return null;
+        if (users.size() > 1) {
+            throw new RedundancyEmailException(email + " is redundancy");
+        }
+        return attachDirty(users.get(0));
+    }
+
+    @Override
+    public boolean saveUser(TUser user) {
+        save(user);
+        return true;
+    }
+
+    @Override
+    public List<TAuthority> getUserAuthorities(TUser user) {
+        user = get(TUser.class, user.getUserId());
+        List<TAuthority> authorities = new LinkedList<>();
+        user.getTRole().getTRoleAuthorities().forEach(roleAuthority -> {
+            Hibernate.initialize(roleAuthority.getTAuthority());
+            authorities.add(roleAuthority.getTAuthority());
+        });
+
+        return authorities;
+    }
+
+    @Override
+    public List<TUser> findAllUserByPage(int pageNo, int pageSize) {
+        return findByPage("from " + TUser.class.getSimpleName(), pageNo, pageSize);
     }
 }

@@ -13,7 +13,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.json.annotations.JSON;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -28,8 +28,16 @@ import java.util.Map;
 @Namespace("/")
 @Scope("prototype")
 @ParentPackage("base")
-public class UserAction extends BaseAction {
+public class UserAction extends BaseAction implements SessionAware {
     private static final long serialVersionUID = -8331089822539279241L;
+
+    public static final String NO_THIS_USER = "noThisUser";
+    public static final String PASSWORD_WORRY = "passwordWorry";
+    public static final String REDUNDANCY_USER = "redundancyUser";
+    public static final String REDUNDANCY_EMAIL = "redundancyEmail";
+    public static final String DATABASE_ERROR = "databaseError";
+    public static final String EMAIL_WORRY = "emailWorry";
+
 
     @Resource
     private UserService userService;
@@ -44,7 +52,7 @@ public class UserAction extends BaseAction {
     private String userState;
     private String validateCode;
     private String password;
-
+    private String email;
     /**
      * 分页使用的参数
      */
@@ -73,6 +81,111 @@ public class UserAction extends BaseAction {
     private String newPassword;
     private Boolean statu;
 
+    private String result;
+
+    private Map<String, Object> session = null;
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
+
+    @Action(value = "login", results = {
+            @Result(name = SUCCESS, type = "json")
+    })
+    public String login() {
+        result = ERROR;
+        switch (userService.checkUser(userName, password)) {
+            case UserService.SUCCESS:
+                TUser user = userService.getUser();
+                session.put("user", user);
+                session.put("role", userService.getUserRole(user));
+                session.put("authorities"
+                        , userService.getUserAuthorities(user));
+                result = SUCCESS;
+                break;
+            case UserService.NO_THIS_USER:
+                result = NO_THIS_USER;
+                break;
+            case UserService.PASSWORD_WORRY:
+                result = PASSWORD_WORRY;
+                break;
+            case UserService.REDUNDANCY_USER:
+            case UserService.REDUNDANCY_EMAIL:
+            case UserService.DATABASE_ERROR:
+                result = DATABASE_ERROR;
+                break;
+            default:
+                result = ERROR;
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "register", results = {
+            @Result(name = SUCCESS, type = "json", params = {"includeProperties", "result"})
+    })
+    public String register() {
+        TUser user = new TUser();
+        user.setPassword(password);
+        user.setUsername(userName);
+        user.setEmail(email);
+        result = ERROR;
+        switch (userService.registerUser(user)) {
+            case UserService.SUCCESS:
+                session.put("user", user);
+                session.put("role", userService.getUserRole(user));
+                session.put("authorities"
+                        , userService.getUserAuthorities(user));
+                result = SUCCESS;
+            case UserService.REDUNDANCY_USER:
+                result = REDUNDANCY_USER;
+            case UserService.REDUNDANCY_EMAIL:
+                result = REDUNDANCY_EMAIL;
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "logout")
+    public String logout() {
+        session.remove("user");
+        session.remove("role");
+        session.remove("authorities");
+        return LOGIN;
+    }
+
+    @Action(value = "resetPassword", results = {
+            @Result(name = SUCCESS, type = "json", params = {"includeProperties", "result"})
+    })
+    public String resetPassword() {
+        result = ERROR;
+
+        switch (userService.resetPassword(userName, email)) {
+            case UserService.SUCCESS:
+                result = SUCCESS;
+                break;
+            case UserService.NO_THIS_USER:
+                result = NO_THIS_USER;
+                break;
+            case UserService.EMAIL_WORRY:
+                result = EMAIL_WORRY;
+                break;
+            case UserService.REDUNDANCY_USER:
+                result = REDUNDANCY_USER;
+                break;
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "modify", results = {
+            @Result(name = SUCCESS, type = "json", params = {"includeProperties", "result"})
+    })
+    public String modify() {
+        if (session.get("user") == null) {
+            return LOGIN;
+        }
+        userService.checkUser(((TUser) session.get("user")).getUsername(), password);
+        return SUCCESS;
+    }
 
 
     @Action(value = "changePassword", results = {
@@ -101,8 +214,8 @@ public class UserAction extends BaseAction {
                     || user.getUserId().equals("")) {
                 toLogin();
             } else {
-                System.out.println("060708".indexOf(user.getUserRole().trim()));
-                if ("060708".indexOf(user.getUserRole().trim()) >= 0) {
+                System.out.println("060708".indexOf(user.getUserType().trim()));
+                if ("060708".indexOf(user.getUserType().trim()) >= 0) {
                     student = this.userService.getStudentByUserId(user.getUserId());
                 } else {
                     teacher = this.userService.getTeacherByUserId(user.getUserId());
@@ -126,12 +239,14 @@ public class UserAction extends BaseAction {
     public String userLogin() throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         Map session = ActionContext.getContext().getSession();
+
         /*String sessionVaCode = (String) request.getSession().getAttribute("validateCode");
         if (!sessionVaCode.equals(validateCode)) {
             request.setAttribute("msg", "验证码错误！");
             return "login";
         }
         String md5Pwd = MD5Util.MD5(password);*/
+
         String md5Pwd = password;
         user = userService.userLogin(userId, md5Pwd);
         if (user == null || user.getUserId() == null
@@ -142,20 +257,20 @@ public class UserAction extends BaseAction {
         session.put("user", user);
         userService.changeLoginState(user.getUserId(), "YY");
         request.setAttribute("msg", "登录成功!");
-        String uRole = user.getUserRole();
-        TUnit unit = userService.getUnitByUserId(user.getUserId(), uRole);
+        String userType = user.getUserType();
+        TUnit unit = userService.getUnitByUserId(user.getUserId(), userType);
         session.put("unit", unit);
 
-        if ("06".equals(uRole) || "07".equals(uRole) || "08".equals(uRole)) {
+        if ("06".equals(userType) || "07".equals(userType) || "08".equals(userType)) {
             deanAnnounList = listIndexDeanAnnouncement();
             unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
             commonAnnounList = listCommonAnnouncement();
             return "student";
-        } else if ("02".equals(uRole) || "03".equals(uRole) || "04".equals(uRole) || "05".equals(uRole)) {
+        } else if ("02".equals(userType) || "03".equals(userType) || "04".equals(userType) || "05".equals(userType)) {
             expertTeachers = listHistoryExpert(user.getUserId());
             projects = listProjectByTeaCode(user.getUserId());
             return "teacher";
-        } else if ("01".equals(uRole) || "00".equals(uRole)) {
+        } else if ("01".equals(userType) || "00".equals(userType)) {
             deanAnnounList = listIndexDeanAnnouncement();
             return "jiaowuchu";
         } else {
@@ -194,7 +309,7 @@ public class UserAction extends BaseAction {
             if (user == null) {
                 toLogin();
             }
-            String uRole = user.getUserRole();
+            String uRole = user.getUserType();
             if ("06".equals(uRole) || "07".equals(uRole) || "08".equals(uRole)) {
                 deanAnnounList = listIndexDeanAnnouncement();
                 unitAnnounList = listIndexUnitAnnouncement(user.getUserId());
@@ -233,7 +348,7 @@ public class UserAction extends BaseAction {
             totalPage = this.pageBean.getTotalPage();
 
 			/*System.out.println("getUserId: " + this.getUserId());
-            System.out.println("\n getUserRole: " + this.getUsertype());
+            System.out.println("\n getUserType: " + this.getUsertype());
 			System.out.println("\n getUser: " + this.getSessionUser().getUserName());*/
 
             return SUCCESS;
@@ -469,11 +584,11 @@ public class UserAction extends BaseAction {
         this.userName = userName;
     }
 
-    public String getUserRole() {
+    public String getUserType() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserType(String userRole) {
         this.userRole = userRole;
     }
 
@@ -638,4 +753,19 @@ public class UserAction extends BaseAction {
     }
 
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

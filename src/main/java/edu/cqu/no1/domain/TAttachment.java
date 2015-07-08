@@ -59,7 +59,7 @@ public class TAttachment implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "atta_id", unique = true, nullable = false, length = 32)
+	@Column(name = "atta_id", unique = true, nullable = false, length = 36)
 	public String getAttaId() {
 		return this.attaId;
 	}
@@ -133,7 +133,7 @@ public class TAttachment implements java.io.Serializable {
 		this.isdeleted = isdeleted;
 	}
 
-	@Column(name = "object_code", length = 32)
+	@Column(name = "object_code", length = 36)
 	public String getObjectCode() {
 		return this.objectCode;
 	}
@@ -151,7 +151,7 @@ public class TAttachment implements java.io.Serializable {
 		this.uploadTime = uploadTime;
 	}
 
-	@Column(name = "uploader_role", length = 32)
+	@Column(name = "uploader_role", length = 36)
 	public String getUploaderRole() {
 		return this.uploaderRole;
 	}

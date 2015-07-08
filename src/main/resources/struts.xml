@@ -5,18 +5,51 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <constant name="struts.devMode" value="true"/>
+    <!-- 请求参数的编码方式 -->
     <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <!-- 当struts.xml改动后，是否重新加载。默认值为false(生产环境下使用),开发阶段最好打开  -->
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <!-- 是否使用struts的开发模式。开发模式会有更多的调试信息。默认值为false(生产环境下使用),开发阶段最好打开  -->
+    <constant name="struts.devMode" value="false"/>
+    <!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭  -->
+    <constant name="struts.serve.static.browserCache" value="false"/>
+    <!-- 指定由spring负责action对象的创建-->
     <constant name="struts.objectFactory" value="spring"/>
+
     <package name="base" extends="json-default,struts-default">
-        <!-- 全局的返回值映射关系等 -->
+        <!-- 这里可以设置一些全局的返回值映射关系等 -->
         <global-results>
-            <result name="db_error">/db_err.jsp</result>
+            <result name="error" type="redirect">/db_err.jsp</result>
+            <result name="login" type="redirect">/login.jsp</result>
         </global-results>
+
         <!--<global-exception-mappings>-->
-            <!--<exception-mapping exception="java.lang.Exception" result="/db_err.jsp"></exception-mapping>-->
+        <!--<exception-mapping exception="java.lang.Exception" result="/error.jsp"></exception-mapping>-->
         <!--</global-exception-mappings>-->
     </package>
 
+    <package name="non-authority" extends="base">
 
+    </package>
+
+    <package name="authority" extends="base">
+        <interceptors>
+            <!--定义一个名为authority的拦截器-->
+            <interceptor
+                    class="edu.cqu.no1.interceptor.AuthorityInterceptor" name="authority"/>
+            <!--定义一个包含权限检查的拦截器栈-->
+            <interceptor-stack name="authorityStack">
+
+                <!--配置内建默认拦截器-->
+                <interceptor-ref name="defaultStack"/>
+                <!--配置自定义的拦截器-->
+                <interceptor-ref name="authority"/>
+
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="authorityStack"/>
+
+
+    </package>
 </struts>

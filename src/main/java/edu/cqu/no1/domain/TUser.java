@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,13 +24,15 @@ public class TUser implements java.io.Serializable {
 	// Fields
 
 	private String userId;
+	private TRole TRole;
 	private String isdeleted;
 	private String userIntroduction;
-	private String userName;
-	private String userPassword;
+	private String username;
+	private String password;
 	private String userState;
-	private String userRole;
 	private String previousType;
+	private String userType;
+	private String email;
 	private Set<TJournal> TJournals = new HashSet<TJournal>(0);
 	private Set<TAttachment> TAttachments = new HashSet<TAttachment>(0);
 	private Set<TStudent> TStudents = new HashSet<TStudent>(0);
@@ -39,18 +43,47 @@ public class TUser implements java.io.Serializable {
 	public TUser() {
 	}
 
+	/** full constructor */
+	public TUser(TRole TRole, String isdeleted, String userIntroduction,
+			String username, String password, String userState,
+			String previousType, String userType, String email,
+			Set<TJournal> TJournals, Set<TAttachment> TAttachments,
+			Set<TStudent> TStudents) {
+		this.TRole = TRole;
+		this.isdeleted = isdeleted;
+		this.userIntroduction = userIntroduction;
+		this.username = username;
+		this.password = password;
+		this.userState = userState;
+		this.previousType = previousType;
+		this.userType = userType;
+		this.email = email;
+		this.TJournals = TJournals;
+		this.TAttachments = TAttachments;
+		this.TStudents = TStudents;
+	}
 
 	// Property accessors
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "user_id", unique = true, nullable = false, length = 32)
+	@Column(name = "user_id", unique = true, nullable = false, length = 36)
 	public String getUserId() {
 		return this.userId;
 	}
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role")
+	public TRole getTRole() {
+		return this.TRole;
+	}
+
+	public void setTRole(TRole TRole) {
+		this.TRole = TRole;
 	}
 
 	@Column(name = "isdeleted", length = 1)
@@ -71,22 +104,22 @@ public class TUser implements java.io.Serializable {
 		this.userIntroduction = userIntroduction;
 	}
 
-	@Column(name = "user_name", length = 50)
-	public String getUserName() {
-		return this.userName;
+	@Column(name = "username", length = 50)
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	@Column(name = "user_password", length = 50)
-	public String getUserPassword() {
-		return this.userPassword;
+	@Column(name = "password", length = 50)
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Column(name = "user_state", length = 2)
@@ -98,15 +131,6 @@ public class TUser implements java.io.Serializable {
 		this.userState = userState;
 	}
 
-	@Column(name = "user_role", length = 2)
-	public String getUserRole() {
-		return this.userRole;
-	}
-
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
-	}
-
 	@Column(name = "previous_type", length = 2)
 	public String getPreviousType() {
 		return this.previousType;
@@ -114,6 +138,24 @@ public class TUser implements java.io.Serializable {
 
 	public void setPreviousType(String previousType) {
 		this.previousType = previousType;
+	}
+
+	@Column(name = "user_type", length = 2)
+	public String getUserType() {
+		return this.userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	@Column(name = "email")
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "TUser")

@@ -1,9 +1,6 @@
 package edu.cqu.no1.service;
 
-import edu.cqu.no1.domain.TStudent;
-import edu.cqu.no1.domain.TTeacher;
-import edu.cqu.no1.domain.TUnit;
-import edu.cqu.no1.domain.TUser;
+import edu.cqu.no1.domain.*;
 import edu.cqu.no1.util.PageBean;
 
 import java.util.List;
@@ -40,4 +37,28 @@ public interface UserService {
     TUser changePassword(String userId, String password);
 
     TUser changeLoginState(String userId, String state);
+
+    int SUCCESS = 0;
+    int PASSWORD_WORRY = 1;
+    int NO_THIS_USER = 2;
+    int EMAIL_WORRY = 3;
+    int REDUNDANCY_USER = 4;
+    int REDUNDANCY_EMAIL = 5;
+    int DATABASE_ERROR = 6;
+
+
+    int checkUser(String username, String password);
+
+    int registerUser(TUser user);
+
+    TUser getUser();
+
+    List<TAuthority> getUserAuthorities(TUser user);
+
+    TRole getUserRole(TUser user);
+
+    List<TUser> listAllUserByPage(int pageNo, int pageNum);
+
+    int resetPassword(String username, String email);
+
 }

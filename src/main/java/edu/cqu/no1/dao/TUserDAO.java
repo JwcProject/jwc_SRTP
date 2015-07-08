@@ -1,6 +1,9 @@
 package edu.cqu.no1.dao;
 
+import edu.cqu.no1.domain.TAuthority;
 import edu.cqu.no1.domain.TUser;
+import edu.cqu.no1.exception.RedundancyEmailException;
+import edu.cqu.no1.exception.RedundancyUserException;
 import edu.cqu.no1.util.PageBean;
 
 import java.util.List;
@@ -19,7 +22,7 @@ public interface TUserDAO extends BaseDao<TUser> {
 
     List<TUser> findByIsdeleted(Object isdeleted);
 
-    List<TUser> findByUserRole(Object userRole);
+    List<TUser> findByUserType(Object userRole);
 
     int getAllTUserCount();
 
@@ -30,4 +33,17 @@ public interface TUserDAO extends BaseDao<TUser> {
     List getTUserByMutiProperty(String userId, String userName, String userRole, String userState, PageBean pageBean);
 
     List findByUserIdAndPwd(String userId, String password);
+
+
+    TUser findByUsername(String username) throws RedundancyUserException;
+
+    TUser findByEmail(String email) throws RedundancyEmailException;
+
+    boolean saveUser(TUser user);
+
+    List<TAuthority> getUserAuthorities(TUser user);
+
+    List<TUser> findAllUserByPage(int pageNo, int pageSize);
+
+
 }

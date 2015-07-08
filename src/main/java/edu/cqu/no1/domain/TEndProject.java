@@ -104,7 +104,7 @@ public class TEndProject implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "endProject_id", unique = true, nullable = false, length = 32)
+	@Column(name = "endProject_id", unique = true, nullable = false, length = 36)
 	public String getEndProjectId() {
 		return this.endProjectId;
 	}

@@ -248,7 +248,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
      * @param type  要修改的类型
      */
     @Override
-    public void changeReviewUserRole(String libId, String type) {
+    public void changeReviewUserType(String libId, String type) {
         log.debug("change review teacher user type");
         try {
             String hql = "update TUser user set user.previousType = user.userRole , user.userRole = :type where user.userId in" +
@@ -269,7 +269,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
      * @param libId 专家库id
      */
     @Override
-    public void rollBackUserRole(String libId) {
+    public void rollBackUserType(String libId) {
         log.debug("change review teacher user type");
         try {
             String hql = "update TUser user set user.userRole = user.previousType where user.userId in" +

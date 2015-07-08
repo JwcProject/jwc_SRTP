@@ -117,7 +117,7 @@ public class RedmineManager {
 		Map<String, Object> studentMap = new HashMap<String, Object>();
 		studentMap.put("id", Integer.parseInt(student.getStudentNumber()));
 		studentMap.put("login", student.getStudentNumber());
-		studentMap.put("hashed_password", user.getUserPassword());
+		studentMap.put("hashed_password", user.getPassword());
 		studentMap.put("firstname", student.getStudentName());
 		studentMap.put("lastname", "cqu");
 		studentMap.put("mail", student.getStudentEmail());
@@ -138,7 +138,7 @@ public class RedmineManager {
 		Map<String, Object> teacherMap = new HashMap<String, Object>();
 		teacherMap.put("id", Integer.parseInt(teacher.getTeaCode()));
 		teacherMap.put("login", teacher.getTeaCode());
-		teacherMap.put("hashed_password", user.getUserPassword());
+		teacherMap.put("hashed_password", user.getPassword());
 		teacherMap.put("firstname", teacher.getTeaName());
 		teacherMap.put("lastname", "cqu");
 		teacherMap.put("mail", teacher.getTeaEmail());

@@ -44,7 +44,7 @@ public class TCredit implements java.io.Serializable {
 	@GenericGenerator(name = "generator", strategy = "uuid")
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "credit_id", unique = true, nullable = false, length = 32)
+	@Column(name = "credit_id", unique = true, nullable = false, length = 36)
 	public String getCreditId() {
 		return this.creditId;
 	}
