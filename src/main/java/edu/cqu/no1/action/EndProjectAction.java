@@ -105,7 +105,6 @@ public class EndProjectAction extends BaseAction {
 
     @Action(value = "preSecReviewResultTypeIn",results = {
             @Result(name = SUCCESS,location = "/pages/endprojectManage/secondReview_result_typein.jsp"),
-            @Result(name = ERROR,location = "db_err.jsp")
     })
     public String preSecReviewResultTypeIn() {
         getYearAndQicis();
@@ -185,8 +184,7 @@ public class EndProjectAction extends BaseAction {
     }
 
     @Action(value = "preDispatchExpForSecReview",results = {
-            @Result(name = SUCCESS,location = "/pages/endprojectManage/dispatch_expert.jsp"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/dispatch_expert.jsp")
     })
     public String preDispatchExpForSecReview() {
         getYearAndQicis();
@@ -300,8 +298,7 @@ public class EndProjectAction extends BaseAction {
      */
     @Action(value="PreEndProjectRequest",results = {
             @Result(name = SUCCESS,location ="/pages/endprojectManage/endproject_request.jsp"),
-            @Result(name=MESSAGE,location = "message_info.jsp"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name=MESSAGE,location = "/message_info.jsp")
     })
     public String preEndProjectRequest() throws Exception {
         try {
@@ -343,8 +340,7 @@ public class EndProjectAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "PreOrganizeEndprojectReview",results = {
-            @Result(name = SUCCESS,location = "/pages/endprojectManage/organize_endproject_review.jsp"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/organize_endproject_review.jsp")
     })
     public String preOrganizeEndprojectReview() throws Exception {
         try {
@@ -384,8 +380,7 @@ public class EndProjectAction extends BaseAction {
      * @authoy lzh
      */
     @Action(value = "AddEndprojectRequest",results = {
-            @Result(name = SUCCESS,type = "redirect",location = "PreMyEndProjects"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,type = "redirect",location = "PreMyEndProjects")
     })
     public String addEndprojectRequest() throws Exception {
         try {
@@ -484,8 +479,7 @@ public class EndProjectAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "PreMyEndProjects",results = {
-            @Result(name = SUCCESS,location = "/pages/endprojectManage/my_endprojects.jsp"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/endprojectManage/my_endprojects.jsp")
     })
     public String preMyEndProjects() throws Exception {
         try {
@@ -510,8 +504,7 @@ public class EndProjectAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "preUnitTeaAddEndProCom",results = {
-            @Result(name = SUCCESS,location = "/pages/expertTeam/endpro_review_opinion.jsp"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,location = "/pages/expertTeam/endpro_review_opinion.jsp")
     })
     public String endProjectDetail() throws Exception {
         try {
@@ -551,8 +544,7 @@ public class EndProjectAction extends BaseAction {
      * @throws Exception
      */
     @Action(value = "UnitTeaAddEndProCom",results = {
-            @Result(name = SUCCESS,type = "redirect",location = "PreEndProResultTypeIn"),
-            @Result(name=ERROR,location = "db_err.jsp")
+            @Result(name = SUCCESS,type = "redirect",location = "PreEndProResultTypeIn")
     })
     public String unitTeaAddEndProCom() throws Exception {
         try {

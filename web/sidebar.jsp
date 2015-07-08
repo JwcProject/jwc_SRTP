@@ -81,34 +81,10 @@
             }
           }%>
         <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
-          if (authority.getPath().equals("announcement/student")) {
+          if (authority.getPath().equals("announcement/publish")) {
         %>
         <li class="">
-          <a href="#announcement/student"><i class="menu-icon fa fa-caret-right"></i>发布学生公告</a>
-
-          <b class="arrow"></b>
-        </li>
-        <%
-              break;
-            }
-          }%>
-        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
-          if (authority.getPath().equals("announcement/teacher")) {
-        %>
-        <li class="">
-          <a href="#announcement/teacher"><i class="menu-icon fa fa-caret-right"></i>发布教师公告</a>
-
-          <b class="arrow"></b>
-        </li>
-        <%
-              break;
-            }
-          }%>
-        <% for (TAuthority authority : (List<TAuthority>) session.getAttribute("authorities")) {
-          if (authority.getPath().equals("announcement/leader")) {
-        %>
-        <li class="">
-          <a href="#announcement/leader"><i class="menu-icon fa fa-caret-right"></i>发布领导公告</a>
+          <a href="#announcement/student"><i class="menu-icon fa fa-caret-right"></i>发布公告</a>
 
           <b class="arrow"></b>
         </li>
