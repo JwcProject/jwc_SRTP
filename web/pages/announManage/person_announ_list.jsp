@@ -14,46 +14,6 @@
         <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
             style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
             <div>
-                <div class="midbox_gg">
-                    <div class="ggwh">公告维护</div>
-                </div>
-                <form action="" name="queryForm" id="queryForm" method="post">
-                    <div class="xia_left">
-                        <ul>
-                            <li>
-                                <p>公告名称：
-                                    <s:textfield type="text" name="announTitle" id="announTitle"/>
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>发布日期：
-
-                                    <input type="text" name="publishTime" id="publishTime"
-                                           value="<s:date name="publishTime" format="yyyy-MM-dd"/>"
-                                           style="width:150px" class="easyui-datebox" editable="false"/>
-
-                                </p>
-                            </li>
-
-
-                            <li>
-                                <s:hidden id="pages" name="page" value="%{page}"></s:hidden>
-                            </li>
-                            <li>
-                                <s:hidden id="totalPages" name="totalPage" value="%{totalPage}"></s:hidden>
-                            </li>
-
-                        </ul>
-                        <div class="xia_right" style="left:550px">
-                            <img src="images/gonggaoweihu_icon1.gif" alt="查询" onclick="queryPersonalAnnoun();"/>
-                            <!--  	<s:reset value="" style="background:url(images/mima_anniu2.gif); border:0px; width:103px; height:26px;"></s:reset>-->
-                            <!--<input type="button" value="" onclick="resetValue();" style="background:url(images/reset.png); border:0px; width:69px; height:29px;" />-->
-                            <a onclick="resetValue();"><img src="images/reset.png" alt="重置" "/></a>
-                        </div>
-                    </div>
-                </form>
-
 
                 <div class="xia_list">
                     <table width="88%" border="0" cellspacing="0" cellpadding="0"

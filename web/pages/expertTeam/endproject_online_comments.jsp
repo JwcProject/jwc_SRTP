@@ -6,6 +6,8 @@
 %>
 <script type="text/javascript">
     function saveComment() {
+
+      postFormAndSetAjax($('#opinionForm'));
         $('#opinionForm').submit();
     }
 </script>

@@ -200,7 +200,7 @@
     function query() {
         $("#pages")[0].value = 1;
         document.queyForm.action = "<%=basePath%>FindTeaPersonalDeclaration";
-        document.queyForm.submit();
+        postFormAndSetAjax($(document.queyForm));
     }
 
 

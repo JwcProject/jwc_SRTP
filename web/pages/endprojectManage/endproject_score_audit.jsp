@@ -225,13 +225,13 @@
      */
     $("#pages").val(pageclickednumber);
     document.queyForm.action = "<%=basePath%>QueryEndProScoreCheck";
-    document.queyForm.submit();
+    postFormAndSetAjax(document.queyForm);
   }
 
   function query() {
     $("#pages").val(1);
     document.queyForm.action = "<%=basePath%>QueryEndProScoreCheck";
-    document.queyForm.submit();
+    postFormAndSetAjax(document.queyForm);
   }
 
   function audit() {
@@ -258,7 +258,7 @@
          */
 
         document.queyForm.action = "<%=basePath%>QueryEndProScoreCheck";
-        document.queyForm.submit();
+        postFormAndSetAjax(document.queyForm);
       }
     });
   }

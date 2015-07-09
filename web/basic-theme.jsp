@@ -80,6 +80,7 @@
 
   <script src="<%=basePath%>assets/js/bootstrap.min.js"></script>
 
+  <script src="<%=basePath%>assets/js/custom.js"></script>
 
 </head>
 <body class="no-skin">
@@ -144,7 +145,7 @@
 <script src="<%=basePath%>assets/js/ace-elements.min.js"></script>
 <script src="<%=basePath%>assets/js/ace.min.js"></script>
 
-<script src="<%=basePath%>assets/js/custom.js"></script>
+
 <script>
   //检测url变化
   $(function () {
@@ -247,26 +248,13 @@
           url: '<%=basePath%>' + map[url],
           success: function (data) {
             console.log('ajax success!');
+
             //返回的是网页
             if (typeof(data) == "string") {
               $('div.content-body').html(data);
-              $('div.content-body a').click(function (event) {
-                  event.preventDefault();
-                  if ($(this).attr('href').indexOf('javascript') < 0) {
-                    $.ajax({
-                      method: 'get',
-                      url: $(this).attr('href'),
-                      success: function (data) {
-                        $('div.content-body').html(data);
-                      },
-                      error: function () {
-                        $('div.content-body').html('数据库错误，请稍后再试');
-                      }
-                    });
-                  }
+              setAjax();
 
-                //TODO: form
-              });
+              //TODO: form
             }
             //返回的是json
             else {
@@ -282,25 +270,9 @@
     };
 
     window.onhashchange();
+    setAjax();
+
   })
-$(function(){
-  $('div.content-body a').click(function (event) {
-    event.preventDefault();
-    if ($(this).attr('href').indexOf('javascript') < 0) {
-      $.ajax({
-        method: 'get',
-        url: $(this).attr('href'),
-        success: function (data) {
-          $('div.content-body').html(data);
-        },
-        error: function () {
-          $('div.content-body').html('数据库错误，请稍后再试');
-        }
-      });
-    }
-    //TODO: form
-  });
-})
 </script>
 <decortor:head/>
 

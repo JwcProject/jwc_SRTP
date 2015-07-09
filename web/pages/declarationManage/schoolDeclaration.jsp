@@ -212,7 +212,7 @@
     function query() {
         $("#pages")[0].value = 1;
         document.queyForm.action = "<%=path%>/FindSchoolDeclaration";
-        document.queyForm.submit();
+        postFormAndSetAjax($(document.queyForm));
     }
 
 

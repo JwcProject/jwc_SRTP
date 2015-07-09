@@ -248,13 +248,13 @@
 
     $("#pages").val(pageclickednumber);
     document.queyForm.action = "<%=basePath%>QueryEndProScoreTypeIn";
-    document.queyForm.submit();
+    postFormAndSetAjax(document.queyForm);
   }
 
   function query() {
     $("#pages")[0].value = 1;
     document.queyForm.action = "<%=basePath%>QueryEndProScoreTypeIn";
-    document.queyForm.submit();
+    postFormAndSetAjax(document.queyForm);
   }
 
   function audit(state) {
@@ -283,7 +283,7 @@
           type: "POST",
           success: function (r) {
             document.queyForm.action = "<%=basePath%>QueryEndProScoreTypeIn";
-            document.queyForm.submit();
+            postFormAndSetAjax(document.queyForm);
           }
         });
       }

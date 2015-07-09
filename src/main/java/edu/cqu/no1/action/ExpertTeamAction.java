@@ -1410,7 +1410,7 @@ public class ExpertTeamAction extends BaseAction {
     /**
      * 根据专家库ID查看专家库的专家教师
      */
-    @Action(value = "ViewEndExpTea", results = {
+    @Action(value = "ViewExpTea", results = {
             @Result(name = SUCCESS, location = "/pages/expertTeam/view_expert_team.jsp"),
             @Result(name=ERROR,location = "db_err.jsp")
     })

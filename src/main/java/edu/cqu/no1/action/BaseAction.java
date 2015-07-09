@@ -12,7 +12,6 @@ import com.opensymphony.xwork2.ActionSupport;
 abstract public class BaseAction extends ActionSupport {
 
     protected static final String MESSAGE = "message";
-    protected static final String ERROR = "db_error";
 
     public String getUserId() throws IOException {
         TUser tuser = (TUser) ActionContext.getContext().getSession().get("user");
