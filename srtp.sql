@@ -1,19 +1,35 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50528
+Source Server         : srtp
+Source Server Version : 50543
 Source Host           : localhost:3306
 Source Database       : srtp
 
 Target Server Type    : MYSQL
-Target Server Version : 50528
+Target Server Version : 50543
 File Encoding         : 65001
 
-Date: 2015-07-09 16:23:12
+Date: 2015-07-09 18:13:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for t_achievemen_type
+-- ----------------------------
+DROP TABLE IF EXISTS `t_achievemen_type`;
+CREATE TABLE `t_achievemen_type` (
+  `achievementype_id` varchar(36) NOT NULL,
+  `achievementype_introduction` varchar(200) DEFAULT NULL,
+  `achievementype_name` varchar(50) DEFAULT NULL,
+  `isdeleted` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`achievementype_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_achievemen_type
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_achievement
@@ -94,20 +110,21 @@ CREATE TABLE `t_achievement` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for t_achievemen_type
+-- Table structure for t_announ_type
 -- ----------------------------
-DROP TABLE IF EXISTS `t_achievemen_type`;
-CREATE TABLE `t_achievemen_type` (
-  `achievementype_id` varchar(36) NOT NULL,
-  `achievementype_introduction` varchar(200) DEFAULT NULL,
-  `achievementype_name` varchar(50) DEFAULT NULL,
+DROP TABLE IF EXISTS `t_announ_type`;
+CREATE TABLE `t_announ_type` (
+  `announ_type_id` varchar(36) NOT NULL,
+  `announ_type_name` varchar(100) DEFAULT NULL,
   `isdeleted` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`achievementype_id`)
+  PRIMARY KEY (`announ_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of t_achievemen_type
+-- Records of t_announ_type
 -- ----------------------------
+INSERT INTO `t_announ_type` VALUES ('1', '教务处公告', 'N');
+INSERT INTO `t_announ_type` VALUES ('2', '学院公告', 'N');
 
 -- ----------------------------
 -- Table structure for t_announcement
@@ -135,51 +152,8 @@ CREATE TABLE `t_announcement` (
 -- ----------------------------
 -- Records of t_announcement
 -- ----------------------------
-INSERT INTO `t_announcement` VALUES ('4028ab864e6d8508014e6d8d6e470000', '输入您的公告内容......', '', 'NC', null, null, 'Y', 'Y', '2015-07-08 20:04:22', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e6dde81014e6de457090000', 'asdf', 'asdf', 'CY', '2015-07-09 09:50:30', '00', 'Y', 'Y', '2015-07-08 21:39:17', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e70e921f00005', '<p>asdfdaxsf</p>', 'dsafasd', 'CY', '2015-07-09 14:05:34', '00', 'Y', 'Y', '2015-07-09 11:43:23', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e716b9db90006', '<p>sdfasdfdsfsdaf</p>', 'sdafdasf', 'CY', '2015-07-09 14:07:50', '00', 'Y', 'Y', '2015-07-09 14:05:54', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e717ac6880007', '<p>sadfdasf</p>', 'dsaf', 'CY', '2015-07-09 14:22:48', '00', 'N', 'Y', '2015-07-09 14:22:28', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e717afb400008', '<p>asdfdasf</p>', 'dsafdasf', 'CY', '2015-07-09 14:22:46', '00', 'N', 'Y', '2015-07-09 14:22:41', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e717d970b0009', '<p>asdfdsaf</p>', 'dsaf', 'CY', '2015-07-09 15:07:37', '00', 'N', 'Y', '2015-07-09 14:25:32', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e718fc9014e71a437280002', '<p>asdfdsaf</p>', 'sdaf', 'CY', '2015-07-09 15:07:47', '00', 'N', 'Y', '2015-07-09 15:07:44', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e718fc9014e71d1fbd4000d', '<p>asdfasdf</p>', 'sdafasd', 'CY', '2015-07-09 15:57:47', '00', 'N', 'Y', '2015-07-09 15:57:43', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('8a7d2c914e569ca0014e56bd6c590000', '输入您的公告内容......', '1111111', 'CN', '2015-07-06 18:12:30', '00', 'N', 'Y', '2015-07-04 09:45:31', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62b14d2f0006', '输入您的公告内容......', '1212131', 'CY', null, null, 'Y', 'Y', '2015-07-06 17:27:44', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62b65dba0007', '输入您的公告内容......', '121', 'CY', null, null, 'N', 'Y', '2015-07-06 17:33:16', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62b7722d0008', '输入您的公告内容......', '123', 'CY', null, null, 'N', 'Y', '2015-07-06 17:34:26', '05', '04', null, 'commontea');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62b7f9e20009', '213', '123', 'CY', null, null, 'N', 'Y', '2015-07-06 17:35:01', '03', '03', '2', 'College');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62c37106000a', '输入您的公告内容......', '123', 'CY', null, null, 'N', 'Y', '2015-07-06 17:47:32', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62d3d1b2000b', '输入您的公告内容......', '121', 'CY', null, null, 'N', 'Y', '2015-07-06 18:05:26', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62d4cb84000c', '输入您的公告内容......', '2131', 'CY', null, null, 'N', 'Y', '2015-07-06 18:06:30', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62d78305000d', '输入您的公告内容......', '123', 'CY', null, null, 'N', 'Y', '2015-07-06 18:09:28', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62d857ea000e', '输入您的公告内容......', '', 'CY', null, null, 'N', 'Y', '2015-07-06 18:10:22', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e1796b0000', '输入您的公告内容......', '123', 'CY', null, null, 'N', 'Y', '2015-07-06 18:20:21', '06', '08', null, 'student');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e21d910001', '输入您的公告内容......', '12321', 'CY', null, null, 'N', 'Y', '2015-07-06 18:21:03', '05', '04', null, 'commontea');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e28c750002', '输入您的公告内容......', '121', 'CY', null, null, 'N', 'Y', '2015-07-06 18:21:31', '03', '03', '2', 'College');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e3072e0003', '输入您的公告内容......', 'ttt', 'CY', null, null, 'N', 'Y', '2015-07-06 18:22:03', '03', '03', '2', 'College');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e3a0150005', '输入您的公告内容......', '212', 'CY', null, null, 'N', 'Y', '2015-07-06 18:22:42', '02', '02', '2', 'coll1');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e415de0006', '输入您的公告内容......', 'eeerrr', 'CY', '2015-07-06 18:24:10', '00', 'N', 'Y', '2015-07-06 18:23:12', '01', '01', '1', 'jwc1');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62e120014e62e49f9b0007', '输入您的公告内容......', '232323223', 'CN', '2015-07-06 18:24:13', '00', 'N', 'Y', '2015-07-06 18:23:47', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e62f266014e62f79a350000', '输入您的公告内容......', 'ewe', 'CN', '2015-07-06 18:44:43', '00', 'N', 'Y', '2015-07-06 18:44:31', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('8a7df19e4e6b296a014e6b29dcab0000', '输入您的公告内容......', 'ew', 'CY', null, null, 'N', 'Y', '2015-07-08 08:56:22', '03', '03', '2', 'College');
-
--- ----------------------------
--- Table structure for t_announ_type
--- ----------------------------
-DROP TABLE IF EXISTS `t_announ_type`;
-CREATE TABLE `t_announ_type` (
-  `announ_type_id` varchar(36) NOT NULL,
-  `announ_type_name` varchar(100) DEFAULT NULL,
-  `isdeleted` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`announ_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_announ_type
--- ----------------------------
-INSERT INTO `t_announ_type` VALUES ('1', '教务处公告', 'N');
-INSERT INTO `t_announ_type` VALUES ('2', '学院公告', 'N');
+INSERT INTO `t_announcement` VALUES ('ff8081814e71e6cf014e7207b51a000a', '<p>content</p>', 'srtp', 'NC', null, null, 'N', 'Y', '2015-07-09 16:56:24', '01', '01', null, 'jwc1');
+INSERT INTO `t_announcement` VALUES ('ff8081814e71e6cf014e7209bede000b', '<p>2</p>', 'srtp2', 'NC', null, null, 'N', 'Y', '2015-07-09 16:58:38', '01', '01', null, 'jwc1');
 
 -- ----------------------------
 -- Table structure for t_attachment
@@ -207,10 +181,6 @@ CREATE TABLE `t_attachment` (
 -- ----------------------------
 -- Records of t_attachment
 -- ----------------------------
-INSERT INTO `t_attachment` VALUES ('8a7d2c914e57be09014e57c86a920001', 'application/msword', '个人简历-朱科潜.doc', '128000.00', '\\..\\..\\UserFile\\个人简历-朱科潜1435991737673.doc', 'N', '8a7d2c914e569ca0014e5703416e0002', null, null, null, '06');
-INSERT INTO `t_attachment` VALUES ('8a7df19e4e61f8aa014e624649590001', 'text/plain', 'SSH进度.txt', '345.00', '\\..\\..\\UserFile\\SSH进度1436167850229.txt', 'N', '8a7d2c914e534546014e534629c70001', null, null, '2', '03');
-INSERT INTO `t_attachment` VALUES ('8a7df19e4e61f8aa014e62479e2a0003', 'text/plain', 'SSH进度.txt', '345.00', '\\..\\..\\UserFile\\SSH进度1436167937570.txt', 'N', '8a7df19e4e61f8aa014e62479e270002', null, null, '2', '03');
-INSERT INTO `t_attachment` VALUES ('8a7df19e4e62e120014e62e3079d0004', 'text/plain', 'SSH进度.txt', '345.00', '\\..\\..\\UserFile\\SSH进度1436178122515.txt', 'N', '8a7df19e4e62e120014e62e3072e0003', null, null, '2', '03');
 
 -- ----------------------------
 -- Table structure for t_attchment_type
@@ -274,8 +244,8 @@ INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef0099', 'final/res
 INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00a0', 'statistic/grade', '成绩分布', '查看结题项目的成绩分布');
 INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00a1', 'statistic/index', '指标统计', '可以进行指标统计');
 INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00b0', 'knowledge', '知识库管理', '知识库管理');
-INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e0', 'system/t_authority', '角色权限管理', '管理角色拥有的权限');
-INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e1', 'system/t_role', '用户角色管理', '管理用户所属的角色');
+INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e0', 'system/authority', '角色权限管理', '管理角色拥有的权限');
+INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e1', 'system/role', '用户角色管理', '管理用户所属的角色');
 INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e2', 'system/user', '用户信息维护', '可以进行用户信息维护');
 INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e3', 'system/period', '届期管理', '管理当前所在届期');
 INSERT INTO `t_authority` VALUES ('4028ab864e54db0c014e54db7bef00e4', 'system/journal', '日志管理', '可以查看日志');
@@ -316,64 +286,6 @@ CREATE TABLE `t_credit` (
 -- ----------------------------
 -- Records of t_credit
 -- ----------------------------
-
--- ----------------------------
--- Table structure for t_declaration
--- ----------------------------
-DROP TABLE IF EXISTS `t_declaration`;
-CREATE TABLE `t_declaration` (
-  `declar_id` varchar(36) NOT NULL,
-  `check_state` varchar(2) DEFAULT NULL,
-  `decl_time` datetime DEFAULT NULL,
-  `end_on` datetime DEFAULT NULL,
-  `exp_result` varchar(500) DEFAULT NULL,
-  `exp_target` varchar(500) DEFAULT NULL,
-  `inno_point` varchar(1000) DEFAULT NULL,
-  `isdeleted` varchar(1) DEFAULT NULL,
-  `lab_level` varchar(20) DEFAULT NULL,
-  `lab_name` varchar(50) DEFAULT NULL,
-  `member_amount` int(11) DEFAULT NULL,
-  `pro_adv` varchar(1000) DEFAULT NULL,
-  `PRO_FUND` double DEFAULT NULL,
-  `pro_intro` varchar(500) DEFAULT NULL,
-  `pro_name` varchar(50) DEFAULT NULL,
-  `pro_plan` varchar(1000) DEFAULT NULL,
-  `pro_serial` varchar(30) DEFAULT NULL,
-  `PRO_TYPE` varchar(2) DEFAULT NULL,
-  `res_condition` varchar(1000) DEFAULT NULL,
-  `res_content` varchar(1000) DEFAULT NULL,
-  `res_program` varchar(1000) DEFAULT NULL,
-  `REVIEW_OPINION` varchar(500) DEFAULT NULL,
-  `REVIEW_RESULT` varchar(2) DEFAULT NULL,
-  `start_on` datetime DEFAULT NULL,
-  `jq_id` varchar(36) DEFAULT NULL,
-  `leader_code` varchar(36) DEFAULT NULL,
-  `member1_code` varchar(36) DEFAULT NULL,
-  `member2_code` varchar(36) DEFAULT NULL,
-  `teacher1_code` varchar(36) DEFAULT NULL,
-  `teacher2_code` varchar(36) DEFAULT NULL,
-  `college` varchar(36) DEFAULT NULL,
-  PRIMARY KEY (`declar_id`),
-  KEY `FK_c5jxvlwwb7jph80ur0cgwsmx3` (`jq_id`),
-  KEY `FK_nouy120olsqyf15mosqr8k6yt` (`leader_code`),
-  KEY `FK_k6qd7d9guspi87bcs46kk5rg3` (`member1_code`),
-  KEY `FK_1940k2p08vcim5jptl3ntoeyr` (`member2_code`),
-  KEY `FK_bj4wib541sebl6v0ghyqtls7v` (`teacher1_code`),
-  KEY `FK_8i31ktexp4oywwt0rydlyop51` (`teacher2_code`),
-  KEY `FK_8lyc76ssowymcrrsusg6ukx89` (`college`),
-  CONSTRAINT `FK_1940k2p08vcim5jptl3ntoeyr` FOREIGN KEY (`member2_code`) REFERENCES `t_student` (`student_id`),
-  CONSTRAINT `FK_8i31ktexp4oywwt0rydlyop51` FOREIGN KEY (`teacher2_code`) REFERENCES `t_teacher` (`tea_id`),
-  CONSTRAINT `FK_8lyc76ssowymcrrsusg6ukx89` FOREIGN KEY (`college`) REFERENCES `t_unit` (`unit_id`),
-  CONSTRAINT `FK_bj4wib541sebl6v0ghyqtls7v` FOREIGN KEY (`teacher1_code`) REFERENCES `t_teacher` (`tea_id`),
-  CONSTRAINT `FK_c5jxvlwwb7jph80ur0cgwsmx3` FOREIGN KEY (`jq_id`) REFERENCES `t_jieqi` (`jq_id`),
-  CONSTRAINT `FK_k6qd7d9guspi87bcs46kk5rg3` FOREIGN KEY (`member1_code`) REFERENCES `t_student` (`student_id`),
-  CONSTRAINT `FK_nouy120olsqyf15mosqr8k6yt` FOREIGN KEY (`leader_code`) REFERENCES `t_student` (`student_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_declaration
--- ----------------------------
-INSERT INTO `t_declaration` VALUES ('8a7d2c914e569ca0014e5703416e0002', '03', '2015-07-04 14:35:57', '2015-07-11 00:00:00', '', '', '', 'N', '01', '111', '11', '', '1', '', '11', '', '2015-1-1001', '01', '', '', '', '   ', null, '2015-07-04 00:00:00', '1', '06', null, null, '05', null, '1');
 
 -- ----------------------------
 -- Table structure for t_decl_comment
@@ -436,6 +348,64 @@ CREATE TABLE `t_decl_job` (
 -- ----------------------------
 -- Records of t_decl_job
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_declaration
+-- ----------------------------
+DROP TABLE IF EXISTS `t_declaration`;
+CREATE TABLE `t_declaration` (
+  `declar_id` varchar(36) NOT NULL,
+  `check_state` varchar(2) DEFAULT NULL,
+  `decl_time` datetime DEFAULT NULL,
+  `end_on` datetime DEFAULT NULL,
+  `exp_result` varchar(500) DEFAULT NULL,
+  `exp_target` varchar(500) DEFAULT NULL,
+  `inno_point` varchar(1000) DEFAULT NULL,
+  `isdeleted` varchar(1) DEFAULT NULL,
+  `lab_level` varchar(20) DEFAULT NULL,
+  `lab_name` varchar(50) DEFAULT NULL,
+  `member_amount` int(11) DEFAULT NULL,
+  `pro_adv` varchar(1000) DEFAULT NULL,
+  `PRO_FUND` double DEFAULT NULL,
+  `pro_intro` varchar(500) DEFAULT NULL,
+  `pro_name` varchar(50) DEFAULT NULL,
+  `pro_plan` varchar(1000) DEFAULT NULL,
+  `pro_serial` varchar(30) DEFAULT NULL,
+  `PRO_TYPE` varchar(2) DEFAULT NULL,
+  `res_condition` varchar(1000) DEFAULT NULL,
+  `res_content` varchar(1000) DEFAULT NULL,
+  `res_program` varchar(1000) DEFAULT NULL,
+  `REVIEW_OPINION` varchar(500) DEFAULT NULL,
+  `REVIEW_RESULT` varchar(2) DEFAULT NULL,
+  `start_on` datetime DEFAULT NULL,
+  `jq_id` varchar(36) DEFAULT NULL,
+  `leader_code` varchar(36) DEFAULT NULL,
+  `member1_code` varchar(36) DEFAULT NULL,
+  `member2_code` varchar(36) DEFAULT NULL,
+  `teacher1_code` varchar(36) DEFAULT NULL,
+  `teacher2_code` varchar(36) DEFAULT NULL,
+  `college` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`declar_id`),
+  KEY `FK_c5jxvlwwb7jph80ur0cgwsmx3` (`jq_id`),
+  KEY `FK_nouy120olsqyf15mosqr8k6yt` (`leader_code`),
+  KEY `FK_k6qd7d9guspi87bcs46kk5rg3` (`member1_code`),
+  KEY `FK_1940k2p08vcim5jptl3ntoeyr` (`member2_code`),
+  KEY `FK_bj4wib541sebl6v0ghyqtls7v` (`teacher1_code`),
+  KEY `FK_8i31ktexp4oywwt0rydlyop51` (`teacher2_code`),
+  KEY `FK_8lyc76ssowymcrrsusg6ukx89` (`college`),
+  CONSTRAINT `FK_1940k2p08vcim5jptl3ntoeyr` FOREIGN KEY (`member2_code`) REFERENCES `t_student` (`student_id`),
+  CONSTRAINT `FK_8i31ktexp4oywwt0rydlyop51` FOREIGN KEY (`teacher2_code`) REFERENCES `t_teacher` (`tea_id`),
+  CONSTRAINT `FK_8lyc76ssowymcrrsusg6ukx89` FOREIGN KEY (`college`) REFERENCES `t_unit` (`unit_id`),
+  CONSTRAINT `FK_bj4wib541sebl6v0ghyqtls7v` FOREIGN KEY (`teacher1_code`) REFERENCES `t_teacher` (`tea_id`),
+  CONSTRAINT `FK_c5jxvlwwb7jph80ur0cgwsmx3` FOREIGN KEY (`jq_id`) REFERENCES `t_jieqi` (`jq_id`),
+  CONSTRAINT `FK_k6qd7d9guspi87bcs46kk5rg3` FOREIGN KEY (`member1_code`) REFERENCES `t_student` (`student_id`),
+  CONSTRAINT `FK_nouy120olsqyf15mosqr8k6yt` FOREIGN KEY (`leader_code`) REFERENCES `t_student` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_declaration
+-- ----------------------------
+INSERT INTO `t_declaration` VALUES ('8a7d2c914e569ca0014e5703416e0002', '03', '2015-07-04 14:35:57', '2015-07-11 00:00:00', '', '', '', 'N', '01', '111', '11', '', '1', '', '11', '', '2015-1-1001', '01', '', '', '', '   ', null, '2015-07-04 00:00:00', '1', '06', null, null, '05', null, '1');
 
 -- ----------------------------
 -- Table structure for t_email
@@ -981,7 +951,8 @@ INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0034', '学院主管�
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0035', '学院领导', '学院领导');
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0036', '评审教师', '可以进行项目评审');
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0037', '教务处', '可以进行届期管理，统计分析');
-INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0038', '管理员', '拥有管理权限，可以执行系统内所有操作');
+INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0038', '管理', '拥有管理权限，可以执行系统内所有操作');
+INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0039', '教务处领导', '我是领导');
 
 -- ----------------------------
 -- Table structure for t_role_authority
@@ -1113,6 +1084,26 @@ INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0099', '4028
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0100', '4028ab864e54db0c014e54db7bef0038', '4028ab864e54db0c014e54db7bef00e4');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0101', '4028ab864e54db0c014e54db7bef0038', '4028ab864e54db0c014e54db7bef00f0');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0102', '4028ab864e54db0c014e54db7bef0036', '4028ab864e54db0c014e54db7bef0070');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0103', '4028ab864e54db0c014e54db7bef0030', '4028ab864e54db0c014e54db7bef0061');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0104', '4028ab864e54db0c014e54db7bef0030', '4028ab864e54db0c014e54db7bef0071');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0105', '4028ab864e54db0c014e54db7bef0033', '4028ab864e54db0c014e54db7bef0080');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0106', '4028ab864e54db0c014e54db7bef0034', '4028ab864e54db0c014e54db7bef0098');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0107', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0061');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0108', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0064');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0109', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0072');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0110', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0081');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0111', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0091');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0112', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0094');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0113', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0097');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0114', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef0098');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0115', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00a1');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0116', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00a0');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0117', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00e2');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0118', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00e0');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0119', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00e1');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0120', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00e4');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0121', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00e3');
+INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0122', '4028ab864e54db0c014e54db7bef0039', '4028ab864e54db0c014e54db7bef00f0');
 
 -- ----------------------------
 -- Table structure for t_student
@@ -1183,12 +1174,13 @@ CREATE TABLE `t_teacher` (
 -- ----------------------------
 -- Records of t_teacher
 -- ----------------------------
-INSERT INTO `t_teacher` VALUES ('00', 'N', '1191482087@qq.com', null, '00', null, 'jwc0', null, '1', null, null, null, '1', '1');
+INSERT INTO `t_teacher` VALUES ('00', 'N', '1191482087@qq.com', null, '11', null, 'jwc0', null, '1', null, null, null, '1', '1');
 INSERT INTO `t_teacher` VALUES ('01', 'N', '1191482087@qq.com', null, '01', null, 'jwc1', null, '1', null, null, null, '1', '1');
 INSERT INTO `t_teacher` VALUES ('02', 'N', '1191482087@qq.com', null, '02', null, 'col2', null, '1', null, null, null, '1', '1');
 INSERT INTO `t_teacher` VALUES ('03', 'N', '1191482087@qq.com', null, '03', null, 'col3', null, '0', null, null, null, '1', '1');
 INSERT INTO `t_teacher` VALUES ('04', 'N', '1191482087@qq.com', null, '04', null, 'pinshen', null, '0', null, null, null, '1', '1');
 INSERT INTO `t_teacher` VALUES ('05', 'N', '1191482087@qq.com', null, '05', null, 'commontea', null, '0', null, null, null, '1', '1');
+INSERT INTO `t_teacher` VALUES ('06', 'N', '1191482087@qq.com', null, '00', null, 'jwcl', null, '0', null, null, null, '1', '1');
 
 -- ----------------------------
 -- Table structure for t_temp_email_reciver
@@ -1265,14 +1257,15 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('00', 'N', null, 'jwc0', '123', 'YY', '4028ab864e54db0c014e54db7bef0038', null, '00', '0@qq.com');
+INSERT INTO `t_user` VALUES ('00', 'N', null, 'jwcl', '123', 'YY', '4028ab864e54db0c014e54db7bef0039', null, '00', '11@qq.com');
 INSERT INTO `t_user` VALUES ('01', 'N', null, 'jwc1', '123', 'YY', '4028ab864e54db0c014e54db7bef0037', null, '01', '1@qq.com');
-INSERT INTO `t_user` VALUES ('02', 'N', null, 'coll1', '123', 'YY', '4028ab864e54db0c014e54db7bef0035', null, '02', '2@qq.com');
-INSERT INTO `t_user` VALUES ('03', 'N', null, 'College', '123', 'YY', '4028ab864e54db0c014e54db7bef0034', '03', '03', '3@qq.com');
+INSERT INTO `t_user` VALUES ('02', 'N', null, 'cll', '123', 'YY', '4028ab864e54db0c014e54db7bef0035', null, '02', '2@qq.com');
+INSERT INTO `t_user` VALUES ('03', 'N', null, 'clt', '123', 'YY', '4028ab864e54db0c014e54db7bef0034', '03', '03', '3@qq.com');
 INSERT INTO `t_user` VALUES ('04', 'N', null, 'ps', '123', 'YY', '4028ab864e54db0c014e54db7bef0036', '04', '04', '4@qq.com');
-INSERT INTO `t_user` VALUES ('05', 'N', null, 'commontea', '123', 'YY', '4028ab864e54db0c014e54db7bef0033', '04', '04', '5@qq.com');
+INSERT INTO `t_user` VALUES ('05', 'N', null, 'ct', '123', 'YY', '4028ab864e54db0c014e54db7bef0033', '05', '05', '5@qq.com');
 INSERT INTO `t_user` VALUES ('06', 'N', null, 'stu1', '123', 'YY', '4028ab864e54db0c014e54db7bef0030', null, '06', '6@qq.com');
 INSERT INTO `t_user` VALUES ('07', 'N', null, 'stu2', '123', 'YY', '4028ab864e54db0c014e54db7bef0031', null, '07', '7@qq.com');
 INSERT INTO `t_user` VALUES ('08', 'N', null, 'stu3', '123', 'YY', '4028ab864e54db0c014e54db7bef0032', null, '08', '8@qq.com');
 INSERT INTO `t_user` VALUES ('09', 'N', null, 'stu4', '123', 'YY', '4028ab864e54db0c014e54db7bef0030', null, '06', '9@qq.com');
 INSERT INTO `t_user` VALUES ('10', 'N', null, 'stu5', '123', 'YY', '4028ab864e54db0c014e54db7bef0030', null, '06', '10@qq.com');
+INSERT INTO `t_user` VALUES ('11', 'N', null, 'jwc0', '123', 'YY', '4028ab864e54db0c014e54db7bef0038', null, '00', '0@qq.com');

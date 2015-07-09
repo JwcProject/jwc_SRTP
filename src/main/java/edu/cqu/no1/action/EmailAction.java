@@ -30,7 +30,7 @@ public class EmailAction extends BaseAction {
 
     private String sendResult;
 
-    
+
     @Action(value = "sendEmail", results = {
             @Result(name = "success", type = "json", params = {"root", "sendResult"}),
             @Result(name = "error", type = "json", params = {"root", "sendResult"}),
