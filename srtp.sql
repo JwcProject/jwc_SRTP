@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50543
 File Encoding         : 65001
 
-Date: 2015-07-09 18:13:13
+Date: 2015-07-09 20:59:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -125,6 +125,8 @@ CREATE TABLE `t_announ_type` (
 -- ----------------------------
 INSERT INTO `t_announ_type` VALUES ('1', '教务处公告', 'N');
 INSERT INTO `t_announ_type` VALUES ('2', '学院公告', 'N');
+INSERT INTO `t_announ_type` VALUES ('3', '学生公告', 'N');
+INSERT INTO `t_announ_type` VALUES ('4', '教师公告', 'N');
 
 -- ----------------------------
 -- Table structure for t_announcement
@@ -152,8 +154,7 @@ CREATE TABLE `t_announcement` (
 -- ----------------------------
 -- Records of t_announcement
 -- ----------------------------
-INSERT INTO `t_announcement` VALUES ('ff8081814e71e6cf014e7207b51a000a', '<p>content</p>', 'srtp', 'NC', null, null, 'N', 'Y', '2015-07-09 16:56:24', '01', '01', null, 'jwc1');
-INSERT INTO `t_announcement` VALUES ('ff8081814e71e6cf014e7209bede000b', '<p>2</p>', 'srtp2', 'NC', null, null, 'N', 'Y', '2015-07-09 16:58:38', '01', '01', null, 'jwc1');
+INSERT INTO `t_announcement` VALUES ('ff8081814e72b2e4014e72e15af40012', '<p>输入您的公告内容......</p>', 'stu1', 'CY', null, null, 'N', 'Y', '2015-07-09 20:53:40', '06', '06', '3', 'stu1');
 
 -- ----------------------------
 -- Table structure for t_attachment
@@ -950,7 +951,7 @@ INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0033', '教师', '普�
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0034', '学院主管教师', '学院主管教师');
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0035', '学院领导', '学院领导');
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0036', '评审教师', '可以进行项目评审');
-INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0037', '教务处', '可以进行届期管理，统计分析');
+INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0037', '教务处主管教师', '可以进行届期管理，统计分析');
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0038', '管理', '拥有管理权限，可以执行系统内所有操作');
 INSERT INTO `t_role` VALUES ('4028ab864e54db0c014e54db7bef0039', '教务处领导', '我是领导');
 
@@ -1031,7 +1032,6 @@ INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef003e', '4028
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef003f', '4028ab864e54db0c014e54db7bef0036', '4028ab864e54db0c014e54db7bef00f0');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0040', '4028ab864e54db0c014e54db7bef0037', '4028ab864e54db0c014e54db7bef0060');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0041', '4028ab864e54db0c014e54db7bef0037', '4028ab864e54db0c014e54db7bef0061');
-INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0044', '4028ab864e54db0c014e54db7bef0037', '4028ab864e54db0c014e54db7bef0064');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0045', '4028ab864e54db0c014e54db7bef0037', '4028ab864e54db0c014e54db7bef0072');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0046', '4028ab864e54db0c014e54db7bef0037', '4028ab864e54db0c014e54db7bef007a');
 INSERT INTO `t_role_authority` VALUES ('4028ab864e54db0c014e54db7bef0047', '4028ab864e54db0c014e54db7bef0037', '4028ab864e54db0c014e54db7bef0081');

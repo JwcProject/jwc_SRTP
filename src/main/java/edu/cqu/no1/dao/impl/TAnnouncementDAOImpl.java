@@ -94,7 +94,7 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
         log.debug("find TAnnouncement by type");
         try {
             String hql = "from TAnnouncement ta where ta.isdeleted = 'N' and ta.publishState = 'Y'" +
-                    " and ta.TAnnounType.announTypeName like :tName";
+                    " and ta.checkState = 'CY' and ta.TAnnounType.announTypeName like :tName";
             if (null != announTitle && !announTitle.trim().equals("")) {
                 hql += " and ta.announTitle like :announTitle";
             }
@@ -273,8 +273,10 @@ public class TAnnouncementDAOImpl extends BaseDaoImpl<TAnnouncement> implements 
             if (null != announDate && !announDate.toString().trim().equals("")) {
                 hql += " and ta.publishTime between :aDate and :aDate + 1";
             }
-            hql += " and ta.publisherCode=:code or ta.publisherCode in" +
-                    "(select studentNumber from TStudent where TUnit = (select TUnit from TTeacher where teaCode = :code)))";
+            hql += " and ta.publisherCode in" +
+                    " (select teaCode from TTeacher where TUnit = (select TUnit from TTeacher where teaCode = :code))" +
+                    " or ta.publisherCode in" +
+                    " (select studentNumber from TStudent where TUnit = (select TUnit from TTeacher where teaCode = :code)))";
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);
             query.setString("code", teaCode);
             if (null != announName && !announName.trim().equals("")) {
