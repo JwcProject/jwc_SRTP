@@ -169,14 +169,18 @@
 
       var $nav_a = $('.nav-list > li > a[href="#' + url + '"]');
       var $submenu_a = $('.nav-list  .submenu > li > a[href="#' + url + '"]');
+      var str1 = '';
+      var str2 = '';
       //根据地址判断选中层级
       //选中.nav-list下的li
       if ($nav_a.size() != 0) {
         $nav_a.parent().addClass('active');
 
+        str1 = $nav_a.parent().text().split(/\s+/)[1];
+
         $('.breadcrumb').append(
                 '<li>' +
-                $nav_a.parent().text().split(/\s+/)[1] +
+                str1 +
                 '</li>'
         );
       }
@@ -184,17 +188,20 @@
       else {
         $submenu_a.parent().addClass('active')
                 .parent().parent().addClass('active').addClass('open');
-
+        str1 = $submenu_a.parent().parent().parent().text().split(/\s+/)[1];
+        str2 = $submenu_a.parent().text().split(/\s+/)[1];
         $('.breadcrumb').append(
-                '<li>' +
-                $submenu_a.parent().parent().parent().text().split(/\s+/)[1] +
+                '<li>' + str1 +
                 '</li>'
         ).append(
-                '<li>' +
-                $submenu_a.parent().text().split(/\s+/)[1] +
+                '<li>' + str1 +
                 '</li>'
         );
       }
+
+      var path = $('.breadcrumb').text().replace(/ /g, '>');
+      window.document.title = '重庆大学SRTP协作管理平台 >> ' + str1 + " >> " + str2;
+
 
       var map = {
         'announcement/mine': 'sortUserAnnouncement',
@@ -236,7 +243,7 @@
         'system/journal': 'ListJournal',
         'user/modify': 'findUserInfo'
       };
-      if (map[url] != "#") {
+      if (url.indexOf('javascript') < 0 && map[url] != "#") {
         $.ajax({
           method: 'get',
           url: '<%=basePath%>' + map[url],
@@ -246,17 +253,19 @@
             if (typeof(data) == "string") {
               $('div.content-body').html(data);
               $('div.content-body a').click(function (event) {
-                event.preventDefault();
-                $.ajax({
-                  method: 'get',
-                  url: $(this).attr('href'),
-                  success: function (data) {
-                    $('div.content-body').html(data);
-                  },
-                  error: function () {
-                    $('div.content-body').html('数据库错误，请稍后再试');
+                  event.preventDefault();
+                  if ($(this).attr('href').indexOf('javascript') < 0) {
+                    $.ajax({
+                      method: 'get',
+                      url: $(this).attr('href'),
+                      success: function (data) {
+                        $('div.content-body').html(data);
+                      },
+                      error: function () {
+                        $('div.content-body').html('数据库错误，请稍后再试');
+                      }
+                    });
                   }
-                });
 
                 //TODO: form
               });
@@ -276,7 +285,24 @@
 
     window.onhashchange();
   })
-
+$(function(){
+  $('div.content-body a').click(function (event) {
+    event.preventDefault();
+    if ($(this).attr('href').indexOf('javascript') < 0) {
+      $.ajax({
+        method: 'get',
+        url: $(this).attr('href'),
+        success: function (data) {
+          $('div.content-body').html(data);
+        },
+        error: function () {
+          $('div.content-body').html('数据库错误，请稍后再试');
+        }
+      });
+    }
+    //TODO: form
+  });
+})
 </script>
 <decortor:head/>
 

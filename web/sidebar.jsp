@@ -72,7 +72,7 @@
           if (authority.getPath().equals("announcement/mine")) {
         %>
         <li class="active">
-          <a href="#announcement/mine"><i class="menu-icon fa fa-caret-right"></i>我的公告<span class="badge badge-primary">5</span></a>
+          <a href="#announcement/mine"><i class="menu-icon fa fa-caret-right"></i>我的公告</a>
 
           <b class="arrow"></b>
         </li>
