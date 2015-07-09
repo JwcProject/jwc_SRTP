@@ -9,18 +9,17 @@
 
 <div id="maincontent" class="h645">
     <s:form action="/sendEmail" method="post" name="queyForm" id="emailForm">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <table class="table table-striped table-bordered table-hover">
+                <h3 class="header smaller lighter blue">
+                    组织评审
+                </h3>
             <tr>
                 <td width="88%" valign="top"
                     style="padding-top: 10px; padding-left: 5px;"
                     style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
                     <div class="midbox" id="midbox">
 
-                        <div class="midbox_gg">
-                            <div class="zzps">
-                                组织评审
-                            </div>
-                        </div>
+
 
                         <table style="font-size: 16px">
                             <tr style="height:30px"></tr>

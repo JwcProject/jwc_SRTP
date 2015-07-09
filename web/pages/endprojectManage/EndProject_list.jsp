@@ -4,16 +4,15 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" bgColor="#ffffff">
+<table class="table table-striped table-bordered table-hover">
+        <h3 class="header smaller lighter blue">结题列表查询</h3>
     <tr>
 
         <!--中间区域-->
         <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc"
             bordercolor="#f4f3f1">
             <div class="midbox">
-                <div class="midbox_gg">
-                    <div class="sblb">结题列表查询</div>
-                </div>
+
                 <s:form action="" name="searchEndProjectForm" id="searchEndProjectForm" method="post">
                     <div class="xia_left">
                         <ul>
@@ -31,7 +30,7 @@
                                 <li>
                                     <p>学院<s:select cssClass="select_sq" list="colleges" listKey="unitId"
                                                    listValue="unitName" name="properties.unitId" theme="simple"
-                                                   cssStyle="width:100px;">
+                                                   >
                                     </s:select>
                                     </p>
                                 </li>
@@ -40,20 +39,20 @@
                                 <li>
                                     <p>专业<s:select cssClass="select_sq" list="professions" listKey="professionId"
                                                    listValue="professionName" name="properties.professionId"
-                                                   theme="simple" cssStyle="width:100px;"></s:select>
+                                                   theme="simple"></s:select>
 
                                     </p>
                                 </li>
                             </s:if>
                             <li>
                                 <p>申报人学号
-                                    <s:textfield name="properties.studentNumber" cssStyle="width: 80px;"
+                                    <s:textfield name="properties.studentNumber"
                                                  theme="simple"/>
                                 </p>
                             </li>
                             <li>
                                 <p>项目名称
-                                    <s:textfield name="properties.projectName" cssStyle="width: 80px;" theme="simple"/>
+                                    <s:textfield name="properties.projectName" theme="simple"/>
                                 </p>
                             </li>
                             <s:if test="%{user.userType =='01'}">
@@ -76,28 +75,26 @@
                         </ul>
                     </div>
 
-                    <div class="xia_right_sq" style="left: 1005px">
+                    <div class="xia_right_sq">
                         <a href="javascript:void(0);" onclick="searchEndprojects();"><img
                                 src="<%=path%>/images/gonggaoweihu_icon1.gif" alt="查询"/></a></div>
                 </s:form>
                 <div class="xia_list">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0"
-                           style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                           align="left">
+                    <table class="table table-striped table-bordered table-hover">
                         <s:if test="%{user.userType =='00' || user.userType =='01'}">
-                            <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
-                                <td bgcolor="#FFFFFF" width="18%"> |项目名称</td>
-                                <td bgcolor="#FFFFFF" width="7%"> |申报人</td>
-                                <td bgcolor="#FFFFFF" width="7%"> |学号</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |所属学院</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |专业</td>
-                                <td bgcolor="#FFFFFF" width="7%"> |结题时间</td>
-                                <td bgcolor="#FFFFFF" width="7%"> |期次</td>
-                                <td bgcolor="#FFFFFF" width="7%"> |结题状态</td>
-                                <td bgcolor="#FFFFFF" width="7%"> |成绩</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |二次评审成绩</td>
-                                <td bgcolor="#FFFFFF" width="11%"> |操作</td>
+                            <tr>
+                                <td>项目编号</td>
+                                <td>项目名称</td>
+                                <td>申报人</td>
+                                <td>学号</td>
+                                <td>所属学院</td>
+                                <td>专业</td>
+                                <td>结题时间</td>
+                                <td>期次</td>
+                                <td>结题状态</td>
+                                <td>成绩</td>
+                                <td>二次评审成绩</td>
+                                <td>操作</td>
                             </tr>
                             <s:iterator value="endProjects" id="endProject" status="st">
                                 <s:if test="#st.odd">
@@ -211,17 +208,17 @@
                             </s:iterator>
                         </s:if>
                         <s:if test="%{user.userType =='02' || user.userType =='03'}">
-                            <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
-                                <td bgcolor="#FFFFFF" width="18%"> |项目名称</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |申报人</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |学号</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |专业</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |申请日期</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |结题时间</td>
-                                <td bgcolor="#FFFFFF" width="8%"> |期次</td>
-                                <td bgcolor="#FFFFFF" width="9%"> |结题状态</td>
-                                <td bgcolor="#FFFFFF" width="11%"> |操作</td>
+                            <tr>
+                                <td>项目编号</td>
+                                <td> 项目名称</td>
+                                <td> 申报人</td>
+                                <td> 学号</td>
+                                <td> 专业</td>
+                                <td> 申请日期</td>
+                                <td> 结题时间</td>
+                                <td> 期次</td>
+                                <td> 结题状态</td>
+                                <td> 操作</td>
                             </tr>
                             <s:iterator value="endProjects" id="endProject" status="st">
                                 <s:if test="#st.odd">

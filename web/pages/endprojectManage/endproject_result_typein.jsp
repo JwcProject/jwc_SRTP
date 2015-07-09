@@ -36,7 +36,7 @@
 
                   <li>
                     <p>项目名称:
-                      <s:textfield name="proNaproperty.projectNameme" id="proName" style="width:88px;height:14px"/>
+                      <s:textfield name="proNaproperty.projectNameme" id="proName"/>
                     </p>
                   </li>
 
@@ -49,7 +49,7 @@
                   </li>
                   <li>
                     <p>学号:
-                      <s:textfield name="property.studentNumber" id="studentNumebr" style="width:88px;height:14px"/>
+                      <s:textfield name="property.studentNumber" id="studentNumebr"/>
                     </p>
                   </li>
                   <li>
@@ -67,7 +67,7 @@
                 </ul>
               </div>
             </s:form>
-            <div class="xia_right_sq" style="left: 1005px">
+            <div class="xia_right_sq">
               <img src="images/gonggaoweihu_icon1.gif" alt="查询" onclick="query();"/></div>
 
             <s:form action="" theme="simple" id="resultTypeIn">

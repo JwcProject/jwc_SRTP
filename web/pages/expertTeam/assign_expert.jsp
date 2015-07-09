@@ -163,62 +163,69 @@
                 <!-- 	<div class="xia_x_jg"></div> -->
                 <div id="pager" style="padding-left: 600px;position: relative;">
                 </div>
-
-                <div class="xia_zhuanjia_cj" style="height:200px">
-                  <div class="xia_zj">
-                    <p>专家团队</p>
-
-                    <p><select name="srcList" multiple style="width: 330px;height: 150px;"
-                               ondblclick="move(this.form.srcList,this.form.destList);">
-                      <s:iterator value="expertTeachers" id="expertTeachers">
-                        <option>
-                          <s:property value="#expertTeachers.TTeacher.teaName+'--'"/>
-                          <s:property value="#expertTeachers.TTeacher.teaCode+'--'"/>
-                          <s:property value="#expertTeachers.TTeacher.teaTitle"/>
-                        </option>
-                      </s:iterator>
-                    </select>
-                    </p>
+                <div class="widget-box">
+                  <div class="widget-header widget-header-flat">
+                    <div class="widget-title">分配专家</div>
                   </div>
+                  <div class="widget-body">
+                    <div class="widget-main">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p>专家团队</p>
 
-                  <div class="xia_zj_mid_cj">
-                    <ul>
-                      <li>
-                        <a href="javascript:void(0);"
-                           onclick="move(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
-                           name="B1">
-                          <img src="images/cjzj_anniu1.gif" alt="右" height="26" width="80"/></a>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0);"
-                           onclick="move(getElementsByName('proForm')[0].destList,getElementsByName('proForm')[0].srcList)"
-                           name="B2">
-                          <img src="images/cjzj_anniu2.gif" alt="左" height="26" width="80"/></a>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0);"
-                           onclick="moveall(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
-                           name="B3">
-                          <img src="images/zhuanjia_anniu1.gif" alt="右" height="26" width="80"/></a>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0);"
-                           onclick="moveall(getElementsByName('assignExperts')[0].destList,getElementsByName('assignExperts')[0].srcList)"
-                           name="B4">
-                          <img src="images/zhuanjia_anniu2.gif" alt="左" height="26" width="80"/></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="xia_zj2">
-                    <p>专家分派
-                      <select name="destList" style="width: 330px;height:150px;" multiple
-                              ondblclick="move(this.form.destList,this.form.srcList);">
+                          <p><select name="srcList" multiple style="width: 330px;height: 150px;"
+                                     ondblclick="move(this.form.srcList,this.form.destList);">
+                            <s:iterator value="expertTeachers" id="expertTeachers">
+                              <option>
+                                <s:property value="#expertTeachers.TTeacher.teaName+'--'"/>
+                                <s:property value="#expertTeachers.TTeacher.teaCode+'--'"/>
+                                <s:property value="#expertTeachers.TTeacher.teaTitle"/>
+                              </option>
+                            </s:iterator>
+                          </select>
+                          </p>
+                        </div>
+                        <div class="col-md-2">
+                          <ul style="margin-top: 50px;">
+                            <li>
+                              <a href="javascript:void(0);"
+                                 onclick="move(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
+                                 name="B1">
+                                <img src="images/cjzj_anniu1.gif" alt="右" height="26" width="80"/></a>
+                            </li>
+                            <li>
+                              <a href="javascript:void(0);"
+                                 onclick="move(getElementsByName('proForm')[0].destList,getElementsByName('proForm')[0].srcList)"
+                                 name="B2">
+                                <img src="images/cjzj_anniu2.gif" alt="左" height="26" width="80"/></a>
+                            </li>
+                            <li>
+                              <a href="javascript:void(0);"
+                                 onclick="moveall(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
+                                 name="B3">
+                                <img src="images/zhuanjia_anniu1.gif" alt="右" height="26" width="80"/></a>
+                            </li>
+                            <li>
+                              <a href="javascript:void(0);"
+                                 onclick="moveall(getElementsByName('assignExperts')[0].destList,getElementsByName('assignExperts')[0].srcList)"
+                                 name="B4">
+                                <img src="images/zhuanjia_anniu2.gif" alt="左" height="26" width="80"/></a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-md-5">
+                          <p>专家分派</p>
+                          <p>
+                            <select name="destList" style="width: 330px;height:150px;" multiple
+                                    ondblclick="move(this.form.destList,this.form.srcList);">
 
-                      </select>
-                    </p>
+                            </select>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
               </div>
             </s:form>
             <div class="xia_anniu_zj" style="margin-top: 0px">

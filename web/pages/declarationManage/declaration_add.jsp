@@ -6,15 +6,13 @@
 %>
 
 <div id="maincontent" class="h645" style="height: auto;">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table class="table-striped table-bordered table-hover">
+        <h3 class="header smaller lighter blue">项目申报表</h3>
         <tr>
 
             <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                 style="border:1px solid #dcdcdc" bordercolor="#f4f3f1" style="display:block;overFlow:auto">
                 <div class="midbox" style="height: auto;">
-                    <div class="midbox_gg">
-                        <div class="xmsb">项目申报表</div>
-                    </div>
                     <form id="declarationForm" name="declarationForm" method="post" enctype="multipart/form-data">
                         <div class="xmsb_shang">
 

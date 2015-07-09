@@ -10,34 +10,29 @@
 
   <!--  此处显示 id "maincontent" 的内容-->
   <div id="maincontent" class="h645">
- 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+	  <table class="table table-striped table-bordered table-hover">
+		<h3 class="header smaller lighter blue">个人项目结题列表</h3>
       <tr>
 
         <!--中间区域-->
         <td width="88%" valign="top"  style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc" bordercolor="#f4f3f1"  >
 		<div class="midbox">
-		<div class="midbox_gg">
-		<div class="sblb">个人项目结题列表</div>
-	    </div>
-	   
-		
 		<s:form action="" theme="simple" id="proForm">
 		<div class="xia_list" style="margin-top: 35px">
-		
- <table width="97%" border="0" cellspacing="0" cellpadding="0" style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;" align="left" >
-                                                                                                   
-                      <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-						<td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
-                        <td bgcolor="#FFFFFF" width="25%"> |项目名称 </td>
-                        <td bgcolor="#FFFFFF" width="10%"> |期次 </td>
-                        <td bgcolor="#FFFFFF" width="7%"> |负责人 </td>
-						<td bgcolor="#FFFFFF" width="9%"> |所属学院 </td>
-						<td bgcolor="#FFFFFF" width="9%"> |结题时间 </td>
-						<td bgcolor="#FFFFFF" width="8%"> |结题状态 </td>
-						<td bgcolor="#FFFFFF" width="7%"> |成绩 </td>
-						<td bgcolor="#FFFFFF" width="8%"> |可得学分 </td>						
-						<td bgcolor="#FFFFFF" width="12%"> |操作 </td>                                   
+
+			<table class="table table-striped table-bordered table-hover">
+                      <tr>
+						<td>项目编号</td>
+                        <td> 项目名称 </td>
+                        <td> 期次 </td>
+                        <td> 负责人 </td>
+						<td> 所属学院 </td>
+						<td> 结题时间 </td>
+						<td> 结题状态 </td>
+						<td> 成绩 </td>
+						<td> 可得学分 </td>
+						<td> 操作 </td>
 						 </tr>
 				<s:iterator value="endProjects" id="endProjects" status="stuts"> 
 					<s:if test="#stuts.odd == true">

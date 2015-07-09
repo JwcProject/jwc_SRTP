@@ -115,7 +115,10 @@
 <div id="container">
     <div id="maincontent" class="h645">
 
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <table class="table table-striped table-bordered table-hover">
+            <h3 class="header smaller lighter blue">
+                创建专家团队
+            </h3>
             <tr>
 
                 <td width="88%" valign="top"
@@ -124,16 +127,10 @@
                     <div class="midbox">
                         <s:form action="CreateExpert" method="post"
                                 name="preCreateExpert" id="jiaoshi">
-                            <div class="midbox_gg">
-                                <div class="zjtd">
-                                    创建专家团队
-                                </div>
-                            </div>
-
                             <div class="xia_left">
                                 <ul>
                                     <li>
-                                        <p class="doubleselect">
+                                        <p class="douselect">
                                             请选择年份和期次：
                                             <s:doubleselect label="请选择年份和期次" name="year"
                                                             list="jieQiYears" listKey="yearKey" listValue="yearValue"
@@ -144,80 +141,88 @@
                                 </ul>
                             </div>
 
-                            <div class="xia_right_sq">
-                                <a href="javascript:void(0);" onclick="listHistoryExp()"><img
-                                        src="images/zhuanjia_anniu3.png" alt="历史专家库"/>
-                                </a>
-                            </div>
 
-                            <div class="xia_zhuanjia_cj">
-                                <div class="xia_zj">
-                                    <p>
-                                        学院教师
-                                    </p>
-
-                                    <p>
-                                        <select name="srcList" multiple
-                                                style="width: 330px; height: 150px;"
-                                                ondblclick="move(this.form.srcList,this.form.destList);">
-                                            <s:iterator value="teachers" id="teachers">
-                                                <option>
-                                                    <s:property value="#teachers.teaName+'--'"/>
-                                                    <s:property value="#teachers.teaCode+'--'"/>
-                                                    <s:property value="#teachers.teaTitle"/>
-                                                </option>
-                                            </s:iterator>
-                                        </select>
-                                    </p>
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <div class="widget-title">
+                                        <a href="javascript:void(0);" onclick="listHistoryExp()">历史专家库</a>
+                                    </div>
                                 </div>
 
-                                <div class="xia_zj_mid_cj">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                               onclick="move(getElementsByName('preCreateExpert')[0].srcList,getElementsByName('preCreateExpert')[0].destList)"
-                                               name="B1"> <img src="images/cjzj_anniu1.gif" alt="右"
-                                                               height="26" width="80"/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                               onclick="move(getElementsByName('preCreateExpert')[0].destList,getElementsByName('preCreateExpert')[0].srcList)"
-                                               name="B2"> <img src="images/cjzj_anniu2.gif" alt="左"
-                                                               height="26" width="80"/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                               onclick="moveall(getElementsByName('preCreateExpert')[0].srcList,getElementsByName('preCreateExpert')[0].destList)"
-                                               name="B3"> <img src="images/zhuanjia_anniu1.gif"
-                                                               alt="右" height="26" width="80"/>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"
-                                               onclick="moveall(getElementsByName('preCreateExpert')[0].destList,getElementsByName('preCreateExpert')[0].srcList)"
-                                               name="B4"> <img src="images/zhuanjia_anniu2.gif"
-                                                               alt="左" height="26" width="80"/>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="xia_zj2">
-                                    <p>
-                                        评审专家
-                                        <select name="destList" style="width: 330px; height: 150px;"
-                                                multiple
-                                                ondblclick="move(this.form.destList,this.form.srcList);">
-                                            <s:iterator value="expertTeachers" id="expertTeachers">
-                                                <option>
-                                                    <s:property value="#expertTeachers.TTeacher.teaName+'--'"/>
-                                                    <s:property value="#expertTeachers.TTeacher.teaCode+'--'"/>
-                                                    <s:property value="#expertTeachers.TTeacher.teaTitle"/>
-                                                </option>
-                                            </s:iterator>
-                                        </select>
-                                    </p>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <p>
+                                                    学院教师
+                                                </p>
+
+                                                <p>
+                                                    <select name="srcList" multiple
+                                                            style="width: 330px; height: 150px;"
+                                                            ondblclick="move(this.form.srcList,this.form.destList);">
+                                                        <s:iterator value="teachers" id="teachers">
+                                                            <option>
+                                                                <s:property value="#teachers.teaName+'--'"/>
+                                                                <s:property value="#teachers.teaCode+'--'"/>
+                                                                <s:property value="#teachers.teaTitle"/>
+                                                            </option>
+                                                        </s:iterator>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <ul style="margin-top:50px;">
+                                                    <li>
+                                                        <a href="javascript:void(0);"
+                                                           onclick="move(getElementsByName('preCreateExpert')[0].srcList,getElementsByName('preCreateExpert')[0].destList)"
+                                                           name="B1"> <img src="images/cjzj_anniu1.gif" alt="右"
+                                                                           height="26" width="80"/>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"
+                                                           onclick="move(getElementsByName('preCreateExpert')[0].destList,getElementsByName('preCreateExpert')[0].srcList)"
+                                                           name="B2"> <img src="images/cjzj_anniu2.gif" alt="左"
+                                                                           height="26" width="80"/>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"
+                                                           onclick="moveall(getElementsByName('preCreateExpert')[0].srcList,getElementsByName('preCreateExpert')[0].destList)"
+                                                           name="B3"> <img src="images/zhuanjia_anniu1.gif"
+                                                                           alt="右" height="26" width="80"/>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"
+                                                           onclick="moveall(getElementsByName('preCreateExpert')[0].destList,getElementsByName('preCreateExpert')[0].srcList)"
+                                                           name="B4"> <img src="images/zhuanjia_anniu2.gif"
+                                                                           alt="左" height="26" width="80"/>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <p>
+                                                    评审专家
+                                                </p>
+                                                <p>
+                                                    <select name="destList" style="width: 330px; height: 150px;"
+                                                            multiple
+                                                            ondblclick="move(this.form.destList,this.form.srcList);">
+                                                        <s:iterator value="expertTeachers" id="expertTeachers">
+                                                            <option>
+                                                                <s:property value="#expertTeachers.TTeacher.teaName+'--'"/>
+                                                                <s:property value="#expertTeachers.TTeacher.teaCode+'--'"/>
+                                                                <s:property value="#expertTeachers.TTeacher.teaTitle"/>
+                                                            </option>
+                                                        </s:iterator>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </s:form>
