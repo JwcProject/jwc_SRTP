@@ -7,21 +7,7 @@
             + path + "/";
 %>
 
-<script type="text/javascript">
-    $(function () {
-        $("input:file").MultiFile({
-            accept: 'doc|pdf|docx|txt|html|htm|jpg|jpeg|gif|bmp|rar|xlsx|xls',
-            max: 5,
-            STRING: {
-                remove: '删除',
-                selected: 'Selecionado: $file',
-                denied: '不支持该类型文件上传, $ext!',
-                duplicate: '该文件已经选择:\n$file!'
-            }
-        });
-    });
 
-</script>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <!--中间区域-->
@@ -101,4 +87,21 @@
     });
 
 </script>
+
+<script type="text/javascript">
+//    $(function () {
+//        $("input:file").MultiFile({
+//            accept: 'doc|pdf|docx|txt|html|htm|jpg|jpeg|gif|bmp|rar|xlsx|xls',
+//            max: 5,
+//            STRING: {
+//                remove: '删除',
+//                selected: 'Selecionado: $file',
+//                denied: '不支持该类型文件上传, $ext!',
+//                duplicate: '该文件已经选择:\n$file!'
+//            }
+//        });
+//    });
+
+</script>
+
 
