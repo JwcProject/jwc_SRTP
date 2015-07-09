@@ -194,7 +194,7 @@
     function changePage(pageclickednumber) {
 
 
-        location = "FindTeaPersonalDeclaration?" + $('#queyForm').serialize();
+        sendGetAndSetAjax("FindTeaPersonalDeclaration?" + $('#queyForm').serialize());
     }
 
     function query() {

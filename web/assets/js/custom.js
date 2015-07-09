@@ -15,7 +15,7 @@ function setAjax() {
                     setAjax();
                 },
                 error: function () {
-                    $('div.content-body').html('Êý¾Ý¿â´íÎó£¬ÇëÉÔºóÔÙÊÔ');
+                    $('div.content-body').html('ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½');
                 }
             });
         }
@@ -34,7 +34,7 @@ function setAjax() {
                 setAjax();
             },
             error: function () {
-                $('div.content-body').html('Êý¾Ý¿â´íÎó£¬ÇëÉÔºóÔÙÊÔ');
+                $('div.content-body').html('ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½');
             }
         });
 
@@ -43,7 +43,7 @@ function setAjax() {
 
 /**
  *
- * @param $form form action ÐèÒªÊÇÍêÕûµÄurl
+ * @param $form form action ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½url
  */
 function postFormAndSetAjax($form) {
     $.ajax({
@@ -53,14 +53,40 @@ function postFormAndSetAjax($form) {
         success: function (data) {
             console.log('ajax success!');
 
-            //·µ»ØµÄÊÇÍøÒ³
+            //ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ò³
             if (typeof(data) == "string") {
                 $('div.content-body').html(data);
                 setAjax();
 
                 //TODO: form
             }
-            //·µ»ØµÄÊÇjson
+            //ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½json
+            else {
+                //TODO:
+            }
+        },
+        error: function () {
+            //TODO:
+            throw new Error("service response error");
+        }
+    });
+}
+
+function sendGetAndSetAjax($url) {
+    $.ajax({
+        method: 'get',
+        url: $url,
+        success: function (data) {
+            console.log('ajax success!');
+
+            //ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ò³
+            if (typeof(data) == "string") {
+                $('div.content-body').html(data);
+                setAjax();
+
+                //TODO: form
+            }
+            //ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½json
             else {
                 //TODO:
             }

@@ -219,7 +219,7 @@
         var jqYear = t.options[t.selectedIndex].value;
         var jqQici = s.options[t.selectedIndex].value;
         var profession = r.options[t.selectedIndex].value;
-        location = "QueryResultTypeIn?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumebr=" + studentNumebr + "&profession=" + profession + "&jqYear=" + jqYear + "&jqQici=" + jqQici;
+        sendGetAndSetAjax("QueryResultTypeIn?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumebr=" + studentNumebr + "&profession=" + profession + "&jqYear=" + jqYear + "&jqQici=" + jqQici);
 
     }
 
@@ -251,18 +251,19 @@
                 var jqYear = t.options[t.selectedIndex].value;
                 var jqQici = s.options[t.selectedIndex].value;
                 var profession = r.options[t.selectedIndex].value;
-                location = "QueryResultTypeIn?page=" + page + "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumebr=" + studentNumebr + "&profession=" + profession + "&jqYear=" + jqYear + "&jqQici=" + jqQici;
+
+                sendGetAndSetAjax( "QueryResultTypeIn?page=" + page + "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumebr=" + studentNumebr + "&profession=" + profession + "&jqYear=" + jqYear + "&jqQici=" + jqQici);
             }
         });
     }
 
     function seeForm() {
-        location = "UnitResultAudit";
+        sendGetAndSetAjax("UnitResultAudit");
     }
     //添加评审意见
     function addOpinion(id) {
         alert(id);
-        location = "DeclReviewOpinion?id=" + id;
+        sendGetAndSetAjax("DeclReviewOpinion?id=" + id);
     }
 
     function check() {

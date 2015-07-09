@@ -98,17 +98,18 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 我的申报分类
+     *
      * @return
      * @throws Exception
      */
-    @Action(value = "sortMyDeclaration",results = {
-            @Result(name = "teacher", location = "/ListTeaPersonalDeclaration",type="redirect"),
-            @Result(name = "student", location = "/ListDeclaration",type="redirect")
+    @Action(value = "sortMyDeclaration", results = {
+            @Result(name = "teacher", location = "/ListTeaPersonalDeclaration", type = "redirect"),
+            @Result(name = "student", location = "/ListDeclaration", type = "redirect")
     })
-    public String sortMyDeclaration() throws Exception{
+    public String sortMyDeclaration() throws Exception {
 
-        int role=Integer.parseInt(getSessionUser().getUserType());
-        switch (role){
+        int role = Integer.parseInt(getSessionUser().getUserType());
+        switch (role) {
             case 4:
             case 5:
                 return "teacher";
@@ -123,17 +124,18 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 申报列表分类
+     *
      * @return
      * @throws Exception
      */
-    @Action(value = "sortDeclarationList",results = {
-            @Result(name = "unit", location = "/ListUnitDeclaration",type="redirect"),
-            @Result(name = "dean", location = "/ListSchoolDecl",type="redirect")
+    @Action(value = "sortDeclarationList", results = {
+            @Result(name = "unit", location = "/ListUnitDeclaration", type = "redirect"),
+            @Result(name = "dean", location = "/ListSchoolDecl", type = "redirect")
     })
-    public String sortDeclarationList() throws Exception{
+    public String sortDeclarationList() throws Exception {
 
-        int role=Integer.parseInt(getSessionUser().getUserType());
-        switch (role){
+        int role = Integer.parseInt(getSessionUser().getUserType());
+        switch (role) {
             case 2:
             case 3:
                 return "unit";
@@ -716,6 +718,7 @@ public class DeclarationAction extends BaseAction {
 
     /**
      * 网评
+     *
      * @return
      * @throws Exception
      */
@@ -808,53 +811,46 @@ public class DeclarationAction extends BaseAction {
     }
 
 
-    @Action(value = "SchoolCheck")
-    /**
-     * 教务处主管教师审核申报
-     */
-    public void schoolCheck() {
-        try {
-            String state = checkState;
-            String jqId = this.jieQiService.findDeclJieQiNow().getJqId();
-            if (state.equals("yes")) {
-                for (String project : checkProjects) {
-                    TDeclaration declaration = this.declarationService
-                            .getTDeclaration(project);
-                    // 设置申报的状态为学校审核通过
-                    if (declaration.getCheckState().equals("06")) {
-                        declaration.setCheckState("08");
-                        declaration.setReviewResult("03");
-                        this.declarationService.updateTDeclaration(declaration);
-                    }
-                }
-                //创建项目
-                this.projectService.creatProject(jqId);
-
-            }
-            if (state.equals("no")) {
-                for (String project : checkProjects) {
-                    TDeclaration declaration = this.declarationService
-                            .getTDeclaration(project);
-                    // 设置申报的状态为学校审核不通过
-                    if (declaration.getCheckState().equals("06"))
-                        declaration.setCheckState("07");
-                    declaration.setReviewResult("02");
+    public void schoolCheck() throws Exception {
+        String state = checkState;
+        String jqId = this.jieQiService.findDeclJieQiNow().getJqId();
+        if (state.equals("yes")) {
+            for (String project : checkProjects) {
+                TDeclaration declaration = this.declarationService
+                        .getTDeclaration(project);
+                // 设置申报的状态为学校审核通过
+                if (declaration.getCheckState().equals("06")) {
+                    declaration.setCheckState("08");
+                    declaration.setReviewResult("03");
                     this.declarationService.updateTDeclaration(declaration);
                 }
             }
-        } catch (Exception e) {
+            //创建项目
+            this.projectService.creatProject(jqId);
 
+        }
+        if (state.equals("no")) {
+            for (String project : checkProjects) {
+                TDeclaration declaration = this.declarationService
+                        .getTDeclaration(project);
+                // 设置申报的状态为学校审核不通过
+                if (declaration.getCheckState().equals("06"))
+                    declaration.setCheckState("07");
+                declaration.setReviewResult("02");
+                this.declarationService.updateTDeclaration(declaration);
+            }
         }
     }
 
     /**
-     * 学院领导获取学院主管教师评审通过的申报
+     * 学院领导
      */
-    @Action(value = "UnitResultAudit", results = {
+    @Action(value = "ResultReview", results = {
             @Result(name = "success", location = "/pages/declarationManage/result_audit.jsp"),
+            @Result(name = "deansuccess", type = "redirect", location = "ListSchoolDeclResult"),
             @Result(name = "message", location = "message_info.jsp")
     })
-    public String unitResultAudit() {
+    public String resultReview() {
         try {
             // 主管教师教职工号
             TUser user = getSessionUser();
@@ -863,31 +859,29 @@ public class DeclarationAction extends BaseAction {
             if (user == null || null == tunit) {
                 toLogin();
             }
-            String teaCode = user.getUserId();
-
-
-            // 申报的状态
-            // checkState="05";
-
-            // 获取当前届期
-            TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
-            if (null == jieqi) {
-                messageInfo = "非结果审核时间段";
-                return MESSAGE;
+            if (user.getUserType().equals("01")) {
+                    return "deansuccess";
+            } else {
+                String teaCode = user.getUserId();
+                // 申报的状态
+                // checkState="05";
+                // 获取当前届期
+                TJieqi jieqi = this.jieQiService.findDeclJieQiNow();
+                if (null == jieqi) {
+                    messageInfo = "非结果审核时间段";
+                    return MESSAGE;
+                }
+                getJieQiAndPro(teaCode);
+                this.totalNumber = this.declarationService.getUnitDeclarationCount(teaCode, "03", "05");
+                pageBean = new PageBean(page, totalNumber, pageCapacity);
+                declarations = this.declarationService.getUnitDeclaration(teaCode, "03", "05", pageBean);
+                return SUCCESS;
             }
-
-            getJieQiAndPro(teaCode);
-
-            this.totalNumber = this.declarationService.getUnitDeclarationCount(teaCode, "03", "05");
-            pageBean = new PageBean(page, totalNumber, pageCapacity);
-            declarations = this.declarationService.getUnitDeclaration(teaCode, "03", "05", pageBean);
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e1) {
             return ERROR;
         }
-    }
 
+    }
 
     /**
      * 准备编辑申报

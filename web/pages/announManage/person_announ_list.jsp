@@ -122,7 +122,7 @@
 
         var announTitle = $("#announTitle")[0].value;
         var publishTime = $("#publishTime").datebox("getValue");
-        location = "findStuTeaAnnoun?page=" + pageclickednumber + "&publishTime=" + publishTime + "&announTitle=" + announTitle;
+        sendGetAndSetAjax("findStuTeaAnnoun?page=" + pageclickednumber + "&publishTime=" + publishTime + "&announTitle=" + announTitle);
 
     }
 

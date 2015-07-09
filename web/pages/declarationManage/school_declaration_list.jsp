@@ -196,7 +196,7 @@
         var jqYear = t.options[t.selectedIndex].value;
         var jqQici = s.options[t.selectedIndex].value;
 
-        location = "FindSchoolDeclarationCheck?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&college=" + college + "&jqYear=" + jqYear + "&jqQici=" + jqQici;
+        sendGetAndSetAjax("FindSchoolDeclarationCheck?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&college=" + college + "&jqYear=" + jqYear + "&jqQici=" + jqQici);
 
     }
 
@@ -231,7 +231,7 @@
                 var jqQici = s.options[t.selectedIndex].value;
 //				location="FindSchoolDeclarationCheck?page="+page+"&checkState="+checkState+"&proName="+proName+"&college="+college+"&jqYear="+jqYear+"&jqQici="+jqQici;
 
-                location = "/ListSchoolDecl";
+                sendGetAndSetAjax("/ListSchoolDecl");
             }
         });
     }

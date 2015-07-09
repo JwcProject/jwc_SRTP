@@ -141,7 +141,7 @@
         var announContent = $("#announContent")[0].value;
         var announTitle = $("#announTitle")[0].value;
         var publishTime = $("#publishTime")[0].value;
-        location = "findCommonAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&announContent=" + announContent + "&publishTime=" + publishTime;
+        sendGetAndSetAjax("findCommonAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&announContent=" + announContent + "&publishTime=" + publishTime);
 
     }
 

@@ -128,7 +128,7 @@
 
         var announTitle = $("#announTitle")[0].value;
         var publishTime = $("#publishTime")[0].value;
-        location = "findIndexDeanAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime;
+        sendGetAndSetAjax("findIndexDeanAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime);
 
     }
 

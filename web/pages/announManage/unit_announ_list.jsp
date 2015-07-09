@@ -105,7 +105,7 @@
 
         var announTitle = $("#announTitle")[0].value;
         var publishTime = $("#publishTime")[0].value;
-        location = "findUnitAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime;
+        sendGetAndSetAjax("findUnitAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime);
 
     }
 

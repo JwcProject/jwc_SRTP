@@ -218,7 +218,7 @@
         'declare/expert/distribute': 'PreAssignExpert',
         'declare/review/organize': 'PreOrganizeReview',
         'declare/result/input': 'preDeclResultTypeIn',
-        'declare/result/review': 'UnitResultAudit',
+        'declare/result/review': 'ResultReview',
         'project/mine': 'SortMyProject',
         'project/list': 'SortProjectList',
         'final/mine': 'PreMyEndProjects',

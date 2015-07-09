@@ -265,7 +265,7 @@
          var profession=r.options[t.selectedIndex].value;
          location="QueryResultAudit?page="+pageclickednumber+"&checkState="+checkState+"&proName="+proName+"&proSerial="+proSerial+"&studentNumber="+studentNumber+"&profession="+profession+"&jqYear="+jqYear+"&jqQici="+jqQici;
          */
-        location = "QueryResultAudit?" + $('#queyForm').serialize();
+        sendGetAndSetAjax("QueryResultAudit?" + $('#queyForm').serialize());
     }
 
     function query() {
@@ -304,7 +304,7 @@
                  + "&jqQici=" + jqQici;*/
 //				location = "/QueryResultAudit?"+$('#queyForm').serialize();
 
-                location = "/ListUnitDeclaration";
+                sendGetAndSetAjax("/ListUnitDeclaration");
             }
         });
     }

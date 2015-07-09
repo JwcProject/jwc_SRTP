@@ -206,7 +206,7 @@
         var s = document.getElementsByName("jqQici")[0];
         var jqYear = t.options[t.selectedIndex].value;
         var jqQici = s.options[t.selectedIndex].value;
-        location = "FindSchoolDeclaration?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&college=" + college + "&jqYear=" + jqYear + "&jqQici=" + jqQici;
+        sendGetAndSetAjax("FindSchoolDeclaration?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&college=" + college + "&jqYear=" + jqYear + "&jqQici=" + jqQici);
     }
 
     function query() {

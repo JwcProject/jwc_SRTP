@@ -12,42 +12,6 @@
             theme="simple">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-
-                <!--  左边区域-->
-                <s:if test="null!=#session.user">
-                    <s:if test="%{#session.user.userType == '00'}">
-                        <jsp:include page="../../dean_leader_left.jsp"></jsp:include>
-                    </s:if>
-                    <s:elseif test="%{#session.user.userType == '01'}">
-                        <jsp:include page="../../dean_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '02'}">
-                        <jsp:include page="../../teacher_leader_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '03'}">
-                        <jsp:include page="../../teacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '04'}">
-                        <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '05'}">
-                        <jsp:include page="../../commonTeacher_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '06'}">
-                        <jsp:include page="../../student_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '07'}">
-                        <jsp:include page="../../student_member_left.jsp"></jsp:include>
-                    </s:elseif>
-                    <s:elseif test="%{#session.user.userType == '08'}">
-                        <jsp:include page="../../student_leader_left.jsp"></jsp:include>
-                    </s:elseif>
-                </s:if>
-                <s:else>
-                    <jsp:forward page="../../login.jsp"></jsp:forward>
-                </s:else>
-
-                <!--中间区域-->
                 <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                     style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
                     <div class="midbox">

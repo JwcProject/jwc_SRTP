@@ -123,7 +123,7 @@
         var checkState = $("#checkState")[0].value;
         var publisherName = $("#publisherName")[0].value;
         var announTypeName = $("#announTypeName")[0].value;
-        location = "findSchoolAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime + "&checkState=" + checkState + "&publisherName=" + publisherName + "&announTypeName=" + announTypeName;
+        sendGetAndSetAjax("findSchoolAnnoun?page=" + pageclickednumber + "&announTitle=" + announTitle + "&publishTime=" + publishTime + "&checkState=" + checkState + "&publisherName=" + publisherName + "&announTypeName=" + announTypeName);
 
     }
 
