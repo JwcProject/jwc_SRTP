@@ -322,7 +322,7 @@
   });
   function save() {
     document.endprojectRequest.action = "<%=basePath%>AddEndprojectRequest";
-    document.endprojectRequest.submit();
+    postFormAndSetAjax(document.endprojectRequest);
   }
 
   $(function () {

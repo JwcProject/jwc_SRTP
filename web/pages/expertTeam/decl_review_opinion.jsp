@@ -255,7 +255,7 @@
     function save() {
         //alert("ss");
         document.reviewOpinion.action = "<%=basePath%>saveReviewOpinion";
-        document.reviewOpinion.submit();
+        postFormAndSetAjax(document.reviewOpinion);
     }
 
     var artTabs = function (bar, config) {

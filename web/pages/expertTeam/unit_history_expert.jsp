@@ -198,7 +198,7 @@
   function query() {
     $("#pages")[0].value = 1;
     document.queyForm.action = "<%=basePath%>FindHistoryExpert";
-    document.queyForm.submit();
+    postFormAndSetAjax($(document.queyForm));
   }
 
   function showSuccess() {

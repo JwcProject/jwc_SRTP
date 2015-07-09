@@ -246,8 +246,8 @@ function query()
 {
     $("#pages")[0].value = 1;
 	document.queyForm.action="<%=basePath%>QueryAssignEndProExpert";
-	document.queyForm.submit();
-}   
+	postFormAndSetAjax($(document.queyForm));
+}
 
 function save() {
 		destList = window.document.getElementById("preAssignEndProExp").destList;
