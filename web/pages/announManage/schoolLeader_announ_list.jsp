@@ -12,58 +12,6 @@
         <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc"
             bordercolor="#f4f3f1">
             <div class="midbox">
-                <div class="midbox_gg">
-                    <div class="ggwh">公告维护</div>
-                </div>
-                <form action="" name="queryForm" method="post">
-                    <div class="xia_left">
-                        <ul>
-                            <li>
-                                <p>公告名称：
-                                    <s:textfield name="announTitle" id="announTitle" style="width:88px;height:14px"/>
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>审核状态:
-                                    <s:select list='#{"ALL":"所有","CY":"已通过","CN":"未通过","NC":"待审核"}'
-                                              name="checkState" id="checkState"></s:select>
-
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>发布日期：
-                                    <input type="text" name="publishTime" id="publishTime"
-                                           value="<s:date name="publishTime" format="yyyy-MM-dd"/>" style="width:150px"
-                                           class="easyui-datebox" editable="false"/>
-                                </p>
-                            </li>
-
-                            <li>
-                                <p>发布者：
-                                    <s:textfield name="publisherName" id="publisherName"
-                                                 style="width:88px;height:14px"/>
-                                </p>
-                            </li>
-
-
-                            <li>
-                                <s:hidden id="pages" name="page" value="%{page}"></s:hidden>
-                            </li>
-                            <li>
-                                <s:hidden id="totalPages" name="totalPage" value="%{totalPage}"></s:hidden>
-                            </li>
-
-                        </ul>
-                    </div>
-                </form>
-                <div class="xia_right" style="left:800px">
-                    <img src="images/gonggaoweihu_icon1.gif" alt="查询" onclick="queryAnnoun();"/>
-                    <a href="javascript:document.queryForm.reset();"><img src="images/reset.png" alt="重置" "/></a>
-
-                </div>
-
                 <div class="xia_list">
                     <table width="97%" border="0" cellspacing="0" cellpadding="0"
                            style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"

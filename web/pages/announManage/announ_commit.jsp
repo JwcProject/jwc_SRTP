@@ -9,13 +9,16 @@
         function save() {
             alert("save");
             document.announcement.action = "<%=basePath%>SaveAnnouncement";
+
+            postFormAndSetAjax($(document.announcement));
+
             document.announcement.submit();
         }
 
         function commit() {
             alert("commit");
             document.announcement.action = "<%=basePath%>CommitAnnouncement";
-            document.announcement.submit();
+            postFormAndSetAjax($(document.announcement));
         }
     </script>
 
