@@ -194,7 +194,7 @@
                 '<li>' + str1 +
                 '</li>'
         ).append(
-                '<li>' + str1 +
+                '<li>' + str2 +
                 '</li>'
         );
       }
@@ -205,9 +205,7 @@
 
       var map = {
         'announcement/mine': 'sortUserAnnouncement',
-        'announcement/student': 'pages/announManage/announ_commit.jsp',
-        'announcement/teacher': 'pages/announManage/announ_commit.jsp',
-        'announcement/lead': 'pages/announManage/announ_commit.jsp',
+        'announcement/publish': 'pages/announManage/announ_commit.jsp',
         'announcement/maintain': 'sortUserAnnouncement',
         'declare/mine': 'sortMyDeclaration',
         'declare/apply': 'preAddDeclaration',
