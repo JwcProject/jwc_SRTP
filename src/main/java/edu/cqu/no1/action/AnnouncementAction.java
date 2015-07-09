@@ -92,6 +92,7 @@ public class AnnouncementAction extends BaseAction {
         int role=Integer.parseInt(tUser.getUserType());
         switch (role){
             case 0:
+                return "dean";
             case 1:
                 return "school";
             case 2:
@@ -294,7 +295,7 @@ public class AnnouncementAction extends BaseAction {
     @Action(value = "CommitAnnouncement", results = {
             @Result(name = "personalSuccess", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "unitSuccess", type = "redirect", location = "findUnitAnnoun"),
-            @Result(name = "schoolSuccess", type = "redirect", location = "findSchoolAnnoun")
+            @Result(name = "schoolSuccess", type = "redirect", location = "findDeanAnnoun")
     })
     public String commitAnnouncement() throws Exception {
         try {
@@ -783,7 +784,8 @@ public class AnnouncementAction extends BaseAction {
     @Action(value = "DeleteAnnouncement", results = {
             @Result(name = "successStuTea", type = "redirect", location = "findStuTeaAnnoun"),
             @Result(name = "successUnit", type = "redirect", location = "findUnitAnnoun"),
-            @Result(name = "successSchool", type = "redirect", location = "findDeanAnnoun")
+            @Result(name = "successSchool", type = "redirect", location = "findSchoolAnnoun"),
+            @Result(name = "successDean", type = "redirect", location = "findDeanAnnoun")
     })
     public String deleteAnnouncement() throws Exception {
         try {
@@ -794,11 +796,13 @@ public class AnnouncementAction extends BaseAction {
                 toLogin();
             }
             String userType = tUser.getUserType();
-            if (userType.equals("02") || userType.equals("03") || userType.equals("04") || userType.equals("05")) {
+            if (userType.equals("02") || userType.equals("03")) {
                 return "successUnit";
-            } else if (userType.equals("00") || userType.equals("01")) {
+            } else if (userType.equals("01")) {
                 return "successSchool";
-            } else {
+            } else if(userType.equals("00")){
+                return "successDean";
+            } else{
                 return "successStuTea";
             }
 
