@@ -56,7 +56,7 @@
                                     <s:textfield name="properties.projectName" cssStyle="width: 80px;" theme="simple"/>
                                 </p>
                             </li>
-                            <s:if test="%{user.userRole =='01'}">
+                            <s:if test="%{user.userType =='01'}">
                                 <li>
 
                                     <p>状态
@@ -84,7 +84,7 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0"
                            style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
                            align="left">
-                        <s:if test="%{user.userRole =='00' || user.userRole =='01'}">
+                        <s:if test="%{user.userType =='00' || user.userType =='01'}">
                             <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
                                 <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
                                 <td bgcolor="#FFFFFF" width="18%"> |项目名称</td>
@@ -210,7 +210,7 @@
                                 </s:else>
                             </s:iterator>
                         </s:if>
-                        <s:if test="%{user.userRole =='02' || user.userRole =='03'}">
+                        <s:if test="%{user.userType =='02' || user.userType =='03'}">
                             <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
                                 <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
                                 <td bgcolor="#FFFFFF" width="18%"> |项目名称</td>

@@ -42,7 +42,7 @@
 
                                         <li>
                                             <p>用户类型
-                                                <s:select name="userRole" id="userRole"
+                                                <s:select name="userType" id="userType"
                                                           list="#{'ALL':'不限','00':'教务处领导','01':'教务处主管教师','02':'学院领导','03':'学院主管教师','05':'普通教师','06':'学生'}"></s:select>
                                             </p>
                                         </li>
@@ -111,31 +111,31 @@
                                             </s:else>
                                         </td>
                                         <td>
-                                            <s:if test="%{#listUsers.userRole== '00'}">
+                                            <s:if test="%{#listUsers.userType== '00'}">
                                                 教务处领导
                                             </s:if>
-                                            <s:elseif test="%{#listUsers.userRole== '01'}">
+                                            <s:elseif test="%{#listUsers.userType== '01'}">
                                                 教务处主管教师
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '02'}">
+                                            <s:elseif test="%{#listUsers.userType== '02'}">
                                                 学院领导
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '03'}">
+                                            <s:elseif test="%{#listUsers.userType== '03'}">
                                                 学院主管教师
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '04'}">
+                                            <s:elseif test="%{#listUsers.userType== '04'}">
                                                 评审教师
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '05'}">
+                                            <s:elseif test="%{#listUsers.userType== '05'}">
                                                 普通教师
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '06'}">
+                                            <s:elseif test="%{#listUsers.userType== '06'}">
                                                 普通学生
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '07'}">
+                                            <s:elseif test="%{#listUsers.userType== '07'}">
                                                 项目成员
                                             </s:elseif>
-                                            <s:elseif test="%{#listUsers.userRole== '08'}">
+                                            <s:elseif test="%{#listUsers.userType== '08'}">
                                                 项目组长
                                             </s:elseif>
                                             <s:else>
@@ -210,9 +210,9 @@
         //alert(pageclickednumber);
         var userId = $("#userId")[0].value;
         var username = $("#username")[0].value;
-        var userRole = $("#userRole")[0].value;
+        var userType = $("#userType")[0].value;
         var userState = $("#userState")[0].value;
-        location = "QueryUser?page=" + pageclickednumber + "&userId=" + userId + "&username=" + username + "&userRole=" + userRole + "&userState=" + userState;
+        location = "QueryUser?page=" + pageclickednumber + "&userId=" + userId + "&username=" + username + "&userType=" + userType + "&userState=" + userState;
     }
 
     function query() {

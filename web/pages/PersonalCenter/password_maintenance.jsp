@@ -32,7 +32,7 @@
                                                 <div class="line_box_right"><s:property
                                                         value="#session.user.userId"/></div>
                                             </div>
-                                            <s:if test="%{#session.user.userRole == '06' || #session.user.userRole == '07' || #session.user.userRole == '08'}">
+                                            <s:if test="%{#session.user.userType == '06' || #session.user.userType == '07' || #session.user.userType == '08'}">
                                                 <div class="line_box">
                                                     <div class="line_box_left" align="right">学院</div>
                                                     <div class="line_box_right"><s:property

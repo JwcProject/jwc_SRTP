@@ -22,13 +22,13 @@ public interface UserService {
 
     public int getAllTUserCount();
 
-    public List<TUser> getTUserByMutiProperty(String userId, String userName, String userRole, String userState, final PageBean pageBean);
+    public List<TUser> getTUserByMutiProperty(String userId, String userName, String userType, String userState, final PageBean pageBean);
 
-    public int getTUserCountByMutiProperty(String userId, String userName, String userRole, String userState);
+    public int getTUserCountByMutiProperty(String userId, String userName, String userType, String userState);
 
     public TUser userLogin(String userId, String password);
 
-    public TUnit getUnitByUserId(String userId, String userRole);
+    public TUnit getUnitByUserId(String userId, String userType);
 
     TStudent getStudentByUserId(String userId);
 

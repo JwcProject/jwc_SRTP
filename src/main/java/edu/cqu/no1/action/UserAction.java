@@ -48,7 +48,7 @@ public class UserAction extends BaseAction implements SessionAware {
 
     private String userId;
     private String username;
-    private String userRole;
+    private String userType;
     private String userState;
     private String validateCode;
     private String password;
@@ -398,12 +398,12 @@ public class UserAction extends BaseAction implements SessionAware {
     })
     public String queryUser() throws Exception {
         try {
-            this.totalNumber = this.userService.getTUserCountByMutiProperty(userId, username, userRole, userState);
+            this.totalNumber = this.userService.getTUserCountByMutiProperty(userId, username, userType, userState);
 
             // 构造分页对象
             pageBean = new PageBean(page, totalNumber, pageCapacity);
 
-            listUsers = this.userService.getTUserByMutiProperty(userId, username, userRole, userState, pageBean);
+            listUsers = this.userService.getTUserByMutiProperty(userId, username, userType, userState, pageBean);
 
             totalPage = this.pageBean.getTotalPage();
 
@@ -618,11 +618,11 @@ public class UserAction extends BaseAction implements SessionAware {
     }
 
     public String getUserType() {
-        return userRole;
+        return userType;
     }
 
-    public void setUserType(String userRole) {
-        this.userRole = userRole;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getUserState() {

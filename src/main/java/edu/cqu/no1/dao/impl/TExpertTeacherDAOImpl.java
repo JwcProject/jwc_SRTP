@@ -251,7 +251,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     public void changeReviewUserType(String libId, String type) {
         log.debug("change review teacher user type");
         try {
-            String hql = "update TUser user set user.previousType = user.userRole , user.userRole = :type where user.userId in" +
+            String hql = "update TUser user set user.previousType = user.userType , user.userType = :type where user.userId in" +
                     " (select teacher.teaCode from TTeacher teacher where teacher in" +
                     "(select expert.TTeacher from TExpertTeacher expert where expert.TExpertLib.libId = :libId))";
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);
@@ -272,7 +272,7 @@ public class TExpertTeacherDAOImpl extends BaseDaoImpl<TExpertTeacher> implement
     public void rollBackUserType(String libId) {
         log.debug("change review teacher user type");
         try {
-            String hql = "update TUser user set user.userRole = user.previousType where user.userId in" +
+            String hql = "update TUser user set user.userType = user.previousType where user.userId in" +
                     " (select teacher.teaCode from TTeacher teacher where teacher in" +
                     "(select expert.TTeacher from TExpertTeacher expert where expert.TExpertLib.libId = :libId))";
             Query query = getSessionFactory().getCurrentSession().createQuery(hql);

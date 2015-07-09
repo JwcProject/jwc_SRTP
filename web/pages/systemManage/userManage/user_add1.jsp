@@ -76,7 +76,7 @@
 									<font color="red">*</font>
 								</td>
 								<td>
-									<s:radio name="user.userRole"
+									<s:radio name="user.userType"
 										list="#{'01':'教师','02':'学生','03':'管理员'}"></s:radio>
 
 								</td>

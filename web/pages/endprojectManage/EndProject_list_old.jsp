@@ -30,31 +30,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  
         <!--  左边区域-->
          
-		<s:if test="%{user.userRole =='00'}">
+		<s:if test="%{user.userType =='00'}">
 	         <jsp:include page="../../dean_leader_left.jsp"></jsp:include>	
 		</s:if>  
-		<s:elseif test="%{user.userRole =='01'}">
+		<s:elseif test="%{user.userType =='01'}">
 	         <jsp:include page="../../dean_left.jsp"></jsp:include>	
 		</s:elseif>
-		<s:elseif test="%{user.userRole =='02'}">
+		<s:elseif test="%{user.userType =='02'}">
 	         <jsp:include page="../../teacher_leader_left.jsp"></jsp:include>	
 		</s:elseif>  
-		<s:elseif test="%{user.userRole =='03'}">
+		<s:elseif test="%{user.userType =='03'}">
 	         <jsp:include page="../../teacher_left.jsp"></jsp:include>	
 		</s:elseif>  
-		<s:elseif test="%{user.userRole =='04'}">
+		<s:elseif test="%{user.userType =='04'}">
 	         <jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>	
 		</s:elseif>
-		<s:elseif test="%{user.userRole =='05'}">
+		<s:elseif test="%{user.userType =='05'}">
 	         <jsp:include page="../../commonTeacher_left.jsp"></jsp:include>	
 		</s:elseif> 
-		<s:elseif test="%{user.userRole =='06'}">
+		<s:elseif test="%{user.userType =='06'}">
 	         <jsp:include page="../../student_left.jsp"></jsp:include>	
 		</s:elseif> 
-		<s:elseif test="%{user.userRole =='07'}">
+		<s:elseif test="%{user.userType =='07'}">
 	         <jsp:include page="../../student_member_left.jsp"></jsp:include>	
 		</s:elseif> 
-		<s:elseif test="%{user.userRole =='08'}">
+		<s:elseif test="%{user.userType =='08'}">
 	         <jsp:include page="../../student_leader_left.jsp"></jsp:include>	
 		</s:elseif>
 		<s:else>
@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:textfield name="properties.projectName" cssStyle="width: 80px;" theme="simple"/> 
 </p>
 </li>
-<s:if test="%{user.userRole =='01'}">
+<s:if test="%{user.userType =='01'}">
 <li>
 		
 		<p>状态
@@ -126,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</s:form>
 		<div class="xia_list">
  <table width="100%" border="0" cellspacing="0" cellpadding="0" style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;" align="left" >
-                      <s:if test="%{user.userRole =='00' || user.userRole =='01'}">
+                      <s:if test="%{user.userType =='00' || user.userType =='01'}">
                       <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
                         <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
                         <td bgcolor="#FFFFFF" width="18%"> |项目名称 </td>
@@ -228,7 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				      </s:else>
 					    </s:iterator>	
 						</s:if>
-                      <s:if test="%{user.userRole =='02' || user.userRole =='03'}">
+                      <s:if test="%{user.userType =='02' || user.userType =='03'}">
                       <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
                         <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">|项目编号</td>
                         <td bgcolor="#FFFFFF" width="18%"> |项目名称 </td>

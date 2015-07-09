@@ -254,8 +254,8 @@ public class AnnouncementAction extends BaseAction {
             listAnnouncement = this.announcementService.querySchoolAnnoun(announTitle, checkState, publishTime, publisherName, announTypeName, pageBean);
             totalPage = pageBean.getTotalPage();
 
-            String userRole = tUser.getUserType();
-            if (userRole.equals("00") || userRole.equals("02"))
+            String userType = tUser.getUserType();
+            if (userType.equals("00") || userType.equals("02"))
                 return "successLeader";
             return "successTea";
 
@@ -313,10 +313,10 @@ public class AnnouncementAction extends BaseAction {
             //String roleName = this.roleService.findRoleNameByUserId(tUser.getUserId());
             announcement.setPublisherCode(tUser.getUserId());
             announcement.setPublisherName(tUser.getUsername());
-            String userRole = tUser.getUserType();
-            announcement.setPublisherRole(userRole);
+            String userType = tUser.getUserType();
+            announcement.setPublisherRole(userType);
             announcement.setIsdeleted("N");
-            if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
+            if (userType.equals("06") || userType.equals("07") || userType.equals("08")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学生公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement.setPublishState("Y");
@@ -325,7 +325,7 @@ public class AnnouncementAction extends BaseAction {
 
                 return "personalSuccess";
 
-            } else if (userRole.equals("05") || userRole.equals("04")) {
+            } else if (userType.equals("05") || userType.equals("04")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("教师公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement.setPublishState("Y");
@@ -334,7 +334,7 @@ public class AnnouncementAction extends BaseAction {
 
                 return "personalSuccess";
 
-            } else if (userRole.equals("03") || userRole.equals("02")) {
+            } else if (userType.equals("03") || userType.equals("02")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学院公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement.setPublishState("Y");
@@ -343,7 +343,7 @@ public class AnnouncementAction extends BaseAction {
 
                 return "unitSuccess";
 
-            } else if (userRole.equals("01") || userRole.equals("00")) {
+            } else if (userType.equals("01") || userType.equals("00")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("教务处公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement.setPublishState("Y");
@@ -382,18 +382,18 @@ public class AnnouncementAction extends BaseAction {
             announcement.setPublisherCode(tUser.getUserId());
             announcement.setPublisherName(tUser.getUsername());
             //String roleName = this.roleService.findRoleNameByUserId(tUser.getUserId());
-            String userRole = tUser.getUserType();
-            announcement.setPublisherRole(userRole);
-            if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
+            String userType = tUser.getUserType();
+            announcement.setPublisherRole(userType);
+            if (userType.equals("06") || userType.equals("07") || userType.equals("08")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学生公告");
                 announcement.setTAnnounType(tAnnounType);
-            } else if (userRole.equals("05") || userRole.equals("04")) {
+            } else if (userType.equals("05") || userType.equals("04")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("教师公告");
                 announcement.setTAnnounType(tAnnounType);
-            } else if (userRole.equals("03") || userRole.equals("02")) {
+            } else if (userType.equals("03") || userType.equals("02")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学院公告");
                 announcement.setTAnnounType(tAnnounType);
-            } else if (userRole.equals("01") || userRole.equals("00")) {
+            } else if (userType.equals("01") || userType.equals("00")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("教务处公告");
                 announcement.setTAnnounType(tAnnounType);
             }
@@ -472,12 +472,12 @@ public class AnnouncementAction extends BaseAction {
                 toLogin();
             }
             announcement.setPublisherCode(tUser.getUserId());
-            String userRole = tUser.getUserType();
-            announcement.setPublisherRole(userRole);
+            String userType = tUser.getUserType();
+            announcement.setPublisherRole(userType);
             announcement.setIsdeleted("N");
 
 
-            if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
+            if (userType.equals("06") || userType.equals("07") || userType.equals("08")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学生公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement = saveFilesAndAnnouncement(announcement);
@@ -485,21 +485,21 @@ public class AnnouncementAction extends BaseAction {
                 return "personalSuccess";
 
 
-            } else if (userRole.equals("05") || userRole.equals("04")) {
+            } else if (userType.equals("05") || userType.equals("04")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("教师公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement = saveFilesAndAnnouncement(announcement);
 
                 return "personalSuccess";
 
-            } else if (userRole.equals("03") || userRole.equals("02")) {
+            } else if (userType.equals("03") || userType.equals("02")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("学院公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement = saveFilesAndAnnouncement(announcement);
 
                 return "unitSuccess";
 
-            } else if (userRole.equals("01") || userRole.equals("00")) {
+            } else if (userType.equals("01") || userType.equals("00")) {
                 TAnnounType tAnnounType = this.announcementService.getTAnnounTypeByName("教务处公告");
                 announcement.setTAnnounType(tAnnounType);
                 announcement = saveFilesAndAnnouncement(announcement);
@@ -536,23 +536,23 @@ public class AnnouncementAction extends BaseAction {
             if (null == tUser) {
                 toLogin();
             }
-            String userRole = tUser.getUserType();
-            if (userRole.equals("06") || userRole.equals("07") || userRole.equals("08")) {
+            String userType = tUser.getUserType();
+            if (userType.equals("06") || userType.equals("07") || userType.equals("08")) {
                 announcement.setCheckState("CY");
                 this.announcementService.updateTAnnouncement(announcement);
                 return "personalSuccess";
 
-            } else if (userRole.equals("05") || userRole.equals("04")) {
+            } else if (userType.equals("05") || userType.equals("04")) {
                 announcement.setCheckState("CY");
                 this.announcementService.updateTAnnouncement(announcement);
                 return "personalSuccess";
 
-            } else if (userRole.equals("03") || userRole.equals("02")) {
+            } else if (userType.equals("03") || userType.equals("02")) {
                 announcement.setCheckState("CY");
                 this.announcementService.updateTAnnouncement(announcement);
                 return "unitSuccess";
 
-            } else if (userRole.equals("01") || userRole.equals("00")) {
+            } else if (userType.equals("01") || userType.equals("00")) {
                 announcement.setCheckState("NC");
                 this.announcementService.updateTAnnouncement(announcement);
                 return "schoolSuccess";
@@ -756,12 +756,12 @@ public class AnnouncementAction extends BaseAction {
             //String a = announcement.getTAnnounType().getAnnounTypeName();
 
 
-            String userRole = user.getUserType();
+            String userType = user.getUserType();
             //String roleName = this.roleService.findRoleNameByUserId(tUser.getUserId());
 
-            if (userRole.equals("02") || userRole.equals("03") || userRole.equals("04") || userRole.equals("05")) {
+            if (userType.equals("02") || userType.equals("03") || userType.equals("04") || userType.equals("05")) {
                 return "successUnit";
-            } else if (userRole.equals("00") || userRole.equals("01")) {
+            } else if (userType.equals("00") || userType.equals("01")) {
                 return "successSchool";
             } else {
                 return "successStuTea";
@@ -793,10 +793,10 @@ public class AnnouncementAction extends BaseAction {
             if (null == tUser) {
                 toLogin();
             }
-            String userRole = tUser.getUserType();
-            if (userRole.equals("02") || userRole.equals("03") || userRole.equals("04") || userRole.equals("05")) {
+            String userType = tUser.getUserType();
+            if (userType.equals("02") || userType.equals("03") || userType.equals("04") || userType.equals("05")) {
                 return "successUnit";
-            } else if (userRole.equals("00") || userRole.equals("01")) {
+            } else if (userType.equals("00") || userType.equals("01")) {
                 return "successSchool";
             } else {
                 return "successStuTea";

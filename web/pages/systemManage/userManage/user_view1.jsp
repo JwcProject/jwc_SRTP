@@ -55,13 +55,13 @@
 									用户类型
 								</td>
 								<td>
-								<s:if test="user.userRole=='01'">
+								<s:if test="user.userType=='01'">
 											教师
 								  </s:if> 
-						          <s:elseif test="user.userRole=='02'">
+						          <s:elseif test="user.userType=='02'">
 						         			 学生
 						          </s:elseif>	
-									<s:elseif test="user.userRole=='03'">
+									<s:elseif test="user.userType=='03'">
 						         			 管理员
 						          </s:elseif>
 						          <s:else>

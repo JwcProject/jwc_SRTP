@@ -134,11 +134,11 @@ public class TProjectDAOImpl extends BaseDaoImpl<TProject> implements TProjectDA
                 sqlQuery2.executeUpdate();
 
                 //修改申报成员的用户类型
-                String hql_update1 = "update TUser u set u.userRole = '08' where u.userId in (select userId from TStudent" +
+                String hql_update1 = "update TUser u set u.userType = '08' where u.userId in (select userId from TStudent" +
                         " where studentId in (select TStudentByLeaderCode.studentNumber from TDeclaration where" +
                         " TJieqi.jqId = :jqId and checkState = '09'))";
 
-                String hql_update2 = "update TUser u set u.userRole = '07' where u.userId in (select userId from TStudent" +
+                String hql_update2 = "update TUser u set u.userType = '07' where u.userId in (select userId from TStudent" +
                         " where studentId in (select TStudentByMember1Code.studentNumber from TDeclaration where" +
                         " TJieqi.jqId = :jqId and checkState = '09') or studentId in (select TStudentByMember2Code from" +
                         " TDeclaration where TJieqi.jqId = :jqId and checkState = '09'))";

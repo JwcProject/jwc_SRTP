@@ -28,31 +28,31 @@
 	  
         <!--  左边区域-->
           <s:if test="null!=#session.user">
-          	<s:if test="%{#session.user.userRole == '00'}">
+          	<s:if test="%{#session.user.userType == '00'}">
 		  		<jsp:include page="../../dean_leader_left.jsp"></jsp:include>
 		  	</s:if>
-		  	<s:elseif test="%{#session.user.userRole == '01'}">
+		  	<s:elseif test="%{#session.user.userType == '01'}">
 		    	<jsp:include page="../../dean_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '02'}">
+		    <s:elseif test="%{#session.user.userType == '02'}">
 		    	<jsp:include page="../../teacher_leader_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '03'}">
+		    <s:elseif test="%{#session.user.userType == '03'}">
 		   		<jsp:include page="../../teacher_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '04'}">
+		    <s:elseif test="%{#session.user.userType == '04'}">
 		    	<jsp:include page="../../reviewTeacher_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '05'}">
+		    <s:elseif test="%{#session.user.userType == '05'}">
 		   		<jsp:include page="../../commonTeacher_left.jsp"></jsp:include>
 		    </s:elseif>
-		     <s:elseif test="%{#session.user.userRole == '06'}">
+		     <s:elseif test="%{#session.user.userType == '06'}">
 		   		<jsp:include page="../../student_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '07'}">
+		    <s:elseif test="%{#session.user.userType == '07'}">
 		    	<jsp:include page="../../student_member_left.jsp"></jsp:include>
 		    </s:elseif>
-		    <s:elseif test="%{#session.user.userRole == '08'}">
+		    <s:elseif test="%{#session.user.userType == '08'}">
 		   		<jsp:include page="../../student_leader_left.jsp"></jsp:include>
 		    </s:elseif>
 		   </s:if>

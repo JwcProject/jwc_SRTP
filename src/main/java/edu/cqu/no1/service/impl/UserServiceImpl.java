@@ -132,16 +132,16 @@ public class UserServiceImpl implements UserService {
     @SuppressWarnings("unchecked")
     @Override
     public List<TUser> getTUserByMutiProperty(String userId, String userName,
-                                              String userRole, String userState, PageBean pageBean) {
+                                              String userType, String userState, PageBean pageBean) {
         // TODO Auto-generated method stub
-        return this.tUserDAO.getTUserByMutiProperty(userId, userName, userRole, userState, pageBean);
+        return this.tUserDAO.getTUserByMutiProperty(userId, userName, userType, userState, pageBean);
     }
 
     @Override
     public int getTUserCountByMutiProperty(String userId, String userName,
-                                           String userRole, String userState) {
+                                           String userType, String userState) {
         // TODO Auto-generated method stub
-        return this.tUserDAO.getTUserCountByMutiProperty(userId, userName, userRole, userState);
+        return this.tUserDAO.getTUserCountByMutiProperty(userId, userName, userType, userState);
     }
 
     @Override
@@ -154,8 +154,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public TUnit getUnitByUserId(String userId, String userRole) {
-        if ("00".equals(userRole) || "01".equals(userRole) || "02".equals(userRole) || "03".equals(userRole) || "04".equals(userRole) || "05".equals(userRole)) {
+    public TUnit getUnitByUserId(String userId, String userType) {
+        if ("00".equals(userType) || "01".equals(userType) || "02".equals(userType) || "03".equals(userType) || "04".equals(userType) || "05".equals(userType)) {
             List tmpList = this.tTeacherDAO.findTeacherByCode(userId);
             if (null != tmpList && null != tmpList.get(0)) {
                 TTeacher teacher = (TTeacher) tmpList.get(0);
@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
                     return teacher.getTUnit();
                 }
             }
-        } else if ("06".equals(userRole) || "07".equals(userRole) || "08".equals(userRole)) {
+        } else if ("06".equals(userType) || "07".equals(userType) || "08".equals(userType)) {
             List tmpList = this.tStudentDAO.findStudentByCode(userId);
             if (null != tmpList && null != tmpList.get(0)) {
                 TStudent student = (TStudent) tmpList.get(0);
@@ -210,7 +210,7 @@ public class UserServiceImpl implements UserService {
             if (tUserDAO.findByEmail(user.getEmail()) != null) {
                 return REDUNDANCY_EMAIL;
             }
-            user.setTRole(tRoleDao.getRoleByName("Ñ§Éú"));
+            user.setTRole(tRoleDao.getRoleByName("Ñ§ï¿½ï¿½"));
 
             tUserDAO.saveUser(user);
             this.user = user;

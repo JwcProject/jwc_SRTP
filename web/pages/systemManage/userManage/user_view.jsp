@@ -23,31 +23,31 @@
                             <p>昵称：<s:property value="user.username"/></p>
 
                             <p>用户类型：
-                                <s:if test="user.userRole=='00'">
+                                <s:if test="user.userType=='00'">
                                     教务处领导
                                 </s:if>
-                                <s:elseif test="user.userRole=='01'">
+                                <s:elseif test="user.userType=='01'">
                                     教务处主管教师
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='02'">
+                                <s:elseif test="user.userType=='02'">
                                     学院领导
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='03'">
+                                <s:elseif test="user.userType=='03'">
                                     学院主管教师
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='04'">
+                                <s:elseif test="user.userType=='04'">
                                     评审教师
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='05'">
+                                <s:elseif test="user.userType=='05'">
                                     普通教师
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='06'">
+                                <s:elseif test="user.userType=='06'">
                                     普通学生
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='07'">
+                                <s:elseif test="user.userType=='07'">
                                     项目成员
                                 </s:elseif>
-                                <s:elseif test="user.userRole=='08'">
+                                <s:elseif test="user.userType=='08'">
                                     项目组长
                                 </s:elseif>
                                 <s:else>
