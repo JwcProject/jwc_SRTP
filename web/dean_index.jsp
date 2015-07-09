@@ -13,7 +13,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <!--中间区域-->
-        <td width="88%" valign="top"><!-- 公告区域-->
+        <td width="84%" valign="top"><!-- 公告区域-->
           <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"
                  style="margin-bottom:10px;">
             <tr>
@@ -66,42 +66,18 @@
             </tr>
           </table>
           <!-- 优秀项目 -->
-          <table width="99%" border="0" cellspacing="0" cellpadding="0" height="31" align="center">
-            <tr>
-              <td style="border:1px solid #bbd9e9">
-                <table width="100%" height="29" border="0" cellspacing="0" cellpadding="0"
-                       style="background:url(images/tbline.jpg) repeat-x;   border-left:1px solid #eaf5fc; border-right:1px solid #eaf5fc; border-bottom:1px solid #c8e2f2">
-                  <tr>
-                    <td>
-                      <div class="tjfx">统计分析</div>
-                    </td>
-                    <td width="20%" align="right" class="morelink"><a href="#">更多>></a></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <br/>
-                      <div class="t_xiaob">软件学院srtp项目成交及通过率统计：</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="t_tu1"><img src="images/3_tongjitu1.jpg" alt="统计图1"/></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="t_xiaob">软件学院srtp项目成交及通过率统计：</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="t_tu1"><img src="images/3_tongjitu2.jpg" alt="统计图2"/></div>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
+          <div class="widget-box">
+            <div class="widget-header widget-header-flat">
+              <h4 class="widget-title">统计分析</h4>
+            </div>
+            <div class="widget-body">
+              <div class="widget-main">
+                <p>软件学院srtp项目成交及通过率统计：</p>
+                <p><img src="images/3_tongjitu1.jpg" alt="统计图1"/></p>
+                <p><img src="images/3_tongjitu2.jpg" alt="统计图2"/></p>
+              </div>
+            </div>
+          </div>
           <div class="tablelist mb10">
             <table width="99%" border="0" cellspacing="0" cellpadding="0"
                    style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
@@ -122,46 +98,55 @@
         <td width="14%" valign="top" style="padding-top:10px;">
           <div class="w220 r_kuang h624 fr">
             <div class="bline centerdiv ">
-              <div class="more"><a href="#">更多>></a></div>
-              <div class="youxiu"> 优秀项目</div>
-            </div>
-            <div class="xm_lb">
-              <ul>
-                <li><a href="#">关于“如何做研究”项目</a></li>
-                <li><a href="#">关于“如何做研究”项目</a></li>
-                <li><a href="#">关于“如何做研究”项目</a></li>
-                <li><a href="#">关于“如何做研究”项目</a></li>
-              </ul>
-            </div>
-            <div class="bline centerdiv ">
-              <div class="qmenu"> 快捷菜单</div>
-            </div>
-            <div class="qmenu_icon">
-              <ul>
-                <li><a href="#"><img src="<%=path%>/images/2_icon3.png" width="45" height="44"/>
+              <div class="widget-box">
+                <div class="widget-header widget-header-flat">
+                  <h4 class="widget-title">优秀项目</h4>
+                </div>
+                <div class="widget-body">
+                  <div class="widget-main">
+                    <ul>
+                      <li><a href="#">关于“如何做研究”项目</a></li>
+                      <li><a href="#">关于“如何做研究”项目</a></li>
+                      <li><a href="#">关于“如何做研究”项目</a></li>
+                      <li><a href="#">关于“如何做研究”项目</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
-                  <p>个人中心</p>
-                </a></li>
-                <li><a href="<%=basePath%>pages/announManage/announ_commit.jsp"><img
-                        src="<%=path%>/images/2_icon4.png" width="48" height="45"/>
+            <div class="widget-box">
+              <div class="widget-header widget-header-flat">
+                <h4 class="widget-title">快捷菜单</h4>
+              </div>
+              <div class="widget-body">
+                <div class="widget-main">
+                  <ul>
+                    <li><a href="#"><img src="<%=path%>/images/2_icon3.png" width="45" height="44"/>
 
-                  <p>发布公告</p>
-                </a></li>
-                <li><a href="#"><img src="<%=path%>/images/2_icon1.png" width="44" height="46"/>
+                      <p>个人中心</p>
+                    </a></li>
+                    <li><a href="<%=basePath%>pages/announManage/announ_commit.jsp"><img
+                            src="<%=path%>/images/2_icon4.png" width="48" height="45"/>
 
-                  <p>项目变更</p>
-                </a></li>
-                <li><a href="#"><img src="<%=path%>/images/3_icon4.png" width="47" height="44"/>
+                      <p>发布公告</p>
+                    </a></li>
+                    <li><a href="#"><img src="<%=path%>/images/2_icon1.png" width="44" height="46"/>
 
-                  <p>立项审核</p>
-                </a></li>
-                <li><a href="#"><img src="<%=path%>/images/3_icon5.png" width="47" height="45"/>
+                      <p>项目变更</p>
+                    </a></li>
+                    <li><a href="#"><img src="<%=path%>/images/3_icon4.png" width="47" height="44"/>
 
-                  <p>二次答辩</p>
-                </a></li>
-                <li><a href="#"><img src="<%=path%>/images/2_icon6.png" width="52" height="45"/> </a>
-                </li>
-              </ul>
+                      <p>立项审核</p>
+                    </a></li>
+                    <li><a href="#"><img src="<%=path%>/images/3_icon5.png" width="47" height="45"/>
+
+                      <p>二次答辩</p>
+                    </a></li>
+                    <li><a href="#"><img src="<%=path%>/images/2_icon6.png" width="52" height="45"/> </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </td>

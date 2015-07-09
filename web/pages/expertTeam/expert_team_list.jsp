@@ -37,18 +37,14 @@
                                     <s:a href="PreCreateExpert"><img src="<%=path%>/images/zhuanjia_anniu5.png"
                                                                      alt="创建"/></s:a>
                                 </div>
-                                <table width="88%" border="0" cellspacing="0" cellpadding="0"
-                                       style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                                       align="left">
+                                <table class="table table-striped table-bordered table-hover">
 
-                                    <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                        <td style="padding-left:10px" bgcolor="#FFFFFF" width="14%" class="NoNewline">
-                                            |期次
-                                        </td>
-                                        <td bgcolor="#FFFFFF" width="10%"> |创建人</td>
-                                        <td bgcolor="#FFFFFF" width="10%"> |创建日期</td>
-                                        <td bgcolor="#FFFFFF" width="10%"> |是否分派</td>
-                                        <td bgcolor="#FFFFFF" width="40%"> |操作</td>
+                                    <tr>
+                                        <td>期次</td>
+                                        <td>创建人</td>
+                                        <td>创建日期</td>
+                                        <td>是否分派</td>
+                                        <td>操作</td>
                                     </tr>
                                     <s:iterator value="expertLibs" id="expertLib" status="stuts">
                                         <s:if test="#stuts.odd == true">
@@ -59,7 +55,7 @@
                                             <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#ffffff">
                                         </s:else>
                                         <!-- <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">-->
-                                        <td style="padding-left:10px" class="NoNewline"><s:property
+                                        <td><s:property
                                                 value="#expertLib.TJieqi.jqYear+'年,第'"/>
                                             <s:property
                                                     value="#expertLib.TJieqi.qici+'期'"/>

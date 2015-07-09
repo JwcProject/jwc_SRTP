@@ -21,32 +21,31 @@
             <s:form action="" method="post" name="queyForm" theme="simple">
 
               <div class="xia_left">
-                <table>
+                <table class="table table-striped table-bordered table-hover">
                   <tr>
 
 
                     <td>
+                      期次:
                       <div class="douselect">
-                        <p>期次:
                           <s:doubleselect name="jqYear" list="jieQiYears"
                                           listKey="yearKey" listValue="yearValue"
                                           doubleList="qicis.get(top.yearKey)" doubleName="jqQici"
                                           doubleListKey="jqId" doubleListValue="qici"
                                           cssClass="select_sq" theme="simple"/>
-                        </p>
                       </div>
                     </td>
 
 
                     <td>
                       <p>项目编号:
-                        <s:textfield name="proSerial" id="proSerial" style="width:80px;height:14px"/>
+                        <s:textfield name="proSerial" id="proSerial"/>
                       </p>
                     </td>
 
                     <td>
                       <p>项目名称:
-                        <s:textfield name="proName" id="proName" style="width:80px;height:14px"/>
+                        <s:textfield name="proName" id="proName"/>
                       </p>
                     </td>
 
@@ -59,7 +58,7 @@
                     </td>
                     <td>
                       <p>学号:
-                        <s:textfield name="studentNums" id="studentNums" style="width:75px;height:14px"/>
+                        <s:textfield name="studentNums" id="studentNums"/>
                       </p>
                     </td>
                     <td>
@@ -90,21 +89,21 @@
               <div>
                 <div class="xia_list" style="height:200px">
 
-                  <table width="99%" border="0" cellspacing="0" cellpadding="0"
-                         style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                         align="left">
+                  <table class="table table-striped table-bordered table-hover">
 
-                    <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                      <td style="padding-left:10px" bgcolor="#FFFFFF" width="14%" class="NoNewline"><input
-                              type="checkbox" name="ALL" id="ALL" onClick="check()"
-                              value="on "/><label for="music">|项目编号</label>
+                    <tr>
+                      <td>
+                        <label for="music">
+                          <input id="ALL" type="checkbox" name="ALL" onclick="check()" value="on ">
+                          项目编号
+                        </label>
                       </td>
-                      <td bgcolor="#FFFFFF" width="20%"> |项目名称</td>
-                      <td bgcolor="#FFFFFF" width="9%"> |申报人</td>
-                      <td bgcolor="#FFFFFF" width="9%"> |学号</td>
-                      <td bgcolor="#FFFFFF" width="9%"> |专业</td>
-                      <td bgcolor="#FFFFFF" width="9%"> |申请日期</td>
-                      <td bgcolor="#FFFFFF" width="9%"> |分派状态</td>
+                      <td>项目名称</td>
+                      <td>申报人</td>
+                      <td>学号</td>
+                      <td>专业</td>
+                      <td>申请日期</td>
+                      <td>分派状态</td>
 
                     </tr>
                     <s:iterator value="declarations" id="declarations" status="stuts">

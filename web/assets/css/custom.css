@@ -3,6 +3,10 @@
     margin: 0 auto;
 }
 
+ul { margin: 0px; }
+
+li {  list-style: none;  }
+
 .pad-xs {
     padding: 40px;
     padding-bottom: 0px;
@@ -14,6 +18,12 @@ h1.login-header {
     font-size: 3em;
     font-family: "Microsoft YaHei", Î¢ÈíÑÅºÚ, "MicrosoftJhengHei", »ªÎÄÏ¸ºÚ, STHeiti, MingLiu;
 }
+
+.douselect {
+    display: inline-block;
+}
+
+.douselect br { display: none; }
 
 .label-size {
     font-size: 20px;
