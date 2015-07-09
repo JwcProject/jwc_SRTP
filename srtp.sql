@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2015-07-09 11:25:51
+Date: 2015-07-09 16:23:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -136,7 +136,14 @@ CREATE TABLE `t_announcement` (
 -- Records of t_announcement
 -- ----------------------------
 INSERT INTO `t_announcement` VALUES ('4028ab864e6d8508014e6d8d6e470000', '输入您的公告内容......', '', 'NC', null, null, 'Y', 'Y', '2015-07-08 20:04:22', '00', '00', '1', 'jwc0');
-INSERT INTO `t_announcement` VALUES ('4028ab864e6dde81014e6de457090000', 'asdf', 'asdf', 'CY', '2015-07-09 09:50:30', '00', 'N', 'Y', '2015-07-08 21:39:17', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e6dde81014e6de457090000', 'asdf', 'asdf', 'CY', '2015-07-09 09:50:30', '00', 'Y', 'Y', '2015-07-08 21:39:17', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e70e921f00005', '<p>asdfdaxsf</p>', 'dsafasd', 'CY', '2015-07-09 14:05:34', '00', 'Y', 'Y', '2015-07-09 11:43:23', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e716b9db90006', '<p>sdfasdfdsfsdaf</p>', 'sdafdasf', 'CY', '2015-07-09 14:07:50', '00', 'Y', 'Y', '2015-07-09 14:05:54', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e717ac6880007', '<p>sadfdasf</p>', 'dsaf', 'CY', '2015-07-09 14:22:48', '00', 'N', 'Y', '2015-07-09 14:22:28', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e717afb400008', '<p>asdfdasf</p>', 'dsafdasf', 'CY', '2015-07-09 14:22:46', '00', 'N', 'Y', '2015-07-09 14:22:41', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e70a456014e717d970b0009', '<p>asdfdsaf</p>', 'dsaf', 'CY', '2015-07-09 15:07:37', '00', 'N', 'Y', '2015-07-09 14:25:32', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e718fc9014e71a437280002', '<p>asdfdsaf</p>', 'sdaf', 'CY', '2015-07-09 15:07:47', '00', 'N', 'Y', '2015-07-09 15:07:44', '00', '00', '1', 'jwc0');
+INSERT INTO `t_announcement` VALUES ('4028ab864e718fc9014e71d1fbd4000d', '<p>asdfasdf</p>', 'sdafasd', 'CY', '2015-07-09 15:57:47', '00', 'N', 'Y', '2015-07-09 15:57:43', '00', '00', '1', 'jwc0');
 INSERT INTO `t_announcement` VALUES ('8a7d2c914e569ca0014e56bd6c590000', '输入您的公告内容......', '1111111', 'CN', '2015-07-06 18:12:30', '00', 'N', 'Y', '2015-07-04 09:45:31', '00', '00', '1', 'jwc0');
 INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62b14d2f0006', '输入您的公告内容......', '1212131', 'CY', null, null, 'Y', 'Y', '2015-07-06 17:27:44', '06', '08', null, 'student');
 INSERT INTO `t_announcement` VALUES ('8a7df19e4e629f72014e62b65dba0007', '输入您的公告内容......', '121', 'CY', null, null, 'N', 'Y', '2015-07-06 17:33:16', '06', '08', null, 'student');
@@ -457,6 +464,16 @@ CREATE TABLE `t_email` (
 -- Records of t_email
 -- ----------------------------
 INSERT INTO `t_email` VALUES ('4028ab864e70a456014e70c2cc630000', '2015-07-09 11:01:31', 'sdafasdf', 'zkq.2015', 'sdafasd', 'N', '2015-07-09 11:01:31', 'true', '1191482087@qq.com', '1', '03');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e70e2b3d40001', '2015-07-09 11:36:22', 'sdafdasfdsafasd', 'zkq.2015', 'sdaf', 'N', '2015-07-09 11:36:22', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e70e4227f0002', '2015-07-09 11:37:56', 'dsaf', 'zkq.2015', 'asdf', 'N', '2015-07-09 11:37:56', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e70e676190004', '2015-07-09 11:40:28', 'asdfdas', 'zkq.2015', 'asdf', 'N', '2015-07-09 11:40:28', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e71804f97000a', '2015-07-09 14:28:31', 'dsafdasf', 'zkq.2015', 'asdfdsa', 'N', '2015-07-09 14:28:31', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e7181c7c2000b', '2015-07-09 14:30:07', 'sdaf', 'zkq.2015', 'asdfdas', 'N', '2015-07-09 14:30:07', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e7181d9e4000c', '2015-07-09 14:30:12', 'sdaf', 'zkq.2015', 'asdfdas', 'N', '2015-07-09 14:30:12', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e71826719000d', '2015-07-09 14:30:48', 'sdafdsa', 'zkq.2015', 'adsfdas', 'N', '2015-07-09 14:30:48', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e70a456014e7182ff51000f', '2015-07-09 14:31:27', 'asdfasdf', 'zkq.2015', 'asdf', 'N', '2015-07-09 14:31:27', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e718fc9014e7190c5cd0000', '2015-07-09 14:46:30', 'asdfdsaf', 'zkq.2015', 'asdfdas', 'N', '2015-07-09 14:46:30', 'true', '1191482087@qq.com', '1', '00');
+INSERT INTO `t_email` VALUES ('4028ab864e718fc9014e719215250001', '2015-07-09 14:47:55', 'dsafdsafasd', 'zkq.2015', 'sdafasd', 'N', '2015-07-09 14:47:55', 'true', '1191482087@qq.com', '1', '00');
 INSERT INTO `t_email` VALUES ('8a7df19e4e6646cf014e664831d60000', '2015-07-07 10:11:24', 'derewrewrwrwwerrewr', '101356lichao', '12323', 'N', '2015-07-07 10:11:24', 'true', 'superlee2013@163.com', '1', '03');
 INSERT INTO `t_email` VALUES ('8a7df19e4e6655c5014e6659e52b0000', '2015-07-07 10:30:44', 'dasdqweqwadasd', '101356lichao', 'testMail', 'N', '2015-07-07 10:30:44', 'true', 'superlee2013@163.com', '1', '03');
 INSERT INTO `t_email` VALUES ('8a7df19e4e6655c5014e665c0b0a0001', '2015-07-07 10:33:05', '邮件群发', 'zkq.2015', 'testMail', 'N', '2015-07-07 10:33:05', 'true', 'superlee2013@163.com', '1', '03');
@@ -620,7 +637,7 @@ CREATE TABLE `t_expert_lib` (
 -- ----------------------------
 -- Records of t_expert_lib
 -- ----------------------------
-INSERT INTO `t_expert_lib` VALUES ('8a7d2c914e57f2d5014e57f856250000', '2015-07-04 15:29:30', null, 'N', '01', '1', '03', '1');
+INSERT INTO `t_expert_lib` VALUES ('8a7d2c914e57f2d5014e57f856250000', '2015-07-04 15:29:30', null, 'Y', '01', '1', '03', '1');
 
 -- ----------------------------
 -- Table structure for t_expert_review
@@ -666,8 +683,8 @@ CREATE TABLE `t_expert_teacher` (
 -- ----------------------------
 -- Records of t_expert_teacher
 -- ----------------------------
-INSERT INTO `t_expert_teacher` VALUES ('8a7d2c914e57f2d5014e57f856350001', 'N', null, '8a7d2c914e57f2d5014e57f856250000', '04');
-INSERT INTO `t_expert_teacher` VALUES ('8a7d2c914e57f2d5014e57f856360003', 'N', null, '8a7d2c914e57f2d5014e57f856250000', '05');
+INSERT INTO `t_expert_teacher` VALUES ('8a7d2c914e57f2d5014e57f856350001', 'Y', null, '8a7d2c914e57f2d5014e57f856250000', '04');
+INSERT INTO `t_expert_teacher` VALUES ('8a7d2c914e57f2d5014e57f856360003', 'Y', null, '8a7d2c914e57f2d5014e57f856250000', '05');
 
 -- ----------------------------
 -- Table structure for t_expert_teacher_model
@@ -1196,11 +1213,11 @@ INSERT INTO `t_temp_email_reciver` VALUES ('0af01694-2067-11e5-b8b9-f079598bd102
 INSERT INTO `t_temp_email_reciver` VALUES ('18b0213a-207a-11e5-b8b9-f079598bd102', '03', '1', '1191482087@qq.com', 'Y', '1', 'college', '01');
 INSERT INTO `t_temp_email_reciver` VALUES ('2d321b55-2096-11e5-b8b9-f079598bd102', '03', '1', '1191482087@qq.com', 'Y', '1', 'college', '01');
 INSERT INTO `t_temp_email_reciver` VALUES ('617cf629-2080-11e5-b8b9-f079598bd102', '03', '1', '1191482087@qq.com', 'Y', '1', 'college', '01');
-INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e569ca0014e570399170004', '06', '1', '1191482087@qq.com', 'N', '1', 'zkq', '01');
-INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e569ca0014e57039fd40005', '03', '1', '1191482087@qq.com', 'N', '1', 'col3', '01');
-INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e57ce96014e57eae7bd0002', '05', '1', '1191482087@qq.com', 'N', '1', 'commontea', '01');
-INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e57f2d5014e57f856350002', '04', '1', '1191482087@qq.com', 'N', '1', 'pinshen', '01');
-INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e57f2d5014e57f856370004', '05', '1', '1191482087@qq.com', 'N', '1', 'commontea', '01');
+INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e569ca0014e570399170004', '06', '1', '1191482087@qq.com', 'Y', '1', 'zkq', '01');
+INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e569ca0014e57039fd40005', '03', '1', '1191482087@qq.com', 'Y', '1', 'col3', '01');
+INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e57ce96014e57eae7bd0002', '05', '1', '1191482087@qq.com', 'Y', '1', 'commontea', '01');
+INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e57f2d5014e57f856350002', '04', '1', '1191482087@qq.com', 'Y', '1', 'pinshen', '01');
+INSERT INTO `t_temp_email_reciver` VALUES ('8a7d2c914e57f2d5014e57f856370004', '05', '1', '1191482087@qq.com', 'Y', '1', 'commontea', '01');
 INSERT INTO `t_temp_email_reciver` VALUES ('bb53f7f0-2065-11e5-b8b9-f079598bd102', '03', '1', '1191482087@qq.com', 'Y', '1', 'college', '01');
 INSERT INTO `t_temp_email_reciver` VALUES ('cc46601a-2080-11e5-b8b9-f079598bd102', '03', '1', '1191482087@qq.com', 'Y', '1', 'college', '01');
 INSERT INTO `t_temp_email_reciver` VALUES ('e145ae8f-2079-11e5-b8b9-f079598bd102', '03', '1', '1191482087@qq.com', 'Y', '1', 'college', '01');
@@ -1253,7 +1270,7 @@ INSERT INTO `t_user` VALUES ('01', 'N', null, 'jwc1', '123', 'YY', '4028ab864e54
 INSERT INTO `t_user` VALUES ('02', 'N', null, 'coll1', '123', 'YY', '4028ab864e54db0c014e54db7bef0035', null, '02', '2@qq.com');
 INSERT INTO `t_user` VALUES ('03', 'N', null, 'College', '123', 'YY', '4028ab864e54db0c014e54db7bef0034', '03', '03', '3@qq.com');
 INSERT INTO `t_user` VALUES ('04', 'N', null, 'ps', '123', 'YY', '4028ab864e54db0c014e54db7bef0036', '04', '04', '4@qq.com');
-INSERT INTO `t_user` VALUES ('05', 'N', null, 'commontea', '123', 'YY', '4028ab864e54db0c014e54db7bef0033', '04', '05', '5@qq.com');
+INSERT INTO `t_user` VALUES ('05', 'N', null, 'commontea', '123', 'YY', '4028ab864e54db0c014e54db7bef0033', '04', '04', '5@qq.com');
 INSERT INTO `t_user` VALUES ('06', 'N', null, 'stu1', '123', 'YY', '4028ab864e54db0c014e54db7bef0030', null, '06', '6@qq.com');
 INSERT INTO `t_user` VALUES ('07', 'N', null, 'stu2', '123', 'YY', '4028ab864e54db0c014e54db7bef0031', null, '07', '7@qq.com');
 INSERT INTO `t_user` VALUES ('08', 'N', null, 'stu3', '123', 'YY', '4028ab864e54db0c014e54db7bef0032', null, '08', '8@qq.com');
