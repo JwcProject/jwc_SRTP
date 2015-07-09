@@ -16,7 +16,6 @@ import javax.annotation.Resource;
  * Created by ZKQ on 2015/7/1.
  */
 
-
 @Controller
 
 @Namespace("/")
@@ -29,16 +28,18 @@ public class EmailAction extends BaseAction {
     @Resource
     private EmailService emailService;
 
-    private boolean sendResult;
+    private String sendResult;
 
+    
     @Action(value = "sendEmail", results = {
             @Result(name = "success", type = "json", params = {"root", "sendResult"}),
             @Result(name = "error", type = "json", params = {"root", "sendResult"}),
     })
     public String sendMail() {
 
-        sendResult = emailService.sendMail(mailInfo);
-        if (sendResult){
+        boolean result = emailService.sendMail(mailInfo);
+        sendResult = result ? "发送成功！" : "发送失败";
+        if (result){
             emailService.saveEmail(mailInfo, true);
             return SUCCESS;
         }
@@ -57,4 +58,11 @@ public class EmailAction extends BaseAction {
     }
 
 
+    public String getSendResult() {
+        return sendResult;
+    }
+
+    public void setSendResult(String sendResult) {
+        this.sendResult = sendResult;
+    }
 }
