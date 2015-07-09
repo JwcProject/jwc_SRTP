@@ -137,10 +137,13 @@ public class UserAction extends BaseAction implements SessionAware {
                 session.put("authorities"
                         , userService.getUserAuthorities(user));
                 result = SUCCESS;
+                break;
             case UserService.REDUNDANCY_USER:
                 result = REDUNDANCY_USER;
+                break;
             case UserService.REDUNDANCY_EMAIL:
                 result = REDUNDANCY_EMAIL;
+                break;
         }
         return SUCCESS;
     }

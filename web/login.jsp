@@ -73,7 +73,7 @@
 
                 <div class="space-6"></div>
 
-                <form id="login-form" action="<%=basePath%>user/login" method="post">
+                <form id="login-form" action="user/login" method="post">
                   <fieldset>
                     <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -151,7 +151,7 @@
                   请输入您的用户名和重庆大学E-mail：
                 </p>
 
-                <form id="reset-password-form" action="<%=basePath%>user/resetPassword" method="post">
+                <form id="reset-password-form" action="user/resetPassword" method="post">
                   <fieldset>
 
                     <label class="block clearfix">
@@ -203,7 +203,7 @@
                 <div class="space-6"></div>
                 <p> 请输入您的重庆大学E-mail（@cqu.edu.cn）： </p>
 
-                <form id="register-form" action="<%=basePath%>user/register" method="post">
+                <form id="register-form" action="user/register" method="post">
                   <fieldset>
                     <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -300,7 +300,10 @@
     });
 
     map = {
-      "<%=basePath%>user/login": "login"
+      "user/login": "login",
+      "user/resetPassword": "resetPassword",
+      "user/register": "register"
+
     }
 
     //login-form
@@ -313,7 +316,7 @@
 
       $.ajax({
         type: login_form.attr('method'),
-        url: map[login_form.attr('action')],
+        url: '<%=basePath%>' + map[login_form.attr('action')],
         data: login_form.serialize(),
         success: function (data) {
           $('#login-form + div').remove();
@@ -385,7 +388,7 @@
       var reset_password_form = $('#reset-password-form');
       $.ajax({
         method: reset_password_form.attr('method'),
-        url: reset_password_form.attr('action'),
+        url: '<%=basePath%>' + map[reset_password_form.attr('action')],
         data: reset_password_form.serialize(),
         success: function (data) {
           $('#reset-password-form + div').remove();
@@ -450,7 +453,7 @@
       var register_form = $('#register-form');
       $.ajax({
         method: register_form.attr('method'),
-        url: register_form.attr('action'),
+        url: '<%=basePath%>' + map[register_form.attr('action')],
         data: register_form.serialize(),
         success: function (data) {
           $('#register-form + div').remove();

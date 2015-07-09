@@ -84,7 +84,7 @@
           if (authority.getPath().equals("announcement/publish")) {
         %>
         <li class="">
-          <a href="#announcement/student"><i class="menu-icon fa fa-caret-right"></i>发布公告</a>
+          <a href="#announcement/publish"><i class="menu-icon fa fa-caret-right"></i>发布公告</a>
 
           <b class="arrow"></b>
         </li>
