@@ -247,11 +247,11 @@
                             </div>
 
                             <dl class="artTabs" style="width:700px;margin-left: 30px">
-                                <dt id="tabs"><a href="#tabContent1" class="select">研究内容</a> <a
-                                        href="#tabContent2">立项意义</a> <a href="#tabContent3">研究方案</a> <a
-                                        href="#tabContent4">创新点</a> <a href="#tabContent5">具备的研究条件</a> <a
-                                        href="#tabContent6">进度安排</a> <a href="#tabContent7">预期研究目标</a><a
-                                        href="#tabContent8">预期提交成果</a></dt>
+                                <dt id="tabs"><a id="#tabContent1" class="select">研究内容</a> <a
+                                        id="#tabContent2">立项意义</a> <a id="#tabContent3">研究方案</a> <a
+                                        id="#tabContent4">创新点</a> <a id="#tabContent5">具备的研究条件</a> <a
+                                        id="#tabContent6">进度安排</a> <a id="#tabContent7">预期研究目标</a><a
+                                        id="#tabContent8">预期提交成果</a></dt>
                                 <dd id="tabContent1" style="display:block"><span
                                         style=" padding-top:5px; padding-bottom:5px;">
                 <textarea name="declaration.resContent" id="textfield12"
@@ -853,4 +853,11 @@
             }
         });
     });
+
+    $(function(){
+        $('dl.artTabs dt#tabs a').click(function(){
+            var content=$(this).attr('id').substring(1);
+            $('dl.artTabs dd').css('display','none').filter('#'+content).css('display','block');
+        });
+    })
 </script>
