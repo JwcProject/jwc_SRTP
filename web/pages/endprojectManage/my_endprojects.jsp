@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page import="com.opensymphony.xwork2.util.ValueStack" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 	String path = request.getContextPath();
@@ -34,7 +35,11 @@
 						<td> 可得学分 </td>
 						<td> 操作 </td>
 						 </tr>
-				<s:iterator value="endProjects" id="endProjects" status="stuts"> 
+				<s:iterator value="endProjects" var="endProjects" status="stuts">
+					<%
+						ValueStack vs = (ValueStack)request.getAttribute("struts.valueStack");
+						out.println(vs);
+					%>
 					<s:if test="#stuts.odd == true">
 					  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#eef7ff">
     				</s:if>
@@ -42,13 +47,13 @@
    					<s:else>
       				  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#ffffff">
     				</s:else>
-                        <td style="padding-left:10px" class="NoNewline"><s:property value="#endProjects.endprojectNumber" /></td>
-                        <td title="<s:property value='#endProjects.endprojectName' />">
-                        <s:if test="%{#endProjects.endprojectName.length()>20}">
-    				    	<s:property value="%{#endProjects.endprojectName.substring(0,20)+'...'}" escape="#onlineList.frmTitle"/>
+                        <td style="padding-left:10px" class="NoNewline"><s:property value="#endProjects.endProjectId" /></td>
+                        <td title="<s:property value='#endProjects.endProjectName' />">
+                        <s:if test="%{#endProjects.endProjectName.length()>20}">
+    				    	<s:property value="%{#endProjects.endProjectName.substring(0,20)+'...'}" escape="#onlineList.frmTitle"/>
     				    </s:if>
     				    <s:else>
-    				    	<s:property value="#endProjects.endprojectName" />
+    				    	<s:property value="#endProjects.endProjectName" />
     				    </s:else>
                         <td ><s:property value="#endProjects.TJieqi.jqYear+'年，第'+#endProjects.TJieqi.qici+'期'" /> </td>
 						<td ><s:property value="#endProjects.TProject.TStudentByProjectLeader.studentName" /> </td>
@@ -64,22 +69,22 @@
 						</s:else>
 						</td>
 						<td >
-							<s:if test="#endProjects.endprojectState=='01'">
+							<s:if test="#endProjects.endProjectState=='01'">
 								结题已提交
 					  		</s:if>
-							<s:elseif test="#endProjects.endprojectState=='02'">
+							<s:elseif test="#endProjects.endProjectState=='02'">
 			         			 申请未通过
 			          		</s:elseif>
-			          		<s:elseif test="#endProjects.endprojectState=='03'">
+			          		<s:elseif test="#endProjects.endProjectState=='03'">
 			         			 结题中
 			          		</s:elseif>
-			          		<s:elseif test="#endProjects.endprojectState=='04'">
+			          		<s:elseif test="#endProjects.endProjectState=='04'">
 			         			 结题中
 			          		</s:elseif>
-			          		<s:elseif test="#endProjects.endprojectState=='05'">
+			          		<s:elseif test="#endProjects.endProjectState=='05'">
 			         			 参加二次答辩
 			          		</s:elseif>
-			          		<s:elseif test="#endProjects.endprojectState=='06'">
+			          		<s:elseif test="#endProjects.endProjectState=='06'">
 			         			已结题
 			          		</s:elseif>
 						</td>
@@ -88,12 +93,12 @@
 											<s:property value="#endProjects.lastScore" />
 										</s:if>
 										<s:else>
-											<s:property value="#endProjects.endprojectScore" />
+											<s:property value="#endProjects.endProjectScore" />
 										</s:else>
 						</td>
-						<td ><s:property value="#endProjects.endprojectCredit" /> </td>
+						<td ><s:property value="#endProjects.endProjectCredit" /> </td>
 						<td bgcolor="#eef7ff" >
-								<s:a href="EndProjectDetail?endprojectId=%{#endProjects.endprojectId}"  >
+								<s:a href="EndProjectDetail?endprojectId=%{#endProjects.endProjectId}"  >
 									<img src="images/shenbiaoliebiao_icon1.gif" alt="查看" />
 								</s:a>
 						</td>                    

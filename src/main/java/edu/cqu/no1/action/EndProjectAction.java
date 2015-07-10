@@ -503,7 +503,7 @@ public class EndProjectAction extends BaseAction {
      * @return
      * @throws Exception
      */
-    @Action(value = "preUnitTeaAddEndProCom",results = {
+    @Action(value = "EndProjectDetail",results = {
             @Result(name = SUCCESS,location = "/pages/expertTeam/endpro_review_opinion.jsp")
     })
     public String endProjectDetail() throws Exception {

@@ -337,10 +337,10 @@ public class EndProjectServiceImpl implements EndProjectService {
     @Override
     public TEndProject addEndProjectRequest(List<TAttachment> tAttachments,
                                             TEndProject endProject, List<TEndProjectJob> endprojectJobs) {
-        Session session = this.endProjectDAO.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            transaction.begin();
+//        Session session = this.endProjectDAO.getSessionFactory().getCurrentSession();
+//        Transaction transaction = session.beginTransaction();
+//        try {
+//            transaction.begin();
             //结题
             this.endProjectDAO.save(endProject);
             TAttchmentType tAttchmentType = this.attchmentTypeDAO.findById("3");
@@ -357,13 +357,13 @@ public class EndProjectServiceImpl implements EndProjectService {
                 t.setIsdeleted("N");
                 this.endprojectJobDAO.save(t);
             }
-            transaction.commit();
+//            transaction.commit();
             return endProject;
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
-            return null;
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+////            transaction.rollback();
+//            return null;
+//        }
     }
 
 
