@@ -251,7 +251,11 @@
 
             //返回的是网页
             if (typeof(data) == "string") {
-              $('div.content-body').html(data);
+              try {
+                $('div.content-body').html(data);
+              } catch (e) {
+
+              }
               setAjax();
 
               //TODO: form

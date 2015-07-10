@@ -150,10 +150,15 @@ public class UserAction extends BaseAction implements SessionAware {
 
     @Action(value = "logout")
     public String logout() {
-        TUser user= (TUser) session.get("user");
-        userService.changeLoginState(user.getUserId(), "NN");
-        session.clear();
-        return LOGIN;
+        try {
+            TUser user = (TUser) session.get("user");
+            userService.changeLoginState(user.getUserId(), "NN");
+            session.clear();
+
+        } finally {
+            return LOGIN;
+        }
+
     }
 
     @Action(value = "resetPassword", results = {
@@ -239,7 +244,7 @@ public class UserAction extends BaseAction implements SessionAware {
             @Result(name = "jiaowuchu", location = "/dean_index.jsp")
     })
     public String index() throws Exception {
-        TUser user= (TUser) session.get("user");
+        TUser user = (TUser) session.get("user");
         userService.attachUser(user);
 
         userService.changeLoginState(user.getUserId(), "YY");

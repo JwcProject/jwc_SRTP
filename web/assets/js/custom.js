@@ -11,7 +11,10 @@ function setAjax() {
                 method: 'get',
                 url: $(this).attr('href'),
                 success: function (data) {
-                    $('div.content-body').html(data);
+                    try {
+                        $('div.content-body').html(data);
+                    } catch (e) {
+                    }
                     setAjax();
                 },
                 error: function () {
@@ -30,7 +33,10 @@ function setAjax() {
             url: form.attr('action'),
             data: form.serialize(),
             success: function (data) {
-                $('div.content-body').html(data);
+                try {
+                    $('div.content-body').html(data);
+                } catch (e) {
+                }
                 setAjax();
             },
             error: function () {
@@ -39,7 +45,7 @@ function setAjax() {
         });
 
     })
-    $('#pager').css('top','0').addClass('layout-inline');
+    $('#pager').css('top', '0').addClass('layout-inline');
 }
 
 /**
@@ -56,7 +62,10 @@ function postFormAndSetAjax($form) {
 
             //���ص�����ҳ
             if (typeof(data) == "string") {
-                $('div.content-body').html(data);
+                try {
+                    $('div.content-body').html(data);
+                } catch (e) {
+                }
                 setAjax();
 
                 //TODO: form
@@ -82,7 +91,10 @@ function sendGetAndSetAjax($url) {
 
             //���ص�����ҳ
             if (typeof(data) == "string") {
-                $('div.content-body').html(data);
+                try {
+                    $('div.content-body').html(data);
+                } catch (e) {
+                }
                 setAjax();
 
                 //TODO: form
@@ -99,7 +111,7 @@ function sendGetAndSetAjax($url) {
     });
 }
 
-function PageClick(){
+function PageClick() {
 
 }
 
