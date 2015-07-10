@@ -811,6 +811,7 @@ public class DeclarationAction extends BaseAction {
     }
 
 
+    @Action(value = "SchoolCheck")
     public void schoolCheck() throws Exception {
         String state = checkState;
         String jqId = this.jieQiService.findDeclJieQiNow().getJqId();
