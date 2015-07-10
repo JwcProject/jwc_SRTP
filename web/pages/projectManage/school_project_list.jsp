@@ -10,14 +10,13 @@
     <div id="maincontent" class="h645">
         <s:form action="" method="post" name="queyForm" id="queyForm"
                 theme="simple">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <table class="table-striped table-bordered table-hover">
+                    <div class="header smaller lighter blue">&nbsp;<s:property value="%{#session.unit.unitName}"/>SRTP项目列表</div>
                 <tr>
                     <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                         style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
                         <div class="midbox">
-                            <div class="midbox_gg">
-                                <div class="sblb">&nbsp;<s:property value="%{#session.unit.unitName}"/>SRTP项目列表</div>
-                            </div>
+
                             <div class="xia_left">
                                 <table>
                                     <tr style="margin-left: -19px">
@@ -72,7 +71,7 @@
                                                 <img src="<%=path%>/images/gonggaoweihu_icon1.gif" alt="查询"
                                                      onclick="query();"/>
                                                 <a onclick="resetValue();"><img src="<%=path%>/images/reset.png"
-                                                                                alt="重置" "/></a>
+                                                                                alt="重置"/></a>
                                             </div>
                                         </td>
 
@@ -81,20 +80,18 @@
                                 </table>
                             </div>
                             <div id="declaraList" class="xia_list" style="margin-left: 15px;">
-                                <table width="99%" border="0" cellspacing="0" cellpadding="0"
-                                       style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                                       align="left">
+                                <table class="table-striped table-bordered table-hover">
 
                                     <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                        <td style="padding-left:10px" bgcolor="#FFFFFF" width="10%" class="NoNewline">
-                                            |项目编号
+                                        <td>
+                                            项目编号
                                         </td>
-                                        <td bgcolor="#FFFFFF" width="20%"> |项目名称</td>
-                                        <td bgcolor="#FFFFFF" width="8%"> |申报人</td>
-                                        <td bgcolor="#FFFFFF" width="8%"> |学号</td>
-                                        <td bgcolor="#FFFFFF" width="8%"> |学院</td>
+                                        <td>项目名称</td>
+                                        <td>申报人</td>
+                                        <td>学号</td>
+                                        <td>学院</td>
 
-                                        <td bgcolor="#FFFFFF" width="11%"> |操作</td>
+                                        <td>操作</td>
                                     </tr>
                                     <s:iterator value="projectList" id="projectList" status="stuts">
                                         <s:if test="#stuts.odd == true">
@@ -130,11 +127,6 @@
 
 
                                 </table>
-                            </div>
-                            <div class="xia_x">
-
-                                <div id="pager">
-                                </div>
                             </div>
                         </div>
                     </td>
