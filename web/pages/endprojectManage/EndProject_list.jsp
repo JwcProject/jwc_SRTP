@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page import="com.opensymphony.xwork2.util.ValueStack" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -97,6 +98,10 @@
                                 <td>操作</td>
                             </tr>
                             <s:iterator value="endProjects" id="endProject" status="st">
+                                <%
+                                    ValueStack vs= (ValueStack) request.getAttribute("struts.valueStack");
+                                    out.println(vs);
+                                %>
                                 <s:if test="#st.odd">
                                     <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
                                         <td style="padding-left:10px" bgcolor="#eef7ff" class="NoNewline"><s:property
@@ -258,7 +263,7 @@
                                             <s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
                                         </td>
                                         <td bgcolor="#eef7ff"><s:a
-                                                href="EndProjectDetail?endprojectId=%{#endProject.endprojectId}"><img
+                                                href="EndProjectDetail?endprojectId=%{#endProject.endProjectId}"><img
                                                 src="<%=path%>/images/shenbiaoliebiao_icon1.gif" alt="查看"/></s:a></td>
                                     </tr>
                                 </s:if>

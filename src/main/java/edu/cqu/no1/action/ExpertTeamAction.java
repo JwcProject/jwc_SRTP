@@ -269,7 +269,7 @@ public class ExpertTeamAction extends BaseAction {
             // 专家库对象
             TExpertLib tLib = new TExpertLib();
             tLib.setTTeacher(creater);
-            tLib.setCreatOn((Timestamp) date);
+            tLib.setCreatOn(new Timestamp(System.currentTimeMillis()));
             tLib.setTJieqi(jieqi);
             tLib.setIsdeleted("N");
             tLib.setType("02");// 02为结题的专家团队

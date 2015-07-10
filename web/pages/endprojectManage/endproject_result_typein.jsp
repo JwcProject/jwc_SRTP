@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page import="com.opensymphony.xwork2.util.ValueStack" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%
   String path = request.getContextPath();
@@ -96,6 +97,10 @@
                     <td bgcolor="#FFFFFF" width="15%"> |结题评语</td>
                   </tr>
                   <s:iterator value="endProjects" id="endProjects" status="stuts">
+                    <%
+                      ValueStack vs= (ValueStack) request.getAttribute("struts.valueStack");
+                      out.println(vs);
+                    %>
                     <s:if test="#stuts.odd == true">
                       <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#eef7ff">
                     </s:if>
@@ -105,16 +110,16 @@
                     </s:else>
                     <td style="padding-left:10px" class="NoNewline">
                       <input type="checkbox" name="checkProjects" id="checkProjects"
-                             value='<s:property value="#endProjects.endprojectId"/>'/>
-                      <label for="music"><s:property value="#endProjects.endprojectNumber"/></label>
+                             value='<s:property value="#endProjects.endProjectId"/>'/>
+                      <label for="music"><s:property value="#endProjects.endProjectId"/></label>
                     </td>
-                    <td title="<s:property value='#endProjects.endprojectName' />">
-                      <s:if test="%{#endProjects.endprojectName.length()>15}">
-                        <s:property value="%{#endProjects.endprojectName.substring(0,15)+'...'}"
+                    <td title="<s:property value='#endProjects.endProjectName' />">
+                      <s:if test="%{#endProjects.endProjectName.length()>15}">
+                        <s:property value="%{#endProjects.endProjectName.substring(0,15)+'...'}"
                                     escape="#onlineList.frmTitle"/>
                       </s:if>
                       <s:else>
-                        <s:property value="#endProjects.endprojectName"/>
+                        <s:property value="#endProjects.endProjectName"/>
                       </s:else>
                     </td>
                     <td><s:property value="#endProjects.TProject.TStudentByProjectLeader.studentName"/></td>
@@ -126,44 +131,45 @@
 
                       </s:if>
                       <s:else>
-                        <s:text name="global.format.date">
+                        <s:date name="#endProjects.submitTime" format="yyyy-MM-dd" />
+                        <%--<s:text name="global.format.date">
                           <s:param value="#endProjects.submitTime"/>
-                        </s:text>
+                        </s:text>--%>
                       </s:else>
                     </td>
                     <td><s:property value="#endProjects.TJieqi.jqYear+'年，第'+#endProjects.TJieqi.qici+'期'"/></td>
                     <td>
                       <s:hidden id="projectStates" name="projectStates"
-                                value="%{#endProjects.endprojectState}"></s:hidden>
-                      <s:if test="%{#endProjects.endprojectState=='01'}">未处理</s:if>
-                      <s:elseif test="%{#endProjects.endprojectState=='02'}">未通过</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='03'}">结题中</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='04'}">教务处审核</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='05'}">二次答辩</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='06'}">已结题</s:elseif>
+                                value="%{#endProjects.endProjectState}"></s:hidden>
+                      <s:if test="%{#endProjects.endProjectState=='01'}">未处理</s:if>
+                      <s:elseif test="%{#endProjects.endProjectState=='02'}">未通过</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='03'}">结题中</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='04'}">教务处审核</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='05'}">二次答辩</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='06'}">已结题</s:elseif>
                     </td>
                     <td>
-                      <s:if test="%{#endProjects.endprojectScore=='01'}">优秀</s:if>
-                      <s:elseif test="%{#endProjects.endprojectScore=='02'}">良好</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectScore=='03'}">中等</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectScore=='04'}">及格</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectScore=='05'}">不及格</s:elseif>
+                      <s:if test="%{#endProjects.endProjectScore=='01'}">优秀</s:if>
+                      <s:elseif test="%{#endProjects.endProjectScore=='02'}">良好</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectScore=='03'}">中等</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectScore=='04'}">及格</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectScore=='05'}">不及格</s:elseif>
                     </td>
                     <td bgcolor="#eef7ff">
-                      <s:if test="%{#endProjects.endprojectState=='03'}">
-                        <s:if test="#endProjects.endprojectComment !=null">
-                          <s:a href="preUnitTeaAddEndProCom?endprojectId=%{#endProjects.endprojectId}">
+                      <s:if test="%{#endProjects.endProjectState=='03'}">
+                        <s:if test="#endProjects.endProjectComment !=null">
+                          <s:a href="UnitTeaAddEndProCom?endprojectId=%{#endProjects.endProjectId}">
                             <img src="images/edit.gif" alt="编辑"/>
                           </s:a>
                         </s:if>
                         <s:else>
-                          <s:a href="preUnitTeaAddEndProCom?endprojectId=%{#endProjects.endprojectId}">
+                          <s:a href="UnitTeaAddEndProCom?endprojectId=%{#endProjects.endProjectId}">
                             <img src="images/tianjia.gif" alt="添加"/>
                           </s:a>
                         </s:else>
                       </s:if>
                       <s:else>
-                        <s:a href="EndProjectDetail?endprojectId=%{#endProjects.endprojectId}"><img
+                        <s:a href="EndProjectDetail?endprojectId=%{#endProjects.endProjectId}"><img
                                 src="<%=path%>/images/shenbiaoliebiao_icon1.gif" alt="查看"/></s:a>
                       </s:else>
                     </td>
