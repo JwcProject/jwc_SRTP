@@ -15,7 +15,7 @@ function setAjax() {
                     setAjax();
                 },
                 error: function () {
-                    $('div.content-body').html('���ݿ�������Ժ�����');
+                    $('div.content-body').html('数据库错误，请稍后再试');
                 }
             });
         }
@@ -34,7 +34,7 @@ function setAjax() {
                 setAjax();
             },
             error: function () {
-                $('div.content-body').html('���ݿ�������Ժ�����');
+                $('div.content-body').html('数据库错误，请稍后再试');
             }
         });
 
