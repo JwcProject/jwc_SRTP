@@ -10,33 +10,28 @@
     <div id="maincontent" class="h645">
         <s:form action="" method="post" name="queyForm"
                 theme="simple">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <table class="table table-striped table-bordered table-hover">
+                    <h3 class="header smaller lighter blue">系统用户列表</h3>
                 <tr>
                     <!--中间区域-->
                     <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                         style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
                         <div class="midbox">
-                            <div class="midbox_gg">
-                                <div class="sblb">系统用户列表</div>
-                            </div>
+
                             <div class="xia_left">
                                 <table>
                                     <ul>
-
-
                                         <li>
                                             <div class="douselect">
                                                 <p>登录名:
-                                                    <s:textfield name="userId" value="%{userId}" id="userId"
-                                                                 style="width:86px;height:14px"/>
+                                                    <s:textfield name="userId" value="%{userId}" id="userId"/>
                                                 </p>
                                             </div>
                                         </li>
 
                                         <li>
                                             <p>昵称:
-                                                <s:textfield name="username" id="username" value="%{username}"
-                                                             style="width:86px;height:14px"/>
+                                                <s:textfield name="username" id="username" value="%{username}"/>
                                             </p>
                                         </li>
 
@@ -75,19 +70,14 @@
                             </div>
 
                             <div id="declaraList" class="xia_list">
-                                <table width="88%" border="0" cellspacing="0" cellpadding="0"
-                                       style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                                       align="left">
-
-                                    <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                        <td style="padding-left:10px" bgcolor="#FFFFFF" width="14%" class="NoNewline">
-                                            |登录名
-                                        </td>
-                                        <td bgcolor="#FFFFFF" width="14%"> |昵称</td>
-                                        <td bgcolor="#FFFFFF" width="15%"> |用户简介</td>
-                                        <td bgcolor="#FFFFFF" width="9%"> |用户类型</td>
-                                        <td bgcolor="#FFFFFF" width="9%"> |登录状态</td>
-                                        <td bgcolor="#FFFFFF" width="32%"> |操作</td>
+                                <table class="table table-striped table-bordered table-hover">
+                                    <tr>
+                                        <td>登录名</td>
+                                        <td>昵称</td>
+                                        <td>用户简介</td>
+                                        <td>用户类型</td>
+                                        <td>登录状态</td>
+                                        <td>操作</td>
                                     </tr>
                                     <s:iterator value="listUsers" id="listUsers" status="stuts">
                                         <s:if test="#stuts.odd == true">

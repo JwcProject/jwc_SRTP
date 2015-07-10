@@ -9,16 +9,14 @@
 <div id="container">
 
   <div id="maincontent" class="h645">
- 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <table class="table-striped table-bordered table-hover">
+			  <h3 class="class="header smaller lighter blue">&nbsp;<s:property value="%{#session.unit.unitName}" />学生SRTP项目结题列表</div>
       <tr>
 	  
         <!--中间区域-->
         <td width="88%" valign="top"  style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc" bordercolor="#f4f3f1"  >
 		<div class="midbox">
-		<div class="midbox_gg">
-		<div class="sblb">&nbsp;<s:property value="%{#session.unit.unitName}" />学生SRTP项目结题列表</div>
-	    </div>
+
 	     <s:form action="" method="post" name="queyForm" theme="simple">
 		<div class="xia_left">
 		<ul>
@@ -37,13 +35,13 @@
 		
 		<!--<li>
 		<p>项目编号:
-		<s:textfield name="proSerial" id="proSerial" style="width:88px;height:14px"/> 
+		<s:textfield name="proSerial" id="proSerial"/>
 		</p>
 		</li>
 		
 		--><li>
 		<p>项目名称:
-		<s:textfield name="property.projectName" id="proName" style="width:88px;height:14px" /> 
+		<s:textfield name="property.projectName" id="proName"/>
 		</p>
 		</li>
 		
@@ -56,7 +54,7 @@
 </li>
 <li>
 		<p>学号:
-		<s:textfield  name="property.studentNumber" id="studentNumebr" style="width:88px;height:14px"/> 
+		<s:textfield  name="property.studentNumber" id="studentNumebr"/>
 </p>
 </li>
 <li>
@@ -77,18 +75,18 @@
 		
 		<s:form action="" theme="simple" name="preAssignEndProExp" id="preAssignEndProExp" >
 		<div class="xia_list" style="height:200px">
- 		<table width="97%" border="0" cellspacing="0" cellpadding="0" style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;" align="left" >
-                                                                                                   
-                      <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                        <td style="padding-left:10px" bgcolor="#FFFFFF" width="14%" class="NoNewline"><input type="checkbox" name="ALL" id="ALL" onClick="check()"
-								value="on"/><label for="music">|项目编号</label> 
-</td>
-                        <td bgcolor="#FFFFFF" width="14%"> |项目名称 </td>
-                        <td bgcolor="#FFFFFF" width="9%"> |申报人 </td>
-						<td bgcolor="#FFFFFF" width="9%"> |学号 </td>
-						<td bgcolor="#FFFFFF" width="9%"> |专业 </td>
-						<td bgcolor="#FFFFFF" width="9%"> |申请日期 </td>
-						<td bgcolor="#FFFFFF" width="9%"> |分派状态</td>
+			<table class="table table-striped table-bordered table-hover">
+                      <tr>
+                        <td>
+							<input type="checkbox" name="ALL" id="ALL" onClick="check()"
+								value="on"/>&nbsp;&nbsp;项目编号
+						</td>
+                        <td>项目名称 </td>
+                        <td> 申报人 </td>
+						<td> 学号 </td>
+						<td> 专业 </td>
+						<td> 申请日期 </td>
+						<td> 分派状态</td>
 						                   
 						 </tr>
 				<s:iterator value="endProjects" id="endProjects" status="stuts"> 
@@ -143,53 +141,70 @@
 	<!-- 	<div class="xia_x_jg"></div> -->
 	 <div id="pager" style="padding-left: 600px;position: relative;">
 		</div>
-		<div class="xia_zhuanjia_cj" style="height:200px">
-		<div class="xia_zj">
-			<p>专家团队</p>
-		<p><select name="srcList" multiple style="width: 330px;height: 150px;"
-									ondblclick="move(this.form.srcList,this.form.destList);">
+			<div class="widget-box">
+				<div class="widget-header widget-header-flat">
+					<div class="widget-title">分配专家</div>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<div class="row">
+							<div class="col-md-5">
+								<p>专家团队</p>
+
+								<p><select name="srcList" multiple style="width: 330px;height: 150px;"
+										   ondblclick="move(this.form.srcList,this.form.destList);">
 									<s:iterator value="expertTeachers" id="expertTeachers">
 										<option>
-											<s:property value="#expertTeachers.TTeacher.teaName+'--'" />
-											<s:property value="#expertTeachers.TTeacher.teaCode+'--'" />
-											<s:property value="#expertTeachers.TTeacher.teaTitle" />
+											<s:property value="#expertTeachers.TTeacher.teaName+'--'"/>
+											<s:property value="#expertTeachers.TTeacher.teaCode+'--'"/>
+											<s:property value="#expertTeachers.TTeacher.teaTitle"/>
 										</option>
 									</s:iterator>
 								</select>
-		</p>
-		</div>
-		
-		<div class="xia_zj_mid_cj">
-		<ul>
-		<li>
-		<a href="javascript:void(0);" 
-		   onclick="move(getElementsByName('preAssignEndProExp')[0].srcList,getElementsByName('preAssignEndProExp')[0].destList)" name="B1">
-		<img src="images/cjzj_anniu1.gif" alt="右" height="26" width="80" /></a>
-		</li>
-		<li>
-		<a href="javascript:void(0);" 
-		   onclick="move(getElementsByName('preAssignEndProExp')[0].destList,getElementsByName('preAssignEndProExp')[0].srcList)" name="B2">
-		<img src="images/cjzj_anniu2.gif" alt="左"  height="26" width="80"/></a>
-		</li>
-		<li>
-		<a href="javascript:void(0);" 
-		   onclick="moveall(getElementsByName('preAssignEndProExp')[0].srcList,getElementsByName('preAssignEndProExp')[0].destList)" name="B3">
-		<img src="images/zhuanjia_anniu1.gif" alt="右" height="26" width="80" /></a>
-		</li>
-		<li>
-		<a href="javascript:void(0);" 
-		   onclick="moveall(getElementsByName('preAssignEndProExp')[0].destList,getElementsByName('preAssignEndProExp')[0].srcList)" name="B4">
-		<img src="images/zhuanjia_anniu2.gif" alt="左" height="26" width="80" /></a>
-		</li>
-		</ul>
-		</div>
-		<div class="xia_zj2">
-			<p>专家分派
-		<select name="destList" style="width: 330px;height:150px;" multiple
-				ondblclick="move(this.form.destList,this.form.srcList);">
-		</select>
-		</p>
-		</div>
+								</p>
+							</div>
+							<div class="col-md-2">
+								<ul style="margin-top: 50px;">
+									<li>
+										<a href="javascript:void(0);"
+										   onclick="move(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
+										   name="B1">
+											<img src="images/cjzj_anniu1.gif" alt="右" height="26" width="80"/></a>
+									</li>
+									<li>
+										<a href="javascript:void(0);"
+										   onclick="move(getElementsByName('proForm')[0].destList,getElementsByName('proForm')[0].srcList)"
+										   name="B2">
+											<img src="images/cjzj_anniu2.gif" alt="左" height="26" width="80"/></a>
+									</li>
+									<li>
+										<a href="javascript:void(0);"
+										   onclick="moveall(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
+										   name="B3">
+											<img src="images/zhuanjia_anniu1.gif" alt="右" height="26" width="80"/></a>
+									</li>
+									<li>
+										<a href="javascript:void(0);"
+										   onclick="moveall(getElementsByName('assignExperts')[0].destList,getElementsByName('assignExperts')[0].srcList)"
+										   name="B4">
+											<img src="images/zhuanjia_anniu2.gif" alt="左" height="26" width="80"/></a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-5">
+								<p>专家分派</p>
+								<p>
+									<select name="destList" style="width: 330px;height:150px;" multiple
+											ondblclick="move(this.form.destList,this.form.srcList);">
+
+									</select>
+								</p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		</s:form> 
 		<div class="xia_anniu_zj" style="margin-top: 0px">

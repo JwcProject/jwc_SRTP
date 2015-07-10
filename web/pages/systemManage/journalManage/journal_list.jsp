@@ -10,52 +10,43 @@
     <div id="maincontent" class="h645">
         <s:form action="" method="post" name="queyForm"
                 theme="simple">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <table class="table table-striped table-bordered table-hover">
+                <h3 class="header smaller lighter blue">系统日志列表</h3>
                 <tr>
-
-
-                    <!--中间区域-->
                     <td width="90%" valign="top" style="padding-top:10px; padding-left:5px;"
                         style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
                         <div class="midbox">
-                            <div class="midbox_gg">
-                                <div class="sblb">系统日志列表</div>
-                            </div>
                             <div class="xia_left">
-
                                 <ul>
-
-
                                     <li>
                                         <p>登录名:
-                                            <s:textfield name="userId" id="userId" style="width:84px;height:12px"/>
+                                            <s:textfield name="userId" id="userId"/>
                                         </p>
                                     </li>
 
                                     <li>
                                         <p>昵称:
-                                            <s:textfield name="username" id="username" style="width:84px;height:12px"/>
+                                            <s:textfield name="username" id="username"/>
                                         </p>
                                     </li>
 
                                     <li>
                                         <p>登录IP:
-                                            <s:textfield name="journalLoginip" id="journalLoginip"
-                                                         style="width:84px;height:12px"/>
+                                            <s:textfield name="journalLoginip" id="journalLoginip"/>
                                         </p>
                                     </li>
 
                                     <li>
                                         <p>登录时间:
                                             <s:textfield cssClass="easyui-datebox" name="journalLogintime"
-                                                         id="journalLogintime" cssStyle="width:103px"/>
+                                                         id="journalLogintime"/>
                                         </p>
                                     </li>
 
                                     <li>
                                         <p>退出时间:
                                             <s:textfield cssClass="easyui-datebox" name="journalQuitime"
-                                                         id="journalQuitime" cssStyle="width:103px"/>
+                                                         id="journalQuitime"/>
                                         </p>
                                     </li>
 
@@ -72,27 +63,23 @@
 
                             <div class="xia_right_sq">
                                 <img src="<%=path%>/images/gonggaoweihu_icon1.gif" alt="查询" onclick="query();"
-                                     style="margin-left:-38px"/>
+                                     />
                                 <a href="javascript:document.queyForm.reset();"><img src="<%=path%>/images/reset.png"
-                                                                                     alt="重置" "/></a>
+                                                                                     alt="重置"/></a>
                                 <a href="ListJournalAct" target="_blank" style="margin-left:5px"><img
                                         src="<%=path%>/images/journalDetail.png" alt="日志明细 "/></a>
 
                             </div>
 
                             <div id="declaraList" class="xia_list">
-                                <table width="92%" border="0" cellspacing="0" cellpadding="0"
-                                       style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                                       align="left">
+                                <table class="table table-striped table-bordered table-hover">
 
-                                    <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                        <td style="padding-left:10px" bgcolor="#FFFFFF" width="14%" class="NoNewline">
-                                            |用户登录名
-                                        </td>
-                                        <td bgcolor="#FFFFFF" width="14%"> |用户昵称</td>
-                                        <td bgcolor="#FFFFFF" width="14%"> |登录IP</td>
-                                        <td bgcolor="#FFFFFF" width="15%"> |登录时间</td>
-                                        <td bgcolor="#FFFFFF" width="15%"> |退出时间</td>
+                                    <tr>
+                                        <td >用户登录名</td>
+                                        <td>用户昵称</td>
+                                        <td>登录IP</td>
+                                        <td>登录时间</td>
+                                        <td>退出时间</td>
                                     </tr>
                                     <s:iterator value="listJournals" id="listJournals" status="stuts">
                                         <s:if test="#stuts.odd == true">
@@ -127,23 +114,12 @@
                                                 </s:text>
                                             </s:else>
                                         </td>
-
                                         </tr>
                                     </s:iterator>
-
-
                                 </table>
-                            </div>
-
-                            <div class="xia_x">
-
-                                <div id="pager">
-                                </div>
                             </div>
                         </div>
                     </td>
-
-
                 </tr>
             </table>
         </s:form>

@@ -11,20 +11,14 @@
 <div id="maincontent" class="h645">
     <s:form action="" method="post" name="queyForm"
             theme="simple">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <table class="table table-striped table-bordered table-hover">
+            <h3 class="header smaller lighter blue">全校SRTP项目申报列表</h3>
             <tr>
-
-                <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
-                    style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
-                    <div class="midbox">
-                        <div class="midbox_gg">
-                            <div class="sblb">全校SRTP项目申报列表</div>
-                        </div>
-                        <div class="xia_left">
+                <td>
+                    <div>
+                        <div>
                             <table>
                                 <tr>
-
-
                                     <td>
                                         <div class="douselect">
                                             <p>
@@ -41,8 +35,7 @@
                                     <td>
                                         <p>
                                             项目名称:
-                                            <s:textfield name="proName" id="proName"
-                                                         style="width:86px;height:14px"/>
+                                            <s:textfield name="proName" id="proName"/>
                                         </p>
                                     </td>
 
@@ -72,9 +65,7 @@
 
                                     </td>
                                     <td>
-
-
-                                        <div class="xia_right_sq" style="left: 820px">
+                                        <div style="margin-left:10px;vertical-align: middle;">
                                             <img src="images/gonggaoweihu_icon1.gif" alt="查询"
                                                  onclick="query();"/>
                                             <a href="javascript:document.queyForm.reset();"><img
@@ -86,20 +77,15 @@
                             </table>
                         </div>
                         <div id="declaraList" class="xia_list">
-                            <table width="90%" border="0" cellspacing="0" cellpadding="0"
-                                   style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                                   align="left">
-
+                            <table class="table table-striped table-bordered table-hover">
                                 <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                                    <td style="padding-left:10px" bgcolor="#FFFFFF" width="12%" class="NoNewline">
-                                        |项目编号
-                                    </td>
-                                    <td bgcolor="#FFFFFF" width="25%"> |项目名称</td>
-                                    <td bgcolor="#FFFFFF" width="11%"> |申报人</td>
-                                    <td bgcolor="#FFFFFF" width="11%"> |学号</td>
-                                    <td bgcolor="#FFFFFF" width="11%"> |学院</td>
-                                    <td bgcolor="#FFFFFF" width="11%"> |评审结果</td>
-                                    <td bgcolor="#FFFFFF" width="12%"> |操作</td>
+                                    <td >项目编号</td>
+                                    <td>项目名称</td>
+                                    <td>申报人</td>
+                                    <td>学号</td>
+                                    <td></td>
+                                    <td>评审结果</td>
+                                    <td>操作</td>
                                 </tr>
                                 <s:iterator value="declarations" id="declarations" status="stuts">
                                     <s:if test="#stuts.odd == true">

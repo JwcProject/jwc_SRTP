@@ -35,14 +35,14 @@
 
                   <!--<li>
 		<p>项目编号:
-		<s:textfield name="proSerial" id="proSerial" style="width:88px;height:14px"/> 
+		<s:textfield name="proSerial" id="proSerial"/>
 		</p>
 		</li>
 		
 		-->
                   <li>
                     <p>项目名称:
-                      <s:textfield name="proNaproperty.projectNameme" id="proName" style="width:88px;height:14px"/>
+                      <s:textfield name="proNaproperty.projectNameme" id="proName"/>
                     </p>
                   </li>
 
@@ -55,7 +55,7 @@
                   </li>
                   <li>
                     <p>学号:
-                      <s:textfield name="property.studentNumber" id="studentNumebr" style="width:88px;height:14px"/>
+                      <s:textfield name="property.studentNumber" id="studentNumebr"/>
                     </p>
                   </li>
                   <li>

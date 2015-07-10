@@ -10,22 +10,15 @@
   <div id="maincontent" class="h645">
     <s:form action="" method="post" name="queyForm"
             theme="simple">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <table class="table table-striped table-bordered table-hover">
+        <h3 class="header smaller lighter blue">我的评审列表</h3>
         <tr>
-          <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
-              style="border:1px solid #dcdcdc"
-              bordercolor="#f4f3f1">
+          <td>
             <div class="midbox">
-              <div class="midbox_gg">
-                <div class="sblb">我的评审列表</div>
-              </div>
               <div class="xia_left">
                 <table>
                   <tr>
-
-
                     <td>
-
                       <div class="douselect">
                         <p>期次:
                           <s:doubleselect name="jqYear" list="jieQiYears"
@@ -41,8 +34,7 @@
 
 
                       <p>项目名称:
-                        <s:textfield name="proName" id="proName"
-                                     style="width:88px;height:14px"/>
+                        <s:textfield name="proName" id="proName"/>
                       </p>
                     </td>
 
@@ -62,8 +54,7 @@
 
                     <td>
                       <p>学号:
-                        <s:textfield name="studentNums" id="studentNums"
-                                     style="width:88px;height:14px"/>
+                        <s:textfield name="studentNums" id="studentNums"/>
                       </p>
                     </td>
 
@@ -81,32 +72,28 @@
                     </td>
 
                     <td>
-                      <div class="xia_right_sq" style="margin-left: -85px">
+                      <div class="xia_right_sq" style="margin-left:10px">
                         <img src="images/gonggaoweihu_icon1.gif" alt="查询" onclick="query();"/>
                         <a href="javascript:document.queyForm.reset();"><img
-                                src="images/reset.png" alt="重置" "/></a>
+                                src="images/reset.png" alt="重置"/></a>
                       </div>
                     </td>
                   </tr>
                 </table>
               </div>
               <div id="declaraList" class="xia_list">
-                <table width="96%" border="0" cellspacing="0" cellpadding="0"
-                       style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                       align="left">
+                <table class="table table-striped table-bordered table-hover">
 
-                  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                    <td style="padding-left:10px" bgcolor="#FFFFFF" width="14%" class="NoNewline">
-                      |项目编号
-                    </td>
-                    <td bgcolor="#FFFFFF" width="14%"> |项目名称</td>
-                    <td bgcolor="#FFFFFF" width="9%"> |申报人</td>
-                    <td bgcolor="#FFFFFF" width="9%"> |学号</td>
-                    <td bgcolor="#FFFFFF" width="9%"> |专业</td>
-                    <td bgcolor="#FFFFFF" width="9%"> |申请日期</td>
-                    <td bgcolor="#FFFFFF" width="9%"> |网评结果</td>
-                    <td bgcolor="#FFFFFF" width="9%"> |评审结果</td>
-                    <td bgcolor="#FFFFFF" width="15%"> |操作</td>
+                  <tr>
+                    <td >项目编号</td>
+                    <td>项目名称</td>
+                    <td>申报人</td>
+                    <td>学号</td>
+                    <td>专业</td>
+                    <td>申请日期</td>
+                    <td>网评结果</td>
+                    <td>评审结果</td>
+                    <td>操作</td>
                   </tr>
                   <s:iterator value="listTDeclComment" id="listTDeclComment" status="stuts">
                     <s:if test="#stuts.odd == true">
