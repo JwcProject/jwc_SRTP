@@ -7,6 +7,10 @@ ul { margin: 0px; }
 
 li {  list-style: none;  }
 
+.layout-inline ul li{
+    display: inline-block;
+}
+
 .pad-xs {
     padding: 40px;
     padding-bottom: 0px;

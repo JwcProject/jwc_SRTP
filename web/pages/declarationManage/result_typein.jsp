@@ -7,15 +7,14 @@
 
 <div id="maincontent" class="h645">
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table class="table table-striped table-bordered table-hover">
+            <h3 class="header smaller lighter blue">&nbsp;<s:property value="%{#session.unit.unitName}"/>SRTP项目申报列表</h3>
         <tr>
 
             <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;" style="border:1px solid #dcdcdc"
                 bordercolor="#f4f3f1">
                 <div class="midbox">
-                    <div class="midbox_gg">
-                        <div class="sblb">&nbsp;<s:property value="%{#session.unit.unitName}"/>SRTP项目申报列表</div>
-                    </div>
+
                     <s:form action="" method="post" name="queyForm" theme="simple">
                         <div class="xia_left">
                             <ul>
@@ -34,13 +33,13 @@
 
                                 <li>
                                     <p>项目编号:
-                                        <s:textfield name="proSerial" id="proSerial" style="width:80px;height:14px"/>
+                                        <s:textfield name="proSerial" id="proSerial"/>
                                     </p>
                                 </li>
 
                                 <li>
                                     <p>项目名称:
-                                        <s:textfield name="proName" id="proName" style="width:80px;height:14px"/>
+                                        <s:textfield name="proName" id="proName"/>
                                     </p>
                                 </li>
 
@@ -53,8 +52,7 @@
                                 </li>
                                 <li>
                                     <p>学号:
-                                        <s:textfield name="studentNumebr" id="studentNumebr"
-                                                     style="width:75px;height:14px"/>
+                                        <s:textfield name="studentNumebr" id="studentNumebr"/>
                                     </p>
                                 </li>
                                 <li>
@@ -80,25 +78,22 @@
                     <s:form action="" theme="simple" id="resultTypeIn">
                         <div class="xia_list">
 
-                            <table width="98%" border="0" cellspacing="0" cellpadding="0"
-                                   style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                                   align="left">
+                            <table class="table table-striped table-bordered table-hover">
 
                                 <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
                                     <td style="padding-left:10px" bgcolor="#FFFFFF" width="12%"><input type="checkbox"
                                                                                                        name="ALL"
                                                                                                        id="ALL"
                                                                                                        onClick="check()"
-                                                                                                       value="on "/><label
-                                            for="music">|项目编号</label>
+                                                                                                       value="on "/>项目编号
                                     </td>
-                                    <td bgcolor="#FFFFFF" width="22%"> |项目名称</td>
-                                    <td bgcolor="#FFFFFF" width="8%"> |申报人</td>
-                                    <td bgcolor="#FFFFFF" width="9%"> |学号</td>
-                                    <td bgcolor="#FFFFFF" width="9%"> |专业</td>
-                                    <td bgcolor="#FFFFFF" width="8%"> |申请日期</td>
-                                    <td bgcolor="#FFFFFF" width="9%"> |评审结果</td>
-                                    <td bgcolor="#FFFFFF" width="12%"> |评审意见</td>
+                                    <td>项目名称</td>
+                                    <td>申报人</td>
+                                    <td>学号</td>
+                                    <td>专业</td>
+                                    <td>申请日期</td>
+                                    <td>评审结果</td>
+                                    <td>评审意见</td>
                                 </tr>
                                 <s:iterator value="declarations" id="declarations" status="stuts">
                                     <s:if test="#stuts.odd == true">
@@ -168,7 +163,7 @@
 
                         </div>
                     </s:form>
-                    <div class="xia_x_jg">
+                    <div class="layout-inline">
 
                         <ul>
                             <li><a onclick="audit('yes');"><img src="images/jieguo_anniu1.gif" alt="审核通过"/></a></li>

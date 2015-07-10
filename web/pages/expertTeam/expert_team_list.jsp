@@ -11,14 +11,13 @@
         <s:form action="" method="post" name="queyForm"
                 theme="simple">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <h3 class="header smaller lighter blue">&nbsp;<s:property value="%{#session.unit.unitName}"/>专家团队列表</h3>
                 <tr>
                     <!--中间区域-->
                     <td width="88%" valign="top" style="padding-top:10px; padding-left:5px;"
                         style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
                         <div class="midbox">
-                            <div class="midbox_gg">
-                                <div class="sblb">&nbsp;<s:property value="%{#session.unit.unitName}"/>专家团队列表</div>
-                            </div>
+
                             <div class="xia_left">
                                 <table>
                                     <ul>

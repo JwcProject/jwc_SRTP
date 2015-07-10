@@ -9,20 +9,18 @@
 <div id="container">
 
   <div id="maincontent" class="h645">
-
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table class="table table-striped table-bordered table-hover">
+        <h3 class="header smaller lighter blue">
+          &nbsp;
+          <s:property value="%{#session.unit.unitName}"/>
+          SRTP历史专家库
+        </h3>
       <tr>
         <td width="88%" valign="top"
             style="padding-top: 10px; padding-left: 5px;"
             style="border:1px solid #dcdcdc" bordercolor="#f4f3f1">
           <div class="midbox">
-            <div class="midbox_gg">
-              <div class="sblb">
-                &nbsp;
-                <s:property value="%{#session.unit.unitName}"/>
-                SRTP历史专家库
-              </div>
-            </div>
+
             <s:form action="" method="post" name="queyForm" theme="simple">
               <div class="xia_left">
                 <table>
@@ -30,8 +28,7 @@
                     <td>
                       <p>
                         教师名称:
-                        <s:textfield name="teacherName" id="teacherName"
-                                     style="width:88px;height:14px"/>
+                        <s:textfield name="teacherName" id="teacherName"/>
                       </p>
                     </td>
 
@@ -54,11 +51,11 @@
 
                     </td>
                     <td>
-                      <div class="xia_right_sq" style="left: 360px">
+                      <div class="xia_right_sq" style="margin-left: 50px;margin-top: 10px;">
                         <img src="images/gonggaoweihu_icon1.gif" alt="查询"
                              onclick="query();"/>
                         <a onclick="resetValue();"><img src="images/reset.png"
-                                                        alt="重置" "/> </a>
+                                                        alt="重置"/> </a>
                       </div>
                     </td>
                   </tr>
@@ -68,9 +65,7 @@
             <s:form action="" theme="simple" id="addExpert" name="addExpert">
               <div class="xia_list">
 
-                <table width="88%" border="0" cellspacing="0" cellpadding="0"
-                       style="border-bottom: 1px solid #dcdcdc; border-left: 1px solid #dcdcdc; border-right: 1px solid #dcdcdc;"
-                       align="left">
+                <table class="table table-striped table-bordered table-hover">
 
                   <tr
                           style="line-height: 30px; border-bottom: 1px solid #dcdcdc;">
@@ -78,21 +73,20 @@
                         class="NoNewline">
                       <input type="checkbox" name="ALL" id="ALL"
                              onClick="check()" value="on "/>
-                      <label for="music">
-                        |教师编号
-                      </label>
+                        教师编号
+
                     </td>
-                    <td bgcolor="#FFFFFF" width="14%">
-                      |教师名称
+                    <td>
+                      教师名称
                     </td>
-                    <td bgcolor="#FFFFFF" width="9%">
-                      |性别
+                    <td>
+                      性别
                     </td>
-                    <td bgcolor="#FFFFFF" width="9%">
-                      |职称
+                    <td>
+                      职称
                     </td>
-                    <td bgcolor="#FFFFFF" width="9%">
-                      |最近所属团队
+                    <td>
+                      最近所属团队
                     </td>
 
                   </tr>
