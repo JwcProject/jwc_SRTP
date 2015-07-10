@@ -1,35 +1,19 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : srtp
-Source Server Version : 50543
-Source Host           : localhost:3306
+Source Server         : MySql
+Source Server Version : 50624
+Source Host           : 127.0.0.1:3306
 Source Database       : srtp
 
 Target Server Type    : MYSQL
-Target Server Version : 50543
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2015-07-09 20:59:31
+Date: 2015-07-11 00:55:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for t_achievemen_type
--- ----------------------------
-DROP TABLE IF EXISTS `t_achievemen_type`;
-CREATE TABLE `t_achievemen_type` (
-  `achievementype_id` varchar(36) NOT NULL,
-  `achievementype_introduction` varchar(200) DEFAULT NULL,
-  `achievementype_name` varchar(50) DEFAULT NULL,
-  `isdeleted` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`achievementype_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_achievemen_type
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_achievement
@@ -110,23 +94,20 @@ CREATE TABLE `t_achievement` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for t_announ_type
+-- Table structure for t_achievemen_type
 -- ----------------------------
-DROP TABLE IF EXISTS `t_announ_type`;
-CREATE TABLE `t_announ_type` (
-  `announ_type_id` varchar(36) NOT NULL,
-  `announ_type_name` varchar(100) DEFAULT NULL,
+DROP TABLE IF EXISTS `t_achievemen_type`;
+CREATE TABLE `t_achievemen_type` (
+  `achievementype_id` varchar(36) NOT NULL,
+  `achievementype_introduction` varchar(200) DEFAULT NULL,
+  `achievementype_name` varchar(50) DEFAULT NULL,
   `isdeleted` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`announ_type_id`)
+  PRIMARY KEY (`achievementype_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of t_announ_type
+-- Records of t_achievemen_type
 -- ----------------------------
-INSERT INTO `t_announ_type` VALUES ('1', '教务处公告', 'N');
-INSERT INTO `t_announ_type` VALUES ('2', '学院公告', 'N');
-INSERT INTO `t_announ_type` VALUES ('3', '学生公告', 'N');
-INSERT INTO `t_announ_type` VALUES ('4', '教师公告', 'N');
 
 -- ----------------------------
 -- Table structure for t_announcement
@@ -155,6 +136,25 @@ CREATE TABLE `t_announcement` (
 -- Records of t_announcement
 -- ----------------------------
 INSERT INTO `t_announcement` VALUES ('ff8081814e72b2e4014e72e15af40012', '<p>输入您的公告内容......</p>', 'stu1', 'CY', null, null, 'N', 'Y', '2015-07-09 20:53:40', '06', '06', '3', 'stu1');
+
+-- ----------------------------
+-- Table structure for t_announ_type
+-- ----------------------------
+DROP TABLE IF EXISTS `t_announ_type`;
+CREATE TABLE `t_announ_type` (
+  `announ_type_id` varchar(36) NOT NULL,
+  `announ_type_name` varchar(100) DEFAULT NULL,
+  `isdeleted` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`announ_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_announ_type
+-- ----------------------------
+INSERT INTO `t_announ_type` VALUES ('1', '教务处公告', 'N');
+INSERT INTO `t_announ_type` VALUES ('2', '学院公告', 'N');
+INSERT INTO `t_announ_type` VALUES ('3', '学生公告', 'N');
+INSERT INTO `t_announ_type` VALUES ('4', '教师公告', 'N');
 
 -- ----------------------------
 -- Table structure for t_attachment
@@ -289,6 +289,64 @@ CREATE TABLE `t_credit` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for t_declaration
+-- ----------------------------
+DROP TABLE IF EXISTS `t_declaration`;
+CREATE TABLE `t_declaration` (
+  `declar_id` varchar(36) NOT NULL,
+  `check_state` varchar(2) DEFAULT NULL,
+  `decl_time` datetime DEFAULT NULL,
+  `end_on` datetime DEFAULT NULL,
+  `exp_result` varchar(500) DEFAULT NULL,
+  `exp_target` varchar(500) DEFAULT NULL,
+  `inno_point` varchar(1000) DEFAULT NULL,
+  `isdeleted` varchar(1) DEFAULT NULL,
+  `lab_level` varchar(20) DEFAULT NULL,
+  `lab_name` varchar(50) DEFAULT NULL,
+  `member_amount` int(11) DEFAULT NULL,
+  `pro_adv` varchar(1000) DEFAULT NULL,
+  `PRO_FUND` double DEFAULT NULL,
+  `pro_intro` varchar(500) DEFAULT NULL,
+  `pro_name` varchar(50) DEFAULT NULL,
+  `pro_plan` varchar(1000) DEFAULT NULL,
+  `pro_serial` varchar(30) DEFAULT NULL,
+  `PRO_TYPE` varchar(2) DEFAULT NULL,
+  `res_condition` varchar(1000) DEFAULT NULL,
+  `res_content` varchar(1000) DEFAULT NULL,
+  `res_program` varchar(1000) DEFAULT NULL,
+  `REVIEW_OPINION` varchar(500) DEFAULT NULL,
+  `REVIEW_RESULT` varchar(2) DEFAULT NULL,
+  `start_on` datetime DEFAULT NULL,
+  `jq_id` varchar(36) DEFAULT NULL,
+  `leader_code` varchar(36) DEFAULT NULL,
+  `member1_code` varchar(36) DEFAULT NULL,
+  `member2_code` varchar(36) DEFAULT NULL,
+  `teacher1_code` varchar(36) DEFAULT NULL,
+  `teacher2_code` varchar(36) DEFAULT NULL,
+  `college` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`declar_id`),
+  KEY `FK_c5jxvlwwb7jph80ur0cgwsmx3` (`jq_id`),
+  KEY `FK_nouy120olsqyf15mosqr8k6yt` (`leader_code`),
+  KEY `FK_k6qd7d9guspi87bcs46kk5rg3` (`member1_code`),
+  KEY `FK_1940k2p08vcim5jptl3ntoeyr` (`member2_code`),
+  KEY `FK_bj4wib541sebl6v0ghyqtls7v` (`teacher1_code`),
+  KEY `FK_8i31ktexp4oywwt0rydlyop51` (`teacher2_code`),
+  KEY `FK_8lyc76ssowymcrrsusg6ukx89` (`college`),
+  CONSTRAINT `FK_1940k2p08vcim5jptl3ntoeyr` FOREIGN KEY (`member2_code`) REFERENCES `t_student` (`student_id`),
+  CONSTRAINT `FK_8i31ktexp4oywwt0rydlyop51` FOREIGN KEY (`teacher2_code`) REFERENCES `t_teacher` (`tea_id`),
+  CONSTRAINT `FK_8lyc76ssowymcrrsusg6ukx89` FOREIGN KEY (`college`) REFERENCES `t_unit` (`unit_id`),
+  CONSTRAINT `FK_bj4wib541sebl6v0ghyqtls7v` FOREIGN KEY (`teacher1_code`) REFERENCES `t_teacher` (`tea_id`),
+  CONSTRAINT `FK_c5jxvlwwb7jph80ur0cgwsmx3` FOREIGN KEY (`jq_id`) REFERENCES `t_jieqi` (`jq_id`),
+  CONSTRAINT `FK_k6qd7d9guspi87bcs46kk5rg3` FOREIGN KEY (`member1_code`) REFERENCES `t_student` (`student_id`),
+  CONSTRAINT `FK_nouy120olsqyf15mosqr8k6yt` FOREIGN KEY (`leader_code`) REFERENCES `t_student` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_declaration
+-- ----------------------------
+INSERT INTO `t_declaration` VALUES ('8a7d2c914e569ca0014e5703416e0002', '03', '2015-07-04 14:35:57', '2015-07-11 00:00:00', '', '', '', 'N', '01', '111', '11', '', '1', '', '11', '', '2015-1-1001', '01', '', '', '', '   ', null, '2015-07-04 00:00:00', '1', '06', null, null, '05', null, '1');
+
+-- ----------------------------
 -- Table structure for t_decl_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `t_decl_comment`;
@@ -349,64 +407,6 @@ CREATE TABLE `t_decl_job` (
 -- ----------------------------
 -- Records of t_decl_job
 -- ----------------------------
-
--- ----------------------------
--- Table structure for t_declaration
--- ----------------------------
-DROP TABLE IF EXISTS `t_declaration`;
-CREATE TABLE `t_declaration` (
-  `declar_id` varchar(36) NOT NULL,
-  `check_state` varchar(2) DEFAULT NULL,
-  `decl_time` datetime DEFAULT NULL,
-  `end_on` datetime DEFAULT NULL,
-  `exp_result` varchar(500) DEFAULT NULL,
-  `exp_target` varchar(500) DEFAULT NULL,
-  `inno_point` varchar(1000) DEFAULT NULL,
-  `isdeleted` varchar(1) DEFAULT NULL,
-  `lab_level` varchar(20) DEFAULT NULL,
-  `lab_name` varchar(50) DEFAULT NULL,
-  `member_amount` int(11) DEFAULT NULL,
-  `pro_adv` varchar(1000) DEFAULT NULL,
-  `PRO_FUND` double DEFAULT NULL,
-  `pro_intro` varchar(500) DEFAULT NULL,
-  `pro_name` varchar(50) DEFAULT NULL,
-  `pro_plan` varchar(1000) DEFAULT NULL,
-  `pro_serial` varchar(30) DEFAULT NULL,
-  `PRO_TYPE` varchar(2) DEFAULT NULL,
-  `res_condition` varchar(1000) DEFAULT NULL,
-  `res_content` varchar(1000) DEFAULT NULL,
-  `res_program` varchar(1000) DEFAULT NULL,
-  `REVIEW_OPINION` varchar(500) DEFAULT NULL,
-  `REVIEW_RESULT` varchar(2) DEFAULT NULL,
-  `start_on` datetime DEFAULT NULL,
-  `jq_id` varchar(36) DEFAULT NULL,
-  `leader_code` varchar(36) DEFAULT NULL,
-  `member1_code` varchar(36) DEFAULT NULL,
-  `member2_code` varchar(36) DEFAULT NULL,
-  `teacher1_code` varchar(36) DEFAULT NULL,
-  `teacher2_code` varchar(36) DEFAULT NULL,
-  `college` varchar(36) DEFAULT NULL,
-  PRIMARY KEY (`declar_id`),
-  KEY `FK_c5jxvlwwb7jph80ur0cgwsmx3` (`jq_id`),
-  KEY `FK_nouy120olsqyf15mosqr8k6yt` (`leader_code`),
-  KEY `FK_k6qd7d9guspi87bcs46kk5rg3` (`member1_code`),
-  KEY `FK_1940k2p08vcim5jptl3ntoeyr` (`member2_code`),
-  KEY `FK_bj4wib541sebl6v0ghyqtls7v` (`teacher1_code`),
-  KEY `FK_8i31ktexp4oywwt0rydlyop51` (`teacher2_code`),
-  KEY `FK_8lyc76ssowymcrrsusg6ukx89` (`college`),
-  CONSTRAINT `FK_1940k2p08vcim5jptl3ntoeyr` FOREIGN KEY (`member2_code`) REFERENCES `t_student` (`student_id`),
-  CONSTRAINT `FK_8i31ktexp4oywwt0rydlyop51` FOREIGN KEY (`teacher2_code`) REFERENCES `t_teacher` (`tea_id`),
-  CONSTRAINT `FK_8lyc76ssowymcrrsusg6ukx89` FOREIGN KEY (`college`) REFERENCES `t_unit` (`unit_id`),
-  CONSTRAINT `FK_bj4wib541sebl6v0ghyqtls7v` FOREIGN KEY (`teacher1_code`) REFERENCES `t_teacher` (`tea_id`),
-  CONSTRAINT `FK_c5jxvlwwb7jph80ur0cgwsmx3` FOREIGN KEY (`jq_id`) REFERENCES `t_jieqi` (`jq_id`),
-  CONSTRAINT `FK_k6qd7d9guspi87bcs46kk5rg3` FOREIGN KEY (`member1_code`) REFERENCES `t_student` (`student_id`),
-  CONSTRAINT `FK_nouy120olsqyf15mosqr8k6yt` FOREIGN KEY (`leader_code`) REFERENCES `t_student` (`student_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_declaration
--- ----------------------------
-INSERT INTO `t_declaration` VALUES ('8a7d2c914e569ca0014e5703416e0002', '03', '2015-07-04 14:35:57', '2015-07-11 00:00:00', '', '', '', 'N', '01', '111', '11', '', '1', '', '11', '', '2015-1-1001', '01', '', '', '', '   ', null, '2015-07-04 00:00:00', '1', '06', null, null, '05', null, '1');
 
 -- ----------------------------
 -- Table structure for t_email
@@ -856,7 +856,7 @@ CREATE TABLE `t_project` (
 -- ----------------------------
 -- Records of t_project
 -- ----------------------------
-INSERT INTO `t_project` VALUES ('1', 'N', null, '2015-07-08 21:06:29', null, null, '2015-07-30 21:06:34', null, null, null, null, null, null, null, 'Test2', '1', null, null, null, null, null, null, '8a7d2c914e569ca0014e5703416e0002', '1', '06', '06', '06', '00', '01', '1');
+INSERT INTO `t_project` VALUES ('1', 'N', null, '2015-07-08 21:06:29', null, null, '2015-07-30 21:06:34', null, null, null, null, null, null, null, 'Test2', '1', null, null, null, null, null, null, '8a7d2c914e569ca0014e5703416e0002', '1', '08', '07', '06', '00', '01', '1');
 
 -- ----------------------------
 -- Table structure for t_project_change
@@ -1139,11 +1139,11 @@ CREATE TABLE `t_student` (
 -- ----------------------------
 -- Records of t_student
 -- ----------------------------
-INSERT INTO `t_student` VALUES ('01', 'N', '21', null, null, null, 'LLL', '08', null, null, null, null, '1', '1', '08');
-INSERT INTO `t_student` VALUES ('02', 'N', '21', null, null, null, 'Lee', '07', null, null, null, null, '1', '1', '07');
-INSERT INTO `t_student` VALUES ('03', 'N', '21', null, null, null, 'OOO', '09', null, null, null, null, '1', '1', '09');
-INSERT INTO `t_student` VALUES ('04', 'N', '21', null, null, null, 'PPP', '10', null, null, null, null, '1', '1', '10');
 INSERT INTO `t_student` VALUES ('06', 'N', '21', null, null, null, 'zkq', '06', null, null, null, null, '1', '1', '06');
+INSERT INTO `t_student` VALUES ('07', 'N', '21', null, null, null, 'Lee', '07', null, null, null, null, '1', '1', '07');
+INSERT INTO `t_student` VALUES ('08', 'N', '21', null, null, null, 'LLL', '08', null, null, null, null, '1', '1', '08');
+INSERT INTO `t_student` VALUES ('09', 'N', '21', null, null, null, 'OOO', '09', null, null, null, null, '1', '1', '09');
+INSERT INTO `t_student` VALUES ('10', 'N', '21', null, null, null, 'PPP', '10', null, null, null, null, '1', '1', '10');
 
 -- ----------------------------
 -- Table structure for t_teacher
