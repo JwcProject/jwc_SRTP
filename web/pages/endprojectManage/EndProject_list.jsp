@@ -131,19 +131,19 @@
                                                 value="#endProject.TJieqi.qici"/>期
                                         </td>
                                         <td bgcolor="#eef7ff">
-                                            <s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-                                            <s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+                                            <s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+                                            <s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
                                         </td>
                                         <td bgcolor="#eef7ff">
-                                            <s:if test="%{#endProject.endprojectScore=='01'}">优秀</s:if>
-                                            <s:elseif test="%{#endProject.endprojectScore=='02'}">良好</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectScore=='03'}">中等</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectScore=='04'}">及格</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectScore=='05'}">不及格</s:elseif>
+                                            <s:if test="%{#endProject.endProjectScore=='01'}">优秀</s:if>
+                                            <s:elseif test="%{#endProject.endProjectScore=='02'}">良好</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectScore=='03'}">中等</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectScore=='04'}">及格</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectScore=='05'}">不及格</s:elseif>
                                         </td>
                                         <td bgcolor="#eef7ff">
                                             <s:if test="%{#endProject.lastScore=='01'}">优秀</s:if>
@@ -185,19 +185,19 @@
                                                 value="#endProject.TJieqi.qici"/>期
                                         </td>
                                         <td bgcolor="#FFFFFF">
-                                            <s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-                                            <s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+                                            <s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+                                            <s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
                                         </td>
                                         <td bgcolor="#FFFFFF">
-                                            <s:if test="%{#endProject.endprojectScore=='01'}">优秀</s:if>
-                                            <s:elseif test="%{#endProject.endprojectScore=='02'}">良好</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectScore=='03'}">中等</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectScore=='04'}">及格</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectScore=='05'}">不及格</s:elseif>
+                                            <s:if test="%{#endProject.endProjectScore=='01'}">优秀</s:if>
+                                            <s:elseif test="%{#endProject.endProjectScore=='02'}">良好</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectScore=='03'}">中等</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectScore=='04'}">及格</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectScore=='05'}">不及格</s:elseif>
                                         </td>
                                         <td bgcolor="#FFFFFF">
                                             <s:if test="%{#endProject.lastScore=='01'}">优秀</s:if>
@@ -255,12 +255,12 @@
                                                 value="#endProject.TJieqi.qici"/>期
                                         </td>
                                         <td bgcolor="#eef7ff">
-                                            <s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-                                            <s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+                                            <s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+                                            <s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
                                         </td>
                                         <td bgcolor="#eef7ff"><s:a
                                                 href="EndProjectDetail?endprojectId=%{#endProject.endProjectId}"><img
@@ -296,12 +296,12 @@
                                                 value="#endProject.TJieqi.qici"/>期
                                         </td>
                                         <td bgcolor="#FFFFFF">
-                                            <s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-                                            <s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-                                            <s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+                                            <s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+                                            <s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+                                            <s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
                                             <s:else>未知状态</s:else>
                                         </td>
                                         <td bgcolor="#eef7ff"><s:a

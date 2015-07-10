@@ -79,7 +79,7 @@
                                         </td>
 
                                         <td>
-                                            <s:a href="ViewEndExpTea?expLibId=%{#expertLibs.libId}">
+                                            <s:a href="ViewExpTea?expLibId=%{#expertLibs.libId}">
                                                 <img src="images/shenbiaoliebiao_icon1.gif" alt="查看"/>
                                             </s:a>
 

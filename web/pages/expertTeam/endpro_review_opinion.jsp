@@ -35,7 +35,7 @@
                                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td width="33%" height="25">项目名称：<s:property
-                                                    value="endProject.endprojectName"/></td>
+                                                    value="endProject.TProject.endprojectName"/></td>
 
                                             <td width="34%" height="25">项目开展所在实验室：
                                                 <s:if test="endProject.TProject.projectLabtype=='01'">校级实验室</s:if>

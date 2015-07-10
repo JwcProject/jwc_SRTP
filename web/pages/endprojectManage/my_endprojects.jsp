@@ -63,9 +63,10 @@
 						    
 						</s:if>
 						<s:else>
-						    <s:text name="global.format.date">
+							<s:date name="#endProjects.submitTime" format="yyyy-MM-dd" />
+						    <%--<s:text name="global.format.date">
 							<s:param value="#endProjects.schoolTypeinTime"/>
-							</s:text>
+							</s:text>--%>
 						</s:else>
 						</td>
 						<td >

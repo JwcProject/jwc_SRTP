@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page import="com.opensymphony.xwork2.util.ValueStack" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 	String path = request.getContextPath();
@@ -89,7 +90,11 @@
 						<td> 分派状态</td>
 						                   
 						 </tr>
-				<s:iterator value="endProjects" id="endProjects" status="stuts"> 
+				<s:iterator value="endProjects" id="endProjects" status="stuts">
+					<%
+						ValueStack vs= (ValueStack) request.getAttribute("struts.valueStack");
+						out.println(vs);
+					%>
 					<s:if test="#stuts.odd == true">
 					  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#eef7ff">
     				</s:if>
@@ -98,8 +103,8 @@
       				  <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#ffffff">
     				</s:else>
                         <td style="padding-left:10px" class="NoNewline">
-                        <input type="checkbox" name="checkProjects" id="checkProjects" value='<s:property value="#endProjects.endprojectId"/>'/>
-                        <label for="music"><s:property value="#endProjects.endprojectNumber" /></label> 
+                        <input type="checkbox" name="checkProjects" id="checkProjects" value='<s:property value="#endProjects.endProjectId"/>'/>
+                        <label for="music"><s:property value="#endProjects.endProjectNumber" /></label>
                         </td>
                         <td title="<s:property value='#endProjects.TProject.projectName'/>">
                          <s:if test="%{#endProjects.TProject.projectName.length()>15}">
@@ -117,13 +122,14 @@
 						    
 						</s:if>
 						<s:else>
-						    <s:text name="global.format.date">
-							<s:param value="#endProjects.submitTime"/>
-							</s:text>
+							<s:date name="#endProjects.submitTime" format="yyyy-MM-dd" />
+							<%--<s:text name="global.format.date">
+                            <s:param value="#endProjects.schoolTypeinTime"/>
+                            </s:text>--%>
 						</s:else>
 						</td>
 						<td >
-						<s:if test="#endProjects.endprojectState=='01'">
+						<s:if test="#endProjects.endProjectState=='01'">
 											未分派
 								  		</s:if>
 										<s:else>
@@ -167,25 +173,25 @@
 								<ul style="margin-top: 50px;">
 									<li>
 										<a href="javascript:void(0);"
-										   onclick="move(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
+										   onclick="move(getElementsByName('preAssignEndProExp')[0].srcList,getElementsByName('preAssignEndProExp')[0].destList)"
 										   name="B1">
 											<img src="images/cjzj_anniu1.gif" alt="右" height="26" width="80"/></a>
 									</li>
 									<li>
 										<a href="javascript:void(0);"
-										   onclick="move(getElementsByName('proForm')[0].destList,getElementsByName('proForm')[0].srcList)"
+										   onclick="move(getElementsByName('preAssignEndProExp')[0].destList,getElementsByName('preAssignEndProExp')[0].srcList)"
 										   name="B2">
 											<img src="images/cjzj_anniu2.gif" alt="左" height="26" width="80"/></a>
 									</li>
 									<li>
 										<a href="javascript:void(0);"
-										   onclick="moveall(getElementsByName('proForm')[0].srcList,getElementsByName('proForm')[0].destList)"
+										   onclick="moveall(getElementsByName('preAssignEndProExp')[0].srcList,getElementsByName('preAssignEndProExp')[0].destList)"
 										   name="B3">
 											<img src="images/zhuanjia_anniu1.gif" alt="右" height="26" width="80"/></a>
 									</li>
 									<li>
 										<a href="javascript:void(0);"
-										   onclick="moveall(getElementsByName('assignExperts')[0].destList,getElementsByName('assignExperts')[0].srcList)"
+										   onclick="moveall(getElementsByName('preAssignEndProExp')[0].destList,getElementsByName('preAssignEndProExp')[0].srcList)"
 										   name="B4">
 											<img src="images/zhuanjia_anniu2.gif" alt="左" height="26" width="80"/></a>
 									</li>
@@ -299,8 +305,7 @@ function save() {
 			}
 		}
 		BumpUp(fbox);
-		if (sortitems)
-			SortD(tbox);
+
 	}
 
 	function moveall(fbox, tbox) {

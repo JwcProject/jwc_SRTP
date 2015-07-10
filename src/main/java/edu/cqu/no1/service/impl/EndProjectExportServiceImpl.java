@@ -32,11 +32,11 @@ public class EndProjectExportServiceImpl implements EndProjectExportService {
     @Override
     public void creatEndProExpertReview(TEndProject endProject,
                                         List<TExpertTeacher> tExpertTeacherList) {
-        Session session = endProjectExportDAO.getSessionFactory().getCurrentSession();
-        Transaction trans = session.beginTransaction();
-        try {
+        /*Session session = endProjectExportDAO.getSessionFactory().getCurrentSession();
+        Transaction trans = session.beginTransaction();*/
+//        try {
             //开始事务
-            trans.begin();
+//            trans.begin();
             TEndProjectExport endProjectExport = null;
             for (int i = 0; i < tExpertTeacherList.size(); i++) {
                 endProjectExport = new TEndProjectExport();
@@ -52,18 +52,18 @@ public class EndProjectExportServiceImpl implements EndProjectExportService {
             endProjectComment.setTEndProjectExport(endProjectExport);
             endProjectComment.setIsdeleted("N");
             this.endProjectCommentDAO.save(endProjectComment);
-            trans.commit();
-        } catch (Exception e) {
+//            trans.commit();
+//        } catch (Exception e) {
 
-            try {
-                trans.rollback();//JTA事务回滚
+//            try {
+//                trans.rollback();//JTA事务回滚
 
-            } catch (Exception e2) {
+//            } catch (Exception e2) {
                 //JTA事务回滚出错处理
-                e2.printStackTrace();
-            }
-            e.printStackTrace();
-        }
+//                e2.printStackTrace();
+//            }
+//            e.printStackTrace();
+//        }
 
     }
 
