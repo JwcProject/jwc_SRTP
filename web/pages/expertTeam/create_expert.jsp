@@ -10,7 +10,7 @@
 <script language="JavaScript">
     //跳转到历史专家库页面
     function listHistoryExp() {
-        location = "<%=path%>/ListHistoryExpert";
+        sendGetAndSetAjax( "<%=path%>/ListHistoryExpert");
     }
     function save() {
         destList = window.document.getElementById("jiaoshi").destList;

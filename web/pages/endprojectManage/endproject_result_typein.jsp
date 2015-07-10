@@ -303,7 +303,7 @@
   //添加评审意见
   function addOpinion(id) {
     alert(id);
-    location = "DeclRevieOpinion?id=" + id;
+    sendGetAndSetAjax( "DeclRevieOpinion?id=" + id);
   }
 
   function check() {

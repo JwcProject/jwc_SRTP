@@ -11,7 +11,7 @@
 <script language="JavaScript">
     //跳转到历史专家库页面
     function listHistoryExp() {
-        location = "<%=path%>/ListEndProHistoryExpert";
+        sendGetAndSetAjax( "<%=path%>/ListEndProHistoryExpert");
     }
     function save() {
         destList = window.document.getElementById("jiaoshi").destList;
@@ -31,7 +31,7 @@
             type: "POST",
             success: function () {
                 //创建专家团队成功之后跳转的页面
-                location = "<%=path%>/FindEndproExpTeam";
+                sendGetAndSetAjax( "<%=path%>/FindEndproExpTeam");
             }
         });
         return false;

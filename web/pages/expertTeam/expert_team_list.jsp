@@ -133,6 +133,6 @@
 
     function changePage(pageclickednumber) {
 
-        location = "ListUnitExperTeam?page=" + pageclickednumber;
+        sendGetAndSetAjax( "ListUnitExperTeam?page=" + pageclickednumber);
     }
 </script>

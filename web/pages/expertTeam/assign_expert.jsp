@@ -271,7 +271,8 @@
     var jqYear = t.options[t.selectedIndex].value;
     var jqQici = s.options[t.selectedIndex].value;
     var profession = r.options[t.selectedIndex].value;
-    location = "QueryDeclaAssignExp?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumebr=" + studentNumebr + "&profession=" + profession + "&jqYear=" + jqYear + "&jqQici=" + jqQici;
+    getAndSetAjax();
+    sendGetAndSetAjax( "QueryDeclaAssignExp?page=" + pageclickednumber + "&checkState=" + checkState + "&proName=" + proName + "&proSerial=" + proSerial + "&studentNumebr=" + studentNumebr + "&profession=" + profession + "&jqYear=" + jqYear + "&jqQici=" + jqQici);
 
   }
 
@@ -301,7 +302,7 @@
       type: "POST",
       success: function (r) {
         //alert("dd");
-        location = "<%=path%>/PreAssignExpert";
+        sendGetAndSetAjax("<%=path%>/PreAssignExpert") ;
       }
     });
     return false;

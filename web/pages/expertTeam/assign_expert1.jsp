@@ -59,7 +59,7 @@
 			type : "POST",
 			success : function(r) {
 				alert("dd");
-				location="index.jsp";
+				location="<%=path%>>index";
 			}
 		});
 		return false;

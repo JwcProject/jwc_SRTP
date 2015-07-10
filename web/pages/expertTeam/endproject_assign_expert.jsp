@@ -253,7 +253,7 @@ function changePage(pageclickednumber){
      var jqYear=t.options[t.selectedIndex].value;
      var jqQici=s.options[t.selectedIndex].value;
      var profession=r.options[t.selectedIndex].value;
-	  location="QueryAssignEndProExpert?page="+pageclickednumber+"&checkState="+checkState+"&proName="+proName+"&proSerial="+proSerial+"&studentNumebr="+studentNumebr+"&profession="+profession+"&jqYear="+jqYear+"&jqQici="+jqQici;
+	sendGetAndSetAjax("QueryAssignEndProExpert?page="+pageclickednumber+"&checkState="+checkState+"&proName="+proName+"&proSerial="+proSerial+"&studentNumebr="+studentNumebr+"&profession="+profession+"&jqYear="+jqYear+"&jqQici="+jqQici);
 	
 	}
  
@@ -281,7 +281,7 @@ function save() {
 			contentType : "application/x-www-form-urlencoded; charset=utf-8",
 			type : "POST",
 			success : function(r) {
-				location="<%=path%>/PreAssignEndProExpert";
+				sendGetAndSetAjax("<%=path%>/PreAssignEndProExpert");
 			}
 		});
 		return false;
