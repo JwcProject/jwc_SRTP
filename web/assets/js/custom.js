@@ -39,6 +39,7 @@ function setAjax() {
         });
 
     })
+    $('#pager').css('top','0').addClass('layout-inline');
 }
 
 /**
@@ -97,3 +98,8 @@ function sendGetAndSetAjax($url) {
         }
     });
 }
+
+function PageClick(){
+
+}
+

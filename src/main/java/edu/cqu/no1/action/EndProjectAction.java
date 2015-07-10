@@ -411,7 +411,7 @@ public class EndProjectAction extends BaseAction {
             endProject.setEndProjectState("01");
             endProject.setIsdeleted("N");
             //设置结题提交时间
-            endProject.setSubmitTime((Timestamp) new Date());
+            endProject.setSubmitTime(new Timestamp(System.currentTimeMillis()));
             // 设置项目
             TProject p = this.projectService.findById(proId);
             endProject.setTProject(p);

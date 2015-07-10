@@ -245,6 +245,7 @@ public class UserAction extends BaseAction implements SessionAware {
         userService.changeLoginState(user.getUserId(), "YY");
         String userType = user.getUserType();
         TUnit unit = userService.getUnitByUserId(user.getUserId(), userType);
+
         session.put("unit", unit);
 
         if ("06".equals(userType) || "07".equals(userType) || "08".equals(userType)) {

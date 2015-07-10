@@ -161,6 +161,7 @@ public class UserServiceImpl implements UserService {
                 TTeacher teacher = (TTeacher) tmpList.get(0);
 
                 if (null != teacher.getTeaId() && null != teacher.getTUnit()) {
+                    Hibernate.initialize(teacher.getTUnit());
                     return teacher.getTUnit();
                 }
             }
@@ -170,6 +171,7 @@ public class UserServiceImpl implements UserService {
                 TStudent student = (TStudent) tmpList.get(0);
 
                 if (null != student.getStudentId() && null != student.getTUnit()) {
+                    Hibernate.initialize(student.getTUnit());
                     return student.getTUnit();
                 }
             }
