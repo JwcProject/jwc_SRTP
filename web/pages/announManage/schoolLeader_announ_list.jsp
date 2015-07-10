@@ -13,28 +13,26 @@
             bordercolor="#f4f3f1">
             <div class="midbox">
                 <div class="xia_list">
-                    <table width="97%" border="0" cellspacing="0" cellpadding="0"
-                           style=" border-bottom:1px solid #dcdcdc; border-left:1px solid #dcdcdc;border-right:1px solid #dcdcdc;"
-                           align="left">
+                    <table class="table table-striped table-bordered table-hover">
 
-                        <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;">
-                            <td style="padding-left:10px" bgcolor="#FFFFFF" width="30%" class="NoNewline">|公告名称</td>
-                            <td bgcolor="#FFFFFF" width="10%"> |发布人</td>
-                            <td bgcolor="#FFFFFF" width="10%">|发布日期</td>
-                            <td bgcolor="#FFFFFF" width="10%"> |公告类型</td>
-                            <td bgcolor="#FFFFFF" width="10%"> |审核状态</td>
-                            <td bgcolor="#FFFFFF" width="45%"> |操作</td>
+                        <tr>
+                            <td>公告名称</td>
+                            <td>发布人</td>
+                            <td>发布日期</td>
+                            <td>公告类型</td>
+                            <td>审核状态</td>
+                            <td>操作</td>
 
                         </tr>
                         <s:iterator value="listAnnouncement" id="listAnnouncementModels" status="stuts">
                             <s:if test="#stuts.odd == true">
-                                <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#eef7ff">
+                                <tr>
                             </s:if>
                             <!--判断记号是否为偶数 -->
                             <s:else>
-                                <tr style="line-height:30px; border-bottom:1px solid #dcdcdc;background-color:#ffffff">
+                                <tr>
                             </s:else>
-                            <td style="padding-left:10px"
+                            <td
                                 title="<s:property value='#listAnnouncementModels.announTitle' />">&nbsp;
                                 <s:if
                                         test="%{#listAnnouncementModels.announTitle.length()>25}">
