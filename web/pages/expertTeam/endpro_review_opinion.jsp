@@ -210,7 +210,7 @@
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                 <tr>
                                                     <s:hidden name="endprojectId"
-                                                              value="%{endProject.endprojectId}"></s:hidden>
+                                                              value="%{endProject.endProjectId}"></s:hidden>
                                                     <td height="30"><textarea name="endprojectComment" cols="150"
                                                                               rows="3" id="textfield2"
                                                                               style="border:1px solid #CCC;overflow-y:scroll;resize:none"
