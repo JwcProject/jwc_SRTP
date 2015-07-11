@@ -242,6 +242,8 @@
         'system/journal': 'ListJournal',
         'user/modify': 'findUserInfo'
       };
+      var trueUrl = '<%=basePath%>' + map[url];
+      console.log(trueUrl);
       if (url.indexOf('javascript') < 0 && map[url] != "#") {
         $.ajax({
           method: 'get',
@@ -251,9 +253,11 @@
 
             //返回的是网页
             if (typeof(data) == "string") {
-              try{
+              try {
                 $('div.content-body').html(data);
-              }catch(e){};
+              } catch (e) {
+              }
+              ;
               setAjax();
 
               //TODO: form

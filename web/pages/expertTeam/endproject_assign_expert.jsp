@@ -61,7 +61,7 @@
 <li>
 		
 		<p>审核状态:
-		   <s:select list='#{"":"所有","01":"未分派","03":"已分派"}' name="property.endprojectState" id="properties.endprojectState"></s:select>
+		   <s:select list='#{"":"所有","01":"未分派","03":"已分派"}' name="property.endProjectState" id="properties.endProjectState"></s:select>
 			
         </p>
 <p>

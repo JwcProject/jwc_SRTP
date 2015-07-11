@@ -66,9 +66,9 @@
                                         </td>
                                         <td width="50%">
                                             <p>结题状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <s:radio id="endprojectState" name="jieqi.endprojectState"
+                                                <s:radio id="endProjectState" name="jieqi.endProjectState"
                                                          cssStyle="font-size:18px" list="#{'00':'关闭','01':'开启'}"
-                                                         value="%{jieqi.endprojectState}"
+                                                         value="%{jieqi.endProjectState}"
                                                          onchange="recordEndState()"></s:radio>
                                             </p>
                                         </td>
@@ -161,7 +161,7 @@
         }
     }
     function recordEndState() {
-        var endState = $("input[name='jieqi.endprojectState']:checked").val();
+        var endState = $("input[name='jieqi.endProjectState']:checked").val();
         if (endState == '01') {
             isEndState = true;
         }

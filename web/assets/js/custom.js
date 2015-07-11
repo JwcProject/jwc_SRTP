@@ -5,6 +5,9 @@
 function setAjax() {
 
     $('div.content-body a').click(function (event) {
+        if ($(this).attr('href') && $(this).attr('href').indexOf("javascript") >= 0 && $(this).attr('href') == "#") {
+            return;
+        }
         event.preventDefault();
         if ($(this).attr('href').indexOf('javascript') < 0) {
             $.ajax({
@@ -23,6 +26,7 @@ function setAjax() {
             });
         }
     });
+
     $('input[type="image"],input[type="submit"]').click(function (event) {
         event.preventDefault();
 
@@ -53,6 +57,7 @@ function setAjax() {
  * @param $form form action ��Ҫ��������url
  */
 function postFormAndSetAjax($form) {
+    console.log('url:' + $form.attr('action'));
     $.ajax({
         method: 'post',
         url: $form.attr('action'),

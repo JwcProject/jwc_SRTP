@@ -109,14 +109,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<p>状态
 			<s:select list='#{"0":"请选择--","01":"未处理","02":"未通过","03":"结题中","04":"教务处审核","05":"二次答辩","06":"已结题"}'
-		  name="properties.endprojectState" id="properties.endprojectState" theme="simple"></s:select>
+		  name="properties.endProjectState" id="properties.endProjectState" theme="simple"></s:select>
 </p></li>
 </s:if>
 <li>
 		
 		<p>成绩			
 			<s:select list='#{"0":"请选择--","01":"优秀","02":"良好","03":"中等","04":"及格","05":"不及格"}'
-		  name="properties.endprojectScore" id="properties.endprojectScore" theme="simple"></s:select>
+		  name="properties.endProjectScore" id="properties.endProjectScore" theme="simple"></s:select>
 </p></li>
 </ul>
 		</div>
@@ -160,19 +160,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td bgcolor="#eef7ff" ><s:date name="#endProject.unitTypeinTime" format="yyyy-MM-dd"/> </td>
 								<td bgcolor="#eef7ff" ><s:property value="#endProject.TJieqi.jqYear"/>第<s:property value="#endProject.TJieqi.qici"/>期</td>
 								<td bgcolor="#eef7ff" >
-									<s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-									<s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+									<s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+									<s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
 								</td>
 								<td bgcolor="#eef7ff" >
-									<s:if test="%{#endProject.endprojectScore=='01'}">优秀</s:if>
-									<s:elseif test="%{#endProject.endprojectScore=='02'}">良好</s:elseif>
-									<s:elseif test="%{#endProject.endprojectScore=='03'}">中等</s:elseif>
-									<s:elseif test="%{#endProject.endprojectScore=='04'}">及格</s:elseif>
-									<s:elseif test="%{#endProject.endprojectScore=='05'}">不及格</s:elseif>
+									<s:if test="%{#endProject.endProjectScore=='01'}">优秀</s:if>
+									<s:elseif test="%{#endProject.endProjectScore=='02'}">良好</s:elseif>
+									<s:elseif test="%{#endProject.endProjectScore=='03'}">中等</s:elseif>
+									<s:elseif test="%{#endProject.endProjectScore=='04'}">及格</s:elseif>
+									<s:elseif test="%{#endProject.endProjectScore=='05'}">不及格</s:elseif>
 								</td>
 								<td bgcolor="#eef7ff" >
 									<s:if test="%{#endProject.lastScore=='01'}">优秀</s:if>
@@ -202,19 +202,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td bgcolor="#FFFFFF" ><s:date name="#endProject.unitTypeinTime" format="yyyy-MM-dd"/>  </td>
 								<td bgcolor="#FFFFFF" ><s:property value="#endProject.TJieqi.jqYear"/>第<s:property value="#endProject.TJieqi.qici"/>期 </td>
 								<td bgcolor="#FFFFFF" >
-									<s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-									<s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-									<s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+									<s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+									<s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+									<s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
 								</td>
 								<td bgcolor="#FFFFFF" >
-									<s:if test="%{#endProject.endprojectScore=='01'}">优秀</s:if>
-									<s:elseif test="%{#endProject.endprojectScore=='02'}">良好</s:elseif>
-									<s:elseif test="%{#endProject.endprojectScore=='03'}">中等</s:elseif>
-									<s:elseif test="%{#endProject.endprojectScore=='04'}">及格</s:elseif>
-									<s:elseif test="%{#endProject.endprojectScore=='05'}">不及格</s:elseif>
+									<s:if test="%{#endProject.endProjectScore=='01'}">优秀</s:if>
+									<s:elseif test="%{#endProject.endProjectScore=='02'}">良好</s:elseif>
+									<s:elseif test="%{#endProject.endProjectScore=='03'}">中等</s:elseif>
+									<s:elseif test="%{#endProject.endProjectScore=='04'}">及格</s:elseif>
+									<s:elseif test="%{#endProject.endProjectScore=='05'}">不及格</s:elseif>
 								</td>
 								<td bgcolor="#FFFFFF" >
 									<s:if test="%{#endProject.lastScore=='01'}">优秀</s:if>
@@ -260,12 +260,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td bgcolor="#eef7ff" ><s:date name="#endProject.unitTypeinTime" format="yyyy-MM-dd"/> </td>
 						<td bgcolor="#eef7ff" ><s:property value="#endProject.TJieqi.jqYear"/>第<s:property value="#endProject.TJieqi.qici"/>期</td>
 						<td bgcolor="#eef7ff" >
-							<s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-							<s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+							<s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+							<s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
 						</td>
 						<td bgcolor="#eef7ff" ><s:a href="EndProjectDetail?endprojectId=%{#endProject.endprojectId}" ><img src="<%=path%>/images/shenbiaoliebiao_icon1.gif" alt="查看" /></s:a></td>                    
 						  </tr>
@@ -288,12 +288,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td bgcolor="#FFFFFF" ><s:date name="#endProject.unitTypeinTime" format="yyyy-MM-dd"/> </td>
 						<td bgcolor="#FFFFFF" ><s:property value="#endProject.TJieqi.jqYear"/>第<s:property value="#endProject.TJieqi.qici"/>期</td>
 						<td bgcolor="#FFFFFF" >
-							<s:if test="%{#endProject.endprojectState=='01'}">未处理</s:if>
-							<s:elseif test="%{#endProject.endprojectState=='02'}">未通过</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='03'}">结题中</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='04'}">教务处审核</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='05'}">二次答辩</s:elseif>
-							<s:elseif test="%{#endProject.endprojectState=='06'}">已结题</s:elseif>
+							<s:if test="%{#endProject.endProjectState=='01'}">未处理</s:if>
+							<s:elseif test="%{#endProject.endProjectState=='02'}">未通过</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='03'}">结题中</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='04'}">教务处审核</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='05'}">二次答辩</s:elseif>
+							<s:elseif test="%{#endProject.endProjectState=='06'}">已结题</s:elseif>
 							<s:else>未知状态</s:else>
 						</td>
 						<td bgcolor="#eef7ff" ><s:a href="EndProjectDetail?endprojectId=%{#endProject.endprojectId}" ><img src="<%=path%>/images/shenbiaoliebiao_icon1.gif" alt="查看" /></s:a></td>                    

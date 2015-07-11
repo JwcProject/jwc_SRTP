@@ -55,7 +55,7 @@
                                         </td>
                                         <td width="50%">
                                             <p>结题状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <s:radio name="jieqi.endprojectState" cssStyle="font-size:18px"
+                                                <s:radio name="jieqi.endProjectState" cssStyle="font-size:18px"
                                                          list="#{'00':'关闭','01':'开启'}" value="'00'"></s:radio>
                                             </p>
                                         </td>
@@ -142,7 +142,7 @@
     function addJieqi() {
         if (checkJieqi()) {
             var delState = $("input[name='jieqi.declarationState']:checked").val();//document.getElementById("delState").value;
-            var endState = $("input[name='jieqi.endprojectState']:checked").val();//document.getElementById("endState").value;
+            var endState = $("input[name='jieqi.endProjectState']:checked").val();//document.getElementById("endState").value;
             if (delState == "01" || endState == "01") {
                 $.messager.confirm('确定提交', "开启新增届期的申报状态或者结题状态，上一个届期对应的状态将会被关闭", function (r) {
                     if (r) {

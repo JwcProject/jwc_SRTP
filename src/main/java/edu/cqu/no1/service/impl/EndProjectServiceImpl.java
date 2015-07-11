@@ -76,7 +76,7 @@ public class EndProjectServiceImpl implements EndProjectService {
     @Override
     public int getEndProjectCountForResultTypeIn(EndProjectProperty properties,
                                                  Boolean typeIned) {
-        properties.setEndprojectState("05");
+        properties.setEndProjectState("05");
         return this.endProjectDAO.getEndProjectCountForResultTypeIn(properties, typeIned);
     }
 
@@ -85,7 +85,7 @@ public class EndProjectServiceImpl implements EndProjectService {
     public List<EndProject> getEndProjectsForResultTypeIn(
             EndProjectProperty properties, Boolean typeIned,
             PageBean pageBean) {
-        properties.setEndprojectState("05");
+        properties.setEndProjectState("05");
         List<EndProject> endProjects = new ArrayList<EndProject>();
         List<TEndProject> list = this.endProjectDAO.getEndProjectsForResultTypeIn(properties, typeIned, pageBean);
         copyProperties(endProjects, list);
@@ -126,14 +126,14 @@ public class EndProjectServiceImpl implements EndProjectService {
     }
 
     public int getEndProjectCountForSecReview(EndProjectProperty properties) {
-        properties.setEndprojectState("04");
+        properties.setEndProjectState("04");
         return this.endProjectDAO.getEndProjectCountByMutiProperty(properties);
     }
 
     @SuppressWarnings("unchecked")
     public List<EndProject> getEndProjectForSecReview(EndProjectProperty properties,
                                                       PageBean pageBean) {
-        properties.setEndprojectState("04");
+        properties.setEndProjectState("04");
         List<EndProject> endProjects = new ArrayList<EndProject>();
         List<TEndProject> list = this.endProjectDAO.getEndProjectsByMutiProperty(properties, pageBean);
         copyProperties(endProjects, list);
@@ -301,7 +301,7 @@ public class EndProjectServiceImpl implements EndProjectService {
     public List<TEndProject> getEndProjectsByMutiProperty(TUser user,
                                                           EndProjectProperty properties, PageBean pageBean) {
         if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
-            //properties.setEndprojectState("04");
+            //properties.setEndProjectState("04");
             return this.endProjectDAO.getEndProjectsByMutiProperty(properties, pageBean);
         }
         if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {
@@ -315,7 +315,7 @@ public class EndProjectServiceImpl implements EndProjectService {
     public int getEndProjectCountByMutiProperty(TUser user,
                                                 EndProjectProperty properties) {
         if ("00".equals(user.getUserType()) || "01".equals(user.getUserType())) {
-            //properties.setEndprojectState("04");
+            //properties.setEndProjectState("04");
             return this.endProjectDAO.getEndProjectCountByMutiProperty(properties);
         }
         if ("02".equals(user.getUserType()) || "03".equals(user.getUserType())) {

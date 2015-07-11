@@ -63,7 +63,7 @@
                   <li>
 
                     <p>审核状态:
-                      <s:select list='#{"03":"结题中","04":"教务处审核"}' name="property.endprojectState"
+                      <s:select list='#{"03":"结题中","04":"教务处审核"}' name="property.endProjectState"
                                 id="checkState"></s:select>
 
                     </p>
@@ -141,19 +141,19 @@
                       </s:else>
                     </td>
                     <td>
-                      <s:if test="%{#endProjects.endprojectState=='01'}">未处理</s:if>
-                      <s:elseif test="%{#endProjects.endprojectState=='02'}">未通过</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='03'}">结题中</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='04'}">教务处审核</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='05'}">二次答辩</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectState=='06'}">已结题</s:elseif>
+                      <s:if test="%{#endProjects.endProjectState=='01'}">未处理</s:if>
+                      <s:elseif test="%{#endProjects.endProjectState=='02'}">未通过</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='03'}">结题中</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='04'}">教务处审核</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='05'}">二次答辩</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectState=='06'}">已结题</s:elseif>
                     </td>
                     <td>
-                      <s:if test="%{#endProjects.endprojectScore=='01'}">优秀</s:if>
-                      <s:elseif test="%{#endProjects.endprojectScore=='02'}">良好</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectScore=='03'}">中等</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectScore=='04'}">及格</s:elseif>
-                      <s:elseif test="%{#endProjects.endprojectScore=='05'}">不及格</s:elseif>
+                      <s:if test="%{#endProjects.endProjectScore=='01'}">优秀</s:if>
+                      <s:elseif test="%{#endProjects.endProjectScore=='02'}">良好</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectScore=='03'}">中等</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectScore=='04'}">及格</s:elseif>
+                      <s:elseif test="%{#endProjects.endProjectScore=='05'}">不及格</s:elseif>
                     </td>
 
                     <td title="<s:property value='#endProjects.endprojectComment' /> ">

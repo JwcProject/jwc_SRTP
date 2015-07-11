@@ -46,7 +46,7 @@
 
                     <p>成绩
                       <s:select list='#{"0":"请选择--","01":"优秀","02":"良好","03":"中等","04":"及格","05":"不及格"}'
-                                name="properties.endprojectScore" id="properties.endprojectScore"
+                                name="properties.endProjectScore" id="properties.endProjectScore"
                                 theme="simple"></s:select>
                     </p></li>
                 </ul>
@@ -153,7 +153,7 @@
         }
       }, {
         title: '成绩',
-        field: 'endprojectScore',
+        field: 'endProjectScore',
         width: 100,
         formatter: function (value, rowData, rowIndex) {
           if (value == '01') return '优秀';
@@ -241,7 +241,7 @@
         }
       }, {
         title: '成绩',
-        field: 'endprojectScore',
+        field: 'endProjectScore',
         width: 100,
         formatter: function (value, rowData, rowIndex) {
           if (value == '01') return '优秀';

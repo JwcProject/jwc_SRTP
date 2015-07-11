@@ -625,7 +625,9 @@ public class ExpertTeamAction extends BaseAction {
      *
      * @return
      */
-
+    @Action(value = "EndProScoreTypeIn",results = {
+            @Result(name = SUCCESS,type="json",params = {"root","endprojectId"})
+    })
     public void endProScoreTypeIn() {
         try {
             user = getSessionUser();

@@ -6,22 +6,22 @@ public class EndProjectProperty {
 	private String unitId;
 	private String professionId;
 	private String studentNumber;
-	private String endprojectState;
-	private String endprojectScore;
+	private String endProjectState;
+	private String endProjectScore;
 	private String projectName;
 	
 	public EndProjectProperty() {
 	}
 	public EndProjectProperty(String year, String jieqiId, String unitId,
-			String professionId, String studentNumber, String endprojectState,
-			String endprojectScore, String projectName) {
+			String professionId, String studentNumber, String endProjectState,
+			String endProjectScore, String projectName) {
 		this.year = year;
 		this.jieqiId = jieqiId;
 		this.unitId = unitId;
 		this.professionId = professionId;
 		this.studentNumber = studentNumber;
-		this.endprojectState = endprojectState;
-		this.endprojectScore = endprojectScore;
+		this.endProjectState = endProjectState;
+		this.endProjectScore = endProjectScore;
 		this.projectName = projectName;
 	}
 	public String getYear() {
@@ -54,17 +54,17 @@ public class EndProjectProperty {
 	public void setStudentNumber(String studentNumber) {
 		this.studentNumber = studentNumber;
 	}
-	public String getEndprojectState() {
-		return endprojectState;
+	public String getEndProjectState() {
+		return endProjectState;
 	}
-	public void setEndprojectState(String endprojectState) {
-		this.endprojectState = endprojectState;
+	public void setEndProjectState(String endProjectState) {
+		this.endProjectState = endProjectState;
 	}
-	public String getEndprojectScore() {
-		return endprojectScore;
+	public String getEndProjectScore() {
+		return endProjectScore;
 	}
-	public void setEndprojectScore(String endprojectScore) {
-		this.endprojectScore = endprojectScore;
+	public void setEndProjectScore(String endProjectScore) {
+		this.endProjectScore = endProjectScore;
 	}
 	public String getProjectName() {
 		return projectName;

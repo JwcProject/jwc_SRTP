@@ -56,7 +56,7 @@
                   <li>
 
                     <p>状态:
-                      <s:select list='#{"03":"结题中","04":"教务处审核"}' name="property.endprojectState" id="checkState"
+                      <s:select list='#{"03":"结题中","04":"教务处审核"}' name="property.endProjectState" id="checkState"
                                 onchange="IsShowButton()"></s:select>
 
                     </p>
@@ -184,11 +184,11 @@
             <div class="xia_x_jg">
               <div id="buttons">
                 <ul>
-                  <li><a onclick="audit('01');"><img src="images/you.png" alt="优秀"/></a></li>
-                  <li><a onclick="audit('02');"><img src="images/liang.png" alt="良好"/></a></li>
-                  <li><a onclick="audit('03');"><img src="images/zhong.png" alt="中等"/></a></li>
-                  <li><a onclick="audit('04');"><img src="images/jige.png" alt="及格"/></a></li>
-                  <li><a onclick="audit('05');"><img src="images/bujige.png" alt="不及格"/></a></li>
+                  <li><a href="javascript:void(0)" onclick="audit('01');"><img src="images/you.png" alt="优秀"/></a></li>
+                  <li><a href="javascript:void(0)" onclick="audit('02');"><img src="images/liang.png" alt="良好"/></a></li>
+                  <li><a href="javascript:void(0)" onclick="audit('03');"><img src="images/zhong.png" alt="中等"/></a></li>
+                  <li><a href="javascript:void(0)" onclick="audit('04');"><img src="images/jige.png" alt="及格"/></a></li>
+                  <li><a href="javascript:void(0)" onclick="audit('05');"><img src="images/bujige.png" alt="不及格"/></a></li>
                 </ul>
               </div>
 
@@ -272,24 +272,25 @@
     for (i = 0; i < cbx.length; ++i) {
       if (cbx[i].checked == true) {
         isChecked = true;
-        if (states[i] != '03') {
+        if ($(states[i]).attr('value') != '03') {
           isValide = false;
           break;
         }
       }
     }
+    console.log(isChecked);
+    console.log(isValide);
 
     if (isChecked) {
       if (isValide) {
         var dataForm = $('#resultTypeIn').serialize() + "&checkState=" + state;
         jQuery.ajax({
-          url: 'EndProScoreTypeIn',
+          url: '<%=basePath%>EndProScoreTypeIn',
           data: dataForm,
-          contentType: "application/x-www-form-urlencoded; charset=utf-8",
           type: "POST",
           success: function (r) {
             document.queyForm.action = "<%=basePath%>QueryEndProScoreTypeIn";
-            postFormAndSetAjax(document.queyForm);
+            postFormAndSetAjax($(document.queyForm));
           }
         });
       }

@@ -102,12 +102,12 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
      */
     private Criteria getCriteriaForSecReview(EndProjectProperty properties,String teaCode,Boolean typeIned){
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(TEndProjectExport.class)
-                .setProjection(Projections.property("TEndProject.endprojectId"))
+                .setProjection(Projections.property("TEndProject.endProjectId"))
                 .add(Restrictions.eq("isdeleted", "N"))
                 .createCriteria("TExpertTeacher","e")
                 .createCriteria("TTeacher", "t")
                 .add(Restrictions.eq("t.teaCode", teaCode));
-        Criteria criteria = getCriteriaByByMutiProperty(properties).add(Property.forName("endprojectId").in(detachedCriteria));
+        Criteria criteria = getCriteriaByByMutiProperty(properties).add(Property.forName("endProjectId").in(detachedCriteria));
         if(typeIned){
             criteria.add(Restrictions.isNotNull("lastScore"));
         }else{
@@ -123,15 +123,15 @@ public class TEndProjectDAOImpl extends BaseDaoImpl<TEndProject> implements TEnd
                 .createCriteria("TProfessionByProfessionId", "f");
         criteria.createCriteria("TJieqi", "j");
         if (properties != null) {
-            if (properties.getEndprojectScore() != null && !"".equals(properties.getEndprojectScore().trim())
-                    && !"0".equals(properties.getEndprojectScore())) {
-                criteria.add(Restrictions.eq("endprojectScore",
-                        properties.getEndprojectScore()));
+            if (properties.getEndProjectScore() != null && !"".equals(properties.getEndProjectScore().trim())
+                    && !"0".equals(properties.getEndProjectScore())) {
+                criteria.add(Restrictions.eq("endProjectScore",
+                        properties.getEndProjectScore()));
             }
-            if (properties.getEndprojectState() != null && !"".equals(properties.getEndprojectState().trim())
-                    && !"0".equals(properties.getEndprojectState())) {
-                criteria.add(Restrictions.eq("endprojectState",
-                        properties.getEndprojectState()));
+            if (properties.getEndProjectState() != null && !"".equals(properties.getEndProjectState().trim())
+                    && !"0".equals(properties.getEndProjectState())) {
+                criteria.add(Restrictions.eq("endProjectState",
+                        properties.getEndProjectState()));
             }
             if (properties.getYear() != null && !"".equals(properties.getYear().trim())
                     && !"0".equals(properties.getYear())) {

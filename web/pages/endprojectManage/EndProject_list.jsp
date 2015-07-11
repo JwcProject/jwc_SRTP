@@ -62,7 +62,7 @@
                                     <p>状态
                                         <s:select
                                                 list='#{"0":"请选择--","01":"未处理","02":"未通过","03":"结题中","04":"教务处审核","05":"二次答辩","06":"已结题"}'
-                                                name="properties.endprojectState" id="properties.endprojectState"
+                                                name="properties.endProjectState" id="properties.endProjectState"
                                                 theme="simple"></s:select>
                                     </p></li>
                             </s:if>
@@ -70,7 +70,7 @@
 
                                 <p>成绩
                                     <s:select list='#{"0":"请选择--","01":"优秀","02":"良好","03":"中等","04":"及格","05":"不及格"}'
-                                              name="properties.endprojectScore" id="properties.endprojectScore"
+                                              name="properties.endProjectScore" id="properties.endProjectScore"
                                               theme="simple"></s:select>
                                 </p></li>
                         </ul>

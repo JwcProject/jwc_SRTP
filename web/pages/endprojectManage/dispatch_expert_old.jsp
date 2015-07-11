@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<p>成绩			
 			<s:select list='#{"0":"请选择--","01":"优秀","02":"良好","03":"中等","04":"及格","05":"不及格"}'
-		  name="properties.endprojectScore" id="properties.endprojectScore" theme="simple"></s:select>
+		  name="properties.endProjectScore" id="properties.endProjectScore" theme="simple"></s:select>
 </p></li>
 </ul>
 		</div>
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		},{
 			title : '成绩',
-			field : 'endprojectScore',
+			field : 'endProjectScore',
 			width : 100,
 			formatter : function(value, rowData, rowIndex) {
 				if(value == '01') return '优秀';

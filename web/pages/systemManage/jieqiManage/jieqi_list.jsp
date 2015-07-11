@@ -142,7 +142,7 @@
                                             关闭
                                         </s:else></td>
                                         <td align="center"><s:if
-                                                test="'01'==#jieqis.endprojectState">
+                                                test="'01'==#jieqis.endProjectState">
                                             开启
                                         </s:if> <s:else>
                                             关闭

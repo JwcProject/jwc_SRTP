@@ -184,16 +184,16 @@
 											</s:elseif>
 										</td>
 										<td>
-											<s:if test="#endProjectComments.TEndProjectExport.TEndProject.endprojectState=='04'">
+											<s:if test="#endProjectComments.TEndProjectExport.TEndProject.endProjectState=='04'">
 												已结题
 											</s:if>
-											<s:elseif test="#endProjectComments.TEndProjectExport.TEndProject.endprojectState=='02'">
+											<s:elseif test="#endProjectComments.TEndProjectExport.TEndProject.endProjectState=='02'">
 												未通过
 											</s:elseif>
-											<s:elseif test="#endProjectComments.TEndProjectExport.TEndProject.endprojectState=='03'">
+											<s:elseif test="#endProjectComments.TEndProjectExport.TEndProject.endProjectState=='03'">
 												结题中
 											</s:elseif>
-											<s:elseif test="#endProjectComments.TEndProjectExport.TEndProject.endprojectState=='01'">
+											<s:elseif test="#endProjectComments.TEndProjectExport.TEndProject.endProjectState=='01'">
 												结题已提交
 											</s:elseif>
 										</td>
